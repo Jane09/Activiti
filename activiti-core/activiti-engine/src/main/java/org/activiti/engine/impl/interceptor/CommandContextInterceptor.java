@@ -29,7 +29,12 @@ public class CommandContextInterceptor extends AbstractCommandInterceptor {
 
     private static final Logger log = LoggerFactory.getLogger(CommandContextInterceptor.class);
 
+    /**
+     *
+     */
     protected CommandContextFactory commandContextFactory;
+
+
     protected ProcessEngineConfigurationImpl processEngineConfiguration;
 
     public CommandContextInterceptor() {
@@ -40,6 +45,7 @@ public class CommandContextInterceptor extends AbstractCommandInterceptor {
         this.processEngineConfiguration = processEngineConfiguration;
     }
 
+    @Override
     public <T> T execute(CommandConfig config, Command<T> command) {
         CommandContext context = Context.getCommandContext();
 

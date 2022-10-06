@@ -17,7 +17,7 @@
 package org.activiti.engine.impl.cfg;
 
 /**
- *
+ * 事务状态：已提交，已回滚，提交中，回滚中
  */
 public enum TransactionState {
 

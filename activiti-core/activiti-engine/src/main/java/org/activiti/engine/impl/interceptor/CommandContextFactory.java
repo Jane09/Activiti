@@ -19,7 +19,7 @@ package org.activiti.engine.impl.interceptor;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 
 /**
- *
+ * 命令上下文，包括命令 和 执行引擎配置信息
  */
 public class CommandContextFactory {
 

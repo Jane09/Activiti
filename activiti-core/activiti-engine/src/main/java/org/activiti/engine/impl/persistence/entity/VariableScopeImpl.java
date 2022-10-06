@@ -68,22 +68,27 @@ public abstract class VariableScopeImpl extends AbstractEntity implements Serial
         }
     }
 
+    @Override
     public Map<String, Object> getVariables() {
         return collectVariables(new HashMap<String, Object>());
     }
 
+    @Override
     public Map<String, VariableInstance> getVariableInstances() {
         return collectVariableInstances(new HashMap<String, VariableInstance>());
     }
 
+    @Override
     public Map<String, Object> getVariables(Collection<String> variableNames) {
         return getVariables(variableNames, true);
     }
 
+    @Override
     public Map<String, VariableInstance> getVariableInstances(Collection<String> variableNames) {
         return getVariableInstances(variableNames, true);
     }
 
+    @Override
     public Map<String, Object> getVariables(Collection<String> variableNames, boolean fetchAllVariables) {
 
         Map<String, Object> requestedVariables = new HashMap<String, Object>();
@@ -132,6 +137,7 @@ public abstract class VariableScopeImpl extends AbstractEntity implements Serial
 
     }
 
+    @Override
     public Map<String, VariableInstance> getVariableInstances(Collection<String> variableNames, boolean fetchAllVariables) {
 
         Map<String, VariableInstance> requestedVariables = new HashMap<String, VariableInstance>();
@@ -224,10 +230,12 @@ public abstract class VariableScopeImpl extends AbstractEntity implements Serial
         return variables;
     }
 
+    @Override
     public Object getVariable(String variableName) {
         return getVariable(variableName, true);
     }
 
+    @Override
     public VariableInstance getVariableInstance(String variableName) {
         return getVariableInstance(variableName, true);
     }
@@ -243,6 +251,7 @@ public abstract class VariableScopeImpl extends AbstractEntity implements Serial
      * <p>
      * In case 'false' is used, only the specific variable will be fetched.
      */
+    @Override
     public Object getVariable(String variableName, boolean fetchAllVariables) {
         Object value = null;
         VariableInstance variable = getVariableInstance(variableName, fetchAllVariables);
@@ -252,6 +261,7 @@ public abstract class VariableScopeImpl extends AbstractEntity implements Serial
         return value;
     }
 
+    @Override
     public VariableInstance getVariableInstance(String variableName, boolean fetchAllVariables) {
 
         // Transient variable
@@ -304,14 +314,17 @@ public abstract class VariableScopeImpl extends AbstractEntity implements Serial
 
     protected abstract VariableInstanceEntity getSpecificVariable(String variableName);
 
+    @Override
     public Object getVariableLocal(String variableName) {
         return getVariableLocal(variableName, true);
     }
 
+    @Override
     public VariableInstance getVariableInstanceLocal(String variableName) {
         return getVariableInstanceLocal(variableName, true);
     }
 
+    @Override
     public Object getVariableLocal(String variableName, boolean fetchAllVariables) {
         Object value = null;
         VariableInstance variable = getVariableInstanceLocal(variableName, fetchAllVariables);
@@ -321,6 +334,7 @@ public abstract class VariableScopeImpl extends AbstractEntity implements Serial
         return value;
     }
 
+    @Override
     public VariableInstance getVariableInstanceLocal(String variableName, boolean fetchAllVariables) {
 
         if (transientVariabes != null && transientVariabes.containsKey(variableName)) {
@@ -419,10 +433,12 @@ public abstract class VariableScopeImpl extends AbstractEntity implements Serial
         return variableNames;
     }
 
+    @Override
     public Set<String> getVariableNames() {
         return collectVariableNames(new HashSet<String>());
     }
 
+    @Override
     public Map<String, Object> getVariablesLocal() {
         Map<String, Object> variables = new HashMap<String, Object>();
         ensureVariableInstancesInitialized();
@@ -440,6 +456,7 @@ public abstract class VariableScopeImpl extends AbstractEntity implements Serial
         return variables;
     }
 
+    @Override
     public Map<String, VariableInstance> getVariableInstancesLocal() {
         Map<String, VariableInstance> variables = new HashMap<String, VariableInstance>();
         ensureVariableInstancesInitialized();
@@ -455,14 +472,17 @@ public abstract class VariableScopeImpl extends AbstractEntity implements Serial
         return variables;
     }
 
+    @Override
     public Map<String, Object> getVariablesLocal(Collection<String> variableNames) {
         return getVariablesLocal(variableNames, true);
     }
 
+    @Override
     public Map<String, VariableInstance> getVariableInstancesLocal(Collection<String> variableNames) {
         return getVariableInstancesLocal(variableNames, true);
     }
 
+    @Override
     public Map<String, Object> getVariablesLocal(Collection<String> variableNames, boolean fetchAllVariables) {
         Map<String, Object> requestedVariables = new HashMap<String, Object>();
 
@@ -497,6 +517,7 @@ public abstract class VariableScopeImpl extends AbstractEntity implements Serial
         return requestedVariables;
     }
 
+    @Override
     public Map<String, VariableInstance> getVariableInstancesLocal(Collection<String> variableNames, boolean fetchAllVariables) {
         Map<String, VariableInstance> requestedVariables = new HashMap<String, VariableInstance>();
 
@@ -533,6 +554,7 @@ public abstract class VariableScopeImpl extends AbstractEntity implements Serial
 
     protected abstract List<VariableInstanceEntity> getSpecificVariables(Collection<String> variableNames);
 
+    @Override
     public Set<String> getVariableNamesLocal() {
         Set<String> variableNames = new HashSet<String>();
         if (transientVariabes != null) {
@@ -608,6 +630,7 @@ public abstract class VariableScopeImpl extends AbstractEntity implements Serial
         }
     }
 
+    @Override
     public void setVariable(String variableName, Object value) {
         setVariable(variableName, value, getSourceActivityExecution(), true);
     }
@@ -619,6 +642,7 @@ public abstract class VariableScopeImpl extends AbstractEntity implements Serial
      * Setting the fetchAllVariables parameter to true is the default behaviour
      * (ie fetching all variables) Setting the fetchAllVariables parameter to false does not do that.
      */
+    @Override
     public void setVariable(String variableName, Object value, boolean fetchAllVariables) {
         setVariable(variableName, value, getSourceActivityExecution(), fetchAllVariables);
     }
@@ -706,6 +730,7 @@ public abstract class VariableScopeImpl extends AbstractEntity implements Serial
 
     }
 
+    @Override
     public Object setVariableLocal(String variableName, Object value) {
         return setVariableLocal(variableName, value, getSourceActivityExecution(), true);
     }
@@ -715,6 +740,7 @@ public abstract class VariableScopeImpl extends AbstractEntity implements Serial
      * <p>
      * Setting the fetchAllVariables parameter to true is the default behaviour (ie fetching all variables) Setting the fetchAllVariables parameter to false does not do that.
      */
+    @Override
     public Object setVariableLocal(String variableName, Object value, boolean fetchAllVariables) {
         return setVariableLocal(variableName, value, getSourceActivityExecution(), fetchAllVariables);
     }
@@ -1014,10 +1040,12 @@ public abstract class VariableScopeImpl extends AbstractEntity implements Serial
         this.cachedElContext = cachedElContext;
     }
 
+    @Override
     public <T> T getVariable(String variableName, Class<T> variableClass) {
         return variableClass.cast(getVariable(variableName));
     }
 
+    @Override
     public <T> T getVariableLocal(String variableName, Class<T> variableClass) {
         return variableClass.cast(getVariableLocal(variableName));
     }

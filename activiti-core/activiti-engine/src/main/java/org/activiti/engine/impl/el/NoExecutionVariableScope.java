@@ -42,10 +42,12 @@ public class NoExecutionVariableScope implements VariableScope {
         return INSTANCE;
     }
 
+    @Override
     public Map<String, Object> getVariables() {
         return emptyMap();
     }
 
+    @Override
     public Map<String, Object> getVariablesLocal() {
         return emptyMap();
     }
@@ -70,6 +72,7 @@ public class NoExecutionVariableScope implements VariableScope {
         return emptyMap();
     }
 
+    @Override
     public Object getVariable(String variableName) {
         return null;
     }
@@ -79,6 +82,7 @@ public class NoExecutionVariableScope implements VariableScope {
         return null;
     }
 
+    @Override
     public Object getVariableLocal(String variableName) {
         return null;
     }
@@ -148,14 +152,17 @@ public class NoExecutionVariableScope implements VariableScope {
         return null;
     }
 
+    @Override
     public Set<String> getVariableNames() {
         return emptySet();
     }
 
+    @Override
     public Set<String> getVariableNamesLocal() {
         return null;
     }
 
+    @Override
     public void setVariable(String variableName, Object value) {
         throw new UnsupportedOperationException("No execution active, no variables can be set");
     }
@@ -165,6 +172,7 @@ public class NoExecutionVariableScope implements VariableScope {
         throw new UnsupportedOperationException("No execution active, no variables can be set");
     }
 
+    @Override
     public Object setVariableLocal(String variableName, Object value) {
         throw new UnsupportedOperationException("No execution active, no variables can be set");
     }

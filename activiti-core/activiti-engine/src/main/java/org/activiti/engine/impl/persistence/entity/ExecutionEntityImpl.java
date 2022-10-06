@@ -30,6 +30,9 @@ import org.activiti.engine.impl.util.ProcessDefinitionUtil;
 
 import java.util.*;
 
+/**
+ *
+ */
 public class ExecutionEntityImpl extends VariableScopeImpl implements ExecutionEntity, CountingExecutionEntity {
 
     private static final long serialVersionUID = 1L;
@@ -324,6 +327,7 @@ public class ExecutionEntityImpl extends VariableScopeImpl implements ExecutionE
         this.businessKey = businessKey;
     }
 
+    @Override
     public String getProcessInstanceBusinessKey() {
         return getProcessInstance().getBusinessKey();
     }
@@ -354,6 +358,7 @@ public class ExecutionEntityImpl extends VariableScopeImpl implements ExecutionE
         return processDefinitionName;
     }
 
+    @Override
     public void setProcessDefinitionName(String processDefinitionName) {
         this.processDefinitionName = processDefinitionName;
     }
@@ -363,6 +368,7 @@ public class ExecutionEntityImpl extends VariableScopeImpl implements ExecutionE
         return processDefinitionVersion;
     }
 
+    @Override
     public void setProcessDefinitionVersion(Integer processDefinitionVersion) {
         this.processDefinitionVersion = processDefinitionVersion;
     }
@@ -371,6 +377,7 @@ public class ExecutionEntityImpl extends VariableScopeImpl implements ExecutionE
         return deploymentId;
     }
 
+    @Override
     public void setDeploymentId(String deploymentId) {
         this.deploymentId = deploymentId;
     }
@@ -380,6 +387,7 @@ public class ExecutionEntityImpl extends VariableScopeImpl implements ExecutionE
     /**
      * ensures initialization and returns the process instance.
      */
+    @Override
     public ExecutionEntityImpl getProcessInstance() {
         ensureProcessInstanceInitialized();
         return processInstance;
@@ -391,6 +399,7 @@ public class ExecutionEntityImpl extends VariableScopeImpl implements ExecutionE
         }
     }
 
+    @Override
     public void setProcessInstance(ExecutionEntity processInstance) {
         this.processInstance = (ExecutionEntityImpl) processInstance;
         if (processInstance != null) {
@@ -407,6 +416,7 @@ public class ExecutionEntityImpl extends VariableScopeImpl implements ExecutionE
     /**
      * ensures initialization and returns the parent
      */
+    @Override
     public ExecutionEntityImpl getParent() {
         ensureParentInitialized();
         return parent;
@@ -418,6 +428,7 @@ public class ExecutionEntityImpl extends VariableScopeImpl implements ExecutionE
         }
     }
 
+    @Override
     public void setParent(ExecutionEntity parent) {
         this.parent = (ExecutionEntityImpl) parent;
 
@@ -727,10 +738,12 @@ public class ExecutionEntityImpl extends VariableScopeImpl implements ExecutionE
         this.isEnded = isEnded;
     }
 
+    @Override
     public String getEventName() {
         return eventName;
     }
 
+    @Override
     public void setEventName(String eventName) {
         this.eventName = eventName;
     }
@@ -784,6 +797,7 @@ public class ExecutionEntityImpl extends VariableScopeImpl implements ExecutionE
         this.isCountEnabled = isCountEnabled;
     }
 
+    @Override
     public String getCurrentActivityId() {
         return activityId;
     }

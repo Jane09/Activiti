@@ -58,6 +58,7 @@ public abstract class AbstractJobEntityImpl extends AbstractEntity implements Ab
     protected String tenantId = ProcessEngineConfiguration.NO_TENANT_ID;
     protected String jobType;
 
+    @Override
     public Object getPersistentState() {
         Map<String, Object> persistentState = new HashMap<String, Object>();
         persistentState.put("retries", retries);

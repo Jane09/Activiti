@@ -488,6 +488,9 @@ public class DbSqlSession implements Session {
     // flush
     // ////////////////////////////////////////////////////////////////////
 
+    /**
+     * 真正执行操作的地方
+     */
     @Override
     public void flush() {
         determineUpdatedObjects(); // Needs to be done before the removeUnnecessaryOperations, as removeUnnecessaryOperations will remove stuff from the cache

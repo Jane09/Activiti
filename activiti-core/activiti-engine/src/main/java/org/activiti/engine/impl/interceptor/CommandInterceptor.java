@@ -20,7 +20,8 @@ package org.activiti.engine.impl.interceptor;
 import org.activiti.engine.api.internal.Internal;
 
 /**
- *
+ * 命令连接器，执行命令，可以获取下一个命令拦截器，或者设置下一个拦截器 <br>
+ * 责任链模式
  */
 @Internal
 public interface CommandInterceptor {

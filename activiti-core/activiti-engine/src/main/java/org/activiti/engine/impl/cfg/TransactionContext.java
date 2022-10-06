@@ -19,7 +19,7 @@ package org.activiti.engine.impl.cfg;
 import org.activiti.engine.api.internal.Internal;
 
 /**
- *
+ * 事务上下文，提交，回滚，添加事务监听器
  */
 @Internal
 public interface TransactionContext {

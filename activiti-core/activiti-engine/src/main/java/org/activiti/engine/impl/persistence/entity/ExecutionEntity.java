@@ -48,6 +48,7 @@ public interface ExecutionEntity extends DelegateExecution, Execution, ProcessIn
 
     void setProcessInstance(ExecutionEntity processInstance);
 
+    @Override
     ExecutionEntity getParent();
 
     void setParent(ExecutionEntity parent);
@@ -88,6 +89,7 @@ public interface ExecutionEntity extends DelegateExecution, Execution, ProcessIn
 
     void setEnded(boolean isEnded);
 
+    @Override
     void setEventName(String eventName);
 
     String getDeleteReason();

@@ -28,7 +28,7 @@ import org.activiti.engine.impl.persistence.deploy.ProcessDefinitionInfoCacheObj
 import java.util.*;
 
 /**
- *
+ * 上下文获取辅助工具，通过ThreadLocal实现线程隔离
  */
 public class Context {
 
@@ -40,6 +40,10 @@ public class Context {
 
     protected static ResourceBundle.Control resourceBundleControl = new ResourceBundleControl();
 
+    /**
+     * 获取当前线程的命令上下文，栈存储(LIFO)
+     * @return CommandContext
+     */
     public static CommandContext getCommandContext() {
         Stack<CommandContext> stack = getStack(commandContextThreadLocal);
         if (stack.isEmpty()) {
@@ -60,6 +64,7 @@ public class Context {
         getStack(commandContextThreadLocal).pop();
     }
 
+
     public static ProcessEngineConfigurationImpl getProcessEngineConfiguration() {
         Stack<ProcessEngineConfigurationImpl> stack = getStack(processEngineConfigurationStackThreadLocal);
         if (stack.isEmpty()) {
@@ -76,6 +81,10 @@ public class Context {
         getStack(processEngineConfigurationStackThreadLocal).pop();
     }
 
+    /**
+     * 获取当前线程的事务上下文
+     * @return
+     */
     public static TransactionContext getTransactionContext() {
         Stack<TransactionContext> stack = getStack(transactionContextThreadLocal);
         if (stack.isEmpty()) {
@@ -159,6 +168,11 @@ public class Context {
         return bpmnOverrideMap;
     }
 
+    /**
+     *
+     * @param id
+     * @param infoNode
+     */
     protected static void addBpmnOverrideElement(String id, ObjectNode infoNode) {
         Map<String, ObjectNode> bpmnOverrideMap = bpmnOverrideContextThreadLocal.get();
         if (bpmnOverrideMap == null) {

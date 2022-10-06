@@ -182,42 +182,52 @@ public class VariableInstanceEntityImpl extends AbstractEntity implements Variab
         return executionId;
     }
 
+    @Override
     public Long getLongValue() {
         return longValue;
     }
 
+    @Override
     public void setLongValue(Long longValue) {
         this.longValue = longValue;
     }
 
+    @Override
     public Double getDoubleValue() {
         return doubleValue;
     }
 
+    @Override
     public void setDoubleValue(Double doubleValue) {
         this.doubleValue = doubleValue;
     }
 
+    @Override
     public String getTextValue() {
         return textValue;
     }
 
+    @Override
     public void setTextValue(String textValue) {
         this.textValue = textValue;
     }
 
+    @Override
     public String getTextValue2() {
         return textValue2;
     }
 
+    @Override
     public void setTextValue2(String textValue2) {
         this.textValue2 = textValue2;
     }
 
+    @Override
     public Object getCachedValue() {
         return cachedValue;
     }
 
+    @Override
     public void setCachedValue(Object cachedValue) {
         this.cachedValue = cachedValue;
     }
