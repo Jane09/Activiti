@@ -76,22 +76,22 @@ public class BasicExclusiveGatewayTest {
                 .withName("my-process-instance-name")
                 .build())
 
-        //then
-                .expectFields(processInstance().status(ProcessInstance.ProcessInstanceStatus.RUNNING),
-                              processInstance().name("my-process-instance-name"),
-                              processInstance().businessKey("my-business-key"))
+            //then
+            .expectFields(processInstance().status(ProcessInstance.ProcessInstanceStatus.RUNNING),
+                processInstance().name("my-process-instance-name"),
+                processInstance().businessKey("my-business-key"))
 
-                .expect(processInstance().hasTask("Task 1 User 1",
-                                                  Task.TaskStatus.ASSIGNED,
-                                                  withAssignee("user1")))
-                .expectEvents(processInstance().hasBeenStarted(),
-                              startEvent("StartEvent_1").hasBeenStarted(),
-                              startEvent("StartEvent_1").hasBeenCompleted(),
-                              sequenceFlow("SequenceFlow_1035s34").hasBeenTaken(),
-                              taskWithName("Task 1 User 1").hasBeenCreated(),
-                              taskWithName("Task 1 User 1").hasBeenAssigned()
-                )
-                .andReturn();
+            .expect(processInstance().hasTask("Task 1 User 1",
+                Task.TaskStatus.ASSIGNED,
+                withAssignee("user1")))
+            .expectEvents(processInstance().hasBeenStarted(),
+                startEvent("StartEvent_1").hasBeenStarted(),
+                startEvent("StartEvent_1").hasBeenCompleted(),
+                sequenceFlow("SequenceFlow_1035s34").hasBeenTaken(),
+                taskWithName("Task 1 User 1").hasBeenCreated(),
+                taskWithName("Task 1 User 1").hasBeenAssigned()
+            )
+            .andReturn();
 
         // I should be able to get the process instance from the Runtime because it is still running
         ProcessInstance processInstanceById = processRuntime.processInstance(processInstance.getId());
@@ -107,20 +107,20 @@ public class BasicExclusiveGatewayTest {
 
         //given
         taskOperations.complete(TaskPayloadBuilder
-                                .complete()
-                                .withTaskId(task.getId())
-                                .build())
-        //then
-                .expectEvents(task().hasBeenCompleted(),
-                              sequenceFlow("SequenceFlow_0pdm5j0").hasBeenTaken(),
-                              exclusiveGateway("ExclusiveGateway_1ri35t5").hasBeenStarted(),
-                              exclusiveGateway("ExclusiveGateway_1ri35t5").hasBeenCompleted(),
-                              sequenceFlow("SequenceFlow_1tut9mk").hasBeenTaken(),
-                              taskWithName("Task 2 User 1").hasBeenCreated(),
-                              taskWithName("Task 2 User 1").hasBeenAssigned())
-                .expect(processInstance().hasTask("Task 2 User 1",
-                                                  Task.TaskStatus.ASSIGNED,
-                                                  withAssignee("user1")));
+                .complete()
+                .withTaskId(task.getId())
+                .build())
+            //then
+            .expectEvents(task().hasBeenCompleted(),
+                sequenceFlow("SequenceFlow_0pdm5j0").hasBeenTaken(),
+                exclusiveGateway("ExclusiveGateway_1ri35t5").hasBeenStarted(),
+                exclusiveGateway("ExclusiveGateway_1ri35t5").hasBeenCompleted(),
+                sequenceFlow("SequenceFlow_1tut9mk").hasBeenTaken(),
+                taskWithName("Task 2 User 1").hasBeenCreated(),
+                taskWithName("Task 2 User 1").hasBeenAssigned())
+            .expect(processInstance().hasTask("Task 2 User 1",
+                Task.TaskStatus.ASSIGNED,
+                withAssignee("user1")));
 
         tasks = taskRuntime.tasks(Pageable.of(0, 50));
         assertThat(tasks.getTotalItems()).isEqualTo(1);

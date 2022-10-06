@@ -5,16 +5,16 @@
              xmlns:activiti="http://activiti.org/bpmn"
              targetNamespace="Examples">
 
-    <process id="assigneeThroughSpringService">
+  <process id="assigneeThroughSpringService">
 
-        <startEvent id="start"/>
-        <sequenceFlow id="flow1" sourceRef="start" targetRef="task"/>
+    <startEvent id="start"/>
+    <sequenceFlow id="flow1" sourceRef="start" targetRef="task"/>
 
-        <userTask id="task" name="Schedule meeting" activiti:assignee="${fakeLdapService.findManagerForEmployee(emp)}"/>
-        <sequenceFlow id="flow2" sourceRef="task" targetRef="end"/>
+    <userTask id="task" name="Schedule meeting" activiti:assignee="${fakeLdapService.findManagerForEmployee(emp)}"/>
+    <sequenceFlow id="flow2" sourceRef="task" targetRef="end"/>
 
-        <endEvent id="end"/>
+    <endEvent id="end"/>
 
-    </process>
+  </process>
 
 </definitions>

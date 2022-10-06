@@ -15,13 +15,6 @@
  */
 package org.activiti.spring;
 
-import static java.util.Arrays.asList;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
-import java.util.List;
 import org.activiti.api.process.model.events.ApplicationDeployedEvent;
 import org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener;
 import org.activiti.api.runtime.event.impl.ApplicationDeployedEvents;
@@ -36,6 +29,14 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.ApplicationEventPublisher;
+
+import java.util.List;
+
+import static java.util.Arrays.asList;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 public class ApplicationDeployedEventProducerTest {
@@ -57,14 +58,14 @@ public class ApplicationDeployedEventProducerTest {
     @Mock
     private ProcessRuntimeEventListener<ApplicationDeployedEvent> secondListener;
 
-    private static final String APPLICATION_DEPLOYMENT_NAME= "SpringAutoDeployment";
+    private static final String APPLICATION_DEPLOYMENT_NAME = "SpringAutoDeployment";
 
     @BeforeEach
     public void setUp() {
         producer = new ApplicationDeployedEventProducer(repositoryService,
-                converter,
-                asList(firstListener, secondListener),
-                eventPublisher);
+            converter,
+            asList(firstListener, secondListener),
+            eventPublisher);
     }
 
     @Test
@@ -73,13 +74,13 @@ public class ApplicationDeployedEventProducerTest {
         given(repositoryService.createDeploymentQuery()).willReturn(deploymentQuery);
 
         List<Deployment> internalDeployment = asList(mock(Deployment.class),
-                mock(Deployment.class));
+            mock(Deployment.class));
 
         given(deploymentQuery.deploymentName(APPLICATION_DEPLOYMENT_NAME)).willReturn(deploymentQuery);
         given(deploymentQuery.list()).willReturn(internalDeployment);
 
-        List<org.activiti.api.process.model.Deployment> apiDeployments= asList(
-                mock(org.activiti.api.process.model.Deployment.class));
+        List<org.activiti.api.process.model.Deployment> apiDeployments = asList(
+            mock(org.activiti.api.process.model.Deployment.class));
         given(converter.from(internalDeployment)).willReturn(apiDeployments);
 
         producer.start();
@@ -90,9 +91,9 @@ public class ApplicationDeployedEventProducerTest {
 
         List<ApplicationDeployedEvent> allValues = captor.getAllValues();
         assertThat(allValues)
-                .extracting(ApplicationDeployedEvent::getEntity)
-                .hasSize(2)
-                .containsOnly(apiDeployments.get(0));
+            .extracting(ApplicationDeployedEvent::getEntity)
+            .hasSize(2)
+            .containsOnly(apiDeployments.get(0));
 
         ArgumentCaptor<ApplicationDeployedEvents> captorPublisher = ArgumentCaptor.forClass(ApplicationDeployedEvents.class);
         verify(eventPublisher).publishEvent(captorPublisher.capture());

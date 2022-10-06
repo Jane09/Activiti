@@ -15,11 +15,11 @@
  */
 package org.activiti.api.runtime.model.impl;
 
-import java.util.Objects;
-
 import org.activiti.api.process.model.ProcessDefinition;
 import org.activiti.api.process.model.StartMessageDeploymentDefinition;
 import org.activiti.api.process.model.StartMessageSubscription;
+
+import java.util.Objects;
 
 public class StartMessageDeploymentDefinitionImpl implements StartMessageDeploymentDefinition {
 
@@ -33,7 +33,8 @@ public class StartMessageDeploymentDefinitionImpl implements StartMessageDeploym
         this.processDefinition = builder.processDefinition;
     }
 
-    StartMessageDeploymentDefinitionImpl() { }
+    StartMessageDeploymentDefinitionImpl() {
+    }
 
     public ProcessDefinition getProcessDefinition() {
         return processDefinition;
@@ -61,17 +62,17 @@ public class StartMessageDeploymentDefinitionImpl implements StartMessageDeploym
         }
         StartMessageDeploymentDefinitionImpl other = (StartMessageDeploymentDefinitionImpl) obj;
         return Objects.equals(messageSubscription, other.messageSubscription) &&
-               Objects.equals(processDefinition, other.processDefinition);
+            Objects.equals(processDefinition, other.processDefinition);
     }
 
     @Override
     public String toString() {
         StringBuilder builder2 = new StringBuilder();
         builder2.append("StartMessageDeploymentDefinitionImpl [messageSubscription=")
-                .append(messageSubscription)
-                .append(", processDefinition=")
-                .append(processDefinition)
-                .append("]");
+            .append(messageSubscription)
+            .append(", processDefinition=")
+            .append(processDefinition)
+            .append("]");
         return builder2.toString();
     }
 
@@ -81,6 +82,7 @@ public class StartMessageDeploymentDefinitionImpl implements StartMessageDeploym
 
     /**
      * Creates a builder to build {@link StartMessageDeploymentDefinitionImpl} and initialize it with the given object.
+     *
      * @param startMessageEventSubscriptionImpl to initialize the builder with
      * @return created builder
      */
@@ -105,29 +107,32 @@ public class StartMessageDeploymentDefinitionImpl implements StartMessageDeploym
         }
 
         /**
-        * Builder method for messageEventSubscription parameter.
-        * @param messageEventSubscription field to set
-        * @return builder
-        */
+         * Builder method for messageEventSubscription parameter.
+         *
+         * @param messageEventSubscription field to set
+         * @return builder
+         */
         public Builder withMessageSubscription(StartMessageSubscription messageEventSubscription) {
             this.messageSubscription = messageEventSubscription;
             return this;
         }
 
         /**
-        * Builder method for processDefinition parameter.
-        * @param processDefinition field to set
-        * @return builder
-        */
+         * Builder method for processDefinition parameter.
+         *
+         * @param processDefinition field to set
+         * @return builder
+         */
         public Builder withProcessDefinition(ProcessDefinition processDefinition) {
             this.processDefinition = processDefinition;
             return this;
         }
 
         /**
-        * Builder method of the builder.
-        * @return built class
-        */
+         * Builder method of the builder.
+         *
+         * @return built class
+         */
         public StartMessageDeploymentDefinitionImpl build() {
             return new StartMessageDeploymentDefinitionImpl(this);
         }

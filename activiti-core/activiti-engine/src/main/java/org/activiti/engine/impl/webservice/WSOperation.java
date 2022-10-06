@@ -16,16 +16,14 @@
 
 package org.activiti.engine.impl.webservice;
 
-import java.net.URL;
-import java.util.concurrent.ConcurrentMap;
-import javax.xml.namespace.QName;
-
 import org.activiti.engine.impl.bpmn.webservice.MessageDefinition;
 import org.activiti.engine.impl.bpmn.webservice.MessageInstance;
 import org.activiti.engine.impl.bpmn.webservice.Operation;
 import org.activiti.engine.impl.bpmn.webservice.OperationImplementation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import javax.xml.namespace.QName;
+import java.net.URL;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * Represents a WS implementation of a {@link Operation}
@@ -69,9 +67,9 @@ public class WSOperation implements OperationImplementation {
                                    ConcurrentMap<QName, URL> overridenEndpointAddresses) throws Exception {
         Object[] arguments = this.getArguments(message);
         Object[] results = this.safeSend(arguments,
-                                         overridenEndpointAddresses);
+            overridenEndpointAddresses);
         return this.createResponseMessage(results,
-                                          operation);
+            operation);
     }
 
     private Object[] getArguments(MessageInstance message) {
@@ -83,8 +81,8 @@ public class WSOperation implements OperationImplementation {
         Object[] results = null;
 
         results = this.service.getClient().send(this.name,
-                                                arguments,
-                                                overridenEndpointAddresses);
+            arguments,
+            overridenEndpointAddresses);
 
         if (results == null) {
             results = new Object[]{};

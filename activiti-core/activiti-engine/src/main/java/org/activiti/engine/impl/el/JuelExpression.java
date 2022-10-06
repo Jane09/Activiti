@@ -17,11 +17,6 @@
 
 package org.activiti.engine.impl.el;
 
-import java.util.Map;
-import javax.el.ELContext;
-import javax.el.MethodNotFoundException;
-import javax.el.PropertyNotFoundException;
-import javax.el.ValueExpression;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.VariableScope;
@@ -30,11 +25,14 @@ import org.activiti.engine.impl.delegate.invocation.ExpressionGetInvocation;
 import org.activiti.engine.impl.delegate.invocation.ExpressionSetInvocation;
 import org.activiti.engine.impl.interceptor.DelegateInterceptor;
 
+import javax.el.ELContext;
+import javax.el.MethodNotFoundException;
+import javax.el.PropertyNotFoundException;
+import javax.el.ValueExpression;
+import java.util.Map;
+
 /**
  * Expression implementation backed by a JUEL {@link ValueExpression}.
- *
-
-
  */
 public class JuelExpression implements Expression {
 
@@ -49,16 +47,16 @@ public class JuelExpression implements Expression {
     @Override
     public Object getValue(VariableScope variableScope) {
         ELContext elContext = Context.getProcessEngineConfiguration()
-                                     .getExpressionManager()
-                                     .getElContext(variableScope);
+            .getExpressionManager()
+            .getElContext(variableScope);
         return getValueFromContext(elContext, Context.getProcessEngineConfiguration().getDelegateInterceptor());
     }
 
     @Override
     public void setValue(Object value, VariableScope variableScope) {
         ELContext elContext = Context.getProcessEngineConfiguration()
-                                     .getExpressionManager()
-                                     .getElContext(variableScope);
+            .getExpressionManager()
+            .getElContext(variableScope);
         try {
             ExpressionSetInvocation invocation = new ExpressionSetInvocation(valueExpression, elContext, value);
             Context.getProcessEngineConfiguration().getDelegateInterceptor().handleInvocation(invocation);
@@ -82,13 +80,13 @@ public class JuelExpression implements Expression {
 
     @Override
     public Object getValue(ExpressionManager expressionManager,
-        DelegateInterceptor delegateInterceptor, Map<String, Object> availableVariables) {
+                           DelegateInterceptor delegateInterceptor, Map<String, Object> availableVariables) {
         ELContext elContext = expressionManager.getElContext(availableVariables);
         return getValueFromContext(elContext, delegateInterceptor);
     }
 
     private Object getValueFromContext(ELContext elContext,
-        DelegateInterceptor delegateInterceptor) {
+                                       DelegateInterceptor delegateInterceptor) {
         try {
             ExpressionGetInvocation invocation = new ExpressionGetInvocation(valueExpression, elContext);
             delegateInterceptor.handleInvocation(invocation);

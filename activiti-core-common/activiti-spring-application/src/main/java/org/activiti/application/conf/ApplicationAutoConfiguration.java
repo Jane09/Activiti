@@ -15,15 +15,10 @@
  */
 package org.activiti.application.conf;
 
-import static java.util.Collections.emptyList;
-
-import java.util.List;
-import java.util.Optional;
-
 import org.activiti.application.ApplicationDiscovery;
 import org.activiti.application.ApplicationEntryDiscovery;
-import org.activiti.application.ApplicationService;
 import org.activiti.application.ApplicationReader;
+import org.activiti.application.ApplicationService;
 import org.activiti.application.deployer.ApplicationDeployer;
 import org.activiti.application.deployer.ApplicationEntryDeployer;
 import org.springframework.beans.factory.InitializingBean;
@@ -32,6 +27,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.ResourcePatternResolver;
+
+import java.util.List;
+import java.util.Optional;
+
+import static java.util.Collections.emptyList;
 
 @Configuration
 public class ApplicationAutoConfiguration {
@@ -42,11 +42,11 @@ public class ApplicationAutoConfiguration {
                                                @Autowired(required = false) List<ApplicationEntryDeployer> applicationEntryDeployers,
                                                @Value("${spring.activiti.applicationsLocation:classpath:/applications/}") String applicationsLocation) {
         return () -> new ApplicationDeployer(new ApplicationService(new ApplicationDiscovery(resourceLoader,
-                                                                                             applicationsLocation),
-                                                                    new ApplicationReader(
-                                                                           Optional.ofNullable(applicationEntryDiscoveries)
-                                                                                   .orElse(emptyList()))),
-                                             Optional.ofNullable(applicationEntryDeployers)
-                                                     .orElse(emptyList())).deploy();
+            applicationsLocation),
+            new ApplicationReader(
+                Optional.ofNullable(applicationEntryDiscoveries)
+                    .orElse(emptyList()))),
+            Optional.ofNullable(applicationEntryDeployers)
+                .orElse(emptyList())).deploy();
     }
 }

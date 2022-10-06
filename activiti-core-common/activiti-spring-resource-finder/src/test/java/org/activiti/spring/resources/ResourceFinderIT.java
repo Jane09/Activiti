@@ -15,13 +15,13 @@
  */
 package org.activiti.spring.resources;
 
-import java.util.List;
-
 import org.activiti.spring.resources.conf.ResourceFinderAutoConfiguration;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.Resource;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -35,7 +35,7 @@ public class ResourceFinderIT {
     public void shouldReturnEmptyListWhenLocationDoesNotExist() throws Exception {
         //given
         DummyResourceFinderDescriptor finderDescriptor = new DummyResourceFinderDescriptor("classpath:**/not-exists/",
-                                                                                                   "**.txt");
+            "**.txt");
 
         //when
         List<Resource> foundResources = resourceFinder.discoverResources(finderDescriptor);
@@ -48,7 +48,7 @@ public class ResourceFinderIT {
     public void shouldReturnEmptyListWhenLocationExitsButNoFileMatches() throws Exception {
         //given
         DummyResourceFinderDescriptor finderDescriptor = new DummyResourceFinderDescriptor("classpath:/no-matching-resources",
-                                                                                                   "**.txt");
+            "**.txt");
 
         //when
         List<Resource> foundResources = resourceFinder.discoverResources(finderDescriptor);
@@ -61,16 +61,16 @@ public class ResourceFinderIT {
     public void shouldReturnMatchingFiles() throws Exception {
         //given
         DummyResourceFinderDescriptor finderDescriptor = new DummyResourceFinderDescriptor("classpath:/matching-resources/",
-                                                                                           "**.json",
-                                                                                           "**.txt");
+            "**.json",
+            "**.txt");
 
         //when
         List<Resource> foundResources = resourceFinder.discoverResources(finderDescriptor);
 
         //then
         assertThat(foundResources)
-                .extracting(resource -> resource.getFilename())
-                .containsOnly("matching.json",
-                              "matching.txt");
+            .extracting(resource -> resource.getFilename())
+            .containsOnly("matching.json",
+                "matching.txt");
     }
 }

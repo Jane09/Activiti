@@ -59,49 +59,49 @@ public class APIProcessDefinitionConverterTest {
     @Test
     public void should_convertFromProcessDefinition_when_allFieldsAreSet() {
         ProcessDefinition convertedProcessDefinition = processDefinitionConverter.from(
-                processDefinitionBuilderBuilder()
-                        .withId("anId")
-                        .withKey("processKey")
-                        .withName("Process Name")
-                        .withDescription("process description")
-                        .withVersion(3)
-                        .withAppVersion(1)
-                        .withCategory("test category")
-                        .build()
+            processDefinitionBuilderBuilder()
+                .withId("anId")
+                .withKey("processKey")
+                .withName("Process Name")
+                .withDescription("process description")
+                .withVersion(3)
+                .withAppVersion(1)
+                .withCategory("test category")
+                .build()
         );
 
         assertThat(convertedProcessDefinition)
-                .isNotNull()
-                .extracting(ProcessDefinition::getId,
-                        ProcessDefinition::getKey,
-                        ProcessDefinition::getName,
-                        ProcessDefinition::getDescription,
-                        ProcessDefinition::getVersion,
-                        ProcessDefinition::getAppVersion,
-                        ProcessDefinition::getFormKey,
-                        ProcessDefinition::getCategory)
-                .containsExactly(
-                        "anId",
-                        "processKey",
-                        "Process Name",
-                        "process description",
-                        3,
-                        "1",
-                        "AFormKey",
-                        "test category");
+            .isNotNull()
+            .extracting(ProcessDefinition::getId,
+                ProcessDefinition::getKey,
+                ProcessDefinition::getName,
+                ProcessDefinition::getDescription,
+                ProcessDefinition::getVersion,
+                ProcessDefinition::getAppVersion,
+                ProcessDefinition::getFormKey,
+                ProcessDefinition::getCategory)
+            .containsExactly(
+                "anId",
+                "processKey",
+                "Process Name",
+                "process description",
+                3,
+                "1",
+                "AFormKey",
+                "test category");
     }
 
     @Test
     public void should_convertProcessDefinition_when_appVersionNull() {
         ProcessDefinition convertedProcessDefinition = processDefinitionConverter.from(
-                processDefinitionBuilderBuilder()
-                        .withKey("processKey")
-                        .withAppVersion(null)
-                        .build());
+            processDefinitionBuilderBuilder()
+                .withKey("processKey")
+                .withAppVersion(null)
+                .build());
 
         assertThat(convertedProcessDefinition)
-                .isNotNull()
-                .extracting(ProcessDefinition::getAppVersion)
-                .isNull();
+            .isNotNull()
+            .extracting(ProcessDefinition::getAppVersion)
+            .isNull();
     }
 }

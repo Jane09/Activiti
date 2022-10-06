@@ -16,16 +16,8 @@
 
 package org.activiti.engine.delegate;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import org.activiti.bpmn.model.BpmnModel;
-import org.activiti.bpmn.model.ExtensionElement;
-import org.activiti.bpmn.model.FieldExtension;
-import org.activiti.bpmn.model.FlowElement;
-import org.activiti.bpmn.model.SequenceFlow;
-import org.activiti.bpmn.model.TaskWithFieldExtensions;
+import org.activiti.bpmn.model.Process;
+import org.activiti.bpmn.model.*;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.impl.context.Context;
 import org.activiti.engine.impl.delegate.ActivityBehavior;
@@ -34,7 +26,10 @@ import org.activiti.engine.impl.el.FixedValue;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.util.ProcessDefinitionUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.activiti.bpmn.model.Process;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Class that provides helper operations for use in the {@link JavaDelegate},
@@ -50,7 +45,7 @@ public class DelegateHelper {
      */
     public static void leaveDelegate(DelegateExecution delegateExecution) {
         Context.getAgenda().planTakeOutgoingSequenceFlowsOperation((ExecutionEntity) delegateExecution,
-                                                                   true);
+            true);
     }
 
     /**
@@ -65,7 +60,7 @@ public class DelegateHelper {
         if (flowElement instanceof SequenceFlow) {
             delegateExecution.setCurrentFlowElement(flowElement);
             Context.getAgenda().planTakeOutgoingSequenceFlowsOperation((ExecutionEntity) delegateExecution,
-                                                                       false);
+                false);
         } else {
             throw new ActivitiException(sequenceFlowId + " does not match a sequence flow");
         }
@@ -178,10 +173,10 @@ public class DelegateHelper {
                                           String fieldName) {
         if (isExecutingExecutionListener(execution)) {
             return getListenerField(execution,
-                                    fieldName);
+                fieldName);
         } else {
             return getFlowElementField(execution,
-                                       fieldName);
+                fieldName);
         }
     }
 
@@ -242,10 +237,10 @@ public class DelegateHelper {
                                                 String fieldName) {
         if (isExecutingExecutionListener(execution)) {
             return getListenerFieldExpression(execution,
-                                              fieldName);
+                fieldName);
         } else {
             return getFlowElementFieldExpression(execution,
-                                                 fieldName);
+                fieldName);
         }
     }
 
@@ -270,7 +265,7 @@ public class DelegateHelper {
     public static Expression getFlowElementFieldExpression(DelegateExecution execution,
                                                            String fieldName) {
         FieldExtension fieldExtension = getFlowElementField(execution,
-                                                            fieldName);
+            fieldName);
         if (fieldExtension != null) {
             return createExpressionForField(fieldExtension);
         }
@@ -280,7 +275,7 @@ public class DelegateHelper {
     public static Expression getListenerFieldExpression(DelegateExecution execution,
                                                         String fieldName) {
         FieldExtension fieldExtension = getListenerField(execution,
-                                                         fieldName);
+            fieldName);
         if (fieldExtension != null) {
             return createExpressionForField(fieldExtension);
         }

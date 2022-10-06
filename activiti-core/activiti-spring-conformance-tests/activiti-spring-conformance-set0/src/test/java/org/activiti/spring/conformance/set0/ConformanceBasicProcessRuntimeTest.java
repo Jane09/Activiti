@@ -15,8 +15,6 @@
  */
 package org.activiti.spring.conformance.set0;
 
-import java.util.List;
-
 import org.activiti.api.process.model.ProcessDefinition;
 import org.activiti.api.process.runtime.ProcessRuntime;
 import org.activiti.api.process.runtime.conf.ProcessRuntimeConfiguration;
@@ -30,6 +28,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -67,9 +67,9 @@ public class ConformanceBasicProcessRuntimeTest {
 
         List<ProcessDefinition> processDefinitions = processDefinitionPage.getContent();
         assertThat(processDefinitions).extracting(ProcessDefinition::getName).containsOnly(
-                "Process Information",
-                "Process with Generic  BPMN Task",
-                "UserTask with no User or Group Assignment"
+            "Process Information",
+            "Process with Generic  BPMN Task",
+            "UserTask with no User or Group Assignment"
         );
 
     }
@@ -82,9 +82,9 @@ public class ConformanceBasicProcessRuntimeTest {
 
         List<ProcessDefinition> processDefinitions = processDefinitionPage.getContent();
         assertThat(processDefinitions).extracting(ProcessDefinition::getName).containsOnly(
-                "Process Information",
-                "Process with Generic  BPMN Task",
-                "UserTask with no User or Group Assignment"
+            "Process Information",
+            "Process with Generic  BPMN Task",
+            "UserTask with no User or Group Assignment"
         );
 
     }
@@ -93,7 +93,6 @@ public class ConformanceBasicProcessRuntimeTest {
     public void cleanUp() {
         RuntimeTestConfiguration.collectedEvents.clear();
     }
-
 
 
 }

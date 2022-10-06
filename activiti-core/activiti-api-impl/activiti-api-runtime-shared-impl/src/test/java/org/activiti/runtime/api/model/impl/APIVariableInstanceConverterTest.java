@@ -15,12 +15,12 @@
  */
 package org.activiti.runtime.api.model.impl;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.activiti.api.model.shared.model.VariableInstance;
 import org.activiti.engine.impl.persistence.entity.VariableInstanceEntityImpl;
 import org.activiti.engine.impl.variable.StringType;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class APIVariableInstanceConverterTest {
 

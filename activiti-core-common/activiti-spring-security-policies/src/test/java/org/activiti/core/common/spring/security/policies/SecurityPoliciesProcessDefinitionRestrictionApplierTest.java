@@ -15,10 +15,10 @@
  */
 package org.activiti.core.common.spring.security.policies;
 
-import java.util.Set;
-
 import org.activiti.api.process.model.payloads.GetProcessDefinitionsPayload;
 import org.junit.jupiter.api.Test;
+
+import java.util.Set;
 
 import static java.util.Collections.singleton;
 import static org.assertj.core.api.Assertions.assertThat;

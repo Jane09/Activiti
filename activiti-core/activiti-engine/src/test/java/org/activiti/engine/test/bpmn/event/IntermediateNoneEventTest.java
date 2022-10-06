@@ -16,30 +16,30 @@
 
 package org.activiti.engine.test.bpmn.event;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.ExecutionListener;
 import org.activiti.engine.impl.test.PluggableActivitiTestCase;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.test.Deployment;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class IntermediateNoneEventTest extends PluggableActivitiTestCase {
 
-  private static boolean listenerExecuted;
+    private static boolean listenerExecuted;
 
-  public static class MyExecutionListener implements ExecutionListener {
-    public void notify(DelegateExecution execution) {
-      listenerExecuted = true;
+    public static class MyExecutionListener implements ExecutionListener {
+        public void notify(DelegateExecution execution) {
+            listenerExecuted = true;
+        }
     }
-  }
 
-  @Deployment
-  public void testIntermediateNoneTimerEvent() throws Exception {
-    assertThat(listenerExecuted).isFalse();
-    ProcessInstance pi = runtimeService.startProcessInstanceByKey("intermediateNoneEventExample");
-    assertProcessEnded(pi.getProcessInstanceId());
-    assertThat(listenerExecuted).isTrue();
-  }
+    @Deployment
+    public void testIntermediateNoneTimerEvent() throws Exception {
+        assertThat(listenerExecuted).isFalse();
+        ProcessInstance pi = runtimeService.startProcessInstanceByKey("intermediateNoneEventExample");
+        assertProcessEnded(pi.getProcessInstanceId());
+        assertThat(listenerExecuted).isTrue();
+    }
 
 }

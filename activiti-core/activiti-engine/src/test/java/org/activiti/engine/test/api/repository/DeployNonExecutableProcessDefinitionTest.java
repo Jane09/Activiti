@@ -16,27 +16,27 @@
 
 package org.activiti.engine.test.api.repository;
 
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.impl.test.PluggableActivitiTestCase;
 import org.activiti.engine.test.Deployment;
 
-/**
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
+/**
+ *
  */
 public class DeployNonExecutableProcessDefinitionTest extends PluggableActivitiTestCase {
 
-  /**
-   * Test for https://jira.codehaus.org/browse/ACT-2071
-   *
-   * In this test, a process definition is deployed together with one that is not executable. The none-executable should not be startable.
-   */
-  @Deployment
-  public void testDeployNonExecutableProcessDefinition() {
-    assertThatExceptionOfType(ActivitiException.class)
-      .isThrownBy(() -> runtimeService.startProcessInstanceByKey("oneTaskProcessNonExecutable"))
-      .withMessageContaining("no processes deployed with key 'oneTaskProcessNonExecutable'");
-  }
+    /**
+     * Test for https://jira.codehaus.org/browse/ACT-2071
+     * <p>
+     * In this test, a process definition is deployed together with one that is not executable. The none-executable should not be startable.
+     */
+    @Deployment
+    public void testDeployNonExecutableProcessDefinition() {
+        assertThatExceptionOfType(ActivitiException.class)
+            .isThrownBy(() -> runtimeService.startProcessInstanceByKey("oneTaskProcessNonExecutable"))
+            .withMessageContaining("no processes deployed with key 'oneTaskProcessNonExecutable'");
+    }
 
 }

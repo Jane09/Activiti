@@ -15,14 +15,6 @@
  */
 package org.activiti.engine.test.json;
 
-import static java.util.Arrays.asList;
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Consumer;
-
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.impl.test.ResourceActivitiTestCase;
 import org.activiti.engine.runtime.ProcessInstance;
@@ -30,6 +22,14 @@ import org.activiti.engine.task.IdentityLink;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.test.Deployment;
 import org.activiti.examples.variables.SomeSerializable;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
+
+import static java.util.Arrays.asList;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class SerializePOJOJsonTest extends ResourceActivitiTestCase {
 
@@ -56,7 +56,7 @@ public class SerializePOJOJsonTest extends ResourceActivitiTestCase {
         taskService.getIdentityLinksForTask(taskId).stream().forEach(new Consumer<IdentityLink>() {
             @Override
             public void accept(IdentityLink i) {
-                if ("candidate".equals(i.getType()) ) {
+                if ("candidate".equals(i.getType())) {
                     assertThat(i.getUserId()).isEqualTo("bob");
                 }
             }

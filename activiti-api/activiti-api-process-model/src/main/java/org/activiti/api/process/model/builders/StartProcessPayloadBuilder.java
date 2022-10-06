@@ -15,10 +15,10 @@
  */
 package org.activiti.api.process.model.builders;
 
+import org.activiti.api.process.model.payloads.StartProcessPayload;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import org.activiti.api.process.model.payloads.StartProcessPayload;
 
 public class StartProcessPayloadBuilder {
 
@@ -39,7 +39,7 @@ public class StartProcessPayloadBuilder {
             this.variables = new HashMap<>();
         }
         this.variables.put(name,
-                value);
+            value);
         return this;
     }
 
@@ -65,9 +65,9 @@ public class StartProcessPayloadBuilder {
 
     public StartProcessPayload build() {
         return new StartProcessPayload(processDefinitionId,
-                processDefinitionKey,
-                name,
-                businessKey,
-                variables);
+            processDefinitionKey,
+            name,
+            businessKey,
+            variables);
     }
 }

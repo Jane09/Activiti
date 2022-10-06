@@ -19,7 +19,7 @@ package org.activiti.editor.language.json.converter;
 import java.util.Map;
 
 /**
-
+ *
  */
 public interface FormAwareConverter {
 

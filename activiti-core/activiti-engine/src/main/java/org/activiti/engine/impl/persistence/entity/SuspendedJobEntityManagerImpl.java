@@ -17,8 +17,6 @@
 
 package org.activiti.engine.impl.persistence.entity;
 
-import java.util.List;
-
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.delegate.event.impl.ActivitiEventBuilder;
 import org.activiti.engine.impl.Page;
@@ -27,8 +25,8 @@ import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.persistence.CountingExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.data.SuspendedJobDataManager;
 import org.activiti.engine.runtime.Job;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public class SuspendedJobEntityManagerImpl extends AbstractEntityManager<SuspendedJobEntity> implements SuspendedJobEntityManager {
 
@@ -55,7 +53,7 @@ public class SuspendedJobEntityManagerImpl extends AbstractEntityManager<Suspend
     public List<Job> findJobsByQueryCriteria(SuspendedJobQueryImpl jobQuery,
                                              Page page) {
         return jobDataManager.findJobsByQueryCriteria(jobQuery,
-                                                      page);
+            page);
     }
 
     @Override
@@ -67,7 +65,7 @@ public class SuspendedJobEntityManagerImpl extends AbstractEntityManager<Suspend
     public void updateJobTenantIdForDeployment(String deploymentId,
                                                String newTenantId) {
         jobDataManager.updateJobTenantIdForDeployment(deploymentId,
-                                                      newTenantId);
+            newTenantId);
     }
 
     @Override
@@ -90,13 +88,13 @@ public class SuspendedJobEntityManagerImpl extends AbstractEntityManager<Suspend
         }
 
         super.insert(jobEntity,
-                     fireCreateEvent);
+            fireCreateEvent);
     }
 
     @Override
     public void insert(SuspendedJobEntity jobEntity) {
         insert(jobEntity,
-               true);
+            true);
     }
 
     @Override
@@ -115,7 +113,7 @@ public class SuspendedJobEntityManagerImpl extends AbstractEntityManager<Suspend
         // Send event
         if (getEventDispatcher().isEnabled()) {
             getEventDispatcher().dispatchEvent(ActivitiEventBuilder.createEntityEvent(ActivitiEventType.ENTITY_DELETED,
-                                                                                      this));
+                this));
         }
     }
 

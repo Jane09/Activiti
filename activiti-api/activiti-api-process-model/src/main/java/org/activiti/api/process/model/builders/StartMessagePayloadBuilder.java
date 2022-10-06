@@ -15,11 +15,11 @@
  */
 package org.activiti.api.process.model.builders;
 
+import org.activiti.api.process.model.payloads.StartMessagePayload;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
-
-import org.activiti.api.process.model.payloads.StartMessagePayload;
 
 public class StartMessagePayloadBuilder {
 
@@ -31,8 +31,8 @@ public class StartMessagePayloadBuilder {
         Objects.requireNonNull(messagePayload, "messagePayload must not be null");
 
         return new StartMessagePayloadBuilder().withName(messagePayload.getName())
-                                               .withBusinessKey(messagePayload.getBusinessKey())
-                                               .withVariables(messagePayload.getVariables());
+            .withBusinessKey(messagePayload.getBusinessKey())
+            .withVariables(messagePayload.getVariables());
     }
 
     public static StartMessagePayloadBuilder start(String name) {
@@ -59,7 +59,7 @@ public class StartMessagePayloadBuilder {
             this.variables = new LinkedHashMap<>();
         }
         this.variables.put(name,
-                           value);
+            value);
         return this;
     }
 
@@ -71,7 +71,7 @@ public class StartMessagePayloadBuilder {
 
     public StartMessagePayload build() {
         return new StartMessagePayload(name,
-                                       businessKey,
-                                       this.variables);
+            businessKey,
+            this.variables);
     }
 }

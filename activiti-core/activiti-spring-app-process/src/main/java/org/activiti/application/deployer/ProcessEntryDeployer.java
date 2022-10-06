@@ -15,13 +15,13 @@
  */
 package org.activiti.application.deployer;
 
-import java.util.List;
-
 import org.activiti.application.ApplicationContent;
 import org.activiti.application.FileContent;
 import org.activiti.application.discovery.ProcessEntryDiscovery;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.repository.DeploymentBuilder;
+
+import java.util.List;
 
 public class ProcessEntryDeployer implements ApplicationEntryDeployer {
 

@@ -40,11 +40,11 @@ public class ProcessCompletedListenerDelegate implements ActivitiEventListener {
     public void onEvent(ActivitiEvent event) {
         if (event instanceof ActivitiEntityEvent) {
             processCompletedConverter.from((ActivitiEntityEvent) event)
-                    .ifPresent(convertedEvent -> {
-                        for ( ProcessRuntimeEventListener<ProcessCompletedEvent> listener : processRuntimeEventListeners ) {
-                            listener.onEvent(convertedEvent);
-                        }
-                    });
+                .ifPresent(convertedEvent -> {
+                    for (ProcessRuntimeEventListener<ProcessCompletedEvent> listener : processRuntimeEventListeners) {
+                        listener.onEvent(convertedEvent);
+                    }
+                });
         }
     }
 

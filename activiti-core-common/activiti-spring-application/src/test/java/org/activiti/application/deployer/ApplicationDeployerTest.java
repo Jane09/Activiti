@@ -45,7 +45,7 @@ public class ApplicationDeployerTest {
     @BeforeEach
     public void setUp() {
         deployer = new ApplicationDeployer(applicationLoader,
-                                           asList(firstDeployer, secondDeployer));
+            asList(firstDeployer, secondDeployer));
     }
 
     @Test

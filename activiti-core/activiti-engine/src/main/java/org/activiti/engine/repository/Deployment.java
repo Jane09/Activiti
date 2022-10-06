@@ -22,34 +22,33 @@ import java.util.Date;
 
 /**
  * Represents a deployment that is already present in the process repository.
- *
+ * <p>
  * A deployment is a container for resources such as process definitions, images, forms, etc.
- *
+ * <p>
  * When a deployment is 'deployed' through the {@link org.activiti.engine.RuntimeService}, the Activiti engine will recognize certain of such resource types and act upon them (eg process definitions
  * will be parsed to an executable Java artifact).
- *
+ * <p>
  * To create a Deployment, use the {@link org.activiti.engine.repository.DeploymentBuilder}. A Deployment on itself is a <b>read-only</b> object and its content cannot be changed after deployment
  * (hence the builder that needs to be used).
- *
  */
 
 @Internal
 public interface Deployment {
 
-  String getId();
+    String getId();
 
-  String getName();
+    String getName();
 
-  Date getDeploymentTime();
+    Date getDeploymentTime();
 
-  String getCategory();
+    String getCategory();
 
-  String getKey();
+    String getKey();
 
-  String getTenantId();
+    String getTenantId();
 
-  Integer getVersion();
+    Integer getVersion();
 
-  String getProjectReleaseVersion();
+    String getProjectReleaseVersion();
 
 }

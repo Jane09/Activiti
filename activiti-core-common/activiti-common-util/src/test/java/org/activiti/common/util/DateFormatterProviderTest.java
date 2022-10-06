@@ -15,15 +15,15 @@
  */
 package org.activiti.common.util;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import org.junit.jupiter.api.Test;
 
 import java.time.DateTimeException;
 import java.time.Duration;
 import java.time.format.DateTimeParseException;
 import java.util.Date;
 
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class DateFormatterProviderTest {
 
@@ -57,7 +57,7 @@ public class DateFormatterProviderTest {
         String dateStr = "this is not a date";
 
         assertThatExceptionOfType(DateTimeParseException.class)
-                .isThrownBy(() -> provider.parse(dateStr));
+            .isThrownBy(() -> provider.parse(dateStr));
     }
 
     @Test
@@ -85,8 +85,8 @@ public class DateFormatterProviderTest {
         double value = 1.2;
 
         assertThatExceptionOfType(DateTimeException.class)
-                .isThrownBy(
-                        () -> provider.toDate(value))
-                .withMessageContaining("Error while parsing date");
+            .isThrownBy(
+                () -> provider.toDate(value))
+            .withMessageContaining("Error while parsing date");
     }
 }

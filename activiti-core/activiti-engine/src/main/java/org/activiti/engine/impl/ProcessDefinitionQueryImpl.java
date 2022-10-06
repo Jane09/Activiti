@@ -15,9 +15,6 @@
  */
 package org.activiti.engine.impl;
 
-import java.util.List;
-import java.util.Set;
-
 import org.activiti.api.runtime.shared.identity.UserGroupManager;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.ActivitiIllegalArgumentException;
@@ -29,6 +26,9 @@ import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.repository.ProcessDefinitionQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
+import java.util.Set;
 
 public class ProcessDefinitionQueryImpl extends AbstractQuery<ProcessDefinitionQuery, ProcessDefinition> implements ProcessDefinitionQuery {
 
@@ -270,12 +270,12 @@ public class ProcessDefinitionQueryImpl extends AbstractQuery<ProcessDefinitionQ
 
     public ProcessDefinitionQuery messageEventSubscription(String messageName) {
         return eventSubscription("message",
-                                 messageName);
+            messageName);
     }
 
     public ProcessDefinitionQuery messageEventSubscriptionName(String messageName) {
         return eventSubscription("message",
-                                 messageName);
+            messageName);
     }
 
     public ProcessDefinitionQuery processDefinitionStarter(String procDefId) {
@@ -357,7 +357,7 @@ public class ProcessDefinitionQueryImpl extends AbstractQuery<ProcessDefinitionQ
                                                Page page) {
         checkQueryOk();
         return commandContext.getProcessDefinitionEntityManager().findProcessDefinitionsByQueryCriteria(this,
-                                                                                                        page);
+            page);
     }
 
     public void checkQueryOk() {
@@ -402,7 +402,9 @@ public class ProcessDefinitionQueryImpl extends AbstractQuery<ProcessDefinitionQ
         return keyLike;
     }
 
-    public Set<String> getKeys() { return keys; }
+    public Set<String> getKeys() {
+        return keys;
+    }
 
     public Integer getVersion() {
         return version;

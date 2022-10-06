@@ -21,7 +21,7 @@ import org.activiti.api.process.runtime.events.ProcessSuspendedEvent;
 import org.activiti.api.runtime.event.impl.RuntimeEventImpl;
 
 public class ProcessSuspendedEventImpl extends RuntimeEventImpl<ProcessInstance, ProcessRuntimeEvent.ProcessEvents>
-        implements ProcessSuspendedEvent {
+    implements ProcessSuspendedEvent {
 
     public ProcessSuspendedEventImpl(ProcessInstance entity) {
         super(entity);

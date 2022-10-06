@@ -15,8 +15,6 @@
  */
 package org.activiti.editor.language.xml;
 
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-
 import org.activiti.bpmn.exceptions.XMLException;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
@@ -24,6 +22,7 @@ import org.activiti.bpmn.model.ServiceTask;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class MapExceptionConverterTest extends AbstractConverterTest {
 

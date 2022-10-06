@@ -56,7 +56,7 @@ public class DefaultAutoDeploymentStrategy extends AbstractAutoDeploymentStrateg
             final String resourceName = determineResourceName(resource);
 
             deploymentBuilder.addInputStream(resourceName,
-                                             resource);
+                resource);
         }
 
         loadApplicationUpgradeContext(deploymentBuilder).deploy();

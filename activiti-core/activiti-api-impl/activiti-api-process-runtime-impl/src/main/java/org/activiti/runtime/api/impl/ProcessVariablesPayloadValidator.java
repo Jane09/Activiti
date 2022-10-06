@@ -15,20 +15,7 @@
  */
 package org.activiti.runtime.api.impl;
 
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import org.activiti.api.process.model.payloads.ReceiveMessagePayload;
-import org.activiti.api.process.model.payloads.SetProcessVariablesPayload;
-import org.activiti.api.process.model.payloads.SignalPayload;
-import org.activiti.api.process.model.payloads.StartMessagePayload;
-import org.activiti.api.process.model.payloads.StartProcessPayload;
+import org.activiti.api.process.model.payloads.*;
 import org.activiti.common.util.DateFormatterProvider;
 import org.activiti.engine.ActivitiException;
 import org.activiti.spring.process.ProcessExtensionService;
@@ -36,7 +23,11 @@ import org.activiti.spring.process.model.Extension;
 import org.activiti.spring.process.model.VariableDefinition;
 import org.activiti.spring.process.variable.VariableValidationService;
 
-public class ProcessVariablesPayloadValidator  {
+import java.text.MessageFormat;
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class ProcessVariablesPayloadValidator {
 
     private final VariableValidationService variableValidationService;
     private final DateFormatterProvider dateFormatterProvider;
@@ -58,11 +49,11 @@ public class ProcessVariablesPayloadValidator  {
 
     private Optional<Map<String, VariableDefinition>> getVariableDefinitionMap(String processDefinitionId) {
         Extension processExtensionModel = processDefinitionId != null ?
-                                                      processExtensionService.getExtensionsForId(processDefinitionId) :
-                                                      null;
+            processExtensionService.getExtensionsForId(processDefinitionId) :
+            null;
 
         return Optional.ofNullable(processExtensionModel)
-                .map(Extension::getProperties);
+            .map(Extension::getProperties);
     }
 
     private boolean validateVariablesAgainstDefinitions(Optional<Map<String, VariableDefinition>> variableDefinitionMap,
@@ -79,18 +70,18 @@ public class ProcessVariablesPayloadValidator  {
                 if (variableDefinitionEntry.getValue().getName().equals(name)) {
                     String type = variableDefinitionEntry.getValue().getType();
 
-                    if (type.contains("date") &&  value != null) {
+                    if (type.contains("date") && value != null) {
                         try {
                             payloadVar.setValue(dateFormatterProvider.toDate(value));
                         } catch (Exception e) {
-                          //Do nothing here, keep value as a string
+                            //Do nothing here, keep value as a string
                         }
                     }
 
                     //Check type
                     if (!variableValidationService
-                            .validateWithErrors(payloadVar.getValue(), variableDefinitionEntry.getValue())
-                            .isEmpty()) {
+                        .validateWithErrors(payloadVar.getValue(), variableDefinitionEntry.getValue())
+                        .isEmpty()) {
 
                         mismatchedVars.add(name);
                     }
@@ -106,7 +97,7 @@ public class ProcessVariablesPayloadValidator  {
     private void checkPayloadVariables(Map<String, Object> variablePayloadMap,
                                        String processDefinitionId) {
 
-        if (variablePayloadMap == null ) {
+        if (variablePayloadMap == null) {
             return;
         }
 
@@ -120,43 +111,43 @@ public class ProcessVariablesPayloadValidator  {
 
         for (Map.Entry<String, Object> payloadVar : variablePayloadMap.entrySet()) {
 
-                String name = payloadVar.getKey();
-                // Check variable name
-                if (!variableNameValidator.validate(name)) {
-                    activitiExceptions.add(new ActivitiException(MessageFormat.format(errorVariableName, (name != null ? name : "null" ))));
-                } else if (expressionResolver.containsExpression(payloadVar.getValue())) {
-                    activitiExceptions.add(new ActivitiException(MessageFormat.format(errorVariableExpressionValue, (name != null ? name : "null" ))));
-                } else {
+            String name = payloadVar.getKey();
+            // Check variable name
+            if (!variableNameValidator.validate(name)) {
+                activitiExceptions.add(new ActivitiException(MessageFormat.format(errorVariableName, (name != null ? name : "null"))));
+            } else if (expressionResolver.containsExpression(payloadVar.getValue())) {
+                activitiExceptions.add(new ActivitiException(MessageFormat.format(errorVariableExpressionValue, (name != null ? name : "null"))));
+            } else {
 
-                    boolean found = validateVariablesAgainstDefinitions(variableDefinitionMap,
-                                                                        payloadVar,
-                                                                        mismatchedVars);
+                boolean found = validateVariablesAgainstDefinitions(variableDefinitionMap,
+                    payloadVar,
+                    mismatchedVars);
 
-                    if (!found) {
-                        //Try to parse a new string variable as date
-                        Object value = payloadVar.getValue();
-                        if (value != null && (value instanceof String)) {
-                            try {
-                                payloadVar.setValue(dateFormatterProvider.toDate(value));
-                            } catch (Exception e) {
-                                //Do nothing here, keep value as a string
-                            }
+                if (!found) {
+                    //Try to parse a new string variable as date
+                    Object value = payloadVar.getValue();
+                    if (value != null && (value instanceof String)) {
+                        try {
+                            payloadVar.setValue(dateFormatterProvider.toDate(value));
+                        } catch (Exception e) {
+                            //Do nothing here, keep value as a string
                         }
                     }
+                }
 
             }
         }
 
         if (!mismatchedVars.isEmpty()) {
             activitiExceptions.add(new ActivitiException(MessageFormat.format(errorVariableType,
-                                                                              String.join(", ",
-                                                                                          mismatchedVars))));
+                String.join(", ",
+                    mismatchedVars))));
         }
 
         if (!activitiExceptions.isEmpty()) {
             throw new IllegalStateException(activitiExceptions.stream()
-                                            .map(ex -> ex.getMessage())
-                                            .collect(Collectors.joining(",")));
+                .map(ex -> ex.getMessage())
+                .collect(Collectors.joining(",")));
         }
     }
 
@@ -164,34 +155,34 @@ public class ProcessVariablesPayloadValidator  {
                                       String processDefinitionId) {
 
         checkPayloadVariables(setProcessVariablesPayload.getVariables(),
-                              processDefinitionId);
+            processDefinitionId);
     }
 
     public void checkStartProcessPayloadVariables(StartProcessPayload startProcessPayload,
                                                   String processDefinitionId) {
 
         checkPayloadVariables(startProcessPayload.getVariables(),
-                             processDefinitionId);
+            processDefinitionId);
     }
 
     public void checkStartMessagePayloadVariables(StartMessagePayload startMessagePayload,
                                                   String processDefinitionId) {
 
-       checkPayloadVariables(startMessagePayload.getVariables(),
-                             processDefinitionId);
+        checkPayloadVariables(startMessagePayload.getVariables(),
+            processDefinitionId);
     }
 
     public void checkReceiveMessagePayloadVariables(ReceiveMessagePayload receiveMessagePayload,
                                                     String processDefinitionId) {
 
-       checkPayloadVariables(receiveMessagePayload.getVariables(),
-                             processDefinitionId);
+        checkPayloadVariables(receiveMessagePayload.getVariables(),
+            processDefinitionId);
     }
 
     public void checkSignalPayloadVariables(SignalPayload signalPayload,
                                             String processDefinitionId) {
 
-       checkPayloadVariables(signalPayload.getVariables(),
-                             processDefinitionId);
+        checkPayloadVariables(signalPayload.getVariables(),
+            processDefinitionId);
     }
 }

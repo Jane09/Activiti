@@ -16,10 +16,10 @@
 
 package org.activiti.engine.impl.delegate;
 
+import org.activiti.engine.delegate.DelegateExecution;
+
 import java.util.Map;
 import java.util.Optional;
-
-import org.activiti.engine.delegate.DelegateExecution;
 
 public interface MessagePayloadMappingProvider {
 

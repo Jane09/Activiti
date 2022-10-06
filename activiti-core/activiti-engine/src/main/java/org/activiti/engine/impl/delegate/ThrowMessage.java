@@ -57,6 +57,7 @@ public class ThrowMessage {
 
     /**
      * Creates builder to build {@link ThrowMessage}.
+     *
      * @return created builder
      */
     public static INameStage builder() {
@@ -69,10 +70,11 @@ public class ThrowMessage {
     public interface INameStage {
 
         /**
-        * Builder method for name parameter.
-        * @param name field to set
-        * @return builder
-        */
+         * Builder method for name parameter.
+         *
+         * @param name field to set
+         * @return builder
+         */
         public IBuildStage name(String name);
     }
 
@@ -82,30 +84,34 @@ public class ThrowMessage {
     public interface IBuildStage {
 
         /**
-        * Builder method for payload parameter.
-        * @param payload field to set
-        * @return builder
-        */
+         * Builder method for payload parameter.
+         *
+         * @param payload field to set
+         * @return builder
+         */
         public IBuildStage payload(Optional<Map<String, Object>> payload);
 
         /**
-        * Builder method for businessKey parameter.
-        * @param businessKey field to set
-        * @return builder
-        */
+         * Builder method for businessKey parameter.
+         *
+         * @param businessKey field to set
+         * @return builder
+         */
         public IBuildStage businessKey(Optional<String> businessKey);
 
         /**
-        * Builder method for correlationKey parameter.
-        * @param correlationKey field to set
-        * @return builder
-        */
+         * Builder method for correlationKey parameter.
+         *
+         * @param correlationKey field to set
+         * @return builder
+         */
         public IBuildStage correlationKey(Optional<String> correlationKey);
 
         /**
-        * Builder method of the builder.
-        * @return built class
-        */
+         * Builder method of the builder.
+         *
+         * @return built class
+         */
         public ThrowMessage build();
     }
 

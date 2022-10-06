@@ -20,7 +20,7 @@ import org.activiti.api.task.model.impl.TaskCandidateGroupImpl;
 import org.activiti.engine.task.IdentityLink;
 
 public class APITaskCandidateGroupConverter extends ListConverter<IdentityLink, TaskCandidateGroup>
-        implements ModelConverter<IdentityLink, TaskCandidateGroup> {
+    implements ModelConverter<IdentityLink, TaskCandidateGroup> {
 
     @Override
     public TaskCandidateGroup from(IdentityLink identityLink) {

@@ -16,20 +16,18 @@
 
 package org.activiti.runtime.api.impl;
 
-import static java.util.Collections.emptyMap;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.impl.bpmn.behavior.MappingExecutionContext;
 import org.activiti.engine.impl.bpmn.behavior.VariablesCalculator;
 import org.activiti.spring.process.ProcessExtensionService;
-import org.activiti.spring.process.model.ConstantDefinition;
-import org.activiti.spring.process.model.Extension;
-import org.activiti.spring.process.model.Mapping;
-import org.activiti.spring.process.model.ProcessConstantsMapping;
-import org.activiti.spring.process.model.ProcessVariablesMapping;
+import org.activiti.spring.process.model.*;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
+import static java.util.Collections.emptyMap;
 
 public class ExtensionsVariablesMappingProvider implements VariablesCalculator {
 
@@ -38,7 +36,7 @@ public class ExtensionsVariablesMappingProvider implements VariablesCalculator {
     private ExpressionResolver expressionResolver;
 
     public ExtensionsVariablesMappingProvider(ProcessExtensionService processExtensionService,
-                                    ExpressionResolver expressionResolver) {
+                                              ExpressionResolver expressionResolver) {
         this.processExtensionService = processExtensionService;
         this.expressionResolver = expressionResolver;
     }
@@ -104,10 +102,10 @@ public class ExtensionsVariablesMappingProvider implements VariablesCalculator {
         Map<String, Mapping> inputMappings = processVariablesMapping.getInputs();
         for (Map.Entry<String, Mapping> mapping : inputMappings.entrySet()) {
             Optional<Object> mappedValue = calculateMappedValue(mapping.getValue(),
-                                                                execution,
-                                                                extensions);
+                execution,
+                extensions);
             mappedValue.ifPresent(value -> inboundVariables.put(mapping.getKey(),
-                                                                value));
+                value));
         }
         return inboundVariables;
     }
@@ -142,7 +140,7 @@ public class ExtensionsVariablesMappingProvider implements VariablesCalculator {
         }
 
         if (expressionResolver.containsExpression(availableVariables)) {
-                throw new ActivitiIllegalArgumentException("Expressions are not allowed as variable values in the output mapping");
+            throw new ActivitiIllegalArgumentException("Expressions are not allowed as variable values in the output mapping");
         }
 
         return calculateOutPutVariables(mappingExecutionContext, extensions, availableVariables);
@@ -178,8 +176,8 @@ public class ExtensionsVariablesMappingProvider implements VariablesCalculator {
     }
 
     private boolean isTargetProcessVariableDefined(Extension extensions,
-                                            DelegateExecution execution,
-                                            String variableName) {
+                                                   DelegateExecution execution,
+                                                   String variableName) {
         return extensions.getPropertyByName(variableName) != null ||
             (execution != null
                 && execution.getVariable(variableName) != null);

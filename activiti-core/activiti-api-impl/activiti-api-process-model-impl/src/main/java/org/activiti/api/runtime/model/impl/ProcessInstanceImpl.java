@@ -15,10 +15,10 @@
  */
 package org.activiti.api.runtime.model.impl;
 
+import org.activiti.api.process.model.ProcessInstance;
+
 import java.util.Date;
 import java.util.Objects;
-
-import org.activiti.api.process.model.ProcessInstance;
 
 public class ProcessInstanceImpl extends ApplicationElementImpl implements ProcessInstance {
 
@@ -159,62 +159,62 @@ public class ProcessInstanceImpl extends ApplicationElementImpl implements Proce
         }
         ProcessInstanceImpl that = (ProcessInstanceImpl) o;
         return Objects.equals(id,
-                              that.id) &&
-                Objects.equals(name,
-                               that.name) &&
-                Objects.equals(processDefinitionId,
-                               that.processDefinitionId) &&
-                Objects.equals(processDefinitionKey,
-                               that.processDefinitionKey) &&
-                Objects.equals(initiator,
-                               that.initiator) &&
-                Objects.equals(startDate,
-                               that.startDate) &&
-                Objects.equals(completedDate,
-                               that.completedDate) &&
-                Objects.equals(businessKey,
-                               that.businessKey) &&
-                status == that.status &&
-                Objects.equals(parentId,
-                               that.parentId) &&
-                Objects.equals(processDefinitionVersion,
-                               that.processDefinitionVersion) &&
-                Objects.equals(processDefinitionName,
-                        that.processDefinitionName);
+            that.id) &&
+            Objects.equals(name,
+                that.name) &&
+            Objects.equals(processDefinitionId,
+                that.processDefinitionId) &&
+            Objects.equals(processDefinitionKey,
+                that.processDefinitionKey) &&
+            Objects.equals(initiator,
+                that.initiator) &&
+            Objects.equals(startDate,
+                that.startDate) &&
+            Objects.equals(completedDate,
+                that.completedDate) &&
+            Objects.equals(businessKey,
+                that.businessKey) &&
+            status == that.status &&
+            Objects.equals(parentId,
+                that.parentId) &&
+            Objects.equals(processDefinitionVersion,
+                that.processDefinitionVersion) &&
+            Objects.equals(processDefinitionName,
+                that.processDefinitionName);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(),
-                            id,
-                            name,
-                            processDefinitionId,
-                            processDefinitionKey,
-                            initiator,
-                            startDate,
-                            completedDate,
-                            businessKey,
-                            status,
-                            parentId,
-                            processDefinitionVersion,
-                            processDefinitionName);
+            id,
+            name,
+            processDefinitionId,
+            processDefinitionKey,
+            initiator,
+            startDate,
+            completedDate,
+            businessKey,
+            status,
+            parentId,
+            processDefinitionVersion,
+            processDefinitionName);
     }
 
     @Override
     public String toString() {
         return "ProcessInstance{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", processDefinitionId='" + processDefinitionId + '\'' +
-                ", processDefinitionKey='" + processDefinitionKey + '\'' +
-                ", parentId='" + parentId + '\'' +
-                ", initiator='" + initiator + '\'' +
-                ", startDate=" + startDate +
-                ", completedDate=" + completedDate +
-                ", businessKey='" + businessKey + '\'' +
-                ", status=" + status +
-                ", processDefinitionVersion='" + processDefinitionVersion + '\'' +
-                ", processDefinitionName='" + processDefinitionName + '\'' +
-                '}';
+            "id='" + id + '\'' +
+            ", name='" + name + '\'' +
+            ", processDefinitionId='" + processDefinitionId + '\'' +
+            ", processDefinitionKey='" + processDefinitionKey + '\'' +
+            ", parentId='" + parentId + '\'' +
+            ", initiator='" + initiator + '\'' +
+            ", startDate=" + startDate +
+            ", completedDate=" + completedDate +
+            ", businessKey='" + businessKey + '\'' +
+            ", status=" + status +
+            ", processDefinitionVersion='" + processDefinitionVersion + '\'' +
+            ", processDefinitionName='" + processDefinitionName + '\'' +
+            '}';
     }
 }

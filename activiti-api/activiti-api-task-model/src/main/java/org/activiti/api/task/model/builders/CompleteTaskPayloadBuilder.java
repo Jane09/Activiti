@@ -15,10 +15,10 @@
  */
 package org.activiti.api.task.model.builders;
 
+import org.activiti.api.task.model.payloads.CompleteTaskPayload;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import org.activiti.api.task.model.payloads.CompleteTaskPayload;
 
 public class CompleteTaskPayloadBuilder {
 
@@ -41,12 +41,12 @@ public class CompleteTaskPayloadBuilder {
             this.variables = new HashMap<>();
         }
         this.variables.put(name,
-                           value);
+            value);
         return this;
     }
 
     public CompleteTaskPayload build() {
         return new CompleteTaskPayload(taskId,
-                                       variables);
+            variables);
     }
 }

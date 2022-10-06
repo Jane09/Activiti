@@ -16,65 +16,21 @@
 
 package org.activiti.engine.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.activiti.bpmn.model.FlowNode;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventListener;
 import org.activiti.engine.delegate.event.ActivitiEventType;
-import org.activiti.engine.impl.cmd.DeleteProcessInstanceCmd;
-import org.activiti.engine.impl.cmd.GetExecutionVariablesCmd;
-import org.activiti.engine.impl.cmd.SetProcessInstanceBusinessKeyCmd;
-import org.activiti.engine.impl.cmd.StartCreatedProcessInstanceCmd;
-import org.activiti.engine.impl.cmd.StartProcessInstanceCmd;
-import org.activiti.engine.impl.cmd.GetExecutionVariableInstancesCmd;
-import org.activiti.engine.impl.cmd.GetExecutionsVariablesCmd;
-import org.activiti.engine.impl.cmd.GetExecutionVariableCmd;
-import org.activiti.engine.impl.cmd.SetProcessInstanceNameCmd;
-import org.activiti.engine.impl.cmd.ExecuteActivityForAdhocSubProcessCmd;
-import org.activiti.engine.impl.cmd.CompleteAdhocSubProcessCmd;
-import org.activiti.engine.impl.cmd.ActivateProcessInstanceCmd;
-import org.activiti.engine.impl.cmd.FindActiveActivityIdsCmd;
-import org.activiti.engine.impl.cmd.SuspendProcessInstanceCmd;
-import org.activiti.engine.impl.cmd.CreateProcessInstanceCmd;
-import org.activiti.engine.impl.cmd.DispatchEventCommand;
-import org.activiti.engine.impl.cmd.GetEnabledActivitiesForAdhocSubProcessCmd;
-import org.activiti.engine.impl.cmd.GetIdentityLinksForProcessInstanceCmd;
-import org.activiti.engine.impl.cmd.AddEventListenerCommand;
-import org.activiti.engine.impl.cmd.SignalEventReceivedCmd;
-import org.activiti.engine.impl.cmd.MessageEventReceivedCmd;
-import org.activiti.engine.impl.cmd.DeleteIdentityLinkForProcessInstanceCmd;
-import org.activiti.engine.impl.cmd.SetExecutionVariablesCmd;
-import org.activiti.engine.impl.cmd.GetExecutionVariableInstanceCmd;
-import org.activiti.engine.impl.cmd.HasExecutionVariableCmd;
-import org.activiti.engine.impl.cmd.RemoveExecutionVariablesCmd;
-import org.activiti.engine.impl.cmd.GetDataObjectsCmd;
-import org.activiti.engine.impl.cmd.GetDataObjectCmd;
-import org.activiti.engine.impl.cmd.RemoveEventListenerCommand;
-import org.activiti.engine.impl.cmd.StartProcessInstanceByMessageCmd;
-import org.activiti.engine.impl.cmd.TriggerCmd;
-import org.activiti.engine.impl.cmd.GetProcessInstanceEventsCmd;
-import org.activiti.engine.impl.cmd.AddIdentityLinkForProcessInstanceCmd;
+import org.activiti.engine.impl.cmd.*;
 import org.activiti.engine.impl.persistence.entity.VariableInstance;
 import org.activiti.engine.impl.runtime.ProcessInstanceBuilderImpl;
-import org.activiti.engine.runtime.DataObject;
-import org.activiti.engine.runtime.Execution;
-import org.activiti.engine.runtime.ExecutionQuery;
-import org.activiti.engine.runtime.NativeExecutionQuery;
-import org.activiti.engine.runtime.NativeProcessInstanceQuery;
-import org.activiti.engine.runtime.ProcessInstance;
-import org.activiti.engine.runtime.ProcessInstanceBuilder;
-import org.activiti.engine.runtime.ProcessInstanceQuery;
+import org.activiti.engine.runtime.*;
 import org.activiti.engine.task.Event;
 import org.activiti.engine.task.IdentityLink;
 import org.activiti.engine.task.IdentityLinkType;
+
+import java.util.*;
 
 
 public class RuntimeServiceImpl extends ServiceImpl implements RuntimeService {

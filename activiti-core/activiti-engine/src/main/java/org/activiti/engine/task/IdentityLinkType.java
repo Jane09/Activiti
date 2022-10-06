@@ -23,21 +23,19 @@ import org.activiti.engine.TaskService;
  *
  * @see TaskService#addUserIdentityLink(String, String, String)
  * @see TaskService#addGroupIdentityLink(String, String, String)
- *
-
  */
 public class IdentityLinkType {
 
-  /* Activiti native roles */
+    /* Activiti native roles */
 
-  public static final String ASSIGNEE = "assignee";
+    public static final String ASSIGNEE = "assignee";
 
-  public static final String CANDIDATE = "candidate";
+    public static final String CANDIDATE = "candidate";
 
-  public static final String OWNER = "owner";
+    public static final String OWNER = "owner";
 
-  public static final String STARTER = "starter";
+    public static final String STARTER = "starter";
 
-  public static final String PARTICIPANT = "participant";
+    public static final String PARTICIPANT = "participant";
 
 }

@@ -15,39 +15,17 @@
  */
 package org.activiti.test.config;
 
-import java.util.List;
-
 import org.activiti.api.model.shared.event.VariableCreatedEvent;
 import org.activiti.api.model.shared.event.VariableDeletedEvent;
 import org.activiti.api.model.shared.event.VariableUpdatedEvent;
-import org.activiti.api.process.model.events.BPMNActivityCancelledEvent;
-import org.activiti.api.process.model.events.BPMNActivityCompletedEvent;
-import org.activiti.api.process.model.events.BPMNActivityStartedEvent;
-import org.activiti.api.process.model.events.BPMNErrorReceivedEvent;
-import org.activiti.api.process.model.events.BPMNSequenceFlowTakenEvent;
-import org.activiti.api.process.model.events.BPMNSignalReceivedEvent;
-import org.activiti.api.process.model.events.BPMNTimerCancelledEvent;
-import org.activiti.api.process.model.events.BPMNTimerExecutedEvent;
-import org.activiti.api.process.model.events.BPMNTimerFailedEvent;
-import org.activiti.api.process.model.events.BPMNTimerFiredEvent;
-import org.activiti.api.process.model.events.BPMNTimerScheduledEvent;
+import org.activiti.api.process.model.events.*;
 import org.activiti.api.process.runtime.ProcessRuntime;
-import org.activiti.api.process.runtime.events.ProcessCancelledEvent;
-import org.activiti.api.process.runtime.events.ProcessCompletedEvent;
-import org.activiti.api.process.runtime.events.ProcessCreatedEvent;
-import org.activiti.api.process.runtime.events.ProcessResumedEvent;
-import org.activiti.api.process.runtime.events.ProcessStartedEvent;
-import org.activiti.api.process.runtime.events.ProcessSuspendedEvent;
+import org.activiti.api.process.runtime.events.*;
 import org.activiti.api.process.runtime.events.listener.BPMNElementEventListener;
 import org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener;
 import org.activiti.api.runtime.shared.events.VariableEventListener;
 import org.activiti.api.task.runtime.TaskRuntime;
-import org.activiti.api.task.runtime.events.TaskAssignedEvent;
-import org.activiti.api.task.runtime.events.TaskCancelledEvent;
-import org.activiti.api.task.runtime.events.TaskCompletedEvent;
-import org.activiti.api.task.runtime.events.TaskCreatedEvent;
-import org.activiti.api.task.runtime.events.TaskSuspendedEvent;
-import org.activiti.api.task.runtime.events.TaskUpdatedEvent;
+import org.activiti.api.task.runtime.events.*;
 import org.activiti.api.task.runtime.events.listener.TaskEventListener;
 import org.activiti.test.EventSource;
 import org.activiti.test.LocalEventSource;
@@ -57,6 +35,8 @@ import org.activiti.test.operations.ProcessRuntimeOperations;
 import org.activiti.test.operations.TaskRuntimeOperations;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.List;
 
 @Configuration
 public class ActivitiAssertionsAutoConfiguration {
@@ -78,8 +58,8 @@ public class ActivitiAssertionsAutoConfiguration {
                                                              EventSource eventSource,
                                                              List<TaskSource> taskSources) {
         return new ProcessRuntimeOperations(processRuntime,
-                                            eventSource,
-                                            taskSources);
+            eventSource,
+            taskSources);
     }
 
     @Bean
@@ -87,8 +67,8 @@ public class ActivitiAssertionsAutoConfiguration {
                                                        EventSource eventSource,
                                                        List<TaskSource> taskSources) {
         return new TaskRuntimeOperations(taskRuntime,
-                                         eventSource,
-                                         taskSources);
+            eventSource,
+            taskSources);
     }
 
     @Bean
@@ -192,32 +172,32 @@ public class ActivitiAssertionsAutoConfiguration {
     }
 
     @Bean
-    public  BPMNElementEventListener<BPMNTimerScheduledEvent> keepInMemoryTimerScheduledListener() {
+    public BPMNElementEventListener<BPMNTimerScheduledEvent> keepInMemoryTimerScheduledListener() {
         return localEventProvider::addCollectedEvents;
     }
 
     @Bean
-    public  BPMNElementEventListener<BPMNTimerFiredEvent> keepInMemoryTimerFiredListener() {
+    public BPMNElementEventListener<BPMNTimerFiredEvent> keepInMemoryTimerFiredListener() {
         return localEventProvider::addCollectedEvents;
     }
 
     @Bean
-    public  BPMNElementEventListener<BPMNTimerExecutedEvent> keepInMemoryTimerExecutedListener() {
+    public BPMNElementEventListener<BPMNTimerExecutedEvent> keepInMemoryTimerExecutedListener() {
         return localEventProvider::addCollectedEvents;
     }
 
     @Bean
-    public  BPMNElementEventListener<BPMNTimerFailedEvent> keepInMemoryTimerFailedListener() {
+    public BPMNElementEventListener<BPMNTimerFailedEvent> keepInMemoryTimerFailedListener() {
         return localEventProvider::addCollectedEvents;
     }
 
     @Bean
-    public  BPMNElementEventListener<BPMNTimerCancelledEvent> keepInMemoryTimerCancelledListener() {
+    public BPMNElementEventListener<BPMNTimerCancelledEvent> keepInMemoryTimerCancelledListener() {
         return localEventProvider::addCollectedEvents;
     }
 
     @Bean
-    public  BPMNElementEventListener<BPMNErrorReceivedEvent> keepInMemoryErrorReceivedListener() {
+    public BPMNElementEventListener<BPMNErrorReceivedEvent> keepInMemoryErrorReceivedListener() {
         return localEventProvider::addCollectedEvents;
     }
 

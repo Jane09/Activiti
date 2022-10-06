@@ -47,7 +47,7 @@ public class ToTaskCompletedConverterTest {
         //given
         Task internalTask = mock(Task.class);
         org.activiti.api.task.model.Task apiTask = mock(org.activiti.api.task.model.Task.class);
-        String loginUser="hruser";
+        String loginUser = "hruser";
         given(securityManager.getAuthenticatedUserId()).willReturn(loginUser);
         given(taskConverter.fromWithCompletedBy(internalTask, org.activiti.api.task.model.Task.TaskStatus.COMPLETED, loginUser)).willReturn(apiTask);
 

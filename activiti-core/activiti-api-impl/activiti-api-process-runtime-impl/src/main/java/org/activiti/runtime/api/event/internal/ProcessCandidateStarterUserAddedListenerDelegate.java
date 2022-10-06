@@ -40,11 +40,11 @@ public class ProcessCandidateStarterUserAddedListenerDelegate implements Activit
     public void onEvent(ActivitiEvent event) {
         if (event instanceof ActivitiEntityEvent) {
             processCandidateStarterUserAddedEventConverter.from((ActivitiEntityEvent) event)
-                    .ifPresent(convertedEvent -> {
-                        for (ProcessRuntimeEventListener<ProcessCandidateStarterUserAddedEvent> listener : listeners ) {
-                            listener.onEvent(convertedEvent);
-                        }
-                    });
+                .ifPresent(convertedEvent -> {
+                    for (ProcessRuntimeEventListener<ProcessCandidateStarterUserAddedEvent> listener : listeners) {
+                        listener.onEvent(convertedEvent);
+                    }
+                });
         }
     }
 

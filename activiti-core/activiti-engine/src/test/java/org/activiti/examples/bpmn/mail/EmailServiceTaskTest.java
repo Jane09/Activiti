@@ -17,17 +17,18 @@
 
 package org.activiti.examples.bpmn.mail;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.mail.internet.MimeMessage;
 import org.activiti.engine.impl.test.PluggableActivitiTestCase;
 import org.activiti.engine.test.Deployment;
 import org.subethamail.wiser.Wiser;
 import org.subethamail.wiser.WiserMessage;
+
+import javax.mail.internet.MimeMessage;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class EmailServiceTaskTest extends PluggableActivitiTestCase {
 

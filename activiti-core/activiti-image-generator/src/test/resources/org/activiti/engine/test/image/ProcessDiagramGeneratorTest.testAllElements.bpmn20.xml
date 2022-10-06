@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:activiti="http://activiti.org/bpmn"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
+             typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath"
+             targetNamespace="http://www.activiti.org/test">
   <collaboration id="Collaboration">
     <participant id="pool1" name="Pool" processRef="process_pool1"></participant>
     <participant id="pool2" name="Pool" processRef="process_pool2"></participant>
@@ -13,9 +18,11 @@
     <userTask id="usertask1" name="User Task"></userTask>
     <scriptTask id="scripttask1" name="Script Task" activiti:autoStoreVariables="false">
       <script>function execute(){
-}</script>
+        }
+      </script>
     </scriptTask>
-    <serviceTask id="servicetask1" name="Service Task" activiti:async="true" activiti:class="org.activiti.TestJavaDelegate"></serviceTask>
+    <serviceTask id="servicetask1" name="Service Task" activiti:async="true"
+                 activiti:class="org.activiti.TestJavaDelegate"></serviceTask>
     <serviceTask id="mailtask1" name="Mail Task" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
@@ -61,11 +68,16 @@
     <sequenceFlow id="flow6" sourceRef="manualtask1" targetRef="receivetask1"></sequenceFlow>
     <sequenceFlow id="flow7" sourceRef="receivetask1" targetRef="callactivity1"></sequenceFlow>
     <sequenceFlow id="flow8" sourceRef="callactivity1" targetRef="timerintermediatecatchevent1"></sequenceFlow>
-    <sequenceFlow id="flow9" sourceRef="timerintermediatecatchevent1" targetRef="signalintermediatecatchevent1"></sequenceFlow>
-    <sequenceFlow id="flow10" sourceRef="signalintermediatecatchevent1" targetRef="messageintermediatecatchevent1"></sequenceFlow>
-    <sequenceFlow id="flow11" sourceRef="messageintermediatecatchevent1" targetRef="signalintermediatethrowevent1"></sequenceFlow>
-    <sequenceFlow id="flow12" sourceRef="signalintermediatethrowevent1" targetRef="compensationintermediatethrowevent1"></sequenceFlow>
-    <sequenceFlow id="flow13" sourceRef="compensationintermediatethrowevent1" targetRef="noneintermediatethrowevent1"></sequenceFlow>
+    <sequenceFlow id="flow9" sourceRef="timerintermediatecatchevent1"
+                  targetRef="signalintermediatecatchevent1"></sequenceFlow>
+    <sequenceFlow id="flow10" sourceRef="signalintermediatecatchevent1"
+                  targetRef="messageintermediatecatchevent1"></sequenceFlow>
+    <sequenceFlow id="flow11" sourceRef="messageintermediatecatchevent1"
+                  targetRef="signalintermediatethrowevent1"></sequenceFlow>
+    <sequenceFlow id="flow12" sourceRef="signalintermediatethrowevent1"
+                  targetRef="compensationintermediatethrowevent1"></sequenceFlow>
+    <sequenceFlow id="flow13" sourceRef="compensationintermediatethrowevent1"
+                  targetRef="noneintermediatethrowevent1"></sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow14" sourceRef="noneintermediatethrowevent1" targetRef="parallelgateway1"></sequenceFlow>
     <parallelGateway id="parallelgateway1" name="Parallel Gateway"></parallelGateway>
@@ -148,7 +160,8 @@
       <startEvent id="startevent3" name="Start"></startEvent>
       <scriptTask id="scripttask2" name="Script Task" activiti:autoStoreVariables="false">
         <script>function execute(){
-}</script>
+          }
+        </script>
       </scriptTask>
       <exclusiveGateway id="exclusivegateway5" name="Exclusive Gateway"></exclusiveGateway>
       <sequenceFlow id="flow43" sourceRef="startevent3" targetRef="scripttask2"></sequenceFlow>
@@ -170,7 +183,8 @@
     <sequenceFlow id="flow48" sourceRef="usertask11" targetRef="endevent5"></sequenceFlow>
     <scriptTask id="scripttask3" name="Script Task" activiti:autoStoreVariables="false">
       <script>function execute(){
-}</script>
+        }
+      </script>
     </scriptTask>
     <sequenceFlow id="flow49" sourceRef="transaction1" targetRef="scripttask3"></sequenceFlow>
     <boundaryEvent id="boundarycompensation1" name="Compensate" attachedToRef="scripttask3" cancelActivity="true">
@@ -327,7 +341,8 @@
       <bpmndi:BPMNShape bpmnElement="signalintermediatethrowevent1" id="BPMNShape_signalintermediatethrowevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="385.0" y="210.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="compensationintermediatethrowevent1" id="BPMNShape_compensationintermediatethrowevent1">
+      <bpmndi:BPMNShape bpmnElement="compensationintermediatethrowevent1"
+                        id="BPMNShape_compensationintermediatethrowevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="515.0" y="210.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="noneintermediatethrowevent1" id="BPMNShape_noneintermediatethrowevent1">

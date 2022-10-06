@@ -7,10 +7,10 @@
   <bean id="processEngineConfiguration" class="org.activiti.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration">
 
     <!-- Database configurations -->
-    <property name="jdbcUrl" value="jdbc:h2:tcp://non-existing-host/non-existing-db;DB_CLOSE_DELAY=1000" />
+    <property name="jdbcUrl" value="jdbc:h2:tcp://non-existing-host/non-existing-db;DB_CLOSE_DELAY=1000"/>
 
     <!-- job executor configurations -->
-    <property name="asyncExecutorActivate" value="false" />
+    <property name="asyncExecutorActivate" value="false"/>
 
   </bean>
 

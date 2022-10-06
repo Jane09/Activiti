@@ -15,10 +15,10 @@
  */
 package org.activiti.engine.impl.persistence.entity.integration;
 
+import org.activiti.engine.impl.persistence.entity.AbstractEntity;
+
 import java.util.Date;
 import java.util.HashMap;
-
-import org.activiti.engine.impl.persistence.entity.AbstractEntity;
 
 public class IntegrationContextEntityImpl extends AbstractEntity implements IntegrationContextEntity {
 

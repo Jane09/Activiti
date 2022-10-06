@@ -21,13 +21,12 @@ import org.activiti.engine.impl.db.IdBlock;
 
 /**
  * generates {@link IdBlock}s that are used to assign ids to new objects.
- *
+ * <p>
  * The scope of an instance of this class is process engine, which means that there is only one instance in one process engine instance.
- *
  */
 @Internal
 public interface IdGenerator {
 
-  String getNextId();
+    String getNextId();
 
 }

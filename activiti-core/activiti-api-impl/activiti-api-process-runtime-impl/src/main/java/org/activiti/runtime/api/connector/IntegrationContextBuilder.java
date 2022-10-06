@@ -16,8 +16,6 @@
 
 package org.activiti.runtime.api.connector;
 
-import java.util.Objects;
-
 import org.activiti.api.process.model.IntegrationContext;
 import org.activiti.api.runtime.model.impl.IntegrationContextImpl;
 import org.activiti.bpmn.model.ServiceTask;
@@ -32,6 +30,8 @@ import org.activiti.runtime.api.impl.ExtensionsVariablesMappingProvider;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Objects;
 
 public class IntegrationContextBuilder {
 
@@ -73,7 +73,7 @@ public class IntegrationContextBuilder {
 
             if (processInstance != null) {
                 integrationContext.setParentProcessInstanceId(processInstance.getParentProcessInstanceId());
-                integrationContext.setAppVersion(Objects.toString(processInstance.getAppVersion(),"1"));
+                integrationContext.setAppVersion(Objects.toString(processInstance.getAppVersion(), "1"));
 
             }
 
@@ -106,7 +106,7 @@ public class IntegrationContextBuilder {
         if (StringUtils.isNotEmpty(clientName)) {
             try {
                 return (String) expressionManager.createExpression(clientName)
-                                                 .getValue(execution);
+                    .getValue(execution);
             } catch (ActivitiException e) {
                 LOGGER.warn("property not found in service task name expression " + e.getMessage());
             }

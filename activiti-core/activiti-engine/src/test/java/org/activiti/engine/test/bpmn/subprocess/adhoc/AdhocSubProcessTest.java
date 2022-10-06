@@ -17,14 +17,6 @@
 
 package org.activiti.engine.test.bpmn.subprocess.adhoc;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.activiti.bpmn.model.FlowNode;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.history.HistoricTaskInstance;
@@ -35,371 +27,379 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.test.Deployment;
 
-/**
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+
+/**
+ *
  */
 public class AdhocSubProcessTest extends PluggableActivitiTestCase {
 
-  @Deployment
-  public void testSimpleAdhocSubProcess() {
-    ProcessInstance pi = runtimeService.startProcessInstanceByKey("simpleSubProcess");
-    Execution execution = runtimeService.createExecutionQuery().activityId("adhocSubProcess").singleResult();
-    assertThat(execution).isNotNull();
+    @Deployment
+    public void testSimpleAdhocSubProcess() {
+        ProcessInstance pi = runtimeService.startProcessInstanceByKey("simpleSubProcess");
+        Execution execution = runtimeService.createExecutionQuery().activityId("adhocSubProcess").singleResult();
+        assertThat(execution).isNotNull();
 
-    List<FlowNode> enabledActivities = runtimeService.getEnabledActivitiesFromAdhocSubProcess(execution.getId());
-    assertThat(enabledActivities).hasSize(2);
+        List<FlowNode> enabledActivities = runtimeService.getEnabledActivitiesFromAdhocSubProcess(execution.getId());
+        assertThat(enabledActivities).hasSize(2);
 
-    Execution newTaskExecution = runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask");
-    assertThat(newTaskExecution).isNotNull();
-    assertThat(newTaskExecution.getId()).isNotNull();
+        Execution newTaskExecution = runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask");
+        assertThat(newTaskExecution).isNotNull();
+        assertThat(newTaskExecution.getId()).isNotNull();
 
-    Task subProcessTask = taskService.createTaskQuery().processInstanceId(pi.getId()).taskDefinitionKey("subProcessTask").singleResult();
-    assertThat(subProcessTask.getName()).isEqualTo("Task in subprocess");
+        Task subProcessTask = taskService.createTaskQuery().processInstanceId(pi.getId()).taskDefinitionKey("subProcessTask").singleResult();
+        assertThat(subProcessTask.getName()).isEqualTo("Task in subprocess");
 
-    taskService.complete(subProcessTask.getId());
+        taskService.complete(subProcessTask.getId());
 
-    enabledActivities = runtimeService.getEnabledActivitiesFromAdhocSubProcess(execution.getId());
-    assertThat(enabledActivities).hasSize(2);
+        enabledActivities = runtimeService.getEnabledActivitiesFromAdhocSubProcess(execution.getId());
+        assertThat(enabledActivities).hasSize(2);
 
-    runtimeService.completeAdhocSubProcess(execution.getId());
+        runtimeService.completeAdhocSubProcess(execution.getId());
 
-    Task afterTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
-    assertThat(afterTask.getName()).isEqualTo("After task");
+        Task afterTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
+        assertThat(afterTask.getName()).isEqualTo("After task");
 
-    taskService.complete(afterTask.getId());
+        taskService.complete(afterTask.getId());
 
-    assertThat(runtimeService.createProcessInstanceQuery().processInstanceId(pi.getId()).singleResult()).isNull();
-  }
-
-  @Deployment
-  public void testSimpleCompletionCondition() {
-    Map<String, Object> variableMap = new HashMap<String, Object>();
-    variableMap.put("completed", false);
-    ProcessInstance pi = runtimeService.startProcessInstanceByKey("simpleSubProcess", variableMap);
-    Execution execution = runtimeService.createExecutionQuery().activityId("adhocSubProcess").singleResult();
-    assertThat(execution).isNotNull();
-
-    List<FlowNode> enabledActivities = runtimeService.getEnabledActivitiesFromAdhocSubProcess(execution.getId());
-    assertThat(enabledActivities).hasSize(2);
-
-    Execution newTaskExecution = runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask");
-    assertThat(newTaskExecution).isNotNull();
-    assertThat(newTaskExecution.getId()).isNotNull();
-
-    Task subProcessTask = taskService.createTaskQuery().processInstanceId(pi.getId()).taskDefinitionKey("subProcessTask").singleResult();
-    assertThat(subProcessTask.getName()).isEqualTo("Task in subprocess");
-
-    taskService.complete(subProcessTask.getId());
-
-    enabledActivities = runtimeService.getEnabledActivitiesFromAdhocSubProcess(execution.getId());
-    assertThat(enabledActivities).hasSize(2);
-
-    newTaskExecution = runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask2");
-
-    subProcessTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
-    assertThat(subProcessTask.getName()).isEqualTo("Task2 in subprocess");
-
-    variableMap = new HashMap<String, Object>();
-    variableMap.put("completed", true);
-    taskService.complete(subProcessTask.getId(), variableMap);
-
-    Task afterTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
-    assertThat(afterTask.getName()).isEqualTo("After task");
-
-    taskService.complete(afterTask.getId());
-
-    if (processEngineConfiguration.getHistoryLevel().isAtLeast(HistoryLevel.AUDIT)) {
-
-      List<HistoricTaskInstance> historicTasks = historyService.createHistoricTaskInstanceQuery()
-          .processInstanceId(pi.getId())
-          .orderByHistoricTaskInstanceEndTime()
-          .asc()
-          .list();
-
-      assertThat(historicTasks).hasSize(3);
-      List<String> taskDefinitionKeys = new ArrayList<String>(3);
-      taskDefinitionKeys.add(historicTasks.get(0).getTaskDefinitionKey());
-      taskDefinitionKeys.add(historicTasks.get(1).getTaskDefinitionKey());
-      taskDefinitionKeys.add(historicTasks.get(2).getTaskDefinitionKey());
-      assertThat(taskDefinitionKeys.contains("subProcessTask")).isTrue();
-      assertThat(taskDefinitionKeys.contains("subProcessTask2")).isTrue();
-      assertThat(taskDefinitionKeys.contains("afterTask")).isTrue();
-
+        assertThat(runtimeService.createProcessInstanceQuery().processInstanceId(pi.getId()).singleResult()).isNull();
     }
 
-    assertThat(runtimeService.createProcessInstanceQuery().processInstanceId(pi.getId()).singleResult()).isNull();
-  }
+    @Deployment
+    public void testSimpleCompletionCondition() {
+        Map<String, Object> variableMap = new HashMap<String, Object>();
+        variableMap.put("completed", false);
+        ProcessInstance pi = runtimeService.startProcessInstanceByKey("simpleSubProcess", variableMap);
+        Execution execution = runtimeService.createExecutionQuery().activityId("adhocSubProcess").singleResult();
+        assertThat(execution).isNotNull();
 
-  @Deployment
-  public void testParallelAdhocSubProcess() {
-    Map<String, Object> variableMap = new HashMap<String, Object>();
-    variableMap.put("completed", false);
-    ProcessInstance pi = runtimeService.startProcessInstanceByKey("simpleSubProcess", variableMap);
-    Execution execution = runtimeService.createExecutionQuery().activityId("adhocSubProcess").singleResult();
-    assertThat(execution).isNotNull();
+        List<FlowNode> enabledActivities = runtimeService.getEnabledActivitiesFromAdhocSubProcess(execution.getId());
+        assertThat(enabledActivities).hasSize(2);
 
-    List<FlowNode> enabledActivities = runtimeService.getEnabledActivitiesFromAdhocSubProcess(execution.getId());
-    assertThat(enabledActivities).hasSize(2);
+        Execution newTaskExecution = runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask");
+        assertThat(newTaskExecution).isNotNull();
+        assertThat(newTaskExecution.getId()).isNotNull();
 
-    runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask");
-    Task subProcessTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
-    assertThat(subProcessTask.getName()).isEqualTo("Task in subprocess");
+        Task subProcessTask = taskService.createTaskQuery().processInstanceId(pi.getId()).taskDefinitionKey("subProcessTask").singleResult();
+        assertThat(subProcessTask.getName()).isEqualTo("Task in subprocess");
 
-    runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask2");
-    List<Task> tasks = taskService.createTaskQuery().processInstanceId(pi.getId()).list();
-    assertThat(tasks).hasSize(2);
+        taskService.complete(subProcessTask.getId());
 
-    variableMap = new HashMap<String, Object>();
-    variableMap.put("completed", true);
-    taskService.complete(subProcessTask.getId(), variableMap);
+        enabledActivities = runtimeService.getEnabledActivitiesFromAdhocSubProcess(execution.getId());
+        assertThat(enabledActivities).hasSize(2);
 
-    Task afterTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
-    assertThat(afterTask.getName()).isEqualTo("After task");
+        newTaskExecution = runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask2");
 
-    taskService.complete(afterTask.getId());
+        subProcessTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
+        assertThat(subProcessTask.getName()).isEqualTo("Task2 in subprocess");
 
-    assertThat(runtimeService.createProcessInstanceQuery().processInstanceId(pi.getId()).singleResult()).isNull();
-  }
+        variableMap = new HashMap<String, Object>();
+        variableMap.put("completed", true);
+        taskService.complete(subProcessTask.getId(), variableMap);
 
-  @Deployment
-  public void testSequentialAdhocSubProcess() {
-    Map<String, Object> variableMap = new HashMap<String, Object>();
-    variableMap.put("completed", false);
-    ProcessInstance pi = runtimeService.startProcessInstanceByKey("simpleSubProcess", variableMap);
-    Execution execution = runtimeService.createExecutionQuery().activityId("adhocSubProcess").singleResult();
-    assertThat(execution).isNotNull();
+        Task afterTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
+        assertThat(afterTask.getName()).isEqualTo("After task");
 
-    List<FlowNode> enabledActivities = runtimeService.getEnabledActivitiesFromAdhocSubProcess(execution.getId());
-    assertThat(enabledActivities).hasSize(2);
+        taskService.complete(afterTask.getId());
 
-    runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask");
-    Task subProcessTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
-    assertThat(subProcessTask.getName()).isEqualTo("Task in subprocess");
+        if (processEngineConfiguration.getHistoryLevel().isAtLeast(HistoryLevel.AUDIT)) {
 
-    assertThatExceptionOfType(ActivitiException.class)
-      .as("exception expected because can only enable one activity in a sequential ad-hoc sub process")
-      .isThrownBy(() -> runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask2"));
+            List<HistoricTaskInstance> historicTasks = historyService.createHistoricTaskInstanceQuery()
+                .processInstanceId(pi.getId())
+                .orderByHistoricTaskInstanceEndTime()
+                .asc()
+                .list();
 
-    taskService.complete(subProcessTask.getId());
+            assertThat(historicTasks).hasSize(3);
+            List<String> taskDefinitionKeys = new ArrayList<String>(3);
+            taskDefinitionKeys.add(historicTasks.get(0).getTaskDefinitionKey());
+            taskDefinitionKeys.add(historicTasks.get(1).getTaskDefinitionKey());
+            taskDefinitionKeys.add(historicTasks.get(2).getTaskDefinitionKey());
+            assertThat(taskDefinitionKeys.contains("subProcessTask")).isTrue();
+            assertThat(taskDefinitionKeys.contains("subProcessTask2")).isTrue();
+            assertThat(taskDefinitionKeys.contains("afterTask")).isTrue();
 
-    // now we can enable the activity
-    runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask2");
+        }
 
-    subProcessTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
-    assertThat(subProcessTask.getName()).isEqualTo("Task2 in subprocess");
+        assertThat(runtimeService.createProcessInstanceQuery().processInstanceId(pi.getId()).singleResult()).isNull();
+    }
 
-    variableMap = new HashMap<String, Object>();
-    variableMap.put("completed", true);
-    taskService.complete(subProcessTask.getId(), variableMap);
+    @Deployment
+    public void testParallelAdhocSubProcess() {
+        Map<String, Object> variableMap = new HashMap<String, Object>();
+        variableMap.put("completed", false);
+        ProcessInstance pi = runtimeService.startProcessInstanceByKey("simpleSubProcess", variableMap);
+        Execution execution = runtimeService.createExecutionQuery().activityId("adhocSubProcess").singleResult();
+        assertThat(execution).isNotNull();
 
-    Task afterTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
-    assertThat(afterTask.getName()).isEqualTo("After task");
+        List<FlowNode> enabledActivities = runtimeService.getEnabledActivitiesFromAdhocSubProcess(execution.getId());
+        assertThat(enabledActivities).hasSize(2);
 
-    taskService.complete(afterTask.getId());
+        runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask");
+        Task subProcessTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
+        assertThat(subProcessTask.getName()).isEqualTo("Task in subprocess");
 
-    assertThat(runtimeService.createProcessInstanceQuery().processInstanceId(pi.getId()).singleResult()).isNull();
-  }
+        runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask2");
+        List<Task> tasks = taskService.createTaskQuery().processInstanceId(pi.getId()).list();
+        assertThat(tasks).hasSize(2);
 
-  @Deployment
-  public void testFlowsInAdhocSubProcess() {
-    Map<String, Object> variableMap = new HashMap<String, Object>();
-    variableMap.put("completed", false);
-    ProcessInstance pi = runtimeService.startProcessInstanceByKey("simpleSubProcess", variableMap);
-    Execution execution = runtimeService.createExecutionQuery().activityId("adhocSubProcess").singleResult();
-    assertThat(execution).isNotNull();
+        variableMap = new HashMap<String, Object>();
+        variableMap.put("completed", true);
+        taskService.complete(subProcessTask.getId(), variableMap);
 
-    List<FlowNode> enabledActivities = runtimeService.getEnabledActivitiesFromAdhocSubProcess(execution.getId());
-    assertThat(enabledActivities).hasSize(2);
+        Task afterTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
+        assertThat(afterTask.getName()).isEqualTo("After task");
 
-    runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask");
-    Task subProcessTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
-    assertThat(subProcessTask.getName()).isEqualTo("Task in subprocess");
+        taskService.complete(afterTask.getId());
 
-    taskService.complete(subProcessTask.getId());
+        assertThat(runtimeService.createProcessInstanceQuery().processInstanceId(pi.getId()).singleResult()).isNull();
+    }
 
-    assertThatExceptionOfType(ActivitiException.class)
-      .as("exception expected because can only enable one activity in a sequential ad-hoc sub process")
-      .isThrownBy(() -> runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask2"));
+    @Deployment
+    public void testSequentialAdhocSubProcess() {
+        Map<String, Object> variableMap = new HashMap<String, Object>();
+        variableMap.put("completed", false);
+        ProcessInstance pi = runtimeService.startProcessInstanceByKey("simpleSubProcess", variableMap);
+        Execution execution = runtimeService.createExecutionQuery().activityId("adhocSubProcess").singleResult();
+        assertThat(execution).isNotNull();
 
-    subProcessTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
-    assertThat(subProcessTask.getName()).isEqualTo("The next task");
+        List<FlowNode> enabledActivities = runtimeService.getEnabledActivitiesFromAdhocSubProcess(execution.getId());
+        assertThat(enabledActivities).hasSize(2);
 
-    variableMap = new HashMap<String, Object>();
-    variableMap.put("completed", true);
-    taskService.complete(subProcessTask.getId(), variableMap);
+        runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask");
+        Task subProcessTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
+        assertThat(subProcessTask.getName()).isEqualTo("Task in subprocess");
 
-    Task afterTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
-    assertThat(afterTask.getName()).isEqualTo("After task");
+        assertThatExceptionOfType(ActivitiException.class)
+            .as("exception expected because can only enable one activity in a sequential ad-hoc sub process")
+            .isThrownBy(() -> runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask2"));
 
-    taskService.complete(afterTask.getId());
+        taskService.complete(subProcessTask.getId());
 
-    assertThat(runtimeService.createProcessInstanceQuery().processInstanceId(pi.getId()).singleResult()).isNull();
-  }
+        // now we can enable the activity
+        runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask2");
 
-  @Deployment(resources="org/activiti/engine/test/bpmn/subprocess/adhoc/AdhocSubProcessTest.testFlowsInAdhocSubProcess.bpmn20.xml")
-  public void testCompleteFlowBeforeEndInAdhocSubProcess() {
-    Map<String, Object> variableMap = new HashMap<String, Object>();
-    variableMap.put("completed", false);
-    ProcessInstance pi = runtimeService.startProcessInstanceByKey("simpleSubProcess", variableMap);
-    Execution execution = runtimeService.createExecutionQuery().activityId("adhocSubProcess").singleResult();
-    assertThat(execution).isNotNull();
+        subProcessTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
+        assertThat(subProcessTask.getName()).isEqualTo("Task2 in subprocess");
 
-    List<FlowNode> enabledActivities = runtimeService.getEnabledActivitiesFromAdhocSubProcess(execution.getId());
-    assertThat(enabledActivities).hasSize(2);
+        variableMap = new HashMap<String, Object>();
+        variableMap.put("completed", true);
+        taskService.complete(subProcessTask.getId(), variableMap);
 
-    runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask");
-    Task subProcessTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
-    assertThat(subProcessTask.getName()).isEqualTo("Task in subprocess");
+        Task afterTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
+        assertThat(afterTask.getName()).isEqualTo("After task");
 
-    variableMap = new HashMap<String, Object>();
-    variableMap.put("completed", true);
-    taskService.complete(subProcessTask.getId(), variableMap);
+        taskService.complete(afterTask.getId());
 
-    Task afterTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
-    assertThat(afterTask.getName()).isEqualTo("After task");
+        assertThat(runtimeService.createProcessInstanceQuery().processInstanceId(pi.getId()).singleResult()).isNull();
+    }
 
-    taskService.complete(afterTask.getId());
+    @Deployment
+    public void testFlowsInAdhocSubProcess() {
+        Map<String, Object> variableMap = new HashMap<String, Object>();
+        variableMap.put("completed", false);
+        ProcessInstance pi = runtimeService.startProcessInstanceByKey("simpleSubProcess", variableMap);
+        Execution execution = runtimeService.createExecutionQuery().activityId("adhocSubProcess").singleResult();
+        assertThat(execution).isNotNull();
 
-    assertThat(runtimeService.createProcessInstanceQuery().processInstanceId(pi.getId()).singleResult()).isNull();
-  }
+        List<FlowNode> enabledActivities = runtimeService.getEnabledActivitiesFromAdhocSubProcess(execution.getId());
+        assertThat(enabledActivities).hasSize(2);
 
-  @Deployment
-  public void testParallelFlowsInAdhocSubProcess() {
-    Map<String, Object> variableMap = new HashMap<String, Object>();
-    variableMap.put("completed", false);
-    ProcessInstance pi = runtimeService.startProcessInstanceByKey("simpleSubProcess", variableMap);
-    Execution execution = runtimeService.createExecutionQuery().activityId("adhocSubProcess").singleResult();
-    assertThat(execution).isNotNull();
+        runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask");
+        Task subProcessTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
+        assertThat(subProcessTask.getName()).isEqualTo("Task in subprocess");
 
-    List<FlowNode> enabledActivities = runtimeService.getEnabledActivitiesFromAdhocSubProcess(execution.getId());
-    assertThat(enabledActivities).hasSize(3);
+        taskService.complete(subProcessTask.getId());
 
-    runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask");
-    Task subProcessTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
-    assertThat(subProcessTask.getName()).isEqualTo("Task in subprocess");
+        assertThatExceptionOfType(ActivitiException.class)
+            .as("exception expected because can only enable one activity in a sequential ad-hoc sub process")
+            .isThrownBy(() -> runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask2"));
 
-    runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask2");
-    runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask3");
+        subProcessTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
+        assertThat(subProcessTask.getName()).isEqualTo("The next task");
 
-    Task subProcessTask2 = taskService.createTaskQuery().processInstanceId(pi.getId()).taskDefinitionKey("subProcessTask2").singleResult();
-    assertThat(subProcessTask2.getName()).isEqualTo("Task2 in subprocess");
-    taskService.complete(subProcessTask2.getId());
+        variableMap = new HashMap<String, Object>();
+        variableMap.put("completed", true);
+        taskService.complete(subProcessTask.getId(), variableMap);
 
-    subProcessTask2 = taskService.createTaskQuery().processInstanceId(pi.getId()).taskDefinitionKey("sequentialTask2").singleResult();
-    assertThat(subProcessTask2.getName()).isEqualTo("The next task2");
+        Task afterTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
+        assertThat(afterTask.getName()).isEqualTo("After task");
 
-    List<Task> tasks = taskService.createTaskQuery().processInstanceId(pi.getId()).list();
-    assertThat(tasks).hasSize(3);
+        taskService.complete(afterTask.getId());
 
-    variableMap = new HashMap<String, Object>();
-    variableMap.put("completed", true);
-    taskService.complete(subProcessTask.getId(), variableMap);
+        assertThat(runtimeService.createProcessInstanceQuery().processInstanceId(pi.getId()).singleResult()).isNull();
+    }
 
-    Task afterTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
-    assertThat(afterTask.getName()).isEqualTo("After task");
+    @Deployment(resources = "org/activiti/engine/test/bpmn/subprocess/adhoc/AdhocSubProcessTest.testFlowsInAdhocSubProcess.bpmn20.xml")
+    public void testCompleteFlowBeforeEndInAdhocSubProcess() {
+        Map<String, Object> variableMap = new HashMap<String, Object>();
+        variableMap.put("completed", false);
+        ProcessInstance pi = runtimeService.startProcessInstanceByKey("simpleSubProcess", variableMap);
+        Execution execution = runtimeService.createExecutionQuery().activityId("adhocSubProcess").singleResult();
+        assertThat(execution).isNotNull();
 
-    taskService.complete(afterTask.getId());
+        List<FlowNode> enabledActivities = runtimeService.getEnabledActivitiesFromAdhocSubProcess(execution.getId());
+        assertThat(enabledActivities).hasSize(2);
 
-    assertThat(runtimeService.createProcessInstanceQuery().processInstanceId(pi.getId()).singleResult()).isNull();
-  }
+        runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask");
+        Task subProcessTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
+        assertThat(subProcessTask.getName()).isEqualTo("Task in subprocess");
 
-  @Deployment
-  public void testKeepRemainingInstancesAdhocSubProcess() {
-    Map<String, Object> variableMap = new HashMap<String, Object>();
-    variableMap.put("completed", false);
-    ProcessInstance pi = runtimeService.startProcessInstanceByKey("simpleSubProcess", variableMap);
-    Execution execution = runtimeService.createExecutionQuery().activityId("adhocSubProcess").singleResult();
-    assertThat(execution).isNotNull();
+        variableMap = new HashMap<String, Object>();
+        variableMap.put("completed", true);
+        taskService.complete(subProcessTask.getId(), variableMap);
 
-    List<FlowNode> enabledActivities = runtimeService.getEnabledActivitiesFromAdhocSubProcess(execution.getId());
-    assertThat(enabledActivities).hasSize(2);
+        Task afterTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
+        assertThat(afterTask.getName()).isEqualTo("After task");
 
-    runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask");
-    Task subProcessTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
-    assertThat(subProcessTask.getName()).isEqualTo("Task in subprocess");
+        taskService.complete(afterTask.getId());
 
-    runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask2");
-    List<Task> tasks = taskService.createTaskQuery().processInstanceId(pi.getId()).list();
-    assertThat(tasks).hasSize(2);
+        assertThat(runtimeService.createProcessInstanceQuery().processInstanceId(pi.getId()).singleResult()).isNull();
+    }
 
-    variableMap = new HashMap<String, Object>();
-    variableMap.put("completed", true);
-    taskService.complete(subProcessTask.getId(), variableMap);
+    @Deployment
+    public void testParallelFlowsInAdhocSubProcess() {
+        Map<String, Object> variableMap = new HashMap<String, Object>();
+        variableMap.put("completed", false);
+        ProcessInstance pi = runtimeService.startProcessInstanceByKey("simpleSubProcess", variableMap);
+        Execution execution = runtimeService.createExecutionQuery().activityId("adhocSubProcess").singleResult();
+        assertThat(execution).isNotNull();
 
-    // ad-hoc sub process is not completed because of cancelRemainingInstances is set to false
-    subProcessTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
-    assertThat(subProcessTask.getName()).isEqualTo("Task2 in subprocess");
+        List<FlowNode> enabledActivities = runtimeService.getEnabledActivitiesFromAdhocSubProcess(execution.getId());
+        assertThat(enabledActivities).hasSize(3);
 
-    taskService.complete(subProcessTask.getId());
+        runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask");
+        Task subProcessTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
+        assertThat(subProcessTask.getName()).isEqualTo("Task in subprocess");
 
-    // with no remaining executions the ad-hoc sub process will be completed
-    Task afterTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
-    assertThat(afterTask.getName()).isEqualTo("After task");
+        runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask2");
+        runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask3");
 
-    taskService.complete(afterTask.getId());
+        Task subProcessTask2 = taskService.createTaskQuery().processInstanceId(pi.getId()).taskDefinitionKey("subProcessTask2").singleResult();
+        assertThat(subProcessTask2.getName()).isEqualTo("Task2 in subprocess");
+        taskService.complete(subProcessTask2.getId());
 
-    assertThat(runtimeService.createProcessInstanceQuery().processInstanceId(pi.getId()).singleResult()).isNull();
-  }
+        subProcessTask2 = taskService.createTaskQuery().processInstanceId(pi.getId()).taskDefinitionKey("sequentialTask2").singleResult();
+        assertThat(subProcessTask2.getName()).isEqualTo("The next task2");
 
-  @Deployment
-  public void testParallelFlowsWithKeepRemainingInstancesAdhocSubProcess() {
-    Map<String, Object> variableMap = new HashMap<String, Object>();
-    variableMap.put("completed", false);
-    ProcessInstance pi = runtimeService.startProcessInstanceByKey("simpleSubProcess", variableMap);
-    Execution execution = runtimeService.createExecutionQuery().activityId("adhocSubProcess").singleResult();
-    assertThat(execution).isNotNull();
+        List<Task> tasks = taskService.createTaskQuery().processInstanceId(pi.getId()).list();
+        assertThat(tasks).hasSize(3);
 
-    List<FlowNode> enabledActivities = runtimeService.getEnabledActivitiesFromAdhocSubProcess(execution.getId());
-    assertThat(enabledActivities).hasSize(3);
+        variableMap = new HashMap<String, Object>();
+        variableMap.put("completed", true);
+        taskService.complete(subProcessTask.getId(), variableMap);
 
-    runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask");
-    Task subProcessTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
-    assertThat(subProcessTask.getName()).isEqualTo("Task in subprocess");
+        Task afterTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
+        assertThat(afterTask.getName()).isEqualTo("After task");
 
-    runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask2");
-    runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask3");
+        taskService.complete(afterTask.getId());
 
-    Task subProcessTask2 = taskService.createTaskQuery().processInstanceId(pi.getId()).taskDefinitionKey("subProcessTask2").singleResult();
-    assertThat(subProcessTask2.getName()).isEqualTo("Task2 in subprocess");
-    taskService.complete(subProcessTask2.getId());
+        assertThat(runtimeService.createProcessInstanceQuery().processInstanceId(pi.getId()).singleResult()).isNull();
+    }
 
-    subProcessTask2 = taskService.createTaskQuery().processInstanceId(pi.getId()).taskDefinitionKey("sequentialTask2").singleResult();
-    assertThat(subProcessTask2.getName()).isEqualTo("The next task2");
+    @Deployment
+    public void testKeepRemainingInstancesAdhocSubProcess() {
+        Map<String, Object> variableMap = new HashMap<String, Object>();
+        variableMap.put("completed", false);
+        ProcessInstance pi = runtimeService.startProcessInstanceByKey("simpleSubProcess", variableMap);
+        Execution execution = runtimeService.createExecutionQuery().activityId("adhocSubProcess").singleResult();
+        assertThat(execution).isNotNull();
 
-    List<Task> tasks = taskService.createTaskQuery().processInstanceId(pi.getId()).list();
-    assertThat(tasks).hasSize(3);
+        List<FlowNode> enabledActivities = runtimeService.getEnabledActivitiesFromAdhocSubProcess(execution.getId());
+        assertThat(enabledActivities).hasSize(2);
 
-    variableMap = new HashMap<String, Object>();
-    variableMap.put("completed", true);
-    taskService.complete(subProcessTask.getId(), variableMap);
+        runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask");
+        Task subProcessTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
+        assertThat(subProcessTask.getName()).isEqualTo("Task in subprocess");
 
-    // ad-hoc sub process is not completed because of cancelRemainingInstances is set to false
-    tasks = taskService.createTaskQuery().processInstanceId(pi.getId()).list();
-    assertThat(tasks).hasSize(3);
+        runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask2");
+        List<Task> tasks = taskService.createTaskQuery().processInstanceId(pi.getId()).list();
+        assertThat(tasks).hasSize(2);
 
-    subProcessTask = taskService.createTaskQuery().processInstanceId(pi.getId()).taskDefinitionKey("sequentialTask").singleResult();
-    assertThat(subProcessTask.getName()).isEqualTo("The next task");
+        variableMap = new HashMap<String, Object>();
+        variableMap.put("completed", true);
+        taskService.complete(subProcessTask.getId(), variableMap);
 
-    taskService.complete(subProcessTask.getId(), variableMap);
+        // ad-hoc sub process is not completed because of cancelRemainingInstances is set to false
+        subProcessTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
+        assertThat(subProcessTask.getName()).isEqualTo("Task2 in subprocess");
 
-    // ad-hoc sub process is not completed because of cancelRemainingInstances is set to false
-    tasks = taskService.createTaskQuery().processInstanceId(pi.getId()).list();
-    assertThat(tasks).hasSize(2);
+        taskService.complete(subProcessTask.getId());
 
-    taskService.complete(subProcessTask2.getId(), variableMap);
+        // with no remaining executions the ad-hoc sub process will be completed
+        Task afterTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
+        assertThat(afterTask.getName()).isEqualTo("After task");
 
-    // ad-hoc sub process is not completed because of cancelRemainingInstances is set to false
-    Task subProcessTask3 = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
-    assertThat(subProcessTask3.getName()).isEqualTo("Task3 in subprocess");
+        taskService.complete(afterTask.getId());
 
-    taskService.complete(subProcessTask3.getId(), variableMap);
+        assertThat(runtimeService.createProcessInstanceQuery().processInstanceId(pi.getId()).singleResult()).isNull();
+    }
 
-    // with no remaining executions the ad-hoc sub process will be completed
-    Task afterTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
-    assertThat(afterTask.getName()).isEqualTo("After task");
+    @Deployment
+    public void testParallelFlowsWithKeepRemainingInstancesAdhocSubProcess() {
+        Map<String, Object> variableMap = new HashMap<String, Object>();
+        variableMap.put("completed", false);
+        ProcessInstance pi = runtimeService.startProcessInstanceByKey("simpleSubProcess", variableMap);
+        Execution execution = runtimeService.createExecutionQuery().activityId("adhocSubProcess").singleResult();
+        assertThat(execution).isNotNull();
 
-    taskService.complete(afterTask.getId());
+        List<FlowNode> enabledActivities = runtimeService.getEnabledActivitiesFromAdhocSubProcess(execution.getId());
+        assertThat(enabledActivities).hasSize(3);
 
-    assertThat(runtimeService.createProcessInstanceQuery().processInstanceId(pi.getId()).singleResult()).isNull();
-  }
+        runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask");
+        Task subProcessTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
+        assertThat(subProcessTask.getName()).isEqualTo("Task in subprocess");
+
+        runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask2");
+        runtimeService.executeActivityInAdhocSubProcess(execution.getId(), "subProcessTask3");
+
+        Task subProcessTask2 = taskService.createTaskQuery().processInstanceId(pi.getId()).taskDefinitionKey("subProcessTask2").singleResult();
+        assertThat(subProcessTask2.getName()).isEqualTo("Task2 in subprocess");
+        taskService.complete(subProcessTask2.getId());
+
+        subProcessTask2 = taskService.createTaskQuery().processInstanceId(pi.getId()).taskDefinitionKey("sequentialTask2").singleResult();
+        assertThat(subProcessTask2.getName()).isEqualTo("The next task2");
+
+        List<Task> tasks = taskService.createTaskQuery().processInstanceId(pi.getId()).list();
+        assertThat(tasks).hasSize(3);
+
+        variableMap = new HashMap<String, Object>();
+        variableMap.put("completed", true);
+        taskService.complete(subProcessTask.getId(), variableMap);
+
+        // ad-hoc sub process is not completed because of cancelRemainingInstances is set to false
+        tasks = taskService.createTaskQuery().processInstanceId(pi.getId()).list();
+        assertThat(tasks).hasSize(3);
+
+        subProcessTask = taskService.createTaskQuery().processInstanceId(pi.getId()).taskDefinitionKey("sequentialTask").singleResult();
+        assertThat(subProcessTask.getName()).isEqualTo("The next task");
+
+        taskService.complete(subProcessTask.getId(), variableMap);
+
+        // ad-hoc sub process is not completed because of cancelRemainingInstances is set to false
+        tasks = taskService.createTaskQuery().processInstanceId(pi.getId()).list();
+        assertThat(tasks).hasSize(2);
+
+        taskService.complete(subProcessTask2.getId(), variableMap);
+
+        // ad-hoc sub process is not completed because of cancelRemainingInstances is set to false
+        Task subProcessTask3 = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
+        assertThat(subProcessTask3.getName()).isEqualTo("Task3 in subprocess");
+
+        taskService.complete(subProcessTask3.getId(), variableMap);
+
+        // with no remaining executions the ad-hoc sub process will be completed
+        Task afterTask = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
+        assertThat(afterTask.getName()).isEqualTo("After task");
+
+        taskService.complete(afterTask.getId());
+
+        assertThat(runtimeService.createProcessInstanceQuery().processInstanceId(pi.getId()).singleResult()).isNull();
+    }
 }

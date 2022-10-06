@@ -15,9 +15,9 @@
  */
 package org.activiti.api.task.model.builders;
 
-import java.util.Date;
-
 import org.activiti.api.task.model.payloads.UpdateTaskPayload;
+
+import java.util.Date;
 
 public class UpdateTaskPayloadBuilder {
 
@@ -72,12 +72,12 @@ public class UpdateTaskPayloadBuilder {
 
     public UpdateTaskPayload build() {
         return new UpdateTaskPayload(taskId,
-                                     name,
-                                     description,
-                                     dueDate,
-                                     priority,
-                                     assignee,
-                                     parentTaskId,
-                                     formKey);
+            name,
+            description,
+            dueDate,
+            priority,
+            assignee,
+            parentTaskId,
+            formKey);
     }
 }

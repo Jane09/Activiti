@@ -15,10 +15,11 @@
  */
 package org.activiti.spring.process.variable.types;
 
+import org.activiti.engine.ActivitiException;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
-import org.activiti.engine.ActivitiException;
 
 /**
  * Base variable type for types as defined in extension json files. Used to validate variables against definition.

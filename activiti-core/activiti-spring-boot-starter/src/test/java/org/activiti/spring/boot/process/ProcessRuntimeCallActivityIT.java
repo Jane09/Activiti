@@ -15,8 +15,6 @@
  */
 package org.activiti.spring.boot.process;
 
-import java.util.List;
-
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.builders.ProcessPayloadBuilder;
 import org.activiti.api.process.runtime.ProcessRuntime;
@@ -30,6 +28,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -57,16 +57,16 @@ public class ProcessRuntimeCallActivityIT {
     }
 
     @Test
-    public void testCheckSubProcessTaskWhenCallActivity (){
+    public void testCheckSubProcessTaskWhenCallActivity() {
 
         securityUtil.logInAs("user");
 
         // After the process has started, the subProcess task should be active
         ProcessInstance processInstance = processRuntime.start(
-                ProcessPayloadBuilder
-                        .start()
-                        .withProcessDefinitionKey(PARENT_PROCESS_CALL_ACTIVITY)
-                        .build());
+            ProcessPayloadBuilder
+                .start()
+                .withProcessDefinitionKey(PARENT_PROCESS_CALL_ACTIVITY)
+                .build());
 
         assertThat(processInstance).isNotNull();
 
@@ -74,10 +74,10 @@ public class ProcessRuntimeCallActivityIT {
         List<ProcessInstance> subProcessInstanceList = processRuntime.processInstances(
                 Pageable.of(0, 50),
                 ProcessPayloadBuilder
-                        .processInstances()
-                        .withParentProcessInstanceId(processInstance.getId())
-                        .build())
-                .getContent();
+                    .processInstances()
+                    .withParentProcessInstanceId(processInstance.getId())
+                    .build())
+            .getContent();
 
         assertThat(subProcessInstanceList).isNotEmpty();
 
@@ -88,13 +88,13 @@ public class ProcessRuntimeCallActivityIT {
         assertThat(subProcessInstance.getProcessDefinitionKey()).isEqualTo(SUB_PROCESS_CALL_ACTIVITY);
 
         //verify the existence of the task in the sub process
-        List <Task> taskList = taskRuntime.tasks(
+        List<Task> taskList = taskRuntime.tasks(
                 Pageable.of(0, 50),
                 TaskPayloadBuilder
-                        .tasks()
-                        .withProcessInstanceId(subProcessInstance.getId())
-                        .build())
-                .getContent();
+                    .tasks()
+                    .withProcessInstanceId(subProcessInstance.getId())
+                    .build())
+            .getContent();
 
         assertThat(taskList).isNotEmpty();
 

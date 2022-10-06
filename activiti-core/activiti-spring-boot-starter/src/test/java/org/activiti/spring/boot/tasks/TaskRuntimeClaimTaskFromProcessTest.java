@@ -15,8 +15,6 @@
  */
 package org.activiti.spring.boot.tasks;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.builders.ProcessPayloadBuilder;
 import org.activiti.api.process.runtime.ProcessRuntime;
@@ -30,6 +28,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class TaskRuntimeClaimTaskFromProcessTest {
@@ -49,7 +49,7 @@ public class TaskRuntimeClaimTaskFromProcessTest {
     private ProcessCleanUpUtil processCleanUpUtil;
 
     @AfterEach
-    public void cleanUp(){
+    public void cleanUp() {
         processCleanUpUtil.cleanUpWithAdmin();
     }
 
@@ -60,17 +60,17 @@ public class TaskRuntimeClaimTaskFromProcessTest {
 
         //when
         ProcessInstance twoTaskInstance = processRuntime.start(ProcessPayloadBuilder.start()
-                .withProcessDefinitionKey(TWOTASK_PROCESS)
-                .build());
+            .withProcessDefinitionKey(TWOTASK_PROCESS)
+            .build());
 
         securityUtil.logInAs("dean");
 
-        Task task = taskRuntime.tasks(Pageable.of(0, 10),TaskPayloadBuilder.tasks().build()).getContent().get(0);
+        Task task = taskRuntime.tasks(Pageable.of(0, 10), TaskPayloadBuilder.tasks().build()).getContent().get(0);
 
         taskRuntime.claim(TaskPayloadBuilder.claim().withTaskId(task.getId()).build());
 
         //should still be in dean's list after claiming
-        task = taskRuntime.tasks(Pageable.of(0, 10),TaskPayloadBuilder.tasks().build()).getContent().get(0);
+        task = taskRuntime.tasks(Pageable.of(0, 10), TaskPayloadBuilder.tasks().build()).getContent().get(0);
 
         assertThat(task).isNotNull();
 

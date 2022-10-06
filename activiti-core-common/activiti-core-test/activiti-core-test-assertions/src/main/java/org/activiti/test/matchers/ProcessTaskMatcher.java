@@ -15,9 +15,9 @@
  */
 package org.activiti.test.matchers;
 
-import java.util.List;
-
 import org.activiti.test.TaskSource;
+
+import java.util.List;
 
 public interface ProcessTaskMatcher {
 

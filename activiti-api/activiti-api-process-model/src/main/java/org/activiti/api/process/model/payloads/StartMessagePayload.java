@@ -15,12 +15,12 @@
  */
 package org.activiti.api.process.model.payloads;
 
+import org.activiti.api.model.shared.Payload;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
-
-import org.activiti.api.model.shared.Payload;
 
 public class StartMessagePayload implements Payload {
 
@@ -34,8 +34,8 @@ public class StartMessagePayload implements Payload {
     }
 
     public StartMessagePayload(String name,
-                          String businessKey,
-                          Map<String, Object> variables) {
+                               String businessKey,
+                               Map<String, Object> variables) {
         this();
 
         Objects.requireNonNull(name, "name must not be null");
@@ -77,9 +77,9 @@ public class StartMessagePayload implements Payload {
             return false;
         StartMessagePayload other = (StartMessagePayload) obj;
         return Objects.equals(businessKey, other.businessKey)
-                && Objects.equals(id, other.id)
-                && Objects.equals(name, other.name)
-                && Objects.equals(variables, other.variables);
+            && Objects.equals(id, other.id)
+            && Objects.equals(name, other.name)
+            && Objects.equals(variables, other.variables);
     }
 
     @Override

@@ -16,17 +16,16 @@
 package org.activiti.spring.conformance.set2;
 
 import org.activiti.api.process.model.ProcessDefinition;
-import org.activiti.api.process.model.ProcessDefinitionMeta;
 import org.activiti.api.process.runtime.ProcessRuntime;
 import org.activiti.api.process.runtime.conf.ProcessRuntimeConfiguration;
 import org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener;
 import org.activiti.api.runtime.shared.events.VariableEventListener;
 import org.activiti.api.runtime.shared.query.Page;
 import org.activiti.api.runtime.shared.query.Pageable;
+import org.activiti.spring.conformance.util.security.SecurityUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.activiti.spring.conformance.util.security.SecurityUtil;
 
 import java.util.List;
 
@@ -66,10 +65,10 @@ public class ConformanceBasicProcessRuntimeTest {
 
         List<ProcessDefinition> processDefinitions = processDefinitionPage.getContent();
         assertThat(processDefinitions).extracting(ProcessDefinition::getName).containsOnly(
-                "UserTask with Assignee",
-                "UserTask with CandidateGroup",
-                "UserTask with no User or Group Assignment",
-                "UserTask with CandidateUser"
+            "UserTask with Assignee",
+            "UserTask with CandidateGroup",
+            "UserTask with no User or Group Assignment",
+            "UserTask with CandidateUser"
         );
 
     }
@@ -82,16 +81,14 @@ public class ConformanceBasicProcessRuntimeTest {
 
         List<ProcessDefinition> processDefinitions = processDefinitionPage.getContent();
         assertThat(processDefinitions).extracting(ProcessDefinition::getName).containsOnly(
-                "UserTask with Assignee",
-                "UserTask with CandidateGroup",
-                "UserTask with no User or Group Assignment",
-                "UserTask with CandidateUser"
+            "UserTask with Assignee",
+            "UserTask with CandidateGroup",
+            "UserTask with no User or Group Assignment",
+            "UserTask with CandidateUser"
         );
 
 
     }
-
-
 
 
 }

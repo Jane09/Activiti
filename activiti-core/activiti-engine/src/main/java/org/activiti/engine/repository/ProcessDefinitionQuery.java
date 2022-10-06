@@ -15,11 +15,11 @@
  */
 package org.activiti.engine.repository;
 
-import java.util.Set;
-
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.api.internal.Internal;
 import org.activiti.engine.query.Query;
+
+import java.util.Set;
 
 /**
  * Allows programmatic querying of {@link ProcessDefinition}s.

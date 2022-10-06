@@ -15,12 +15,13 @@
  */
 package org.activiti.application;
 
+import org.springframework.util.StreamUtils;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-import org.springframework.util.StreamUtils;
 
 public class ApplicationReader {
 
@@ -37,19 +38,19 @@ public class ApplicationReader {
             while ((zipEntry = zipInputStream.getNextEntry()) != null) {
                 ZipEntry currentEntry = zipEntry;
                 applicationEntryDiscoveries
-                        .stream()
-                        .filter(applicationEntryDiscovery -> applicationEntryDiscovery.filter(currentEntry).test(currentEntry))
-                        .findFirst()
-                        .ifPresent(
-                                applicationEntryDiscovery ->
-                                        application.add(new ApplicationEntry(applicationEntryDiscovery.getEntryType(),
-                                                                             new FileContent(currentEntry.getName(),
-                                                                                             readBytes(zipInputStream
-                                                                                             )))));
+                    .stream()
+                    .filter(applicationEntryDiscovery -> applicationEntryDiscovery.filter(currentEntry).test(currentEntry))
+                    .findFirst()
+                    .ifPresent(
+                        applicationEntryDiscovery ->
+                            application.add(new ApplicationEntry(applicationEntryDiscovery.getEntryType(),
+                                new FileContent(currentEntry.getName(),
+                                    readBytes(zipInputStream
+                                    )))));
             }
         } catch (IOException e) {
             throw new ApplicationLoadException("Unable to read zip file",
-                                              e);
+                e);
         }
         return application;
     }
@@ -59,7 +60,7 @@ public class ApplicationReader {
             return StreamUtils.copyToByteArray(zipInputStream);
         } catch (IOException e) {
             throw new ApplicationLoadException("Unable to read zip file",
-                                              e);
+                e);
         }
     }
 }

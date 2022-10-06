@@ -112,15 +112,15 @@ public class AssignmentDefinition {
         if (o == null || getClass() != o.getClass()) return false;
         AssignmentDefinition that = (AssignmentDefinition) o;
         return Objects.equals(id,
-                              that.id) && assignment == that.assignment && type == that.type && mode == that.mode;
+            that.id) && assignment == that.assignment && type == that.type && mode == that.mode;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id,
-                            assignment,
-                            type,
-                            mode);
+            assignment,
+            type,
+            mode);
     }
 
     @Override

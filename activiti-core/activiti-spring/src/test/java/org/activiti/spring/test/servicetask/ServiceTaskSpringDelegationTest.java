@@ -16,17 +16,18 @@
 
 package org.activiti.spring.test.servicetask;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.List;
 import org.activiti.engine.impl.test.JobTestHelper;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.test.Deployment;
 import org.activiti.spring.impl.test.SpringActivitiTestCase;
 import org.springframework.test.context.ContextConfiguration;
 
-/**
+import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+/**
+ *
  */
 @ContextConfiguration("classpath:org/activiti/spring/test/servicetask/servicetaskSpringTest-context.xml")
 public class ServiceTaskSpringDelegationTest extends SpringActivitiTestCase {

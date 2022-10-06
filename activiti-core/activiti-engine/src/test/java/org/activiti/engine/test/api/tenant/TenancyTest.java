@@ -15,9 +15,6 @@
  */
 package org.activiti.engine.test.api.tenant;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.ProcessEngineConfiguration;
 import org.activiti.engine.history.HistoricActivityInstance;
@@ -29,6 +26,9 @@ import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.Job;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static java.util.Collections.singletonMap;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -56,13 +56,14 @@ public class TenancyTest extends PluggableActivitiTestCase {
         if (!autoCleanedUpDeploymentIds.isEmpty()) {
             for (String deploymentId : autoCleanedUpDeploymentIds) {
                 repositoryService.deleteDeployment(deploymentId,
-                                                   true);
+                    true);
             }
         }
     }
 
     /**
      * Deploys the one task process with the test tenant id.
+     *
      * @return The process definition id of the deployed process definition.
      */
     private String deployTestProcessWithTestTenant() {
@@ -71,7 +72,7 @@ public class TenancyTest extends PluggableActivitiTestCase {
 
     private String deployTestProcessWithTestTenant(String tenantId) {
         String id = repositoryService.createDeployment().addBpmnModel("testProcess.bpmn20.xml",
-                                                                      createOneTaskTestProcess()).tenantId(tenantId).deploy().getId();
+            createOneTaskTestProcess()).tenantId(tenantId).deploy().getId();
 
         autoCleanedUpDeploymentIds.add(id);
 
@@ -80,7 +81,7 @@ public class TenancyTest extends PluggableActivitiTestCase {
 
     private String deployTestProcessWithTwoTasksWithTestTenant() {
         String id = repositoryService.createDeployment().addBpmnModel("testProcess.bpmn20.xml",
-                                                                      createTwoTasksTestProcess()).tenantId(TEST_TENANT_ID).deploy().getId();
+            createTwoTasksTestProcess()).tenantId(TEST_TENANT_ID).deploy().getId();
 
         autoCleanedUpDeploymentIds.add(id);
 
@@ -89,7 +90,7 @@ public class TenancyTest extends PluggableActivitiTestCase {
 
     private String deployTestProcessWithTwoTasksNoTenant() {
         String id = repositoryService.createDeployment().addBpmnModel("testProcess.bpmn20.xml",
-                                                                      createTwoTasksTestProcess()).deploy().getId();
+            createTwoTasksTestProcess()).deploy().getId();
 
         autoCleanedUpDeploymentIds.add(id);
 
@@ -140,7 +141,7 @@ public class TenancyTest extends PluggableActivitiTestCase {
         // Extra check: we deployed the one task process twice, but once with
         // tenant and once without. The latest query should show this.
         assertThat(repositoryService.createProcessDefinitionQuery().processDefinitionKey("oneTaskProcess").processDefinitionTenantId(TEST_TENANT_ID).latestVersion()
-                             .singleResult().getId()).isEqualTo(processDefinitionIdWithTenant2);
+            .singleResult().getId()).isEqualTo(processDefinitionIdWithTenant2);
         assertThat(repositoryService.createProcessDefinitionQuery().processDefinitionKey("oneTaskProcess").processDefinitionTenantId("Not a tenant").latestVersion().count()).isEqualTo(0);
         assertThat(repositoryService.createProcessDefinitionQuery().processDefinitionKey("oneTaskProcess").processDefinitionWithoutTenantId().latestVersion().singleResult().getId()).isEqualTo(processDefinitionIdWithoutTenant);
     }
@@ -233,7 +234,7 @@ public class TenancyTest extends PluggableActivitiTestCase {
 
         // Deploy process with a timer and an async step AND with a tenant
         String deploymentId = repositoryService.createDeployment().addClasspathResource("org/activiti/engine/test/api/tenant/TenancyTest.testJobTenancy.bpmn20.xml").tenantId(TEST_TENANT_ID).deploy()
-                .getId();
+            .getId();
 
         // verify job (timer start)
         Job job = managementService.createTimerJobQuery().singleResult();
@@ -270,9 +271,9 @@ public class TenancyTest extends PluggableActivitiTestCase {
 
         // clean up
         repositoryService.deleteDeployment(deploymentId,
-                                           true);
+            true);
         repositoryService.deleteDeployment(deploymentId2,
-                                           true);
+            true);
     }
 
     public void testModelTenancy() {
@@ -510,11 +511,11 @@ public class TenancyTest extends PluggableActivitiTestCase {
             .isThrownBy(() -> runtimeService.startProcessInstanceByKey("oneTaskProcess"));
 
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKeyAndTenantId("oneTaskProcess",
-                                                                                              tentanA);
+            tentanA);
         assertThat(processInstance.getProcessDefinitionId()).isEqualTo(procDefIdA);
 
         processInstance = runtimeService.startProcessInstanceByKeyAndTenantId("oneTaskProcess",
-                                                                              tenantB);
+            tenantB);
         assertThat(processInstance.getProcessDefinitionId()).isEqualTo(procDefIdB);
     }
 
@@ -531,7 +532,7 @@ public class TenancyTest extends PluggableActivitiTestCase {
 
         // Suspend process definition B
         repositoryService.suspendProcessDefinitionByKey("oneTaskProcess",
-                                                        tenantB);
+            tenantB);
 
         // Shouldn't be able to start proc defs for tentant B
         try {
@@ -549,7 +550,7 @@ public class TenancyTest extends PluggableActivitiTestCase {
 
         // Activate process again
         repositoryService.activateProcessDefinitionByKey("oneTaskProcess",
-                                                         tenantB);
+            tenantB);
 
         processInstance = runtimeService.startProcessInstanceById(procDefIdB);
         assertThat(processInstance).isNotNull();
@@ -577,11 +578,11 @@ public class TenancyTest extends PluggableActivitiTestCase {
         // Start 3 proc instances for the one with a tenant and 2 for the one
         // without tenant
         runtimeService.startProcessInstanceByKeyAndTenantId("testMtSignalCatch",
-                                                            TEST_TENANT_ID);
+            TEST_TENANT_ID);
         runtimeService.startProcessInstanceByKeyAndTenantId("testMtSignalCatch",
-                                                            TEST_TENANT_ID);
+            TEST_TENANT_ID);
         runtimeService.startProcessInstanceByKeyAndTenantId("testMtSignalCatch",
-                                                            TEST_TENANT_ID);
+            TEST_TENANT_ID);
         runtimeService.startProcessInstanceByKey("testMtSignalCatch");
         runtimeService.startProcessInstanceByKey("testMtSignalCatch");
 
@@ -596,14 +597,14 @@ public class TenancyTest extends PluggableActivitiTestCase {
 
         // Start a process instance that is running in tenant context
         runtimeService.startProcessInstanceByKeyAndTenantId("testMtSignalFiring",
-                                                            TEST_TENANT_ID);
+            TEST_TENANT_ID);
         assertThat(taskService.createTaskQuery().taskName("Task after signal").taskTenantId(TEST_TENANT_ID).count()).isEqualTo(3);
         assertThat(taskService.createTaskQuery().taskName("Task after signal").taskWithoutTenantId().count()).isEqualTo(2);
 
         // Cleanup
         for (Deployment deployment : repositoryService.createDeploymentQuery().list()) {
             repositoryService.deleteDeployment(deployment.getId(),
-                                               true);
+                true);
         }
     }
 
@@ -848,9 +849,9 @@ public class TenancyTest extends PluggableActivitiTestCase {
             // when the call to process 2 is made internally it will throw the
             // exception
             ProcessInstance processInstance = runtimeService.startProcessInstanceByKeyAndTenantId("process1",
-                                                                                                  null,
-                                                                                                  singletonMap("sendFor", "test"),
-                                                                                                  tenantId);
+                null,
+                singletonMap("sendFor", "test"),
+                tenantId);
             assertThat(processInstance).isNotNull();
 
             assertThat(historyService.createHistoricProcessInstanceQuery().processDefinitionKey("process2").processInstanceTenantId(tenantId).count()).isEqualTo(1);
@@ -891,21 +892,21 @@ public class TenancyTest extends PluggableActivitiTestCase {
         }
 
         ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
-                .processDefinitionTenantId(tenant1)
-                .latestVersion()
-                .singleResult();
+            .processDefinitionTenantId(tenant1)
+            .latestVersion()
+            .singleResult();
         assertThat(processDefinition.getVersion()).isEqualTo(4);
 
         processDefinition = repositoryService.createProcessDefinitionQuery()
-                .processDefinitionTenantId(tenant2)
-                .latestVersion()
-                .singleResult();
+            .processDefinitionTenantId(tenant2)
+            .latestVersion()
+            .singleResult();
         assertThat(processDefinition.getVersion()).isEqualTo(2);
 
         processDefinition = repositoryService.createProcessDefinitionQuery()
-                .processDefinitionWithoutTenantId()
-                .latestVersion()
-                .singleResult();
+            .processDefinitionWithoutTenantId()
+            .latestVersion()
+            .singleResult();
         assertThat(processDefinition.getVersion()).isEqualTo(3);
 
         List<ProcessDefinition> processDefinitions = repositoryService.createProcessDefinitionQuery().latestVersion().list();

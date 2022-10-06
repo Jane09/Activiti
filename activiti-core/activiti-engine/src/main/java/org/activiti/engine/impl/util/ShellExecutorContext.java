@@ -16,12 +16,12 @@
 
 package org.activiti.engine.impl.util;
 
-import java.util.List;
-
 import org.activiti.engine.cfg.security.ExecutorContext;
 
-/**
+import java.util.List;
 
+/**
+ *
  */
 public class ShellExecutorContext implements ExecutorContext {
     private Boolean waitFlag;

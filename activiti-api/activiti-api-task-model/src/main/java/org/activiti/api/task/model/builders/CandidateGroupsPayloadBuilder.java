@@ -15,10 +15,10 @@
  */
 package org.activiti.api.task.model.builders;
 
+import org.activiti.api.task.model.payloads.CandidateGroupsPayload;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.activiti.api.task.model.payloads.CandidateGroupsPayload;
 
 public class CandidateGroupsPayloadBuilder {
 
@@ -45,6 +45,6 @@ public class CandidateGroupsPayloadBuilder {
 
     public CandidateGroupsPayload build() {
         return new CandidateGroupsPayload(taskId,
-                                          candidateGroups);
+            candidateGroups);
     }
 }

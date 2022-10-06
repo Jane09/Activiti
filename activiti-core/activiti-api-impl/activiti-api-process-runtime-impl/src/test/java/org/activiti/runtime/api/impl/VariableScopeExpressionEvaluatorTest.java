@@ -15,10 +15,6 @@
  */
 package org.activiti.runtime.api.impl;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
-
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.VariableScope;
 import org.activiti.engine.impl.el.ExpressionManager;
@@ -28,11 +24,15 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
+
 @ExtendWith(MockitoExtension.class)
 public class VariableScopeExpressionEvaluatorTest {
 
     @Mock
-    private  ExpressionManager expressionManager;
+    private ExpressionManager expressionManager;
 
     @Mock
     private DelegateInterceptor delegateInterceptor;

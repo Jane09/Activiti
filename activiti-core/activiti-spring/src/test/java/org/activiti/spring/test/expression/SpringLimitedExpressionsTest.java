@@ -17,17 +17,17 @@
 
 package org.activiti.spring.test.expression;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-
-import java.util.List;
-
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.test.Deployment;
 import org.activiti.spring.impl.test.SpringActivitiTestCase;
 import org.springframework.test.context.ContextConfiguration;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
  * Test limiting the exposed beans in expressions.
@@ -53,7 +53,7 @@ public class SpringLimitedExpressionsTest extends SpringActivitiTestCase {
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("limitedExpressionProcess");
 
         String beanOutput = (String) runtimeService.getVariable(processInstance.getId(),
-                                                                "beanOutput");
+            "beanOutput");
         assertThat(beanOutput).isNotNull();
         assertThat(beanOutput).isEqualTo("Activiti BPMN 2.0 process engine");
 
@@ -63,7 +63,7 @@ public class SpringLimitedExpressionsTest extends SpringActivitiTestCase {
         assertThat(task).isNotNull();
 
         assertThatExceptionOfType(ActivitiException.class)
-          .isThrownBy(() -> taskService.complete(task.getId()))
-          .satisfies(ae -> assertThat(ae.getCause()).hasMessageContaining("Unknown property used in expression"));
+            .isThrownBy(() -> taskService.complete(task.getId()))
+            .satisfies(ae -> assertThat(ae.getCause()).hasMessageContaining("Unknown property used in expression"));
     }
 }

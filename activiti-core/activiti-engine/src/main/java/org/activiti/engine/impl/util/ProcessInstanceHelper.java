@@ -16,22 +16,8 @@
 
 package org.activiti.engine.impl.util;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
-import org.activiti.bpmn.model.BpmnModel;
-import org.activiti.bpmn.model.EventDefinition;
-import org.activiti.bpmn.model.EventSubProcess;
-import org.activiti.bpmn.model.FlowElement;
-import org.activiti.bpmn.model.Message;
-import org.activiti.bpmn.model.MessageEventDefinition;
 import org.activiti.bpmn.model.Process;
-import org.activiti.bpmn.model.StartEvent;
-import org.activiti.bpmn.model.ValuedDataObject;
+import org.activiti.bpmn.model.*;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
@@ -46,9 +32,10 @@ import org.activiti.engine.impl.persistence.entity.MessageEventSubscriptionEntit
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 
+import java.util.*;
+
 /**
-
-
+ *
  */
 public class ProcessInstanceHelper {
 
@@ -177,14 +164,14 @@ public class ProcessInstanceHelper {
         return processInstance;
     }
 
-    private void recordStartProcessInstance(CommandContext commandContext, FlowElement initialFlowElement, ExecutionEntity processInstance){
+    private void recordStartProcessInstance(CommandContext commandContext, FlowElement initialFlowElement, ExecutionEntity processInstance) {
         updateProcessInstanceStartDate(processInstance);
         commandContext.getHistoryManager().recordProcessInstanceStart(processInstance, initialFlowElement);
     }
 
     private void createProcessVariables(ExecutionEntity processInstance,
-        Map<String, Object> variables, Map<String, Object> transientVariables,
-        Process process){
+                                        Map<String, Object> variables, Map<String, Object> transientVariables,
+                                        Process process) {
         processInstance.setVariables(processDataObjects(process.getDataObjects()));
         // Set the variables passed into the start command
         if (variables != null) {
@@ -345,7 +332,7 @@ public class ProcessInstanceHelper {
         return processInstance;
     }
 
-    private void setProcessInstanceName(CommandContext commandContext, ExecutionEntity processInstance, String processInstanceName){
+    private void setProcessInstanceName(CommandContext commandContext, ExecutionEntity processInstance, String processInstanceName) {
         if (processInstanceName != null) {
             processInstance.setName(processInstanceName);
             commandContext.getHistoryManager()

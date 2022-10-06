@@ -15,8 +15,6 @@
  */
 package org.activiti.spring.boot.tasks;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.builders.ProcessPayloadBuilder;
 import org.activiti.api.process.runtime.ProcessRuntime;
@@ -32,7 +30,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class TaskRuntimeFormKeyTest {
@@ -49,7 +48,7 @@ public class TaskRuntimeFormKeyTest {
     private TaskCleanUpUtil taskCleanUpUtil;
 
     @AfterEach
-    public void taskCleanUp(){
+    public void taskCleanUp() {
         taskCleanUpUtil.cleanUpWithAdmin();
     }
 
@@ -57,13 +56,13 @@ public class TaskRuntimeFormKeyTest {
     public void standaloneTaskHasFormKey() {
         securityUtil.logInAs("garth");
         taskRuntime.create(TaskPayloadBuilder.create()
-                .withName("atask")
-                .withAssignee("garth")
-                .withFormKey("aFormKey")
-                .build());
+            .withName("atask")
+            .withAssignee("garth")
+            .withFormKey("aFormKey")
+            .build());
 
         Page<Task> tasks = taskRuntime.tasks(Pageable.of(0,
-                                                         50));
+            50));
         assertThat(tasks.getContent()).hasSize(1);
         Task task = tasks.getContent().get(0);
 
@@ -76,19 +75,19 @@ public class TaskRuntimeFormKeyTest {
     public void shouldUpdateTaskFormKey() {
         securityUtil.logInAs("garth");
         taskRuntime.create(TaskPayloadBuilder.create()
-                .withName("atask")
-                .withAssignee("garth")
-                .build());
+            .withName("atask")
+            .withAssignee("garth")
+            .build());
 
         Page<Task> tasks = taskRuntime.tasks(Pageable.of(0,
-                50));
+            50));
         assertThat(tasks.getContent()).hasSize(1);
         Task task = tasks.getContent().get(0);
 
         taskRuntime.update(new UpdateTaskPayloadBuilder()
-                .withTaskId(task.getId())
-                .withFormKey("aFormKey")
-                .build());
+            .withTaskId(task.getId())
+            .withFormKey("aFormKey")
+            .build());
 
         task = taskRuntime.task(task.getId());
 
@@ -101,11 +100,11 @@ public class TaskRuntimeFormKeyTest {
     public void processTaskHasFormKeyAndTaskDefinitionKey() {
         securityUtil.logInAs("garth");
         ProcessInstance process = processRuntime.start(ProcessPayloadBuilder.start()
-                .withProcessDefinitionKey(SINGLE_TASK_PROCESS)
-                .build());
+            .withProcessDefinitionKey(SINGLE_TASK_PROCESS)
+            .build());
 
         Page<Task> tasks = taskRuntime.tasks(Pageable.of(0,
-                50));
+            50));
 
         assertThat(tasks.getContent()).hasSize(1);
         Task task = tasks.getContent().get(0);

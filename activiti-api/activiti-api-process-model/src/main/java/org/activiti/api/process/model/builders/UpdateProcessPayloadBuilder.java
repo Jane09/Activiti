@@ -55,8 +55,8 @@ public class UpdateProcessPayloadBuilder {
 
     public UpdateProcessPayload build() {
         return new UpdateProcessPayload(processInstanceId,
-                name,
-                description,
-                businessKey);
+            name,
+            description,
+            businessKey);
     }
 }

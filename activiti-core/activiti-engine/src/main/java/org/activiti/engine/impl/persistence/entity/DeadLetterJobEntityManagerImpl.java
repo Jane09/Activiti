@@ -17,8 +17,6 @@
 
 package org.activiti.engine.impl.persistence.entity;
 
-import java.util.List;
-
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.delegate.event.impl.ActivitiEventBuilder;
 import org.activiti.engine.impl.DeadLetterJobQueryImpl;
@@ -27,8 +25,8 @@ import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.persistence.CountingExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.data.DeadLetterJobDataManager;
 import org.activiti.engine.runtime.Job;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public class DeadLetterJobEntityManagerImpl extends AbstractEntityManager<DeadLetterJobEntity> implements DeadLetterJobEntityManager {
 
@@ -49,7 +47,7 @@ public class DeadLetterJobEntityManagerImpl extends AbstractEntityManager<DeadLe
     public List<Job> findJobsByQueryCriteria(DeadLetterJobQueryImpl jobQuery,
                                              Page page) {
         return jobDataManager.findJobsByQueryCriteria(jobQuery,
-                                                      page);
+            page);
     }
 
     @Override
@@ -61,7 +59,7 @@ public class DeadLetterJobEntityManagerImpl extends AbstractEntityManager<DeadLe
     public void updateJobTenantIdForDeployment(String deploymentId,
                                                String newTenantId) {
         jobDataManager.updateJobTenantIdForDeployment(deploymentId,
-                                                      newTenantId);
+            newTenantId);
     }
 
     @Override
@@ -86,13 +84,13 @@ public class DeadLetterJobEntityManagerImpl extends AbstractEntityManager<DeadLe
         }
 
         super.insert(jobEntity,
-                     fireCreateEvent);
+            fireCreateEvent);
     }
 
     @Override
     public void insert(DeadLetterJobEntity jobEntity) {
         insert(jobEntity,
-               true);
+            true);
     }
 
     @Override
@@ -111,7 +109,7 @@ public class DeadLetterJobEntityManagerImpl extends AbstractEntityManager<DeadLe
         // Send event
         if (getEventDispatcher().isEnabled()) {
             getEventDispatcher().dispatchEvent(ActivitiEventBuilder.createEntityEvent(ActivitiEventType.ENTITY_DELETED,
-                                                                                      this));
+                this));
         }
     }
 

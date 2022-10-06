@@ -16,23 +16,14 @@
 
 package org.activiti.engine.impl.bpmn.parser.handler;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
-import org.activiti.bpmn.model.ActivitiListener;
-import org.activiti.bpmn.model.Artifact;
-import org.activiti.bpmn.model.Association;
-import org.activiti.bpmn.model.BaseElement;
-import org.activiti.bpmn.model.BpmnModel;
-import org.activiti.bpmn.model.EventGateway;
-import org.activiti.bpmn.model.FlowElement;
-import org.activiti.bpmn.model.ImplementationType;
-import org.activiti.bpmn.model.IntermediateCatchEvent;
-import org.activiti.bpmn.model.SequenceFlow;
+import org.activiti.bpmn.model.*;
 import org.activiti.engine.delegate.ExecutionListener;
 import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.parse.BpmnParseHandler;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 public abstract class AbstractBpmnParseHandler<T extends BaseElement> implements BpmnParseHandler {
 
@@ -49,7 +40,7 @@ public abstract class AbstractBpmnParseHandler<T extends BaseElement> implements
                       BaseElement element) {
         T baseElement = (T) element;
         executeParse(bpmnParse,
-                     baseElement);
+            baseElement);
     }
 
     protected abstract void executeParse(BpmnParse bpmnParse,
@@ -88,7 +79,7 @@ public abstract class AbstractBpmnParseHandler<T extends BaseElement> implements
         for (Artifact artifact : artifacts) {
             if (artifact instanceof Association) {
                 createAssociation(bpmnParse,
-                                  (Association) artifact);
+                    (Association) artifact);
             }
         }
     }
@@ -120,10 +111,10 @@ public abstract class AbstractBpmnParseHandler<T extends BaseElement> implements
         // bpmnModel.addProblem("Invalid reference targetRef '" +
         // association.getTargetRef() + "' of association element ",
         // association.getId());
-    /*
-     * } else { if (sourceActivity.getProperty("type").equals("compensationBoundaryCatch" )) { Object isForCompensation = targetActivity.getProperty(PROPERTYNAME_IS_FOR_COMPENSATION); if
-     * (isForCompensation == null || !(Boolean) isForCompensation) { logger.warn( "compensation boundary catch must be connected to element with isForCompensation=true" ); } else { ActivityImpl
-     * compensatedActivity = sourceActivity.getParentActivity(); compensatedActivity.setProperty(BpmnParse .PROPERTYNAME_COMPENSATION_HANDLER_ID, targetActivity.getId()); } } }
-     */
+        /*
+         * } else { if (sourceActivity.getProperty("type").equals("compensationBoundaryCatch" )) { Object isForCompensation = targetActivity.getProperty(PROPERTYNAME_IS_FOR_COMPENSATION); if
+         * (isForCompensation == null || !(Boolean) isForCompensation) { logger.warn( "compensation boundary catch must be connected to element with isForCompensation=true" ); } else { ActivityImpl
+         * compensatedActivity = sourceActivity.getParentActivity(); compensatedActivity.setProperty(BpmnParse .PROPERTYNAME_COMPENSATION_HANDLER_ID, targetActivity.getId()); } } }
+         */
     }
 }

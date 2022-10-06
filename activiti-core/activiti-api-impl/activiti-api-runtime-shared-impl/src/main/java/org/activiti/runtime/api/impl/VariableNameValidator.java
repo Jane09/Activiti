@@ -15,12 +15,12 @@
  */
 package org.activiti.runtime.api.impl;
 
+import org.springframework.util.StringUtils;
+
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
-
-import org.springframework.util.StringUtils;
 
 public class VariableNameValidator {
 

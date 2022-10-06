@@ -17,14 +17,14 @@
 
 package org.activiti.spring.test.servicetask;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.List;
-
 import org.activiti.engine.task.Task;
 import org.activiti.engine.test.Deployment;
 import org.activiti.spring.impl.test.SpringActivitiTestCase;
 import org.springframework.test.context.ContextConfiguration;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @link https://activiti.atlassian.net/browse/ACT-1166
@@ -36,7 +36,7 @@ public class BoundaryErrorEventSpringTest extends SpringActivitiTestCase {
         List<org.activiti.engine.repository.Deployment> deployments = repositoryService.createDeploymentQuery().list();
         for (org.activiti.engine.repository.Deployment deployment : deployments) {
             repositoryService.deleteDeployment(deployment.getId(),
-                                               true);
+                true);
         }
     }
 

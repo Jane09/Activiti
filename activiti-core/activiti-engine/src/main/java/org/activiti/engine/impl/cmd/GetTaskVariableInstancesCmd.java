@@ -17,11 +17,6 @@
 
 package org.activiti.engine.impl.cmd;
 
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.ActivitiObjectNotFoundException;
 import org.activiti.engine.impl.interceptor.Command;
@@ -29,6 +24,11 @@ import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.impl.persistence.entity.TaskEntity;
 import org.activiti.engine.impl.persistence.entity.VariableInstance;
 import org.activiti.engine.task.Task;
+
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class GetTaskVariableInstancesCmd implements Command<Map<String, VariableInstance>>, Serializable {
 

@@ -27,8 +27,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.test.context.support.WithUserDetails;
-import org.springframework.test.context.ContextConfiguration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -48,7 +46,7 @@ public class TaskRuntimeTaskForOtherTest {
     private TaskCleanUpUtil taskCleanUpUtil;
 
     @AfterEach
-    public void taskCleanUp(){
+    public void taskCleanUp() {
         taskCleanUpUtil.cleanUpWithAdmin();
     }
 
@@ -58,8 +56,8 @@ public class TaskRuntimeTaskForOtherTest {
         securityUtil.logInAs("garth");
 
         Task standAloneTask = taskRuntime.create(TaskPayloadBuilder.create()
-                .withName("task with no candidates besides owner")
-                .build());
+            .withName("task with no candidates besides owner")
+            .build());
 
         // the owner should be able to see the created task
         Page<Task> tasks = taskRuntime.tasks(Pageable.of(0, 50));

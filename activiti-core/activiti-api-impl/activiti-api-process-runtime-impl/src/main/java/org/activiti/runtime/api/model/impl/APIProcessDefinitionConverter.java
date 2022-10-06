@@ -15,15 +15,15 @@
  */
 package org.activiti.runtime.api.model.impl;
 
-import java.util.Objects;
-
 import org.activiti.api.process.model.ProcessDefinition;
 import org.activiti.api.runtime.model.impl.ProcessDefinitionImpl;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.engine.RepositoryService;
 
+import java.util.Objects;
+
 public class APIProcessDefinitionConverter extends ListConverter<org.activiti.engine.repository.ProcessDefinition, ProcessDefinition>
-        implements ModelConverter<org.activiti.engine.repository.ProcessDefinition, ProcessDefinition> {
+    implements ModelConverter<org.activiti.engine.repository.ProcessDefinition, ProcessDefinition> {
 
     private RepositoryService repositoryService;
 

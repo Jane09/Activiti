@@ -32,9 +32,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
-import java.util.Map;
-import java.util.Optional;
-
 public class DefaultMessageExecutionContext implements MessageExecutionContext {
     private final ExpressionManager expressionManager;
     private final MessagePayloadMappingProvider messagePayloadMappingProvider;
@@ -51,18 +48,17 @@ public class DefaultMessageExecutionContext implements MessageExecutionContext {
     @Override
     public String getMessageName(DelegateExecution execution) {
         return evaluateExpression(Optional.ofNullable(messageEventDefinition.getMessageRef())
-                                          .orElseGet(() -> messageEventDefinition.getMessageExpression()),
-                                  execution);
+                .orElseGet(() -> messageEventDefinition.getMessageExpression()),
+            execution);
     }
 
     public Optional<String> getCorrelationKey(DelegateExecution execution) {
         return Optional.ofNullable(messageEventDefinition.getCorrelationKey())
-                       .map(correlationKey -> {
-                           return evaluateExpression(messageEventDefinition.getCorrelationKey(),
-                                                     execution);
-                       });
+            .map(correlationKey -> {
+                return evaluateExpression(messageEventDefinition.getCorrelationKey(),
+                    execution);
+            });
     }
-
 
 
     public Optional<Map<String, Object>> getMessagePayload(DelegateExecution execution) {
@@ -77,11 +73,11 @@ public class DefaultMessageExecutionContext implements MessageExecutionContext {
         Optional<Map<String, Object>> payload = getMessagePayload(execution);
 
         return ThrowMessage.builder()
-                           .name(name)
-                           .correlationKey(correlationKey)
-                           .businessKey(businessKey)
-                           .payload(payload)
-                           .build();
+            .name(name)
+            .correlationKey(correlationKey)
+            .businessKey(businessKey)
+            .payload(payload)
+            .build();
     }
 
     @Override
@@ -92,12 +88,12 @@ public class DefaultMessageExecutionContext implements MessageExecutionContext {
         Optional<String> correlationKey = getCorrelationKey(execution);
 
         correlationKey.ifPresent(key -> assertNoExistingDuplicateEventSubscriptions(messageName,
-                                                                                    key,
-                                                                                    commandContext));
+            key,
+            commandContext));
 
         MessageEventSubscriptionEntity messageEvent = commandContext.getEventSubscriptionEntityManager()
-                                                                    .insertMessageEvent(messageName,
-                                                                                        ExecutionEntity.class.cast(execution));
+            .insertMessageEvent(messageName,
+                ExecutionEntity.class.cast(execution));
         correlationKey.ifPresent(messageEvent::setConfiguration);
 
         return messageEvent;
@@ -114,9 +110,9 @@ public class DefaultMessageExecutionContext implements MessageExecutionContext {
     protected String evaluateExpression(String expression,
                                         DelegateExecution execution) {
         return Optional.ofNullable(expressionManager.createExpression(expression))
-                       .map(it -> it.getValue(execution))
-                       .map(Object::toString)
-                       .orElseThrow(() -> new ActivitiIllegalArgumentException("Expression '" + expression + "' is null"));
+            .map(it -> it.getValue(execution))
+            .map(Object::toString)
+            .orElseThrow(() -> new ActivitiIllegalArgumentException("Expression '" + expression + "' is null"));
     }
 
     protected void assertNoExistingDuplicateEventSubscriptions(String messageName,
@@ -124,17 +120,17 @@ public class DefaultMessageExecutionContext implements MessageExecutionContext {
                                                                CommandContext commandContext) {
 
         List<EventSubscriptionEntity> existing = commandContext.getEventSubscriptionEntityManager()
-                                                               .findEventSubscriptionsByName("message",
-                                                                                             messageName,
-                                                                                             null);
+            .findEventSubscriptionsByName("message",
+                messageName,
+                null);
         existing.stream()
-                .filter(subscription -> Objects.equals(subscription.getConfiguration(),
-                                                       correlationKey))
-                .findFirst()
-                .ifPresent(subscription -> {
-                    throw new ActivitiIllegalArgumentException("Duplicate message subscription '" + subscription.getEventName() +
-                                                               "' with correlation key '" + subscription.getConfiguration() + "'");
-                });
+            .filter(subscription -> Objects.equals(subscription.getConfiguration(),
+                correlationKey))
+            .findFirst()
+            .ifPresent(subscription -> {
+                throw new ActivitiIllegalArgumentException("Duplicate message subscription '" + subscription.getEventName() +
+                    "' with correlation key '" + subscription.getConfiguration() + "'");
+            });
 
     }
 }

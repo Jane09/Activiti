@@ -17,14 +17,15 @@
 
 package org.activiti.spring.process;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.spring.process.model.Extension;
 import org.activiti.spring.process.model.ProcessExtensionModel;
 import org.activiti.spring.resources.DeploymentResourceLoader;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ProcessExtensionService {
 
@@ -49,7 +50,7 @@ public class ProcessExtensionService {
         }
 
         List<ProcessExtensionModel> processExtensionModels = processExtensionLoader.loadResourcesForDeployment(deploymentId,
-                processExtensionReader);
+            processExtensionReader);
 
         processExtensionModelMap = buildProcessDefinitionAndExtensionMap(processExtensionModels);
         processExtensionModelDeploymentMap.put(deploymentId, processExtensionModelMap);
@@ -58,7 +59,7 @@ public class ProcessExtensionService {
 
     private Map<String, Extension> buildProcessDefinitionAndExtensionMap(List<ProcessExtensionModel> processExtensionModels) {
         Map<String, Extension> buildProcessExtensionMap = new HashMap<>();
-        for (ProcessExtensionModel processExtensionModel:processExtensionModels ) {
+        for (ProcessExtensionModel processExtensionModel : processExtensionModels) {
             buildProcessExtensionMap.putAll(processExtensionModel.getAllExtensions());
         }
 

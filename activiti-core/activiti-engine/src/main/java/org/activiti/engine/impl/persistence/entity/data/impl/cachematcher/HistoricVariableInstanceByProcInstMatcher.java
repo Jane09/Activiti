@@ -20,14 +20,14 @@ import org.activiti.engine.impl.persistence.CachedEntityMatcherAdapter;
 import org.activiti.engine.impl.persistence.entity.HistoricVariableInstanceEntity;
 
 /**
-
+ *
  */
 public class HistoricVariableInstanceByProcInstMatcher extends CachedEntityMatcherAdapter<HistoricVariableInstanceEntity> {
 
-  @Override
-  public boolean isRetained(HistoricVariableInstanceEntity historicVariableInstanceEntity, Object parameter) {
-    return historicVariableInstanceEntity.getProcessInstanceId() != null
-        && historicVariableInstanceEntity.getProcessInstanceId().equals((String) parameter);
-  }
+    @Override
+    public boolean isRetained(HistoricVariableInstanceEntity historicVariableInstanceEntity, Object parameter) {
+        return historicVariableInstanceEntity.getProcessInstanceId() != null
+            && historicVariableInstanceEntity.getProcessInstanceId().equals((String) parameter);
+    }
 
 }

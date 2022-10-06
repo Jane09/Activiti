@@ -103,14 +103,14 @@ public class Extension {
         ProcessVariablesMapping processVariablesMapping = mappings.get(elementId);
         return processVariablesMapping.getMappingType() != null &&
             (processVariablesMapping.getMappingType().equals(MappingType.MAP_ALL_INPUTS) ||
-            processVariablesMapping.getMappingType().equals(MappingType.MAP_ALL));
+                processVariablesMapping.getMappingType().equals(MappingType.MAP_ALL));
     }
 
     public boolean shouldMapAllOutputs(String elementId) {
         ProcessVariablesMapping processVariablesMapping = mappings.get(elementId);
         return processVariablesMapping.getMappingType() != null &&
             (processVariablesMapping.getMappingType().equals(MappingType.MAP_ALL_OUTPUTS) ||
-            processVariablesMapping.getMappingType().equals(MappingType.MAP_ALL));
+                processVariablesMapping.getMappingType().equals(MappingType.MAP_ALL));
     }
 
     public TemplatesDefinition getTemplates() {

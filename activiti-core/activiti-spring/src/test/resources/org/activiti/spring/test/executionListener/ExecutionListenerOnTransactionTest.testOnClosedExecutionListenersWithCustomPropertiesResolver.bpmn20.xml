@@ -5,25 +5,26 @@
 
   <process id="transactionDependentExecutionListenerProcess">
 
-    <startEvent id="theStart" name="Start Event" />
+    <startEvent id="theStart" name="Start Event"/>
 
-    <sequenceFlow sourceRef="theStart" targetRef="serviceTask1" />
+    <sequenceFlow sourceRef="theStart" targetRef="serviceTask1"/>
 
     <serviceTask
-            id="serviceTask1"
-            name="Service Task 1"
-            activiti:class="org.activiti.spring.test.executionListener.ConditionalThrowExceptionDelegate">
+      id="serviceTask1"
+      name="Service Task 1"
+      activiti:class="org.activiti.spring.test.executionListener.ConditionalThrowExceptionDelegate">
       <extensionElements>
-        <activiti:executionListener class="org.activiti.spring.test.executionListener.CurrentActivityTransactionDependentExecutionListener"
-                                    event="start"
-                                    onTransaction="committed"
-                                    customPropertiesResolverClass="org.activiti.spring.test.executionListener.MyCustomPropertiesResolver"/>
+        <activiti:executionListener
+          class="org.activiti.spring.test.executionListener.CurrentActivityTransactionDependentExecutionListener"
+          event="start"
+          onTransaction="committed"
+          customPropertiesResolverClass="org.activiti.spring.test.executionListener.MyCustomPropertiesResolver"/>
       </extensionElements>
     </serviceTask>
 
     <sequenceFlow sourceRef="serviceTask1" targetRef="theEnd"/>
 
-    <endEvent id="theEnd" name="End Event" />
+    <endEvent id="theEnd" name="End Event"/>
 
   </process>
 </definitions>

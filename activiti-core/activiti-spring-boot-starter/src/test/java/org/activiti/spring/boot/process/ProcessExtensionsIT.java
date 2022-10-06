@@ -15,13 +15,6 @@
  */
 package org.activiti.spring.boot.process;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.assertj.core.api.Assertions.tuple;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.List;
 import org.activiti.api.model.shared.model.VariableInstance;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.builders.ProcessPayloadBuilder;
@@ -41,6 +34,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.*;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class ProcessExtensionsIT {
 
@@ -59,7 +58,7 @@ public class ProcessExtensionsIT {
     private ProcessCleanUpUtil processCleanUpUtil;
 
     @AfterEach
-    public void cleanUp(){
+    public void cleanUp() {
         processCleanUpUtil.cleanUpWithAdmin();
     }
 
@@ -75,13 +74,13 @@ public class ProcessExtensionsIT {
 
         // start a process with vars then check default and specified vars exist
         ProcessInstance initialVarsProcess = processRuntime.start(ProcessPayloadBuilder.start()
-                .withProcessDefinitionKey(INITIAL_VARS_PROCESS)
-                .withVariable("extraVar",
-                        true)
-                .withVariable("age",
-                        10)
-                .withBusinessKey("my business key")
-                .build());
+            .withProcessDefinitionKey(INITIAL_VARS_PROCESS)
+            .withVariable("extraVar",
+                true)
+            .withVariable("age",
+                10)
+            .withBusinessKey("my business key")
+            .build());
 
         assertThat(initialVarsProcess).isNotNull();
         assertThat(initialVarsProcess.getStatus()).isEqualTo(ProcessInstance.ProcessInstanceStatus.RUNNING);
@@ -92,8 +91,8 @@ public class ProcessExtensionsIT {
         assertThat(variableInstances).hasSize(4);
 
         assertThat(variableInstances).extracting("name")
-                .contains("extraVar", "name", "age", "birth")
-                .doesNotContain("subscribe");
+            .contains("extraVar", "name", "age", "birth")
+            .doesNotContain("subscribe");
 
         // cleanup
         processRuntime.delete(ProcessPayloadBuilder.delete(initialVarsProcess));
@@ -107,18 +106,18 @@ public class ProcessExtensionsIT {
 
         // start a process with vars then check default and specified vars exist
         ProcessInstance initialVarsProcess = processRuntime.start(ProcessPayloadBuilder.start()
-                .withProcessDefinitionKey(INITIAL_VARS_PROCESS)
-                .withVariable("extraVar",
-                        true)
-                .withVariable("age",
-                        10)
-                .withVariable("name",
-                        "bob")
-                .withVariable("subscribe",
-                        true)
-                .withVariable("birth", new SimpleDateFormat("yyyy-MM-dd").parse("2009-11-30"))
-                .withBusinessKey("my business key")
-                .build());
+            .withProcessDefinitionKey(INITIAL_VARS_PROCESS)
+            .withVariable("extraVar",
+                true)
+            .withVariable("age",
+                10)
+            .withVariable("name",
+                "bob")
+            .withVariable("subscribe",
+                true)
+            .withVariable("birth", new SimpleDateFormat("yyyy-MM-dd").parse("2009-11-30"))
+            .withBusinessKey("my business key")
+            .build());
 
         assertThat(initialVarsProcess).isNotNull();
         assertThat(initialVarsProcess.getStatus()).isEqualTo(ProcessInstance.ProcessInstanceStatus.RUNNING);
@@ -129,7 +128,7 @@ public class ProcessExtensionsIT {
         assertThat(variableInstances).hasSize(5);
 
         assertThat(variableInstances).extracting("name")
-                .contains("extraVar", "name", "age", "birth","subscribe");
+            .contains("extraVar", "name", "age", "birth", "subscribe");
 
         // cleanup
         processRuntime.delete(ProcessPayloadBuilder.delete(initialVarsProcess));
@@ -143,10 +142,10 @@ public class ProcessExtensionsIT {
 
         assertThatExceptionOfType(ActivitiException.class).isThrownBy(() -> {
             processRuntime.start(ProcessPayloadBuilder.start()
-                    .withProcessDefinitionKey(INITIAL_VARS_PROCESS)
-                    .withVariable("extraVar",
-                            true)
-                    .build());
+                .withProcessDefinitionKey(INITIAL_VARS_PROCESS)
+                .withVariable("extraVar",
+                    true)
+                .build());
         }).withMessage("Can't start process '" + INITIAL_VARS_PROCESS + "' without required variables - age");
     }
 
@@ -157,12 +156,12 @@ public class ProcessExtensionsIT {
 
         assertThatExceptionOfType(IllegalStateException.class).isThrownBy(() -> {
             processRuntime.start(ProcessPayloadBuilder.start()
-                    .withProcessDefinitionKey(INITIAL_VARS_PROCESS)
-                    .withVariable("age", true)
-                    .withVariable("name",7)
-                    .withVariable("subscribe","ok")
-                    .withVariable("birth","2007-10-01")
-                    .build());
+                .withProcessDefinitionKey(INITIAL_VARS_PROCESS)
+                .withVariable("age", true)
+                .withVariable("name", 7)
+                .withVariable("subscribe", "ok")
+                .withVariable("birth", "2007-10-01")
+                .build());
         }).withMessage("Variables fail type validation: subscribe, name, age");
     }
 
@@ -170,13 +169,13 @@ public class ProcessExtensionsIT {
     public void should_mapProcessVariables_when_startEventMappingExists() {
         //given
         ProcessInstance process = processRuntime.start(ProcessPayloadBuilder.start()
-                .withProcessDefinitionKey("process-b42a166d-605b-4eec-8b96-82b1253666bf")
-                .withVariable("Text0xfems",
-                        "name_value")
-                .withVariable("Text0rvs0o",
-                        "email_value")
-                .withBusinessKey("my business key")
-                .build());
+            .withProcessDefinitionKey("process-b42a166d-605b-4eec-8b96-82b1253666bf")
+            .withVariable("Text0xfems",
+                "name_value")
+            .withVariable("Text0rvs0o",
+                "email_value")
+            .withBusinessKey("my business key")
+            .build());
 
         //when
         List<VariableInstance> variableInstances = processRuntime.variables(ProcessPayloadBuilder.variables().withProcessInstance(process).build());
@@ -228,13 +227,13 @@ public class ProcessExtensionsIT {
 
         ProcessInstance startedProcess = processRuntime.startCreatedProcess(createdProcess.getId(),
             ProcessPayloadBuilder.start()
-            .withProcessDefinitionKey("process-b42a166d-605b-4eec-8b96-82b1253666bf")
-            .withVariable("Text0xfems",
-                "name_value")
-            .withVariable("Text0rvs0o",
-                "email_value")
-            .withBusinessKey("my business key")
-            .build() );
+                .withProcessDefinitionKey("process-b42a166d-605b-4eec-8b96-82b1253666bf")
+                .withVariable("Text0xfems",
+                    "name_value")
+                .withVariable("Text0rvs0o",
+                    "email_value")
+                .withBusinessKey("my business key")
+                .build());
 
         //then
         List<VariableInstance> variableInstances = processRuntime.variables(ProcessPayloadBuilder.variables()

@@ -58,13 +58,13 @@ public class TaskCandidateEventConverterHelperTest {
 
     @Test
     public void isNotTaskCandidateGroupLink_when_taskId_isNull() {
-        IdentityLink identityLink = createGroupIdentityLink(null,"aGroupId", IdentityLinkType.CANDIDATE);
+        IdentityLink identityLink = createGroupIdentityLink(null, "aGroupId", IdentityLinkType.CANDIDATE);
         assertThat(taskCandidateEventConverterHelper.isTaskCandidateGroupLink(identityLink)).isFalse();
     }
 
     @Test
     public void isNotTaskCandidateGroupLink_when_groupId_isNull() {
-        IdentityLink identityLink = createGroupIdentityLink("aTaskId",null, IdentityLinkType.CANDIDATE);
+        IdentityLink identityLink = createGroupIdentityLink("aTaskId", null, IdentityLinkType.CANDIDATE);
         assertThat(taskCandidateEventConverterHelper.isTaskCandidateGroupLink(identityLink)).isFalse();
     }
 

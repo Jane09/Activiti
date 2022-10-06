@@ -15,16 +15,11 @@
  */
 package org.activiti.bpmn.converter.child;
 
-import javax.xml.stream.XMLStreamReader;
-
 import org.activiti.bpmn.converter.util.BpmnXMLUtil;
-import org.activiti.bpmn.model.BaseElement;
-import org.activiti.bpmn.model.BpmnModel;
-import org.activiti.bpmn.model.FormProperty;
-import org.activiti.bpmn.model.FormValue;
-import org.activiti.bpmn.model.StartEvent;
-import org.activiti.bpmn.model.UserTask;
+import org.activiti.bpmn.model.*;
 import org.apache.commons.lang3.StringUtils;
+
+import javax.xml.stream.XMLStreamReader;
 
 public class FormPropertyParser extends BaseChildElementParser {
 
@@ -45,35 +40,35 @@ public class FormPropertyParser extends BaseChildElementParser {
         }
         FormProperty property = new FormProperty();
         BpmnXMLUtil.addXMLLocation(property,
-                                   xtr);
+            xtr);
         property.setId(xtr.getAttributeValue(null,
-                                             ATTRIBUTE_FORM_ID));
+            ATTRIBUTE_FORM_ID));
         property.setName(xtr.getAttributeValue(null,
-                                               ATTRIBUTE_FORM_NAME));
+            ATTRIBUTE_FORM_NAME));
         property.setType(xtr.getAttributeValue(null,
-                                               ATTRIBUTE_FORM_TYPE));
+            ATTRIBUTE_FORM_TYPE));
         property.setVariable(xtr.getAttributeValue(null,
-                                                   ATTRIBUTE_FORM_VARIABLE));
+            ATTRIBUTE_FORM_VARIABLE));
         property.setExpression(xtr.getAttributeValue(null,
-                                                     ATTRIBUTE_FORM_EXPRESSION));
+            ATTRIBUTE_FORM_EXPRESSION));
         property.setDefaultExpression(xtr.getAttributeValue(null,
-                                                            ATTRIBUTE_FORM_DEFAULT));
+            ATTRIBUTE_FORM_DEFAULT));
         property.setDatePattern(xtr.getAttributeValue(null,
-                                                      ATTRIBUTE_FORM_DATEPATTERN));
+            ATTRIBUTE_FORM_DATEPATTERN));
         if (StringUtils.isNotEmpty(xtr.getAttributeValue(null,
-                                                         ATTRIBUTE_FORM_REQUIRED))) {
+            ATTRIBUTE_FORM_REQUIRED))) {
             property.setRequired(Boolean.valueOf(xtr.getAttributeValue(null,
-                                                                       ATTRIBUTE_FORM_REQUIRED)));
+                ATTRIBUTE_FORM_REQUIRED)));
         }
         if (StringUtils.isNotEmpty(xtr.getAttributeValue(null,
-                                                         ATTRIBUTE_FORM_READABLE))) {
+            ATTRIBUTE_FORM_READABLE))) {
             property.setReadable(Boolean.valueOf(xtr.getAttributeValue(null,
-                                                                       ATTRIBUTE_FORM_READABLE)));
+                ATTRIBUTE_FORM_READABLE)));
         }
         if (StringUtils.isNotEmpty(xtr.getAttributeValue(null,
-                                                         ATTRIBUTE_FORM_WRITABLE))) {
+            ATTRIBUTE_FORM_WRITABLE))) {
             property.setWriteable(Boolean.valueOf(xtr.getAttributeValue(null,
-                                                                        ATTRIBUTE_FORM_WRITABLE)));
+                ATTRIBUTE_FORM_WRITABLE)));
         }
 
         boolean readyWithFormProperty = false;
@@ -83,11 +78,11 @@ public class FormPropertyParser extends BaseChildElementParser {
                 if (xtr.isStartElement() && ELEMENT_VALUE.equalsIgnoreCase(xtr.getLocalName())) {
                     FormValue value = new FormValue();
                     BpmnXMLUtil.addXMLLocation(value,
-                                               xtr);
+                        xtr);
                     value.setId(xtr.getAttributeValue(null,
-                                                      ATTRIBUTE_ID));
+                        ATTRIBUTE_ID));
                     value.setName(xtr.getAttributeValue(null,
-                                                        ATTRIBUTE_NAME));
+                        ATTRIBUTE_NAME));
                     property.getFormValues().add(value);
                 } else if (xtr.isEndElement() && getElementName().equalsIgnoreCase(xtr.getLocalName())) {
                     readyWithFormProperty = true;
@@ -95,7 +90,7 @@ public class FormPropertyParser extends BaseChildElementParser {
             }
         } catch (Exception e) {
             LOGGER.warn("Error parsing form properties child elements",
-                        e);
+                e);
         }
 
         if (parentElement instanceof UserTask) {

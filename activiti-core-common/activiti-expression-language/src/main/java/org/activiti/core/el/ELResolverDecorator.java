@@ -15,10 +15,10 @@
  */
 package org.activiti.core.el;
 
-import java.beans.FeatureDescriptor;
-import java.util.Iterator;
 import javax.el.ELContext;
 import javax.el.ELResolver;
+import java.beans.FeatureDescriptor;
+import java.util.Iterator;
 
 /**
  * Generic Decorator for {@link ELResolver} implementations.

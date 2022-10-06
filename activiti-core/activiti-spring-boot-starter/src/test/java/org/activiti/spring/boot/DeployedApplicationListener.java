@@ -15,12 +15,13 @@
  */
 package org.activiti.spring.boot;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.activiti.api.process.model.Deployment;
 import org.activiti.api.process.model.events.ApplicationDeployedEvent;
 import org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class DeployedApplicationListener implements ProcessRuntimeEventListener<ApplicationDeployedEvent> {
@@ -29,10 +30,10 @@ public class DeployedApplicationListener implements ProcessRuntimeEventListener<
 
     @Override
     public void onEvent(ApplicationDeployedEvent event) {
-            deployedApplications.add(event.getEntity());
+        deployedApplications.add(event.getEntity());
     }
 
     public List<Deployment> getDeployedApplication() {
-            return deployedApplications;
+        return deployedApplications;
     }
 }

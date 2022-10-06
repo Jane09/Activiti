@@ -15,22 +15,21 @@
  */
 package org.activiti.engine.impl.calendar;
 
-import java.util.Date;
-import java.util.TimeZone;
-
 import org.activiti.engine.api.internal.Internal;
 import org.activiti.engine.runtime.ClockReader;
 
+import java.util.Date;
+import java.util.TimeZone;
+
 /**
  * Resolves a due date using the original Activiti due date resolver. This does not take into account the passed time zone.
- *
  */
 @Internal
 public class AdvancedSchedulerResolverWithoutTimeZone implements AdvancedSchedulerResolver {
 
-  @Override
-  public Date resolve(String duedateDescription, ClockReader clockReader, TimeZone timeZone) {
-    return new CycleBusinessCalendar(clockReader).resolveDuedate(duedateDescription);
-  }
+    @Override
+    public Date resolve(String duedateDescription, ClockReader clockReader, TimeZone timeZone) {
+        return new CycleBusinessCalendar(clockReader).resolveDuedate(duedateDescription);
+    }
 
 }

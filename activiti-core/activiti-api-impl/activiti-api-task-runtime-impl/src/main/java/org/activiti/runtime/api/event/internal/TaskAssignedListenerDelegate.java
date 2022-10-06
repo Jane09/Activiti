@@ -40,11 +40,11 @@ public class TaskAssignedListenerDelegate implements ActivitiEventListener {
     public void onEvent(ActivitiEvent event) {
         if (event instanceof ActivitiEntityEvent) {
             taskAssignedEventConverter.from((ActivitiEntityEvent) event)
-                    .ifPresent(convertedEvent -> {
-                        for (TaskRuntimeEventListener<TaskAssignedEvent> listener : listeners) {
-                            listener.onEvent(convertedEvent);
-                        }
-                    });
+                .ifPresent(convertedEvent -> {
+                    for (TaskRuntimeEventListener<TaskAssignedEvent> listener : listeners) {
+                        listener.onEvent(convertedEvent);
+                    }
+                });
         }
     }
 

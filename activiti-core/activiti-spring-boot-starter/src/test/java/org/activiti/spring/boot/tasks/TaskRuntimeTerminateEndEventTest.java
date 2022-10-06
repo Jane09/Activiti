@@ -15,9 +15,6 @@
  */
 package org.activiti.spring.boot.tasks;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.List;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.task.model.Task;
 import org.activiti.api.task.runtime.events.TaskCancelledEvent;
@@ -30,6 +27,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class TaskRuntimeTerminateEndEventTest {
@@ -52,13 +53,13 @@ public class TaskRuntimeTerminateEndEventTest {
     private LocalEventSource localEventSource;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         localEventSource.clearEvents();
 
     }
 
     @AfterEach
-    public void tearDown(){
+    public void tearDown() {
         taskCleanUpUtil.cleanUpWithAdmin();
         localEventSource.clearEvents();
     }
@@ -81,7 +82,7 @@ public class TaskRuntimeTerminateEndEventTest {
     }
 
     @Test
-    public void should_CancelledTasksByTerminateEndEventHaveCancellationReasonSet(){
+    public void should_CancelledTasksByTerminateEndEventHaveCancellationReasonSet() {
 
         securityUtil.logInAs("user");
 

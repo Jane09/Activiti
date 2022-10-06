@@ -15,11 +15,11 @@
  */
 package org.activiti.api.process.model.builders;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.payloads.SetProcessVariablesPayload;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SetVariablesPayloadBuilder {
 
@@ -58,12 +58,12 @@ public class SetVariablesPayloadBuilder {
             this.variables = new HashMap<>();
         }
         this.variables.put(name,
-                           value);
+            value);
         return this;
     }
 
     public SetProcessVariablesPayload build() {
         return new SetProcessVariablesPayload(processInstanceId,
-                                              variables);
+            variables);
     }
 }

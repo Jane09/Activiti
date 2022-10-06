@@ -15,11 +15,6 @@
  */
 package org.activiti.spring.boot;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.tuple;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import org.activiti.api.process.model.ProcessDefinition;
 import org.activiti.api.process.runtime.ProcessAdminRuntime;
 import org.activiti.api.process.runtime.ProcessRuntime;
@@ -35,6 +30,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.tuple;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class ApplicationUpgradeIT {
@@ -79,10 +81,10 @@ public class ApplicationUpgradeIT {
         projectManifest.setVersion("7");
 
         Deployment deployment1 = repositoryService.createDeployment()
-                .setProjectManifest(projectManifest)
-                .enableDuplicateFiltering()
-                .name("deploymentName")
-                .deploy();
+            .setProjectManifest(projectManifest)
+            .enableDuplicateFiltering()
+            .name("deploymentName")
+            .deploy();
         deploymentIds.add(deployment1.getId());
 
         assertThat(deployment1.getVersion()).isEqualTo(1);
@@ -91,10 +93,10 @@ public class ApplicationUpgradeIT {
         projectManifest.setVersion("17");
 
         Deployment deployment2 = repositoryService.createDeployment()
-                .setProjectManifest(projectManifest)
-                .enableDuplicateFiltering()
-                .name("deploymentName")
-                .deploy();
+            .setProjectManifest(projectManifest)
+            .enableDuplicateFiltering()
+            .name("deploymentName")
+            .deploy();
         deploymentIds.add(deployment2.getId());
 
         assertThat(deployment2.getProjectReleaseVersion()).isEqualTo("17");
@@ -206,8 +208,8 @@ public class ApplicationUpgradeIT {
         //then
         assertThat(result.getContent())
             .filteredOn(processDefinition -> Arrays.asList(
-                PROCESS_FROM_CUSTOM_DEPLOYMENT_KEY,
-                ANOTHER_PROCESS_FROM_CUSTOM_DEPLOYMENT_KEY)
+                    PROCESS_FROM_CUSTOM_DEPLOYMENT_KEY,
+                    ANOTHER_PROCESS_FROM_CUSTOM_DEPLOYMENT_KEY)
                 .contains(processDefinition.getKey()))
             .extracting(ProcessDefinition::getKey, ProcessDefinition::getVersion,
                 ProcessDefinition::getAppVersion)
@@ -218,7 +220,7 @@ public class ApplicationUpgradeIT {
     }
 
     @Test
-    public void should_updateDeploymentVersion_when_onlyEnforcedAppVersionIsSet(){
+    public void should_updateDeploymentVersion_when_onlyEnforcedAppVersionIsSet() {
 
         Deployment deployment1 = repositoryService.createDeployment()
             .setEnforcedAppVersion(1)
@@ -238,7 +240,7 @@ public class ApplicationUpgradeIT {
     }
 
     @Test
-    public void should_updateDeploymentVersion_when_onlyProjectManifestVersionIsSet(){
+    public void should_updateDeploymentVersion_when_onlyProjectManifestVersionIsSet() {
         ProjectManifest projectManifest = new ProjectManifest();
         projectManifest.setVersion("2");
 
@@ -317,7 +319,7 @@ public class ApplicationUpgradeIT {
     }
 
     private Deployment deployProcesses(String deploymentName, ProjectManifest projectManifest,
-        String... processPaths) {
+                                       String... processPaths) {
         DeploymentBuilder deploymentBuilder = repositoryService.createDeployment()
             .setProjectManifest(projectManifest)
             .enableDuplicateFiltering()
@@ -331,11 +333,11 @@ public class ApplicationUpgradeIT {
         return deployment;
     }
 
-    private Deployment deployProcesses(ProjectManifest projectManifest, String ... processPaths) {
+    private Deployment deployProcesses(ProjectManifest projectManifest, String... processPaths) {
         return deployProcesses(DEPLOYMENT_TYPE_NAME, projectManifest, processPaths);
     }
 
-    private Deployment deployProcessesWithoutProjectManifest(String deploymentName, String ... processPaths) {
+    private Deployment deployProcessesWithoutProjectManifest(String deploymentName, String... processPaths) {
         return deployProcesses(deploymentName, null, processPaths);
     }
 

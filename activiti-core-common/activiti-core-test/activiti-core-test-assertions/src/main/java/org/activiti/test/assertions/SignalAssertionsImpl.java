@@ -15,12 +15,12 @@
  */
 package org.activiti.test.assertions;
 
-import java.util.List;
-
 import org.activiti.api.model.shared.event.RuntimeEvent;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.test.EventSource;
 import org.activiti.test.matchers.OperationScopeMatcher;
+
+import java.util.List;
 
 import static org.activiti.test.matchers.OperationScopeImpl.processInstanceScope;
 
@@ -39,7 +39,7 @@ public class SignalAssertionsImpl implements SignalAssertions {
         List<RuntimeEvent<?, ?>> events = eventSource.getEvents();
         for (OperationScopeMatcher matcher : matchers) {
             matcher.match(processInstanceScope(processInstance.getId()),
-                          events);
+                events);
         }
         return this;
     }

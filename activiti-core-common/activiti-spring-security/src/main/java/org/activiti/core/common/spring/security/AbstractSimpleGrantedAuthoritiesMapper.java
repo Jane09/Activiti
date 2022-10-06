@@ -28,10 +28,10 @@ public abstract class AbstractSimpleGrantedAuthoritiesMapper {
     protected static List<String> getAuthoritesFilteredByPrefix(@NonNull Collection<? extends GrantedAuthority> authorities,
                                                                 @NonNull String prefix) {
         return authorities.stream()
-                          .map(GrantedAuthority::getAuthority)
-                          .filter(a -> a.startsWith(prefix))
-                          .map(a -> a.substring(prefix.length()))
-                          .collect(Collectors.collectingAndThen(Collectors.toList(),
-                                                                Collections::unmodifiableList));
+            .map(GrantedAuthority::getAuthority)
+            .filter(a -> a.startsWith(prefix))
+            .map(a -> a.substring(prefix.length()))
+            .collect(Collectors.collectingAndThen(Collectors.toList(),
+                Collections::unmodifiableList));
     }
 }

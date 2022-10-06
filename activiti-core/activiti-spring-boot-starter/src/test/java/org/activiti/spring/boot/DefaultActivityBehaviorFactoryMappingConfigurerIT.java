@@ -30,11 +30,11 @@ public class DefaultActivityBehaviorFactoryMappingConfigurerIT {
     private SpringProcessEngineConfiguration processEngineConfiguration;
 
     @Test
-    public void processEngineConfigurationShouldHaveSetMappingAwareActivityBehaviorFactoryAsActivityBehaviorFactory(){
+    public void processEngineConfigurationShouldHaveSetMappingAwareActivityBehaviorFactoryAsActivityBehaviorFactory() {
         assertThat(processEngineConfiguration.getActivityBehaviorFactory())
-                .isInstanceOf(MappingAwareActivityBehaviorFactory.class);
+            .isInstanceOf(MappingAwareActivityBehaviorFactory.class);
         assertThat(processEngineConfiguration.getBpmnParser().getActivityBehaviorFactory())
-                .isInstanceOf(MappingAwareActivityBehaviorFactory.class);
+            .isInstanceOf(MappingAwareActivityBehaviorFactory.class);
 
     }
 

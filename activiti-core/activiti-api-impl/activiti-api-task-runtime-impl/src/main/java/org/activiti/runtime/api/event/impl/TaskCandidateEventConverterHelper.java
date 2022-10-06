@@ -23,16 +23,16 @@ public class TaskCandidateEventConverterHelper {
 
     public boolean isTaskCandidateUserLink(IdentityLink identityLink) {
         return isTaskCandidateLink(identityLink) &&
-                identityLink.getUserId() != null;
+            identityLink.getUserId() != null;
     }
 
     public boolean isTaskCandidateGroupLink(IdentityLink identityLink) {
         return isTaskCandidateLink(identityLink) &&
-                identityLink.getGroupId() != null;
+            identityLink.getGroupId() != null;
     }
 
     private boolean isTaskCandidateLink(IdentityLink identityLink) {
         return identityLink.getTaskId() != null &&
-                CANDIDATE.equalsIgnoreCase(identityLink.getType());
+            CANDIDATE.equalsIgnoreCase(identityLink.getType());
     }
 }

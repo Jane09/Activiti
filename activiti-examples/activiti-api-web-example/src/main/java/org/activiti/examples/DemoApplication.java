@@ -15,9 +15,6 @@
  */
 package org.activiti.examples;
 
-import java.util.List;
-import java.util.Map;
-
 import org.activiti.api.process.model.ProcessDefinition;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.builders.ProcessPayloadBuilder;
@@ -32,6 +29,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.Map;
 
 @SpringBootApplication
 @RestController
@@ -52,18 +52,18 @@ public class DemoApplication implements CommandLineRunner {
     public String processFile(@RequestBody String content) {
 
         ProcessInstance processInstance = processRuntime.start(ProcessPayloadBuilder
-                                                                       .start()
-                                                                       .withProcessDefinitionKey("categorizeProcess")
-                                                                       .withVariable("fileContent",
-                                                                                     content)
-                                                                       .build());
+            .start()
+            .withProcessDefinitionKey("categorizeProcess")
+            .withVariable("fileContent",
+                content)
+            .build());
         String message = ">>> Created Process Instance: " + processInstance;
         System.out.println(message);
         return message;
     }
 
     @GetMapping("/process-definitions")
-    public List<ProcessDefinition> getProcessDefinition(){
+    public List<ProcessDefinition> getProcessDefinition() {
         return processRuntime.processDefinitions(Pageable.of(0, 100)).getContent();
     }
 
@@ -79,10 +79,10 @@ public class DemoApplication implements CommandLineRunner {
             // Logic Here to decide if content is approved or not
             if (contentToProcess.contains("activiti")) {
                 integrationContext.addOutBoundVariable("approved",
-                        true);
+                    true);
             } else {
                 integrationContext.addOutBoundVariable("approved",
-                        false);
+                    false);
             }
             return integrationContext;
         };
@@ -94,7 +94,7 @@ public class DemoApplication implements CommandLineRunner {
             String contentToTag = (String) integrationContext.getInBoundVariables().get("fileContent");
             contentToTag += " :) ";
             integrationContext.addOutBoundVariable("fileContent",
-                    contentToTag);
+                contentToTag);
             System.out.println("Final Content: " + contentToTag);
             return integrationContext;
         };
@@ -106,7 +106,7 @@ public class DemoApplication implements CommandLineRunner {
             String contentToDiscard = (String) integrationContext.getInBoundVariables().get("fileContent");
             contentToDiscard += " :( ";
             integrationContext.addOutBoundVariable("fileContent",
-                    contentToDiscard);
+                contentToDiscard);
             System.out.println("Final Content: " + contentToDiscard);
             return integrationContext;
         };

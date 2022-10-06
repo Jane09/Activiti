@@ -15,11 +15,10 @@
  */
 package org.activiti.api.runtime.model.impl;
 
-import java.util.Set;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.convert.converter.Converter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Set;
 
 @ProcessVariableTypeConverter
 public class SetToStringConverter implements Converter<Set<Object>, String> {

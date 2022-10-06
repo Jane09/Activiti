@@ -34,8 +34,8 @@ public class ToSignalConverter {
         signal.setProcessInstanceId(internalEvent.getProcessInstanceId());
 
         SignalPayload signalPayload = ProcessPayloadBuilder.signal()
-                .withName(internalEvent.getSignalName())
-                .build();
+            .withName(internalEvent.getSignalName())
+            .build();
 
         if (internalEvent.getSignalData() != null) {
             Map<String, Object> sourceVariables = (Map<String, Object>) internalEvent.getSignalData();

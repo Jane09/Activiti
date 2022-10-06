@@ -15,18 +15,17 @@
  */
 package org.activiti.api.runtime.model.impl;
 
-import java.io.IOException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.core.convert.ConversionService;
-
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.core.convert.ConversionService;
+
+import java.io.IOException;
 
 public class ProcessVariablesMapDeserializer extends JsonDeserializer<ProcessVariablesMap<String, Object>> {
     private static final Logger logger = LoggerFactory.getLogger(ProcessVariablesMapDeserializer.class);
@@ -42,7 +41,7 @@ public class ProcessVariablesMapDeserializer extends JsonDeserializer<ProcessVar
 
     @Override
     public ProcessVariablesMap<String, Object> deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException,
-                                                                                                              JsonProcessingException {
+        JsonProcessingException {
         ProcessVariablesMap<String, Object> map = new ProcessVariablesMap<>();
 
         JsonNode node = jp.getCodec().readTree(jp);
@@ -51,7 +50,7 @@ public class ProcessVariablesMapDeserializer extends JsonDeserializer<ProcessVar
             String name = entry.getKey();
             JsonNode entryValue = entry.getValue();
 
-            if(!entryValue.isNull()) {
+            if (!entryValue.isNull()) {
                 if (entryValue.get(TYPE) != null && entryValue.get(VALUE) != null) {
                     String type = entryValue.get(TYPE).textValue();
                     String value = entryValue.get(VALUE).asText();
@@ -59,18 +58,17 @@ public class ProcessVariablesMapDeserializer extends JsonDeserializer<ProcessVar
                     Class<?> clazz = ProcessVariablesMapTypeRegistry.forType(type);
                     Object result = conversionService.convert(value, clazz);
 
-                    if(ObjectValue.class.isInstance(result)) {
+                    if (ObjectValue.class.isInstance(result)) {
                         result = ObjectValue.class.cast(result)
-                                                  .getObject();
+                            .getObject();
                     }
 
                     map.put(name, result);
-                }
-                else {
+                } else {
                     Object value = null;
                     try {
                         value = objectMapper.treeToValue(entryValue,
-                                                         Object.class);
+                            Object.class);
                     } catch (JsonProcessingException e) {
                         logger.error("Unexpected Json Processing Exception: ", e);
                     }

@@ -72,26 +72,26 @@ public class UserTaskCandidateGroupAndAssigneeTest {
 
         //given
         ProcessInstance processInstance = processOperations.start(ProcessPayloadBuilder
-                                                                          .start()
-                                                                          .withProcessDefinitionKey(processKey)
-                                                                          .withBusinessKey("my-business-key")
-                                                                          .withName("my-process-instance-name")
-                                                                          .build())
-                //then
-                .expectFields(processInstance().status(ProcessInstance.ProcessInstanceStatus.RUNNING),
-                        processInstance().name("my-process-instance-name"),
-                        processInstance().businessKey("my-business-key"))
-                .expect(processInstance().hasTask("Task User1",
-                                                  Task.TaskStatus.ASSIGNED,
-                                                  withAssignee("user1")))
-                .expectEvents(processInstance().hasBeenStarted(),
-                        startEvent("StartEvent_1").hasBeenStarted(),
-                        startEvent("StartEvent_1").hasBeenCompleted(),
-                        sequenceFlow("SequenceFlow_1uccvwa").hasBeenTaken(),
-                        taskWithName("Task User1").hasBeenCreated(),
-                        taskWithName("Task User1").hasBeenAssigned()
-                )
-                .andReturn();
+                .start()
+                .withProcessDefinitionKey(processKey)
+                .withBusinessKey("my-business-key")
+                .withName("my-process-instance-name")
+                .build())
+            //then
+            .expectFields(processInstance().status(ProcessInstance.ProcessInstanceStatus.RUNNING),
+                processInstance().name("my-process-instance-name"),
+                processInstance().businessKey("my-business-key"))
+            .expect(processInstance().hasTask("Task User1",
+                Task.TaskStatus.ASSIGNED,
+                withAssignee("user1")))
+            .expectEvents(processInstance().hasBeenStarted(),
+                startEvent("StartEvent_1").hasBeenStarted(),
+                startEvent("StartEvent_1").hasBeenCompleted(),
+                sequenceFlow("SequenceFlow_1uccvwa").hasBeenTaken(),
+                taskWithName("Task User1").hasBeenCreated(),
+                taskWithName("Task User1").hasBeenAssigned()
+            )
+            .andReturn();
 
         // I should be able to get the process instance from the Runtime because it is still running
         ProcessInstance processInstanceById = processRuntime.processInstance(processInstance.getId());
@@ -100,30 +100,30 @@ public class UserTaskCandidateGroupAndAssigneeTest {
         // I should get a task for User1
         GetTasksPayload processInstanceTasksPayload = TaskPayloadBuilder.tasks().withProcessInstanceId(processInstance.getId()).build();
         Page<Task> tasks = taskRuntime.tasks(Pageable.of(0,
-                                                         50),
-                                             processInstanceTasksPayload);
+                50),
+            processInstanceTasksPayload);
         assertThat(tasks.getTotalItems()).isEqualTo(1);
         Task task = tasks.getContent().get(0);
 
         //given
         taskOperations.complete(TaskPayloadBuilder.complete().withTaskId(task.getId()).build())
-                //then
-                .expectEvents(task().hasBeenCompleted(),
-                        sequenceFlow("SequenceFlow_151v2cg").hasBeenTaken(),
-                        taskWithName("Task Group1").hasBeenCreated())
-                .expect(processInstance().hasTask("Task Group1",
-                                                  Task.TaskStatus.CREATED,
-                                                  createdTask -> {
-                                                      assertThat(taskRuntime.userCandidates(createdTask.getId())).isEmpty();
-                                                      assertThat(taskRuntime.groupCandidates(createdTask.getId())).contains("group1");
-                                                  })
-                );
+            //then
+            .expectEvents(task().hasBeenCompleted(),
+                sequenceFlow("SequenceFlow_151v2cg").hasBeenTaken(),
+                taskWithName("Task Group1").hasBeenCreated())
+            .expect(processInstance().hasTask("Task Group1",
+                Task.TaskStatus.CREATED,
+                createdTask -> {
+                    assertThat(taskRuntime.userCandidates(createdTask.getId())).isEmpty();
+                    assertThat(taskRuntime.groupCandidates(createdTask.getId())).contains("group1");
+                })
+            );
 
         // Check with user1 as he is a candidate
 
         tasks = taskRuntime.tasks(Pageable.of(0,
-                                              50),
-                                  processInstanceTasksPayload);
+                50),
+            processInstanceTasksPayload);
 
         assertThat(tasks.getTotalItems()).isEqualTo(1);
 
@@ -131,7 +131,7 @@ public class UserTaskCandidateGroupAndAssigneeTest {
         securityUtil.logInAs("user2");
 
         tasks = taskRuntime.tasks(Pageable.of(0,
-                                              50));
+            50));
 
         assertThat(tasks.getTotalItems()).isEqualTo(0);
 
@@ -139,8 +139,8 @@ public class UserTaskCandidateGroupAndAssigneeTest {
         securityUtil.logInAs("user3");
 
         tasks = taskRuntime.tasks(Pageable.of(0,
-                                              50),
-                                  processInstanceTasksPayload);
+                50),
+            processInstanceTasksPayload);
 
         assertThat(tasks.getTotalItems()).isEqualTo(1);
     }
@@ -149,7 +149,7 @@ public class UserTaskCandidateGroupAndAssigneeTest {
     public void cleanup() {
         securityUtil.logInAs("admin");
         Page<ProcessInstance> processInstancePage = processAdminRuntime.processInstances(Pageable.of(0,
-                                                                                                     50));
+            50));
         for (ProcessInstance pi : processInstancePage.getContent()) {
             processAdminRuntime.delete(ProcessPayloadBuilder.delete(pi.getId()));
         }

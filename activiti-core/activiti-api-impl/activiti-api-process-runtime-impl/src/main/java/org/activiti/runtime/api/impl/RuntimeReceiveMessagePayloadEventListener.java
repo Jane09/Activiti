@@ -31,7 +31,6 @@ import java.util.Objects;
 /**
  * Default implementation of SignalPayloadEventListener that delegates
  * Spring SignalPayload event into embedded RuntimeService.
- *
  */
 public class RuntimeReceiveMessagePayloadEventListener implements ReceiveMessagePayloadEventListener {
 
@@ -51,14 +50,14 @@ public class RuntimeReceiveMessagePayloadEventListener implements ReceiveMessage
         String correlationKey = messagePayload.getCorrelationKey();
 
         EventSubscriptionEntity subscription = managementService.executeCommand(new FindMessageEventSubscription(messageName,
-                                                                                                                 correlationKey));
+            correlationKey));
         if (subscription != null && Objects.equals(correlationKey, subscription.getConfiguration())) {
             Map<String, Object> variables = messagePayload.getVariables();
             String executionId = subscription.getExecutionId();
 
             runtimeService.messageEventReceived(messageName,
-                                                executionId,
-                                                variables);
+                executionId,
+                variables);
         } else {
             throw new ActivitiObjectNotFoundException("Message subscription name '" + messageName + "' with correlation key '" + correlationKey + "' not found.");
         }
@@ -76,9 +75,9 @@ public class RuntimeReceiveMessagePayloadEventListener implements ReceiveMessage
 
         public EventSubscriptionEntity execute(CommandContext commandContext) {
             return new EventSubscriptionQueryImpl(commandContext).eventType("message")
-                                                                 .eventName(messageName)
-                                                                 .configuration(correlationKey)
-                                                                 .singleResult();
+                .eventName(messageName)
+                .configuration(correlationKey)
+                .singleResult();
         }
     }
 }

@@ -16,16 +16,6 @@
 
 package org.activiti.spring.boot;
 
-import static java.util.Collections.emptyList;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-
-import javax.sql.DataSource;
-
 import org.activiti.api.process.model.events.ApplicationDeployedEvent;
 import org.activiti.api.process.model.events.ProcessDeployedEvent;
 import org.activiti.api.process.model.events.StartMessageDeployedEvent;
@@ -42,11 +32,7 @@ import org.activiti.runtime.api.event.impl.StartMessageSubscriptionConverter;
 import org.activiti.runtime.api.impl.ExtensionsVariablesMappingProvider;
 import org.activiti.runtime.api.model.impl.APIDeploymentConverter;
 import org.activiti.runtime.api.model.impl.APIProcessDefinitionConverter;
-import org.activiti.spring.ApplicationDeployedEventProducer;
-import org.activiti.spring.ProcessDeployedEventProducer;
-import org.activiti.spring.SpringAsyncExecutor;
-import org.activiti.spring.SpringProcessEngineConfiguration;
-import org.activiti.spring.StartMessageDeployedEventProducer;
+import org.activiti.spring.*;
 import org.activiti.spring.boot.process.validation.AsyncPropertyValidator;
 import org.activiti.spring.process.ProcessExtensionResourceFinderDescriptor;
 import org.activiti.spring.process.ProcessVariablesInitiator;
@@ -67,9 +53,18 @@ import org.springframework.core.annotation.Order;
 import org.springframework.core.io.Resource;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import javax.sql.DataSource;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+
+import static java.util.Collections.emptyList;
+
 @Configuration
 @AutoConfigureAfter(name = {"org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration",
-        "org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration"})
+    "org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration"})
 @EnableConfigurationProperties({ActivitiProperties.class, AsyncExecutorProperties.class})
 public class ProcessEngineAutoConfiguration extends AbstractProcessEngineAutoConfiguration {
 
@@ -83,15 +78,15 @@ public class ProcessEngineAutoConfiguration extends AbstractProcessEngineAutoCon
     @Bean
     @ConditionalOnMissingBean
     public SpringProcessEngineConfiguration springProcessEngineConfiguration(
-            DataSource dataSource,
-            PlatformTransactionManager transactionManager,
-            SpringAsyncExecutor springAsyncExecutor,
-            ActivitiProperties activitiProperties,
-            ResourceFinder resourceFinder,
-            List<ResourceFinderDescriptor> resourceFinderDescriptors,
-            ApplicationUpgradeContextService applicationUpgradeContextService,
-            @Autowired(required = false) List<ProcessEngineConfigurationConfigurer> processEngineConfigurationConfigurers,
-            @Autowired(required = false) List<ProcessEngineConfigurator> processEngineConfigurators) throws IOException {
+        DataSource dataSource,
+        PlatformTransactionManager transactionManager,
+        SpringAsyncExecutor springAsyncExecutor,
+        ActivitiProperties activitiProperties,
+        ResourceFinder resourceFinder,
+        List<ResourceFinderDescriptor> resourceFinderDescriptors,
+        ApplicationUpgradeContextService applicationUpgradeContextService,
+        @Autowired(required = false) List<ProcessEngineConfigurationConfigurer> processEngineConfigurationConfigurers,
+        @Autowired(required = false) List<ProcessEngineConfigurator> processEngineConfigurators) throws IOException {
 
         SpringProcessEngineConfiguration conf = new SpringProcessEngineConfiguration(applicationUpgradeContextService);
         conf.setConfigurators(processEngineConfigurators);
@@ -109,7 +104,7 @@ public class ProcessEngineAutoConfiguration extends AbstractProcessEngineAutoCon
         conf.setDbHistoryUsed(activitiProperties.isDbHistoryUsed());
         conf.setAsyncExecutorActivate(activitiProperties.isAsyncExecutorActivate());
         addAsyncPropertyValidator(activitiProperties,
-                conf);
+            conf);
         conf.setMailServerHost(activitiProperties.getMailServerHost());
         conf.setMailServerPort(activitiProperties.getMailServerPort());
         conf.setMailServerUsername(activitiProperties.getMailServerUserName());
@@ -197,8 +192,8 @@ public class ProcessEngineAutoConfiguration extends AbstractProcessEngineAutoCon
         if (locationPrefix.equalsIgnoreCase("NOT_DEFINED"))
             locationPrefix = activitiProperties.getProcessDefinitionLocationPrefix();
         return new ProcessExtensionResourceFinderDescriptor(activitiProperties.isCheckProcessDefinitions(),
-                locationPrefix,
-                locationSuffix);
+            locationPrefix,
+            locationSuffix);
     }
 
     @Bean
@@ -208,10 +203,10 @@ public class ProcessEngineAutoConfiguration extends AbstractProcessEngineAutoCon
                                                                      @Autowired(required = false) List<ProcessRuntimeEventListener<ProcessDeployedEvent>> listeners,
                                                                      ApplicationEventPublisher eventPublisher) {
         return new ProcessDeployedEventProducer(repositoryService,
-                converter,
-                Optional.ofNullable(listeners)
-                        .orElse(emptyList()),
-                eventPublisher);
+            converter,
+            Optional.ofNullable(listeners)
+                .orElse(emptyList()),
+            eventPublisher);
     }
 
     @Bean
@@ -223,11 +218,11 @@ public class ProcessEngineAutoConfiguration extends AbstractProcessEngineAutoCon
                                                                                List<ProcessRuntimeEventListener<StartMessageDeployedEvent>> listeners,
                                                                                ApplicationEventPublisher eventPublisher) {
         return new StartMessageDeployedEventProducer(repositoryService,
-                                                     managementService,
-                                                     subscriptionConverter,
-                                                     converter,
-                                                     listeners,
-                                                     eventPublisher);
+            managementService,
+            subscriptionConverter,
+            converter,
+            listeners,
+            eventPublisher);
     }
 
 
@@ -237,7 +232,7 @@ public class ProcessEngineAutoConfiguration extends AbstractProcessEngineAutoCon
         ExtensionsVariablesMappingProvider variablesMappingProvider, ProcessVariablesInitiator processVariablesInitiator,
         EventSubscriptionPayloadMappingProvider eventSubscriptionPayloadMappingProvider, VariablesPropagator variablesPropagator) {
         return new DefaultActivityBehaviorFactoryMappingConfigurer(variablesMappingProvider, processVariablesInitiator,
-                eventSubscriptionPayloadMappingProvider, variablesPropagator);
+            eventSubscriptionPayloadMappingProvider, variablesPropagator);
     }
 
     @Bean
@@ -272,14 +267,14 @@ public class ProcessEngineAutoConfiguration extends AbstractProcessEngineAutoCon
     @Bean
     @ConditionalOnMissingBean
     public ApplicationDeployedEventProducer applicationDeployedEventProducer(RepositoryService repositoryService,
-            APIDeploymentConverter converter,
-            @Autowired(required = false) List<ProcessRuntimeEventListener<ApplicationDeployedEvent>> listeners,
-            ApplicationEventPublisher eventPublisher) {
-         return new ApplicationDeployedEventProducer(repositoryService,
-                converter,
-                Optional.ofNullable(listeners)
-                        .orElse(emptyList()),
-                eventPublisher);
+                                                                             APIDeploymentConverter converter,
+                                                                             @Autowired(required = false) List<ProcessRuntimeEventListener<ApplicationDeployedEvent>> listeners,
+                                                                             ApplicationEventPublisher eventPublisher) {
+        return new ApplicationDeployedEventProducer(repositoryService,
+            converter,
+            Optional.ofNullable(listeners)
+                .orElse(emptyList()),
+            eventPublisher);
     }
 
 }

@@ -15,25 +15,13 @@
  */
 package org.activiti.api.task.runtime;
 
-import java.util.List;
-
 import org.activiti.api.model.shared.model.VariableInstance;
 import org.activiti.api.runtime.shared.query.Page;
 import org.activiti.api.runtime.shared.query.Pageable;
 import org.activiti.api.task.model.Task;
-import org.activiti.api.task.model.payloads.AssignTaskPayload;
-import org.activiti.api.task.model.payloads.AssignTasksPayload;
-import org.activiti.api.task.model.payloads.CandidateGroupsPayload;
-import org.activiti.api.task.model.payloads.CandidateUsersPayload;
-import org.activiti.api.task.model.payloads.ClaimTaskPayload;
-import org.activiti.api.task.model.payloads.CompleteTaskPayload;
-import org.activiti.api.task.model.payloads.CreateTaskVariablePayload;
-import org.activiti.api.task.model.payloads.DeleteTaskPayload;
-import org.activiti.api.task.model.payloads.GetTaskVariablesPayload;
-import org.activiti.api.task.model.payloads.GetTasksPayload;
-import org.activiti.api.task.model.payloads.ReleaseTaskPayload;
-import org.activiti.api.task.model.payloads.UpdateTaskPayload;
-import org.activiti.api.task.model.payloads.UpdateTaskVariablePayload;
+import org.activiti.api.task.model.payloads.*;
+
+import java.util.List;
 
 /**
  * All the methods require an authenticated Admin user
@@ -64,10 +52,10 @@ public interface TaskAdminRuntime {
 
     /**
      * Claim a task with the currently authenticated user
-     *  - If there is no authenticated user throw an IllegalStateException
-     *  - If the currently authenticated user is not a candidate throw an IllegalStateException
-     *  - The current approach doesn't support impersonation, it will always take the currently authenticated user
-     *  - after the claim the task should be in assigned status
+     * - If there is no authenticated user throw an IllegalStateException
+     * - If the currently authenticated user is not a candidate throw an IllegalStateException
+     * - The current approach doesn't support impersonation, it will always take the currently authenticated user
+     * - after the claim the task should be in assigned status
      */
     Task claim(ClaimTaskPayload claimTaskPayload);
 
@@ -91,25 +79,30 @@ public interface TaskAdminRuntime {
     Task update(UpdateTaskPayload updateTaskPayload);
 
     void createVariable(CreateTaskVariablePayload createTaskVariablePayload);
+
     void updateVariable(UpdateTaskVariablePayload updateTaskVariablePayload);
+
     List<VariableInstance> variables(GetTaskVariablesPayload getTaskVariablesPayload);
 
     /**
      * Assign a task with a new user
-     *  - If there is a user assigned, reassign it to the new user
-     *  - after the assign the task should be in assigned status
+     * - If there is a user assigned, reassign it to the new user
+     * - after the assign the task should be in assigned status
      */
     Task assign(AssignTaskPayload assignTaskPayload);
 
     Page<Task> assignMultiple(AssignTasksPayload assignTasksPayload);
 
     void addCandidateUsers(CandidateUsersPayload candidateUsersPayload);
+
     void deleteCandidateUsers(CandidateUsersPayload candidateUsersPayload);
 
     void addCandidateGroups(CandidateGroupsPayload candidateGroupsPayload);
+
     void deleteCandidateGroups(CandidateGroupsPayload candidateGroupsPayload);
 
     List<String> userCandidates(String taskId);
+
     List<String> groupCandidates(String taskId);
 
 }

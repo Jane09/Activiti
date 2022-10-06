@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 public class WatchDogAgendaTest extends ResourceActivitiTestCase {
 
     public WatchDogAgendaTest() {
-        super(WatchDogAgendaTest.class.getName().replace(".", File.separator)+".activiti.cfg.xml");
+        super(WatchDogAgendaTest.class.getName().replace(".", File.separator) + ".activiti.cfg.xml");
     }
 
     @Deployment(resources = "org/activiti/engine/test/api/oneTaskProcess.bpmn20.xml")
@@ -49,6 +49,6 @@ public class WatchDogAgendaTest extends ResourceActivitiTestCase {
             .as("ActivitiException with 'WatchDog limit exceeded.' message expected.")
             .isThrownBy(() -> this.runtimeService.startProcessInstanceByKey("endlessloop"))
             .withMessageContaining("WatchDog limit exceeded.");
-     }
+    }
 
 }

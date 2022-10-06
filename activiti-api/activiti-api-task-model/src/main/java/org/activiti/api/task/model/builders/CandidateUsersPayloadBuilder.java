@@ -15,10 +15,10 @@
  */
 package org.activiti.api.task.model.builders;
 
+import org.activiti.api.task.model.payloads.CandidateUsersPayload;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.activiti.api.task.model.payloads.CandidateUsersPayload;
 
 public class CandidateUsersPayloadBuilder {
 
@@ -45,6 +45,6 @@ public class CandidateUsersPayloadBuilder {
 
     public CandidateUsersPayload build() {
         return new CandidateUsersPayload(taskId,
-                                         candidateUsers);
+            candidateUsers);
     }
 }

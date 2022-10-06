@@ -41,7 +41,7 @@ public class ProcessDefinitionFormKeyIT {
     private ProcessCleanUpUtil processCleanUpUtil;
 
     @AfterEach
-    public void cleanUp(){
+    public void cleanUp() {
         processCleanUpUtil.cleanUpWithAdmin();
     }
 

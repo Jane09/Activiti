@@ -15,12 +15,11 @@
  */
 package org.activiti.api.runtime.model.impl;
 
-import java.util.List;
-
-import org.springframework.core.convert.converter.Converter;
-
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.core.convert.converter.Converter;
+
+import java.util.List;
 
 @ProcessVariableTypeConverter
 public class StringToListConverter implements Converter<String, List<Object>> {
@@ -33,8 +32,8 @@ public class StringToListConverter implements Converter<String, List<Object>> {
     @Override
     public List<Object> convert(String source) {
         JavaType javaType = objectMapper.getTypeFactory()
-                                        .constructParametricType(List.class,
-                                                                 Object.class);
+            .constructParametricType(List.class,
+                Object.class);
         try {
             return objectMapper.readValue(source, javaType);
         } catch (Exception cause) {

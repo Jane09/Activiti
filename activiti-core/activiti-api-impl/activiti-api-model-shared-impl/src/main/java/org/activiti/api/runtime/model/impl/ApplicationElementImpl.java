@@ -15,9 +15,9 @@
  */
 package org.activiti.api.runtime.model.impl;
 
-import java.util.Objects;
-
 import org.activiti.api.model.shared.model.ApplicationElement;
+
+import java.util.Objects;
 
 public class ApplicationElementImpl implements ApplicationElement {
 
@@ -42,7 +42,7 @@ public class ApplicationElementImpl implements ApplicationElement {
         }
         ApplicationElementImpl that = (ApplicationElementImpl) o;
         return Objects.equals(appVersion,
-                              that.appVersion);
+            that.appVersion);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class ApplicationElementImpl implements ApplicationElement {
     @Override
     public String toString() {
         return "ApplicationElementImpl{" +
-                "appVersion='" + appVersion + '\'' +
-                '}';
+            "appVersion='" + appVersion + '\'' +
+            '}';
     }
 }

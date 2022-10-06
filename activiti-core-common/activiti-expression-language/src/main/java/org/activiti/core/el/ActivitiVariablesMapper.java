@@ -15,11 +15,11 @@
  */
 package org.activiti.core.el;
 
+import javax.el.ValueExpression;
+import javax.el.VariableMapper;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import javax.el.ValueExpression;
-import javax.el.VariableMapper;
 
 public class ActivitiVariablesMapper extends VariableMapper {
 

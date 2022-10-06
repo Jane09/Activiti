@@ -16,21 +16,8 @@
 
 package org.activiti.engine.impl.bpmn.behavior;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoInteractions;
-import static org.mockito.MockitoAnnotations.openMocks;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Map;
 import org.activiti.bpmn.model.Activity;
 import org.activiti.engine.delegate.DelegateExecution;
-import org.activiti.engine.impl.cmd.CompleteTaskCmd;
 import org.activiti.engine.impl.interceptor.CommandContext;
 import org.junit.After;
 import org.junit.Before;
@@ -38,6 +25,16 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Map;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.*;
+import static org.mockito.MockitoAnnotations.openMocks;
 
 public class ParallelMultiInstanceBehaviorTest {
 
@@ -102,6 +99,7 @@ public class ParallelMultiInstanceBehaviorTest {
         //then
         assertThat(hasOutputDataItem).isFalse();
     }
+
     @Test
     public void hasLoopDataOutputRef_should_returnTrue_when_dataOutputRefIsSet() {
         //given
@@ -179,7 +177,7 @@ public class ParallelMultiInstanceBehaviorTest {
             MultiInstanceActivityBehavior.NUMBER_OF_ACTIVE_INSTANCES, 2,
             MultiInstanceActivityBehavior.NUMBER_OF_INSTANCES, 5,
             multiInstanceBehavior.getCollectionElementIndexVariable(), 1
-            );
+        );
 
         //when
         Object resultElementItem = multiInstanceBehavior.getResultElementItem(variables);

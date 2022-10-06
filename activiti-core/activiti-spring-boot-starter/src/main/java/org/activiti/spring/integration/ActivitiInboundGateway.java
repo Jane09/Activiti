@@ -16,24 +16,23 @@
 
 package org.activiti.spring.integration;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentSkipListSet;
-
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.springframework.integration.gateway.MessagingGatewaySupport;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentSkipListSet;
+
 /**
  * As a process enters a wait-state, this forwards the
  * flow into Spring Integration. Spring Integration flows
  * may ultimately return a reply message and that will signal the
  * execution.
- *
  */
 public class ActivitiInboundGateway extends MessagingGatewaySupport {
 

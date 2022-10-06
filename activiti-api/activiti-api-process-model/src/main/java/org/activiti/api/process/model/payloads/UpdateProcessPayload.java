@@ -15,9 +15,9 @@
  */
 package org.activiti.api.process.model.payloads;
 
-import java.util.UUID;
-
 import org.activiti.api.model.shared.Payload;
+
+import java.util.UUID;
 
 public class UpdateProcessPayload implements Payload {
 
@@ -32,9 +32,9 @@ public class UpdateProcessPayload implements Payload {
     }
 
     public UpdateProcessPayload(String processInstanceId,
-                               String name,
-                               String description,
-                               String businessKey) {
+                                String name,
+                                String description,
+                                String businessKey) {
         this();
         this.processInstanceId = processInstanceId;
         this.name = name;

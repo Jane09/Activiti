@@ -37,7 +37,7 @@ public class UpdateTaskVariablePayloadBuilder {
 
     public UpdateTaskVariablePayload build() {
         return new UpdateTaskVariablePayload(taskId,
-                                             name,
-                                             value);
+            name,
+            value);
     }
 }

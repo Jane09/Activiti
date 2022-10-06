@@ -6,10 +6,10 @@
 
   <bean id="processEngineConfiguration" class="org.activiti.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration">
 
-    <property name="databaseSchemaUpdate" value="true" />
+    <property name="databaseSchemaUpdate" value="true"/>
 
     <property name="listenerFactory">
-        <bean class="org.activiti.standalone.parsing.CustomListenerFactory" />
+      <bean class="org.activiti.standalone.parsing.CustomListenerFactory"/>
     </property>
 
   </bean>

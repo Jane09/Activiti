@@ -15,13 +15,13 @@
  */
 package org.activiti.runtime.api.impl;
 
-import static java.util.Collections.emptyList;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-
 import org.activiti.bpmn.model.UserTask;
 import org.activiti.engine.delegate.Expression;
 import org.junit.jupiter.api.Test;
+
+import static java.util.Collections.emptyList;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 
 public class MappingAwareActivityBehaviorFactoryTest {
 
@@ -30,25 +30,25 @@ public class MappingAwareActivityBehaviorFactoryTest {
     @Test
     public void createUserTaskActivityBehaviorShouldReturnMappingAwareUserTaskBehavior() {
         assertThat(factory.createUserTaskActivityBehavior(mock(UserTask.class)))
-                .isInstanceOf(MappingAwareUserTaskBehavior.class);
+            .isInstanceOf(MappingAwareUserTaskBehavior.class);
     }
 
     @Test
     public void createCallActivityBehaviorShouldReturnMappingAwareCallActivityBehavior() {
         assertThat(factory.createCallActivityBehavior("element", emptyList()))
-                .isInstanceOf(MappingAwareCallActivityBehavior.class);
+            .isInstanceOf(MappingAwareCallActivityBehavior.class);
     }
 
     @Test
     public void createCallActivityBehaviorWithExpressionShouldReturnMappingAwareCallActivityBehavior() {
         assertThat(factory.createCallActivityBehavior(mock(Expression.class), emptyList()))
-                .isInstanceOf(MappingAwareCallActivityBehavior.class);
+            .isInstanceOf(MappingAwareCallActivityBehavior.class);
     }
 
     @Test
     public void getMessagePayloadMappingProviderFactoryShouldReturnJsonMessagePayloadMappingProvider() {
         assertThat(factory.getMessagePayloadMappingProviderFactory())
-                .isInstanceOf(JsonMessagePayloadMappingProviderFactory.class);
+            .isInstanceOf(JsonMessagePayloadMappingProviderFactory.class);
     }
 
 }

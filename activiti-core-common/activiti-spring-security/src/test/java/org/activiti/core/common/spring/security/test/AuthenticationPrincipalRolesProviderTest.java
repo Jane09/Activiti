@@ -15,8 +15,6 @@
  */
 package org.activiti.core.common.spring.security.test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.activiti.core.common.spring.security.AuthenticationPrincipalRolesProvider;
 import org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesResolver;
 import org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesRolesMapper;
@@ -29,6 +27,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 public class AuthenticationPrincipalRolesProviderTest {
 
@@ -37,16 +37,16 @@ public class AuthenticationPrincipalRolesProviderTest {
     @BeforeEach
     public void setUp() {
         subject = new AuthenticationPrincipalRolesProvider(new SimpleGrantedAuthoritiesResolver(),
-                                                           new SimpleGrantedAuthoritiesRolesMapper());
+            new SimpleGrantedAuthoritiesRolesMapper());
     }
 
     @Test
     public void testGetRoles() {
         // given
         Authentication authentication = new UsernamePasswordAuthenticationToken("username",
-                                                                                "password",
-                                                                                AuthorityUtils.createAuthorityList("ROLE_user",
-                                                                                                                   "GROUP_users"));
+            "password",
+            AuthorityUtils.createAuthorityList("ROLE_user",
+                "GROUP_users"));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -55,7 +55,7 @@ public class AuthenticationPrincipalRolesProviderTest {
 
         // then
         assertThat(result).isNotEmpty()
-                          .containsExactly("user");
+            .containsExactly("user");
     }
 
 }

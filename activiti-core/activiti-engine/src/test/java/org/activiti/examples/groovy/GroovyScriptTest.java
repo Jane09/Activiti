@@ -17,18 +17,19 @@
 
 package org.activiti.examples.groovy;
 
-import static java.util.Collections.singletonMap;
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.List;
 import org.activiti.engine.impl.test.PluggableActivitiTestCase;
 import org.activiti.engine.runtime.Job;
 import org.activiti.engine.runtime.JobQuery;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.test.Deployment;
 
-/**
+import java.util.List;
 
+import static java.util.Collections.singletonMap;
+import static org.assertj.core.api.Assertions.assertThat;
+
+/**
+ *
  */
 public class GroovyScriptTest extends PluggableActivitiTestCase {
 
@@ -36,7 +37,7 @@ public class GroovyScriptTest extends PluggableActivitiTestCase {
     public void testScriptExecution() {
         int[] inputArray = new int[]{1, 2, 3, 4, 5};
         ProcessInstance pi = runtimeService.startProcessInstanceByKey("scriptExecution",
-                                                                      singletonMap("inputArray", inputArray));
+            singletonMap("inputArray", inputArray));
 
         Integer result = (Integer) runtimeService.getVariable(pi.getId(), "sum");
         assertThat(result.intValue()).isEqualTo(15);
@@ -61,7 +62,8 @@ public class GroovyScriptTest extends PluggableActivitiTestCase {
         assertThat(jobs).hasSize(1);
 
         // After setting the clock to time '1 hour and 5 seconds', the second timer should fire
-        waitForJobExecutorToProcessAllJobs(5000L, 100L);assertThat(jobQuery.count()).isEqualTo(0L);
+        waitForJobExecutorToProcessAllJobs(5000L, 100L);
+        assertThat(jobQuery.count()).isEqualTo(0L);
 
         assertProcessEnded(processInstance.getId());
     }

@@ -45,13 +45,13 @@ public class BPMNMessageConverterTest {
         assertThat(bpmnMessage.getProcessInstanceId()).isEqualTo("procInstId");
         assertThat(bpmnMessage.getProcessDefinitionId()).isEqualTo("procDefId");
         assertThat(bpmnMessage.getMessagePayload())
-                .isNotNull()
-                .extracting(MessageEventPayload::getName,
-                            MessageEventPayload::getBusinessKey,
-                            MessageEventPayload::getCorrelationKey)
-                .contains("messageName",
-                          "businessKey",
-                          "correlationKey");
+            .isNotNull()
+            .extracting(MessageEventPayload::getName,
+                MessageEventPayload::getBusinessKey,
+                MessageEventPayload::getCorrelationKey)
+            .contains("messageName",
+                "businessKey",
+                "correlationKey");
     }
 
 }

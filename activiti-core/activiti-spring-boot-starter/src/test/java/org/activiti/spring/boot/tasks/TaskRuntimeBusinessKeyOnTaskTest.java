@@ -60,9 +60,9 @@ public class TaskRuntimeBusinessKeyOnTaskTest {
         //when
         String businesskey = "businesskey";
         processRuntime.start(ProcessPayloadBuilder.start()
-                                     .withProcessDefinitionKey(TWOTASK_PROCESS)
-                                     .withBusinessKey(businesskey)
-                                     .build());
+            .withProcessDefinitionKey(TWOTASK_PROCESS)
+            .withBusinessKey(businesskey)
+            .build());
 
         securityUtil.logInAs("dean");
 

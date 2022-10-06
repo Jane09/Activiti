@@ -15,10 +15,10 @@
  */
 package org.activiti.api.runtime.model.impl;
 
+import org.activiti.api.process.model.MessageSubscription;
+
 import java.util.Date;
 import java.util.Objects;
-
-import org.activiti.api.process.model.MessageSubscription;
 
 public class MessageSubscriptionImpl implements MessageSubscription {
 
@@ -82,13 +82,13 @@ public class MessageSubscriptionImpl implements MessageSubscription {
     @Override
     public int hashCode() {
         return Objects.hash(activityId,
-                            configuration,
-                            created,
-                            eventName,
-                            executionId,
-                            id,
-                            processDefinitionId,
-                            processInstanceId);
+            configuration,
+            created,
+            eventName,
+            executionId,
+            id,
+            processDefinitionId,
+            processInstanceId);
     }
 
     @Override
@@ -104,35 +104,35 @@ public class MessageSubscriptionImpl implements MessageSubscription {
         }
         MessageSubscriptionImpl other = (MessageSubscriptionImpl) obj;
         return Objects.equals(activityId, other.activityId) &&
-                Objects.equals(configuration, other.configuration) &&
-                Objects.equals(created, other.created) &&
-                Objects.equals(eventName, other.eventName) &&
-                Objects.equals(executionId, other.executionId) &&
-                Objects.equals(id, other.id) &&
-                Objects.equals(processDefinitionId, other.processDefinitionId) &&
-                Objects.equals(processInstanceId, other.processInstanceId);
+            Objects.equals(configuration, other.configuration) &&
+            Objects.equals(created, other.created) &&
+            Objects.equals(eventName, other.eventName) &&
+            Objects.equals(executionId, other.executionId) &&
+            Objects.equals(id, other.id) &&
+            Objects.equals(processDefinitionId, other.processDefinitionId) &&
+            Objects.equals(processInstanceId, other.processInstanceId);
     }
 
     @Override
     public String toString() {
         StringBuilder builder2 = new StringBuilder();
         builder2.append("MessageEventSubscriptionImpl [id=")
-                .append(id)
-                .append(", eventName=")
-                .append(eventName)
-                .append(", executionId=")
-                .append(executionId)
-                .append(", processInstanceId=")
-                .append(processInstanceId)
-                .append(", processDefinitionId=")
-                .append(processDefinitionId)
-                .append(", configuration=")
-                .append(configuration)
-                .append(", activityId=")
-                .append(activityId)
-                .append(", created=")
-                .append(created)
-                .append("]");
+            .append(id)
+            .append(", eventName=")
+            .append(eventName)
+            .append(", executionId=")
+            .append(executionId)
+            .append(", processInstanceId=")
+            .append(processInstanceId)
+            .append(", processDefinitionId=")
+            .append(processDefinitionId)
+            .append(", configuration=")
+            .append(configuration)
+            .append(", activityId=")
+            .append(activityId)
+            .append(", created=")
+            .append(created)
+            .append("]");
         return builder2.toString();
     }
 
@@ -144,6 +144,7 @@ public class MessageSubscriptionImpl implements MessageSubscription {
 
     /**
      * Creates a builder to build {@link MessageSubscriptionImpl}.
+     *
      * @return created builder
      */
     public static Builder builder() {
@@ -152,6 +153,7 @@ public class MessageSubscriptionImpl implements MessageSubscription {
 
     /**
      * Creates a builder to build {@link MessageSubscriptionImpl} and initialize it with the given object.
+     *
      * @param messageEventSubscriptionImpl to initialize the builder with
      * @return created builder
      */
@@ -191,99 +193,109 @@ public class MessageSubscriptionImpl implements MessageSubscription {
         }
 
         /**
-        * Builder method for id parameter.
-        * @param id field to set
-        * @return builder
-        */
+         * Builder method for id parameter.
+         *
+         * @param id field to set
+         * @return builder
+         */
         public Builder withId(String id) {
             this.id = id;
             return this;
         }
 
         /**
-        * Builder method for eventName parameter.
-        * @param eventName field to set
-        * @return builder
-        */
+         * Builder method for eventName parameter.
+         *
+         * @param eventName field to set
+         * @return builder
+         */
         public Builder withEventName(String eventName) {
             this.eventName = eventName;
             return this;
         }
 
         /**
-        * Builder method for executionId parameter.
-        * @param executionId field to set
-        * @return builder
-        */
+         * Builder method for executionId parameter.
+         *
+         * @param executionId field to set
+         * @return builder
+         */
         public Builder withExecutionId(String executionId) {
             this.executionId = executionId;
             return this;
         }
 
         /**
-        * Builder method for processInstanceId parameter.
-        * @param processInstanceId field to set
-        * @return builder
-        */
+         * Builder method for processInstanceId parameter.
+         *
+         * @param processInstanceId field to set
+         * @return builder
+         */
         public Builder withProcessInstanceId(String processInstanceId) {
             this.processInstanceId = processInstanceId;
             return this;
         }
 
         /**
-        * Builder method for processDefinitionId parameter.
-        * @param processDefinitionId field to set
-        * @return builder
-        */
+         * Builder method for processDefinitionId parameter.
+         *
+         * @param processDefinitionId field to set
+         * @return builder
+         */
         public Builder withProcessDefinitionId(String processDefinitionId) {
             this.processDefinitionId = processDefinitionId;
             return this;
         }
 
         /**
-        * Builder method for businessKey parameter.
-        * @param businessKey field to set
-        * @return builder
-        */
+         * Builder method for businessKey parameter.
+         *
+         * @param businessKey field to set
+         * @return builder
+         */
         public Builder withBusinessKey(String businessKey) {
             this.businessKey = businessKey;
             return this;
         }
 
         /**
-        * Builder method for configuration parameter.
-        * @param configuration field to set
-        * @return builder
-        */
+         * Builder method for configuration parameter.
+         *
+         * @param configuration field to set
+         * @return builder
+         */
         public Builder withConfiguration(String configuration) {
             this.configuration = configuration;
             return this;
         }
 
         /**
-        * Builder method for activityId parameter.
-        * @param activityId field to set
-        * @return builder
-        */
+         * Builder method for activityId parameter.
+         *
+         * @param activityId field to set
+         * @return builder
+         */
         public Builder withActivityId(String activityId) {
             this.activityId = activityId;
             return this;
         }
 
         /**
-        * Builder method for created parameter.
-        * @param created field to set
-        * @return builder
-        */
+         * Builder method for created parameter.
+         *
+         * @param created field to set
+         * @return builder
+         */
         public Builder withCreated(Date created) {
             this.created = created;
             return this;
         }
 
         /**
-        * Builder method of the builder.
-        * @return built class
-        */
+         * Builder method of the builder.
+         *
+         * @return built class
+         */
         public MessageSubscriptionImpl build() {
             return new MessageSubscriptionImpl(this);
         }

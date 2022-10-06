@@ -15,11 +15,6 @@
  */
 package org.activiti.examples;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
-
 import org.activiti.api.model.shared.model.VariableInstance;
 import org.activiti.api.process.model.ProcessDefinition;
 import org.activiti.api.process.model.ProcessInstance;
@@ -39,6 +34,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
 
 @SpringBootApplication
 @EnableScheduling
@@ -89,11 +89,11 @@ public class DemoApplication implements CommandLineRunner {
         logger.info("> Starting process to process content: " + content + " at " + formatter.format(new Date()));
 
         ProcessInstance processInstance = processRuntime.start(ProcessPayloadBuilder
-                .start()
-                .withProcessDefinitionKey("categorizeHumanProcess")
-                .withName("Processing Content: " + content)
-                .withVariable("content", content)
-                .build());
+            .start()
+            .withProcessDefinitionKey("categorizeHumanProcess")
+            .withName("Processing Content: " + content)
+            .withVariable("content", content)
+            .build());
         logger.info(">>> Created Process Instance: " + processInstance);
 
 
@@ -124,7 +124,7 @@ public class DemoApplication implements CommandLineRunner {
                         contentToProcess.setApproved(false);
                     }
                     taskRuntime.complete(TaskPayloadBuilder.complete()
-                            .withTaskId(t.getId()).withVariable("content", contentToProcess).build());
+                        .withTaskId(t.getId()).withVariable("content", contentToProcess).build());
                 }
 
 
@@ -143,7 +143,7 @@ public class DemoApplication implements CommandLineRunner {
             Content contentToTag = (Content) integrationContext.getInBoundVariables().get("content");
             contentToTag.getTags().add(" :) ");
             integrationContext.addOutBoundVariable("content",
-                    contentToTag);
+                contentToTag);
             logger.info("Final Content: " + contentToTag);
             return integrationContext;
         };
@@ -155,7 +155,7 @@ public class DemoApplication implements CommandLineRunner {
             Content contentToDiscard = (Content) integrationContext.getInBoundVariables().get("content");
             contentToDiscard.getTags().add(" :( ");
             integrationContext.addOutBoundVariable("content",
-                    contentToDiscard);
+                contentToDiscard);
             logger.info("Final Content: " + contentToDiscard);
             return integrationContext;
         };
@@ -164,8 +164,8 @@ public class DemoApplication implements CommandLineRunner {
 
     private Content pickRandomString() {
         String[] texts = {"hello from london", "Hi there from activiti!", "all good news over here.", "I've tweeted about activiti today.",
-                "other boring projects.", "activiti cloud - Cloud Native Java BPM"};
-        return new Content(texts[new Random().nextInt(texts.length)],false,null);
+            "other boring projects.", "activiti cloud - Cloud Native Java BPM"};
+        return new Content(texts[new Random().nextInt(texts.length)], false, null);
     }
 
 }

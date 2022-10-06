@@ -16,14 +16,13 @@
 
 package org.activiti.runtime.api.impl;
 
-import java.util.Map;
-
 import org.activiti.bpmn.model.UserTask;
-
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.impl.bpmn.behavior.UserTaskActivityBehavior;
 import org.activiti.engine.impl.bpmn.behavior.VariablesCalculator;
 import org.activiti.engine.impl.bpmn.behavior.VariablesPropagator;
+
+import java.util.Map;
 
 public class MappingAwareUserTaskBehavior extends UserTaskActivityBehavior {
 

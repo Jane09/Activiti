@@ -30,8 +30,8 @@ public class VariableScopeExpressionEvaluator implements ExpressionEvaluator {
 
     @Override
     public Object evaluate(Expression expression,
-        ExpressionManager expressionManager,
-        DelegateInterceptor delegateInterceptor) {
+                           ExpressionManager expressionManager,
+                           DelegateInterceptor delegateInterceptor) {
         return expression.getValue(variableScope);
     }
 }

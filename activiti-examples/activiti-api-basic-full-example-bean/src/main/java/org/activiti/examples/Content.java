@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY,property = "@class")
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
 public class Content {
 
     private String body;
@@ -30,11 +30,11 @@ public class Content {
     private List<String> tags;
 
     @JsonCreator
-    public Content(@JsonProperty("body")String body, @JsonProperty("approved")boolean approved, @JsonProperty("tags")List<String> tags){
+    public Content(@JsonProperty("body") String body, @JsonProperty("approved") boolean approved, @JsonProperty("tags") List<String> tags) {
         this.body = body;
         this.approved = approved;
         this.tags = tags;
-        if(this.tags == null){
+        if (this.tags == null) {
             this.tags = new ArrayList<>();
         }
     }
@@ -66,9 +66,9 @@ public class Content {
     @Override
     public String toString() {
         return "Content{" +
-                "body='" + body + '\'' +
-                ", approved=" + approved +
-                ", tags=" + tags +
-                '}';
+            "body='" + body + '\'' +
+            ", approved=" + approved +
+            ", tags=" + tags +
+            '}';
     }
 }

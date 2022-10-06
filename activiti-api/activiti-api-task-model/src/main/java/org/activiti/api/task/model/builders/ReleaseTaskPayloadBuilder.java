@@ -27,7 +27,6 @@ public class ReleaseTaskPayloadBuilder {
     }
 
 
-
     public ReleaseTaskPayload build() {
         return new ReleaseTaskPayload(taskId);
     }

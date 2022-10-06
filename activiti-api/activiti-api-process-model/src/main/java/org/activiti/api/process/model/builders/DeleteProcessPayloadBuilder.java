@@ -41,6 +41,6 @@ public class DeleteProcessPayloadBuilder {
 
     public DeleteProcessPayload build() {
         return new DeleteProcessPayload(processInstanceId,
-                                        reason);
+            reason);
     }
 }

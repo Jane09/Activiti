@@ -15,16 +15,16 @@
  */
 package org.activiti.examples.bpmn.usertask;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.activiti.engine.impl.test.PluggableActivitiTestCase;
+import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Task;
+import org.activiti.engine.test.Deployment;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.activiti.engine.impl.test.PluggableActivitiTestCase;
-import org.activiti.engine.runtime.ProcessInstance;
-import org.activiti.engine.task.Task;
-import org.activiti.engine.test.Deployment;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class SkipExpressionUserTaskTest extends PluggableActivitiTestCase {
 
@@ -71,7 +71,7 @@ public class SkipExpressionUserTaskTest extends PluggableActivitiTestCase {
         variables.put("skip3", false);
 
         runtimeService.startProcessInstanceByKey("skipExpressionUserTask-testSkipMultipleTasks",
-                                                 variables);
+            variables);
         List<Task> tasks = taskService.createTaskQuery().list();
         assertThat(tasks).hasSize(1);
         assertThat(tasks.get(0).getName()).isEqualTo("Task3");

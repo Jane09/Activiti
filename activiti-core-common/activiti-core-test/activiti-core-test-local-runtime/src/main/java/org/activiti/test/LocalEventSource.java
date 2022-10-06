@@ -15,17 +15,18 @@
  */
 package org.activiti.test;
 
-import static java.util.Arrays.asList;
-
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.stream.Collectors;
 import org.activiti.api.model.shared.event.RuntimeEvent;
 import org.activiti.api.process.model.events.BPMNTimerCancelledEvent;
 import org.activiti.api.process.model.events.BPMNTimerFiredEvent;
 import org.activiti.api.process.model.events.BPMNTimerScheduledEvent;
 import org.activiti.api.process.model.events.ProcessRuntimeEvent;
 import org.activiti.api.task.model.events.TaskRuntimeEvent;
+
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
+
+import static java.util.Arrays.asList;
 
 public class LocalEventSource implements EventSource {
 
@@ -44,19 +45,19 @@ public class LocalEventSource implements EventSource {
         collectedEvents.clear();
     }
 
-    public <T extends RuntimeEvent<?,?>> List<T> getEvents(Class<T> eventType) {
+    public <T extends RuntimeEvent<?, ?>> List<T> getEvents(Class<T> eventType) {
         return collectedEvents
-                .stream()
-                .filter(eventType::isInstance)
-                .map(eventType::cast)
-                .collect(Collectors.toList());
+            .stream()
+            .filter(eventType::isInstance)
+            .map(eventType::cast)
+            .collect(Collectors.toList());
     }
 
     public List<RuntimeEvent<?, ?>> getEvents(Enum<?>... eventTypes) {
         return collectedEvents
-                .stream()
-                .filter(event -> asList(eventTypes).contains(event.getEventType()))
-                .collect(Collectors.toList());
+            .stream()
+            .filter(event -> asList(eventTypes).contains(event.getEventType()))
+            .collect(Collectors.toList());
 
     }
 

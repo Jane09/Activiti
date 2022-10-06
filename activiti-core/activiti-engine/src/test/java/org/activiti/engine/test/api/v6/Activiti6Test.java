@@ -16,13 +16,6 @@
 
 package org.activiti.engine.test.api.v6;
 
-import static java.util.Collections.singletonMap;
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.activiti.engine.impl.history.HistoryLevel;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.activiti.engine.impl.test.PluggableActivitiTestCase;
@@ -33,6 +26,13 @@ import org.activiti.engine.runtime.Job;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.junit.Test;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static java.util.Collections.singletonMap;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * These are the first tests ever written for Activiti 6.
@@ -131,11 +131,11 @@ public class Activiti6Test extends PluggableActivitiTestCase {
         // on, try it!
         Map<String, Object> vars = new HashMap<String, Object>();
         vars.put("counter",
-                 Integer.valueOf(0));
+            Integer.valueOf(0));
         vars.put("maxCount",
-                 maxCount);
+            maxCount);
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("testLongServiceTaskLoop",
-                                                                                   vars);
+            vars);
         assertThat(processInstance).isNotNull();
         assertThat(processInstance.isEnded()).isTrue();
 
@@ -144,7 +144,7 @@ public class Activiti6Test extends PluggableActivitiTestCase {
 
         if (processEngineConfiguration.getHistoryLevel().isAtLeast(HistoryLevel.AUDIT)) {
             assertThat(historyService.createHistoricActivityInstanceQuery()
-                                 .processInstanceId(processInstance.getId()).activityId("serviceTask").count()).isEqualTo(maxCount);
+                .processInstanceId(processInstance.getId()).activityId("serviceTask").count()).isEqualTo(maxCount);
         }
     }
 
@@ -153,16 +153,16 @@ public class Activiti6Test extends PluggableActivitiTestCase {
     public void testScriptTask() {
         Map<String, Object> variableMap = new HashMap<String, Object>();
         variableMap.put("a",
-                        1);
+            1);
         variableMap.put("b",
-                        2);
+            2);
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("oneTaskProcess",
-                                                                                   variableMap);
+            variableMap);
         assertThat(processInstance).isNotNull();
         assertThat(processInstance.isEnded()).isFalse();
 
         Number sumVariable = (Number) runtimeService.getVariable(processInstance.getId(),
-                                                                 "sum");
+            "sum");
         assertThat(sumVariable.intValue()).isEqualTo(3);
 
         Execution execution = runtimeService.createExecutionQuery().processInstanceId(processInstance.getId()).onlyChildExecutions().singleResult();
@@ -255,7 +255,7 @@ public class Activiti6Test extends PluggableActivitiTestCase {
 
         // 3 conditions are true for input = 2
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("testConditions",
-                                                                                   singletonMap("input", 2));
+            singletonMap("input", 2));
         assertThat(processInstance).isNotNull();
         assertThat(processInstance.isEnded()).isFalse();
 
@@ -274,7 +274,7 @@ public class Activiti6Test extends PluggableActivitiTestCase {
 
         // 2 conditions are true for input = 20
         processInstance = runtimeService.startProcessInstanceByKey("testConditions",
-                                                                   singletonMap("input", 20));
+            singletonMap("input", 20));
         task = taskService.createTaskQuery().singleResult();
         taskService.complete(task.getId());
 
@@ -289,7 +289,7 @@ public class Activiti6Test extends PluggableActivitiTestCase {
 
         // 1 condition is true for input = 200
         processInstance = runtimeService.startProcessInstanceByKey("testConditions",
-                                                                   singletonMap("input", 200));
+            singletonMap("input", 200));
         task = taskService.createTaskQuery().singleResult();
         taskService.complete(task.getId());
 

@@ -15,11 +15,11 @@
  */
 package org.activiti.api.process.model.payloads;
 
+import org.activiti.api.model.shared.Payload;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-
-import org.activiti.api.model.shared.Payload;
 
 public class SetProcessVariablesPayload implements Payload {
 

@@ -25,7 +25,6 @@ import org.activiti.api.process.runtime.ProcessAdminRuntime;
 import org.activiti.api.process.runtime.ProcessRuntime;
 import org.activiti.api.runtime.shared.query.Page;
 import org.activiti.api.runtime.shared.query.Pageable;
-import org.activiti.api.task.runtime.TaskRuntime;
 import org.activiti.spring.conformance.util.RuntimeTestConfiguration;
 import org.activiti.spring.conformance.util.security.SecurityUtil;
 import org.junit.jupiter.api.AfterEach;
@@ -62,11 +61,11 @@ public class BasicCallActivityAndServiceTaskTest {
         securityUtil.logInAs("user1");
 
         ProcessInstance processInstance = processRuntime.start(ProcessPayloadBuilder
-                .start()
-                .withProcessDefinitionKey(processKey)
-                .withBusinessKey("my-business-key")
-                .withName("my-process-instance-name")
-                .build());
+            .start()
+            .withProcessDefinitionKey(processKey)
+            .withBusinessKey("my-business-key")
+            .withName("my-process-instance-name")
+            .build());
 
         //then
         assertThat(processInstance).isNotNull();
@@ -76,31 +75,31 @@ public class BasicCallActivityAndServiceTaskTest {
 
 
         assertThat(RuntimeTestConfiguration.collectedEvents)
-                .extracting(RuntimeEvent::getEventType)
-                .containsExactly(
-                        ProcessRuntimeEvent.ProcessEvents.PROCESS_CREATED,
-                        ProcessRuntimeEvent.ProcessEvents.PROCESS_STARTED,
-                        BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
-                        BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
-                        BPMNSequenceFlowTakenEvent.SequenceFlowEvents.SEQUENCE_FLOW_TAKEN,
-                        BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
-                        ProcessRuntimeEvent.ProcessEvents.PROCESS_CREATED,
-                        ProcessRuntimeEvent.ProcessEvents.PROCESS_STARTED,
-                        BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
-                        BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
-                        BPMNSequenceFlowTakenEvent.SequenceFlowEvents.SEQUENCE_FLOW_TAKEN,
-                        BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
-                        BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
-                        BPMNSequenceFlowTakenEvent.SequenceFlowEvents.SEQUENCE_FLOW_TAKEN,
-                        BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
-                        BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
-                        ProcessRuntimeEvent.ProcessEvents.PROCESS_COMPLETED,
-                        BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
-                        BPMNSequenceFlowTakenEvent.SequenceFlowEvents.SEQUENCE_FLOW_TAKEN,
-                        BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
-                        BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
-                        ProcessRuntimeEvent.ProcessEvents.PROCESS_COMPLETED
-                        );
+            .extracting(RuntimeEvent::getEventType)
+            .containsExactly(
+                ProcessRuntimeEvent.ProcessEvents.PROCESS_CREATED,
+                ProcessRuntimeEvent.ProcessEvents.PROCESS_STARTED,
+                BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
+                BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
+                BPMNSequenceFlowTakenEvent.SequenceFlowEvents.SEQUENCE_FLOW_TAKEN,
+                BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
+                ProcessRuntimeEvent.ProcessEvents.PROCESS_CREATED,
+                ProcessRuntimeEvent.ProcessEvents.PROCESS_STARTED,
+                BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
+                BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
+                BPMNSequenceFlowTakenEvent.SequenceFlowEvents.SEQUENCE_FLOW_TAKEN,
+                BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
+                BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
+                BPMNSequenceFlowTakenEvent.SequenceFlowEvents.SEQUENCE_FLOW_TAKEN,
+                BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
+                BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
+                ProcessRuntimeEvent.ProcessEvents.PROCESS_COMPLETED,
+                BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
+                BPMNSequenceFlowTakenEvent.SequenceFlowEvents.SEQUENCE_FLOW_TAKEN,
+                BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
+                BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
+                ProcessRuntimeEvent.ProcessEvents.PROCESS_COMPLETED
+            );
 
 
         clearEvents();
@@ -114,7 +113,7 @@ public class BasicCallActivityAndServiceTaskTest {
         Page<ProcessInstance> processInstancePage = processAdminRuntime.processInstances(Pageable.of(0, 50));
         for (ProcessInstance pi : processInstancePage.getContent()) {
             // We want to delete root processes instances because sub processes will be deleted automatically when the root ones are deleted
-            if(pi.getParentId() == null) {
+            if (pi.getParentId() == null) {
                 processAdminRuntime.delete(ProcessPayloadBuilder.delete(pi.getId()));
             }
         }

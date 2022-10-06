@@ -15,10 +15,11 @@
  */
 package org.activiti.spring.process.variable.types;
 
-import java.util.List;
 import org.activiti.engine.ActivitiException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 /**
  * For defining types to match json extension files where types correspond to java classes

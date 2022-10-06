@@ -15,13 +15,13 @@
  */
 package org.activiti.runtime.api.event.impl;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
-
 import org.activiti.api.runtime.model.impl.BPMNErrorImpl;
 import org.activiti.engine.delegate.event.ActivitiErrorEvent;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 
 public class BPMNErrorConverterTest {
 

@@ -4,18 +4,18 @@
              xmlns:activiti="http://activiti.org/bpmn"
              targetNamespace="processDefinitions">
 
-    <process id="waiter">
+  <process id="waiter">
 
-        <startEvent id="start"/>
+    <startEvent id="start"/>
 
-        <sequenceFlow id="flow1" sourceRef="start" targetRef="service1"/>
+    <sequenceFlow id="flow1" sourceRef="start" targetRef="service1"/>
 
-        <serviceTask id="service1" activiti:delegateExpression="${delegateBean}"/>
+    <serviceTask id="service1" activiti:delegateExpression="${delegateBean}"/>
 
-        <sequenceFlow id="flow2" sourceRef="service1" targetRef="end"/>
+    <sequenceFlow id="flow2" sourceRef="service1" targetRef="end"/>
 
-        <endEvent id="end"/>
+    <endEvent id="end"/>
 
-    </process>
+  </process>
 
 </definitions>

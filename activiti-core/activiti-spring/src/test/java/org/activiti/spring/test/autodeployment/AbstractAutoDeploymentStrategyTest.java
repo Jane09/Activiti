@@ -17,9 +17,6 @@
 
 package org.activiti.spring.test.autodeployment;
 
-import java.io.File;
-import java.io.InputStream;
-
 import org.activiti.core.common.spring.project.ApplicationUpgradeContextService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.repository.Deployment;
@@ -32,8 +29,10 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.ContextResource;
 import org.springframework.core.io.Resource;
 
+import java.io.File;
+
 import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public abstract class AbstractAutoDeploymentStrategyTest {

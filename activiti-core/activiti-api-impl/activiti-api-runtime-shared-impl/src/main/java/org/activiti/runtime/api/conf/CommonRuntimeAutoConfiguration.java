@@ -16,9 +16,6 @@
 
 package org.activiti.runtime.api.conf;
 
-import static java.util.Collections.emptyList;
-
-import java.util.List;
 import org.activiti.api.model.shared.event.VariableCreatedEvent;
 import org.activiti.api.model.shared.event.VariableUpdatedEvent;
 import org.activiti.api.runtime.shared.events.VariableEventListener;
@@ -36,6 +33,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.List;
+
+import static java.util.Collections.emptyList;
+
 @Configuration
 public class CommonRuntimeAutoConfiguration {
 
@@ -51,8 +52,8 @@ public class CommonRuntimeAutoConfiguration {
 
     @Bean
     public InitializingBean registerVariableCreatedListenerDelegate(RuntimeService runtimeService,
-        @Autowired(required = false) List<VariableEventListener<VariableCreatedEvent>> listeners,
-        VariableEventFilter variableEventFilter) {
+                                                                    @Autowired(required = false) List<VariableEventListener<VariableCreatedEvent>> listeners,
+                                                                    VariableEventFilter variableEventFilter) {
         return () -> runtimeService.addEventListener(
             new VariableCreatedListenerDelegate(getInitializedListeners(listeners),
                 new ToVariableCreatedConverter(),
@@ -65,8 +66,8 @@ public class CommonRuntimeAutoConfiguration {
 
     @Bean
     public InitializingBean registerVariableUpdatedListenerDelegate(RuntimeService runtimeService,
-        @Autowired(required = false) List<VariableEventListener<VariableUpdatedEvent>> listeners,
-        VariableEventFilter variableEventFilter) {
+                                                                    @Autowired(required = false) List<VariableEventListener<VariableUpdatedEvent>> listeners,
+                                                                    VariableEventFilter variableEventFilter) {
         return () -> runtimeService.addEventListener(
             new VariableUpdatedListenerDelegate(getInitializedListeners(listeners),
                 new ToVariableUpdatedConverter(),

@@ -36,8 +36,8 @@ public class JsonMessagePayloadMappingProviderFactory implements MessagePayloadM
                                                 MessageEventDefinition messageEventDefinition,
                                                 ExpressionManager expressionManager) {
         return new JsonMessagePayloadMappingProvider(bpmnEvent,
-                                                     messageEventDefinition,
-                                                     expressionManager,
+            messageEventDefinition,
+            expressionManager,
             variablesCalculator);
     }
 

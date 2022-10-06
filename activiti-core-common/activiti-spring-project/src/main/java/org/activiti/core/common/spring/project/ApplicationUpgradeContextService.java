@@ -15,15 +15,15 @@
  */
 package org.activiti.core.common.spring.project;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Optional;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.activiti.core.common.project.model.ProjectManifest;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.ResourcePatternResolver;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Optional;
 
 public class ApplicationUpgradeContextService {
 
@@ -57,15 +57,15 @@ public class ApplicationUpgradeContextService {
 
     private ProjectManifest read(InputStream inputStream) throws IOException {
         return objectMapper.readValue(inputStream,
-                                      ProjectManifest.class);
+            ProjectManifest.class);
     }
 
     public ProjectManifest loadProjectManifest() throws IOException {
         Optional<Resource> resourceOptional = retrieveResource();
 
         return read(resourceOptional
-                        .orElseThrow(() -> new FileNotFoundException("'" + projectManifestFilePath + "' manifest not found."))
-                        .getInputStream());
+            .orElseThrow(() -> new FileNotFoundException("'" + projectManifestFilePath + "' manifest not found."))
+            .getInputStream());
     }
 
     public boolean hasProjectManifest() {

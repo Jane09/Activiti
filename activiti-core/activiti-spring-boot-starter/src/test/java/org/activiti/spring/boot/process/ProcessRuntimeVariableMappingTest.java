@@ -15,15 +15,6 @@
  */
 package org.activiti.spring.boot.process;
 
-import static java.util.Arrays.asList;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.assertj.core.api.Assertions.tuple;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.activiti.api.model.shared.model.VariableInstance;
@@ -36,9 +27,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static java.util.Arrays.asList;
+import static org.assertj.core.api.Assertions.*;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @TestPropertySource(
-        locations = {"classpath:application.properties"})
+    locations = {"classpath:application.properties"})
 public class ProcessRuntimeVariableMappingTest {
 
     private static final String VARIABLE_MAPPING_PROCESS = "connectorVarMapping";
@@ -67,17 +65,17 @@ public class ProcessRuntimeVariableMappingTest {
         List<VariableInstance> variables = processBaseRuntime.getProcessVariablesByProcessId(processInstance.getId());
 
         assertThat(variables).extracting(VariableInstance::getName,
-                                         VariableInstance::getValue)
-                             .containsOnly(
-                                           tuple("name", "outName"),
-                                           tuple("age", 35),
-                                           tuple("input_unmapped_variable_with_matching_name", "inTest"),
-                                           tuple("input_unmapped_variable_with_non_matching_connector_input_name",
-                                                 "inTest"),
-                                           tuple("nickName", "testName"),
-                                           tuple("out_unmapped_variable_matching_name", "default"),
-                                           tuple("output_unmapped_variable_with_non_matching_connector_output_name",
-                                                 "default"));
+                VariableInstance::getValue)
+            .containsOnly(
+                tuple("name", "outName"),
+                tuple("age", 35),
+                tuple("input_unmapped_variable_with_matching_name", "inTest"),
+                tuple("input_unmapped_variable_with_non_matching_connector_input_name",
+                    "inTest"),
+                tuple("nickName", "testName"),
+                tuple("out_unmapped_variable_matching_name", "default"),
+                tuple("output_unmapped_variable_with_non_matching_connector_output_name",
+                    "default"));
 
     }
 
@@ -98,22 +96,22 @@ public class ProcessRuntimeVariableMappingTest {
         JsonNode data = mapper.convertValue(dataMap, JsonNode.class);
 
         assertThat(variables).extracting(VariableInstance::getName,
-                                         VariableInstance::getValue)
-                             .containsOnly(
-                                           tuple("age", 30),
-                                           tuple("name", "outName"),
-                                           tuple("surname", "Doe"),
-                                           tuple("data", data),
-                                           tuple("user-msg",
-                                                 "Hello ${name.concat(' ').concat(surname)}, today is your ${age}th birthday! It means ${age * 365.25} days of life"),
-                                           tuple("input-unmapped-variable-with-matching-name", "${surname}"),
-                                           tuple("input-unmapped-variable-with-non-matching-connector-input-name",
-                                                 "inTestExpression"),
-                                           tuple("variableToResolve", "${name}"),
-                                           tuple("out-unmapped-variable-matching-name", "defaultExpression"),
-                                           tuple("output-unmapped-variable-with-non-matching-connector-output-name",
-                                                 "defaultExpression"),
-                                           tuple("resident", true));
+                VariableInstance::getValue)
+            .containsOnly(
+                tuple("age", 30),
+                tuple("name", "outName"),
+                tuple("surname", "Doe"),
+                tuple("data", data),
+                tuple("user-msg",
+                    "Hello ${name.concat(' ').concat(surname)}, today is your ${age}th birthday! It means ${age * 365.25} days of life"),
+                tuple("input-unmapped-variable-with-matching-name", "${surname}"),
+                tuple("input-unmapped-variable-with-non-matching-connector-input-name",
+                    "inTestExpression"),
+                tuple("variableToResolve", "${name}"),
+                tuple("out-unmapped-variable-matching-name", "defaultExpression"),
+                tuple("output-unmapped-variable-with-non-matching-connector-output-name",
+                    "defaultExpression"),
+                tuple("resident", true));
 
     }
 
@@ -134,11 +132,11 @@ public class ProcessRuntimeVariableMappingTest {
         List<VariableInstance> variables = processBaseRuntime.getProcessVariablesByProcessId(processInstance.getId());
 
         assertThat(variables).extracting(VariableInstance::getName,
-                                         VariableInstance::getValue)
-                             .containsOnly(
-                                           tuple("name", "John"),
-                                           tuple("outVar", "Resolved expression: value-set-in-connector"),
-                                 tuple("outVarFromJsonExpression", "Tower of London"));
+                VariableInstance::getValue)
+            .containsOnly(
+                tuple("name", "John"),
+                tuple("outVar", "Resolved expression: value-set-in-connector"),
+                tuple("outVarFromJsonExpression", "Tower of London"));
 
     }
 }

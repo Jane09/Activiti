@@ -32,7 +32,7 @@ public class Order {
     }
 
     private Order(String property,
-                 Direction direction) {
+                  Direction direction) {
         this.property = property;
         this.direction = direction;
     }
@@ -46,7 +46,7 @@ public class Order {
     }
 
     public static Order by(String property,
-                     Direction direction) {
+                           Direction direction) {
         return new Order(property, direction);
     }
 }

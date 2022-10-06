@@ -15,12 +15,6 @@
  */
 package org.activiti.runtime.api.model.impl;
 
-import static java.util.Collections.emptyList;
-
-import java.util.List;
-import java.util.Objects;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 import org.activiti.api.task.model.Task;
 import org.activiti.api.task.model.impl.TaskImpl;
 import org.activiti.engine.TaskService;
@@ -29,30 +23,37 @@ import org.activiti.engine.task.IdentityLink;
 import org.activiti.engine.task.IdentityLinkType;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import static java.util.Collections.emptyList;
+
 public class APITaskConverter extends ListConverter<org.activiti.engine.task.Task, Task> implements ModelConverter<org.activiti.engine.task.Task, Task> {
 
     private final TaskService taskService;
 
     @Autowired
-    public APITaskConverter(TaskService taskService){
+    public APITaskConverter(TaskService taskService) {
         this.taskService = taskService;
     }
 
     @Override
     public Task from(org.activiti.engine.task.Task internalTask) {
         return from(internalTask,
-                    calculateStatus(internalTask));
+            calculateStatus(internalTask));
     }
 
     public Task fromWithCandidates(org.activiti.engine.task.Task internalTask) {
         TaskImpl task = buildFromInternalTask(internalTask,
-                                        calculateStatus(internalTask));
+            calculateStatus(internalTask));
         extractCandidateUsersAndGroups(internalTask, task);
         return task;
     }
 
     private TaskImpl buildFromInternalTask(org.activiti.engine.task.Task internalTask,
-        Task.TaskStatus status){
+                                           Task.TaskStatus status) {
 
         TaskImpl task = new TaskImpl(internalTask.getId(),
             internalTask.getName(),
@@ -77,15 +78,15 @@ public class APITaskConverter extends ListConverter<org.activiti.engine.task.Tas
     }
 
     public Task from(org.activiti.engine.task.Task internalTask,
-        Task.TaskStatus status) {
+                     Task.TaskStatus status) {
 
         return buildFromInternalTask(internalTask, status);
     }
 
     public Task fromWithCompletedBy(org.activiti.engine.task.Task internalTask,
-        Task.TaskStatus status, String completedBy) {
+                                    Task.TaskStatus status, String completedBy) {
 
-        TaskImpl task =  buildFromInternalTask(internalTask, status);
+        TaskImpl task = buildFromInternalTask(internalTask, status);
         task.setCompletedBy(completedBy);
 
         return task;
@@ -102,11 +103,11 @@ public class APITaskConverter extends ListConverter<org.activiti.engine.task.Tas
         List<String> result = emptyList();
         if (candidates != null) {
             result = candidates
-                             .stream()
-                             .filter(candidate -> IdentityLinkType.CANDIDATE.equals(candidate.getType()))
-                             .map(extractor::apply)
-                             .filter(Objects::nonNull)
-                             .collect(Collectors.toList());
+                .stream()
+                .filter(candidate -> IdentityLinkType.CANDIDATE.equals(candidate.getType()))
+                .map(extractor::apply)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
         }
         return result;
     }

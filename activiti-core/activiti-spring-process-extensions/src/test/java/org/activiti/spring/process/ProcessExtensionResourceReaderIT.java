@@ -97,11 +97,11 @@ public class ProcessExtensionResourceReaderIT {
                     TemplateDefinition::getFrom,
                     TemplateDefinition::getSubject
                 ).containsExactly(
-                VARIABLE,
-                "myCandidateTemplateVariable",
-                FROM,
-                "Default candidate subject"
-            );
+                    VARIABLE,
+                    "myCandidateTemplateVariable",
+                    FROM,
+                    "Default candidate subject"
+                );
 
             assertThat(templates.getTasks())
                 .containsOnlyKeys("myTaskId1", "myTaskId2", "myTaskId3");
@@ -146,12 +146,12 @@ public class ProcessExtensionResourceReaderIT {
             assertThat(templates.getTasks().get("myTaskId2").getCandidate())
                 .isNull();
             assertThat(templates.getTasks()
-                                .get("myTaskId2")
-                                .getAssignee().getFrom()).isEqualTo(FROM);
+                .get("myTaskId2")
+                .getAssignee().getFrom()).isEqualTo(FROM);
             assertThat(templates.getTasks()
-                                .get("myTaskId2")
-                                .getAssignee()
-                                .getSubject()).isEqualTo("myTaskId2 assignee subject");
+                .get("myTaskId2")
+                .getAssignee()
+                .getSubject()).isEqualTo("myTaskId2 assignee subject");
 
             assertThat(templates.getTasks().get("myTaskId3").getAssignee())
                 .isNull();
@@ -174,21 +174,21 @@ public class ProcessExtensionResourceReaderIT {
     @Test
     public void shouldReadAnalyticsExtensionFromJsonFile() throws Exception {
         try (InputStream inputStream = Thread.currentThread().getContextClassLoader()
-                                             .getResourceAsStream("processes/initial-vars-extensions.json")) {
+            .getResourceAsStream("processes/initial-vars-extensions.json")) {
             ProcessExtensionModel processExtensionModel = reader.read(inputStream);
             assertThat(processExtensionModel).isNotNull();
             assertThat(processExtensionModel.getId()).isEqualTo("initialVarsProcess");
             assertThat(
                 processExtensionModel.getExtensions("Process_initialVarsProcess").getProperties())
-                    .extracting(stringVariableDefinitionMap -> stringVariableDefinitionMap.get("379dc1a1-481d-4617-a027-ef39fdadf6667"))
-                    .extracting(VariableDefinition::getName, VariableDefinition::isAnalytics)
-                    .containsOnly("trackedId", true);
+                .extracting(stringVariableDefinitionMap -> stringVariableDefinitionMap.get("379dc1a1-481d-4617-a027-ef39fdadf6667"))
+                .extracting(VariableDefinition::getName, VariableDefinition::isAnalytics)
+                .containsOnly("trackedId", true);
 
             assertThat(
                 processExtensionModel.getExtensions("Process_initialVarsProcess").getProperties())
-                    .extracting(stringVariableDefinitionMap -> stringVariableDefinitionMap.get("379dc1a1-481d-4617-a027-ef39fdadf6668"))
-                    .extracting(VariableDefinition::getName, VariableDefinition::isAnalytics)
-                    .containsOnly("notTrackedId", false);
+                .extracting(stringVariableDefinitionMap -> stringVariableDefinitionMap.get("379dc1a1-481d-4617-a027-ef39fdadf6668"))
+                .extracting(VariableDefinition::getName, VariableDefinition::isAnalytics)
+                .containsOnly("notTrackedId", false);
         }
     }
 }

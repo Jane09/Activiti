@@ -16,21 +16,14 @@
 
 package org.activiti.engine.impl.util;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.StringWriter;
-import java.io.Writer;
+import org.activiti.engine.delegate.DelegateExecution;
+
+import java.io.*;
 import java.util.List;
 import java.util.Map;
 
-import org.activiti.engine.delegate.DelegateExecution;
-
 /**
-
+ *
  */
 public class ShellCommandExecutor implements CommandExecutor {
     private Boolean waitFlag;
@@ -53,12 +46,12 @@ public class ShellCommandExecutor implements CommandExecutor {
 
     public ShellCommandExecutor(ShellExecutorContext context) {
         this(context.getWaitFlag(),
-                context.getCleanEnvBoolan(),
-                context.getRedirectErrorFlag(),
-                context.getDirectoryStr(),
-                context.getResultVariableStr(),
-                context.getErrorCodeVariableStr(),
-                context.getArgList());
+            context.getCleanEnvBoolan(),
+            context.getRedirectErrorFlag(),
+            context.getDirectoryStr(),
+            context.getResultVariableStr(),
+            context.getErrorCodeVariableStr(),
+            context.getArgList());
     }
 
 

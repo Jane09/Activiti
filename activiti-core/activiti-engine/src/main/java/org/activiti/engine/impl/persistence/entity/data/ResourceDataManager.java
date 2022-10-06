@@ -16,19 +16,19 @@
 
 package org.activiti.engine.impl.persistence.entity.data;
 
-import java.util.List;
-
 import org.activiti.engine.impl.persistence.entity.ResourceEntity;
 
-/**
+import java.util.List;
 
+/**
+ *
  */
 public interface ResourceDataManager extends DataManager<ResourceEntity> {
 
-  void deleteResourcesByDeploymentId(String deploymentId);
+    void deleteResourcesByDeploymentId(String deploymentId);
 
-  ResourceEntity findResourceByDeploymentIdAndResourceName(String deploymentId, String resourceName);
+    ResourceEntity findResourceByDeploymentIdAndResourceName(String deploymentId, String resourceName);
 
-  List<ResourceEntity> findResourcesByDeploymentId(String deploymentId);
+    List<ResourceEntity> findResourcesByDeploymentId(String deploymentId);
 
 }

@@ -15,10 +15,10 @@
  */
 package org.activiti.api.process.model.builders;
 
+import org.activiti.api.process.model.payloads.GetProcessDefinitionsPayload;
+
 import java.util.HashSet;
 import java.util.Set;
-
-import org.activiti.api.process.model.payloads.GetProcessDefinitionsPayload;
 
 public class GetProcessDefinitionsPayloadBuilder {
 

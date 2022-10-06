@@ -15,11 +15,11 @@
  */
 package org.activiti.spring.process;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.activiti.spring.resources.ResourceFinderDescriptor;
 import org.springframework.core.io.Resource;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProcessExtensionResourceFinderDescriptor implements ResourceFinderDescriptor {
 

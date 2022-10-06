@@ -42,59 +42,59 @@ public class CompensateThrowIconType extends CompensateIconType {
                          int iconPadding,
                          ProcessDiagramSVGGraphics2D svgGenerator) {
         Element gTag = svgGenerator.getDOMFactory().createElementNS(null,
-                                                                    SVGGraphics2D.SVG_G_TAG);
+            SVGGraphics2D.SVG_G_TAG);
         gTag.setAttributeNS(null,
-                            "transform",
-                            "translate(" + (imageX - 8) + "," + (imageY - 6) + ")");
+            "transform",
+            "translate(" + (imageX - 8) + "," + (imageY - 6) + ")");
 
         Element polygonTag1 = svgGenerator.getDOMFactory().createElementNS(null,
-                                                                           SVGGraphics2D.SVG_POLYGON_TAG);
+            SVGGraphics2D.SVG_POLYGON_TAG);
         polygonTag1.setAttributeNS(null,
-                                   "points",
-                                   "14 8 14 22 7 15 ");
+            "points",
+            "14 8 14 22 7 15 ");
         polygonTag1.setAttributeNS(null,
-                                   "fill",
-                                   this.getFillValue());
+            "fill",
+            this.getFillValue());
         polygonTag1.setAttributeNS(null,
-                                   "stroke",
-                                   this.getStrokeValue());
+            "stroke",
+            this.getStrokeValue());
         polygonTag1.setAttributeNS(null,
-                                   "stroke-width",
-                                   this.getStrokeWidth());
+            "stroke-width",
+            this.getStrokeWidth());
         polygonTag1.setAttributeNS(null,
-                                   "stroke-linecap",
-                                   "butt");
+            "stroke-linecap",
+            "butt");
         polygonTag1.setAttributeNS(null,
-                                   "stroke-linejoin",
-                                   "miter");
+            "stroke-linejoin",
+            "miter");
         polygonTag1.setAttributeNS(null,
-                                   "stroke-miterlimit",
-                                   "10");
+            "stroke-miterlimit",
+            "10");
         gTag.appendChild(polygonTag1);
 
         Element polygonTag2 = svgGenerator.getDOMFactory().createElementNS(null,
-                                                                           SVGGraphics2D.SVG_POLYGON_TAG);
+            SVGGraphics2D.SVG_POLYGON_TAG);
         polygonTag2.setAttributeNS(null,
-                                   "points",
-                                   "21 8 21 22 14 15 ");
+            "points",
+            "21 8 21 22 14 15 ");
         polygonTag2.setAttributeNS(null,
-                                   "fill",
-                                   this.getFillValue());
+            "fill",
+            this.getFillValue());
         polygonTag2.setAttributeNS(null,
-                                   "stroke",
-                                   this.getStrokeValue());
+            "stroke",
+            this.getStrokeValue());
         polygonTag2.setAttributeNS(null,
-                                   "stroke-width",
-                                   this.getStrokeWidth());
+            "stroke-width",
+            this.getStrokeWidth());
         polygonTag2.setAttributeNS(null,
-                                   "stroke-linecap",
-                                   "butt");
+            "stroke-linecap",
+            "butt");
         polygonTag2.setAttributeNS(null,
-                                   "stroke-linejoin",
-                                   "miter");
+            "stroke-linejoin",
+            "miter");
         polygonTag2.setAttributeNS(null,
-                                   "stroke-miterlimit",
-                                   "10");
+            "stroke-miterlimit",
+            "10");
         gTag.appendChild(polygonTag2);
 
         svgGenerator.getExtendDOMGroupManager().addElement(gTag);

@@ -23,7 +23,6 @@ import org.activiti.api.process.model.events.BPMNSequenceFlowTakenEvent;
 import org.activiti.api.process.model.events.ProcessRuntimeEvent;
 import org.activiti.api.process.runtime.ProcessAdminRuntime;
 import org.activiti.api.process.runtime.ProcessRuntime;
-import org.activiti.api.runtime.shared.NotFoundException;
 import org.activiti.api.runtime.shared.query.Page;
 import org.activiti.api.runtime.shared.query.Pageable;
 import org.activiti.api.task.model.Task;
@@ -71,11 +70,11 @@ public class BasicExclusiveGatewayErrorTest {
         securityUtil.logInAs("user1");
 
         ProcessInstance processInstance = processRuntime.start(ProcessPayloadBuilder
-                .start()
-                .withProcessDefinitionKey(processKey)
-                .withBusinessKey("my-business-key")
-                .withName("my-process-instance-name")
-                .build());
+            .start()
+            .withProcessDefinitionKey(processKey)
+            .withBusinessKey("my-business-key")
+            .withName("my-process-instance-name")
+            .build());
 
         //then
         assertThat(processInstance).isNotNull();
@@ -105,27 +104,27 @@ public class BasicExclusiveGatewayErrorTest {
 
 
         assertThat(RuntimeTestConfiguration.collectedEvents)
-                .extracting(RuntimeEvent::getEventType)
-                .containsExactly(
-                        ProcessRuntimeEvent.ProcessEvents.PROCESS_CREATED,
-                        ProcessRuntimeEvent.ProcessEvents.PROCESS_STARTED,
-                        BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
-                        BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
-                        BPMNSequenceFlowTakenEvent.SequenceFlowEvents.SEQUENCE_FLOW_TAKEN,
-                        BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
-                        TaskRuntimeEvent.TaskEvents.TASK_CREATED,
-                        TaskRuntimeEvent.TaskEvents.TASK_ASSIGNED);
+            .extracting(RuntimeEvent::getEventType)
+            .containsExactly(
+                ProcessRuntimeEvent.ProcessEvents.PROCESS_CREATED,
+                ProcessRuntimeEvent.ProcessEvents.PROCESS_STARTED,
+                BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
+                BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
+                BPMNSequenceFlowTakenEvent.SequenceFlowEvents.SEQUENCE_FLOW_TAKEN,
+                BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
+                TaskRuntimeEvent.TaskEvents.TASK_CREATED,
+                TaskRuntimeEvent.TaskEvents.TASK_ASSIGNED);
 
 
         clearEvents();
 
-        Throwable throwable = catchThrowable(() ->  taskRuntime.complete(TaskPayloadBuilder.complete().withTaskId(task.getId()).build()));
+        Throwable throwable = catchThrowable(() -> taskRuntime.complete(TaskPayloadBuilder.complete().withTaskId(task.getId()).build()));
 
         //@TODO: this is leaking ActivitiException.class we should validate expressions before running the process
         // https://github.com/Activiti/Activiti/issues/2328
         assertThat(throwable)
-                .isInstanceOf(ActivitiException.class)
-                .hasMessageContaining("condition expression returns non-Boolean");
+            .isInstanceOf(ActivitiException.class)
+            .hasMessageContaining("condition expression returns non-Boolean");
 
     }
 

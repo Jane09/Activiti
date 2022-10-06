@@ -15,15 +15,15 @@
  */
 package org.activiti.bpmn.converter;
 
-import javax.xml.stream.XMLStreamReader;
-import javax.xml.stream.XMLStreamWriter;
-
 import org.activiti.bpmn.converter.util.BpmnXMLUtil;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.StartEvent;
 import org.activiti.bpmn.model.alfresco.AlfrescoStartEvent;
 import org.apache.commons.lang3.StringUtils;
+
+import javax.xml.stream.XMLStreamReader;
+import javax.xml.stream.XMLStreamWriter;
 
 public class StartEventXMLConverter extends BaseBpmnXMLConverter {
 
@@ -41,7 +41,7 @@ public class StartEventXMLConverter extends BaseBpmnXMLConverter {
     protected BaseElement convertXMLToElement(XMLStreamReader xtr,
                                               BpmnModel model) throws Exception {
         String formKey = xtr.getAttributeValue(ACTIVITI_EXTENSIONS_NAMESPACE,
-                                               ATTRIBUTE_FORM_FORMKEY);
+            ATTRIBUTE_FORM_FORMKEY);
         StartEvent startEvent = null;
 
         if (StringUtils.isNotEmpty(formKey) && model.getStartEventFormTypes() != null && model.getStartEventFormTypes().contains(formKey)) {
@@ -51,12 +51,12 @@ public class StartEventXMLConverter extends BaseBpmnXMLConverter {
             startEvent = new StartEvent();
         }
         BpmnXMLUtil.addXMLLocation(startEvent,
-                                   xtr);
+            xtr);
         startEvent.setInitiator(xtr.getAttributeValue(ACTIVITI_EXTENSIONS_NAMESPACE,
-                                                      ATTRIBUTE_EVENT_START_INITIATOR));
+            ATTRIBUTE_EVENT_START_INITIATOR));
         boolean interrupting = true;
         String interruptingAttribute = xtr.getAttributeValue(null,
-                                                             ATTRIBUTE_EVENT_START_INTERRUPTING);
+            ATTRIBUTE_EVENT_START_INTERRUPTING);
         if (ATTRIBUTE_VALUE_FALSE.equalsIgnoreCase(interruptingAttribute)) {
             interrupting = false;
         }
@@ -64,9 +64,9 @@ public class StartEventXMLConverter extends BaseBpmnXMLConverter {
         startEvent.setFormKey(formKey);
 
         parseChildElements(getXMLElementName(),
-                           startEvent,
-                           model,
-                           xtr);
+            startEvent,
+            model,
+            xtr);
 
         return startEvent;
     }
@@ -77,16 +77,16 @@ public class StartEventXMLConverter extends BaseBpmnXMLConverter {
                                              XMLStreamWriter xtw) throws Exception {
         StartEvent startEvent = (StartEvent) element;
         writeQualifiedAttribute(ATTRIBUTE_EVENT_START_INITIATOR,
-                                startEvent.getInitiator(),
-                                xtw);
+            startEvent.getInitiator(),
+            xtw);
         writeQualifiedAttribute(ATTRIBUTE_FORM_FORMKEY,
-                                startEvent.getFormKey(),
-                                xtw);
+            startEvent.getFormKey(),
+            xtw);
 
         if (startEvent.getEventDefinitions() != null && startEvent.getEventDefinitions().size() > 0) {
             writeDefaultAttribute(ATTRIBUTE_EVENT_START_INTERRUPTING,
-                                    String.valueOf(startEvent.isInterrupting()),
-                                    xtw);
+                String.valueOf(startEvent.isInterrupting()),
+                xtw);
         }
     }
 
@@ -96,8 +96,8 @@ public class StartEventXMLConverter extends BaseBpmnXMLConverter {
                                                   XMLStreamWriter xtw) throws Exception {
         StartEvent startEvent = (StartEvent) element;
         didWriteExtensionStartElement = writeFormProperties(startEvent,
-                                                            didWriteExtensionStartElement,
-                                                            xtw);
+            didWriteExtensionStartElement,
+            xtw);
         return didWriteExtensionStartElement;
     }
 
@@ -107,9 +107,9 @@ public class StartEventXMLConverter extends BaseBpmnXMLConverter {
                                                 XMLStreamWriter xtw) throws Exception {
         StartEvent startEvent = (StartEvent) element;
         writeEventDefinitions(startEvent,
-                              startEvent.getEventDefinitions(),
-                              model,
-                              xtw);
+            startEvent.getEventDefinitions(),
+            model,
+            xtw);
     }
 
 }

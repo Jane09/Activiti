@@ -25,7 +25,7 @@ public class ActivitiImageException extends RuntimeException {
     public ActivitiImageException(String message,
                                   Throwable cause) {
         super(message,
-              cause);
+            cause);
     }
 
     public ActivitiImageException(String message) {

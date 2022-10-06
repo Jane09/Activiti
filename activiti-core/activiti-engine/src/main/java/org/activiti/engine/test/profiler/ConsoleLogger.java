@@ -18,7 +18,7 @@ package org.activiti.engine.test.profiler;
 import java.util.Map;
 
 /**
-
+ *
  */
 public class ConsoleLogger {
 
@@ -54,8 +54,8 @@ public class ConsoleLogger {
 
                 System.out.println();
                 System.out.println("Average execution time: " + stats.getAverageExecutionTime()
-                        + " ms (Average database time: " + stats.getAverageDatabaseExecutionTime()
-                        + " ms (" + stats.getAverageDatabaseExecutionTimePercentage() + "%) )");
+                    + " ms (Average database time: " + stats.getAverageDatabaseExecutionTime()
+                    + " ms (" + stats.getAverageDatabaseExecutionTimePercentage() + "%) )");
 
                 System.out.println();
                 System.out.println("Database selects:");

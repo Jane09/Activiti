@@ -17,17 +17,15 @@
 
 package org.activiti.engine.impl.el;
 
-import java.util.Map;
-
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.VariableScope;
 import org.activiti.engine.impl.interceptor.DelegateInterceptor;
 
+import java.util.Map;
+
 /**
  * Expression that always returns the same value when <code>getValue</code> is called. Setting of the value is not supported.
- *
-
  */
 public class FixedValue implements Expression {
 
@@ -55,7 +53,7 @@ public class FixedValue implements Expression {
 
     @Override
     public Object getValue(ExpressionManager expressionManager,
-        DelegateInterceptor delegateInterceptor, Map<String, Object> availableVariables) {
+                           DelegateInterceptor delegateInterceptor, Map<String, Object> availableVariables) {
         return value;
     }
 

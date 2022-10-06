@@ -40,11 +40,11 @@ public class TaskCandidateUserRemovedListenerDelegate implements ActivitiEventLi
     public void onEvent(ActivitiEvent event) {
         if (event instanceof ActivitiEntityEvent) {
             converter.from((ActivitiEntityEvent) event).ifPresent(
-                    convertedEvent -> {
-                        for (TaskRuntimeEventListener<TaskCandidateUserRemovedEvent> listener : listeners) {
-                            listener.onEvent(convertedEvent);
-                        }
+                convertedEvent -> {
+                    for (TaskRuntimeEventListener<TaskCandidateUserRemovedEvent> listener : listeners) {
+                        listener.onEvent(convertedEvent);
                     }
+                }
             );
         }
     }

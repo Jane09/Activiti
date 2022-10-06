@@ -15,11 +15,11 @@
  */
 package org.activiti.bpmn.converter.child;
 
-import javax.xml.stream.XMLStreamReader;
-
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.TimerEventDefinition;
+
+import javax.xml.stream.XMLStreamReader;
 
 public class TimeDateParser extends BaseChildElementParser {
 

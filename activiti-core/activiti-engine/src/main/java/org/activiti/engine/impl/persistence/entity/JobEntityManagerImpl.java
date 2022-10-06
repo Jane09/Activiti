@@ -17,8 +17,6 @@
 
 package org.activiti.engine.impl.persistence.entity;
 
-import java.util.List;
-
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.delegate.event.impl.ActivitiEventBuilder;
 import org.activiti.engine.impl.JobQueryImpl;
@@ -28,8 +26,8 @@ import org.activiti.engine.impl.persistence.CountingExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.data.DataManager;
 import org.activiti.engine.impl.persistence.entity.data.JobDataManager;
 import org.activiti.engine.runtime.Job;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public class JobEntityManagerImpl extends AbstractEntityManager<JobEntity> implements JobEntityManager {
 
@@ -49,14 +47,14 @@ public class JobEntityManagerImpl extends AbstractEntityManager<JobEntity> imple
     @Override
     public boolean insertJobEntity(JobEntity timerJobEntity) {
         return doInsert(timerJobEntity,
-                        true);
+            true);
     }
 
     @Override
     public void insert(JobEntity jobEntity,
                        boolean fireCreateEvent) {
         doInsert(jobEntity,
-                 fireCreateEvent);
+            fireCreateEvent);
     }
 
     protected boolean doInsert(JobEntity jobEntity,
@@ -82,7 +80,7 @@ public class JobEntityManagerImpl extends AbstractEntityManager<JobEntity> imple
         }
 
         super.insert(jobEntity,
-                     fireCreateEvent);
+            fireCreateEvent);
         return true;
     }
 
@@ -104,7 +102,7 @@ public class JobEntityManagerImpl extends AbstractEntityManager<JobEntity> imple
     public List<JobEntity> findJobsByTypeAndProcessDefinitionId(String jobTypeTimer,
                                                                 String id) {
         return jobDataManager.findJobsByTypeAndProcessDefinitionId(jobTypeTimer,
-                                                                   id);
+            id);
     }
 
     @Override
@@ -126,7 +124,7 @@ public class JobEntityManagerImpl extends AbstractEntityManager<JobEntity> imple
     public List<Job> findJobsByQueryCriteria(JobQueryImpl jobQuery,
                                              Page page) {
         return jobDataManager.findJobsByQueryCriteria(jobQuery,
-                                                      page);
+            page);
     }
 
     @Override
@@ -138,7 +136,7 @@ public class JobEntityManagerImpl extends AbstractEntityManager<JobEntity> imple
     public void updateJobTenantIdForDeployment(String deploymentId,
                                                String newTenantId) {
         jobDataManager.updateJobTenantIdForDeployment(deploymentId,
-                                                      newTenantId);
+            newTenantId);
     }
 
     @Override
@@ -152,7 +150,7 @@ public class JobEntityManagerImpl extends AbstractEntityManager<JobEntity> imple
         // Send event
         if (getEventDispatcher().isEnabled()) {
             getEventDispatcher().dispatchEvent(ActivitiEventBuilder.createEntityEvent(ActivitiEventType.ENTITY_DELETED,
-                                                                                      this));
+                this));
         }
     }
 
@@ -166,7 +164,7 @@ public class JobEntityManagerImpl extends AbstractEntityManager<JobEntity> imple
             }
         }
         super.delete(entity,
-                     fireDeleteEvent);
+            fireDeleteEvent);
     }
 
     /**

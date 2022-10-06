@@ -22,7 +22,7 @@ import org.activiti.bpmn.model.SequenceFlow;
 import org.apache.commons.lang3.StringUtils;
 
 /**
-
+ *
  */
 public class ExecutionListenerParser extends ActivitiListenerParser {
 

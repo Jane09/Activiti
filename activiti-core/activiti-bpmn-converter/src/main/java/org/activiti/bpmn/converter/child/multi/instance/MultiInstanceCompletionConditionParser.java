@@ -15,12 +15,13 @@
  */
 package org.activiti.bpmn.converter.child.multi.instance;
 
-import static org.activiti.bpmn.constants.BpmnXMLConstants.ELEMENT_MULTIINSTANCE_CONDITION;
+import org.activiti.bpmn.converter.child.ElementParser;
+import org.activiti.bpmn.model.MultiInstanceLoopCharacteristics;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import org.activiti.bpmn.converter.child.ElementParser;
-import org.activiti.bpmn.model.MultiInstanceLoopCharacteristics;
+
+import static org.activiti.bpmn.constants.BpmnXMLConstants.ELEMENT_MULTIINSTANCE_CONDITION;
 
 public class MultiInstanceCompletionConditionParser implements
     ElementParser<MultiInstanceLoopCharacteristics> {
@@ -32,7 +33,7 @@ public class MultiInstanceCompletionConditionParser implements
 
     @Override
     public void setInformation(XMLStreamReader reader,
-        MultiInstanceLoopCharacteristics loopCharacteristics) throws XMLStreamException {
+                               MultiInstanceLoopCharacteristics loopCharacteristics) throws XMLStreamException {
         loopCharacteristics.setCompletionCondition(reader.getElementText());
     }
 }

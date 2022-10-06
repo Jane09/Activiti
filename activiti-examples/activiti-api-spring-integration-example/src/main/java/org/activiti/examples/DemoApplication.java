@@ -15,12 +15,6 @@
  */
 package org.activiti.examples;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
-
 import org.activiti.api.process.model.ProcessDefinition;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.builders.ProcessPayloadBuilder;
@@ -45,6 +39,12 @@ import org.springframework.integration.file.FileReadingMessageSource;
 import org.springframework.integration.file.filters.SimplePatternFileListFilter;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
 
 @SpringBootApplication
 @EnableIntegration
@@ -110,11 +110,11 @@ public class DemoApplication implements CommandLineRunner {
         logger.info("> Processing content: " + content + " at " + formatter.format(new Date()));
 
         ProcessInstance processInstance = processRuntime.start(ProcessPayloadBuilder
-                .start()
-                .withProcessDefinitionKey("categorizeProcess")
-                .withName("Processing Content: " + content)
-                .withVariable("content", content)
-                .build());
+            .start()
+            .withProcessDefinitionKey("categorizeProcess")
+            .withName("Processing Content: " + content)
+            .withVariable("content", content)
+            .build());
         logger.info(">>> Created Process Instance: " + processInstance);
 
         logger.info(">>> Deleting processed file: " + payload.getName());
@@ -132,11 +132,11 @@ public class DemoApplication implements CommandLineRunner {
             if (contentToProcess.contains("activiti")) {
                 logger.info("> Approving content: " + contentToProcess);
                 integrationContext.addOutBoundVariable("approved",
-                        true);
+                    true);
             } else {
                 logger.info("> Discarding content: " + contentToProcess);
                 integrationContext.addOutBoundVariable("approved",
-                        false);
+                    false);
             }
             return integrationContext;
         };
@@ -148,7 +148,7 @@ public class DemoApplication implements CommandLineRunner {
             String contentToTag = (String) integrationContext.getInBoundVariables().get("content");
             contentToTag += " :) ";
             integrationContext.addOutBoundVariable("content",
-                    contentToTag);
+                contentToTag);
             logger.info("Final Content: " + contentToTag);
             return integrationContext;
         };
@@ -160,7 +160,7 @@ public class DemoApplication implements CommandLineRunner {
             String contentToDiscard = (String) integrationContext.getInBoundVariables().get("content");
             contentToDiscard += " :( ";
             integrationContext.addOutBoundVariable("content",
-                    contentToDiscard);
+                contentToDiscard);
             logger.info("Final Content: " + contentToDiscard);
             return integrationContext;
         };

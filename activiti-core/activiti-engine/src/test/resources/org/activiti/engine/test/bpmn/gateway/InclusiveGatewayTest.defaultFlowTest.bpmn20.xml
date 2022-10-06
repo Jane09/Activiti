@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
+             typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath"
+             targetNamespace="http://www.activiti.org/test">
   <process id="InclusiveGatewayDefaultFlowTest" name="InclusiveGatewayDefaultFlowTest" isExecutable="true">
     <startEvent id="startevent1" name="Start"></startEvent>
     <inclusiveGateway id="inclusivegateway1" name="Inclusive Gateway" default="flow2"></inclusiveGateway>
@@ -7,10 +11,12 @@
     <userTask id="usertask1" name="User Task"></userTask>
     <userTask id="usertask2" name="User Task"></userTask>
     <sequenceFlow id="flow2" sourceRef="inclusivegateway1" targetRef="usertask1">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${execution.getVariable('var1') != null }]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression">
+        <![CDATA[${execution.getVariable('var1') != null }]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow3" sourceRef="inclusivegateway1" targetRef="usertask2">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${execution.getVariable('var1') != null }]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression">
+        <![CDATA[${execution.getVariable('var1') != null }]]></conditionExpression>
     </sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow4" sourceRef="usertask1" targetRef="endevent1"></sequenceFlow>

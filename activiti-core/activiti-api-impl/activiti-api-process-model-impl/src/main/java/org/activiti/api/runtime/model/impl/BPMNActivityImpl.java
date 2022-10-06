@@ -15,9 +15,9 @@
  */
 package org.activiti.api.runtime.model.impl;
 
-import java.util.Objects;
-
 import org.activiti.api.process.model.BPMNActivity;
+
+import java.util.Objects;
 
 public class BPMNActivityImpl extends BPMNElementImpl implements BPMNActivity {
 
@@ -76,8 +76,8 @@ public class BPMNActivityImpl extends BPMNElementImpl implements BPMNActivity {
         }
         BPMNActivityImpl other = (BPMNActivityImpl) obj;
         return Objects.equals(activityName, other.activityName) &&
-               Objects.equals(activityType, other.activityType) &&
-               Objects.equals(executionId, other.executionId);
+            Objects.equals(activityType, other.activityType) &&
+            Objects.equals(executionId, other.executionId);
     }
 
     @Override
@@ -92,14 +92,14 @@ public class BPMNActivityImpl extends BPMNElementImpl implements BPMNActivity {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("BPMNActivityImpl [activityName=")
-               .append(activityName)
-               .append(", activityType=")
-               .append(activityType)
-               .append(", executionId=")
-               .append(executionId)
-               .append(", toString()=")
-               .append(super.toString())
-               .append("]");
+            .append(activityName)
+            .append(", activityType=")
+            .append(activityType)
+            .append(", executionId=")
+            .append(executionId)
+            .append(", toString()=")
+            .append(super.toString())
+            .append("]");
         return builder.toString();
     }
 }

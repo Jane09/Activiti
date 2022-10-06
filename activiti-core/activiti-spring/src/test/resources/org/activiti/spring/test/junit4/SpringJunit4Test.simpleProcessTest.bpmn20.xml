@@ -3,16 +3,16 @@
              xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
              targetNamespace="Examples">
 
-    <process id="simpleProcess">
+  <process id="simpleProcess">
 
-        <startEvent id="start"/>
-        <sequenceFlow id="flow1" sourceRef="start" targetRef="theTask"/>
+    <startEvent id="start"/>
+    <sequenceFlow id="flow1" sourceRef="start" targetRef="theTask"/>
 
-        <userTask id="theTask" name="My Task"/>
-        <sequenceFlow id="flow2" sourceRef="theTask" targetRef="theEnd"/>
+    <userTask id="theTask" name="My Task"/>
+    <sequenceFlow id="flow2" sourceRef="theTask" targetRef="theEnd"/>
 
-        <endEvent id="theEnd"/>
+    <endEvent id="theEnd"/>
 
-    </process>
+  </process>
 
 </definitions>

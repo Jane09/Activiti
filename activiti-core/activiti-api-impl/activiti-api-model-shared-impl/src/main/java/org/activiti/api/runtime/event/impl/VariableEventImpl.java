@@ -19,7 +19,7 @@ import org.activiti.api.model.shared.event.VariableEvent;
 import org.activiti.api.model.shared.model.VariableInstance;
 
 public abstract class VariableEventImpl extends RuntimeEventImpl<VariableInstance, VariableEvent.VariableEvents>
-        implements VariableEvent {
+    implements VariableEvent {
 
     public VariableEventImpl() {
     }

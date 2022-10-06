@@ -15,11 +15,11 @@
  */
 package org.activiti.api.process.model.payloads;
 
+import org.activiti.api.model.shared.Payload;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
-import org.activiti.api.model.shared.Payload;
 
 public class RemoveProcessVariablesPayload implements Payload {
 

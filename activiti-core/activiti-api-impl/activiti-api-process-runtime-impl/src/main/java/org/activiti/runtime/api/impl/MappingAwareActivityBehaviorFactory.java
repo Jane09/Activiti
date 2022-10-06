@@ -16,8 +16,6 @@
 
 package org.activiti.runtime.api.impl;
 
-import java.util.List;
-
 import org.activiti.bpmn.model.MapExceptionEntry;
 import org.activiti.bpmn.model.UserTask;
 import org.activiti.engine.delegate.Expression;
@@ -30,6 +28,8 @@ import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFacto
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.spring.process.ProcessVariablesInitiator;
 
+import java.util.List;
+
 /**
  * Default implementation of the {@link ActivityBehaviorFactory}. Used when no custom {@link ActivityBehaviorFactory} is injected on the {@link ProcessEngineConfigurationImpl}.
  */
@@ -40,7 +40,7 @@ public class MappingAwareActivityBehaviorFactory extends DefaultActivityBehavior
     private final VariablesPropagator variablesPropagator;
 
     public MappingAwareActivityBehaviorFactory(VariablesCalculator variablesCalculator, ProcessVariablesInitiator processVariablesInitiator,
-        VariablesPropagator variablesPropagator) {
+                                               VariablesPropagator variablesPropagator) {
         super();
         this.variablesCalculator = variablesCalculator;
         this.processVariablesInitiator = processVariablesInitiator;

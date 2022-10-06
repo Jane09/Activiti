@@ -37,7 +37,7 @@ public class ToProcessSuspendedConverter implements EventConverter<ProcessSuspen
         ProcessSuspendedEvent event = null;
         if (isProcessInstanceEntity(internalEvent.getEntity())) {
             event = new ProcessSuspendedEventImpl(processInstanceConverter.from(((ExecutionEntity)
-                    internalEvent.getEntity()).getProcessInstance()));
+                internalEvent.getEntity()).getProcessInstance()));
         }
         return Optional.ofNullable(event);
     }

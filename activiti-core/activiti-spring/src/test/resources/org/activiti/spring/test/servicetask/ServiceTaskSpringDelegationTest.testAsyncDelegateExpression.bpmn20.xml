@@ -5,24 +5,24 @@
              xmlns:activiti="http://activiti.org/bpmn"
              targetNamespace="Examples">
 
-    <process id="delegateExpressionToSpringBean">
+  <process id="delegateExpressionToSpringBean">
 
-        <startEvent id="start"/>
-        <sequenceFlow id="flow1" sourceRef="start" targetRef="serviceTask"/>
+    <startEvent id="start"/>
+    <sequenceFlow id="flow1" sourceRef="start" targetRef="serviceTask"/>
 
-        <serviceTask id="serviceTask" activiti:delegateExpression="${delegateExpressionBean}" activiti:async="true">
-            <extensionElements>
-                <activiti:field name="someField" stringValue="fieldInjectionWorking"/>
-            </extensionElements>
-        </serviceTask>
+    <serviceTask id="serviceTask" activiti:delegateExpression="${delegateExpressionBean}" activiti:async="true">
+      <extensionElements>
+        <activiti:field name="someField" stringValue="fieldInjectionWorking"/>
+      </extensionElements>
+    </serviceTask>
 
-        <sequenceFlow id="flow2" sourceRef="serviceTask" targetRef="userTask"/>
+    <sequenceFlow id="flow2" sourceRef="serviceTask" targetRef="userTask"/>
 
-        <userTask id="userTask" name="Schedule meeting"/>
-        <sequenceFlow id="flow3" sourceRef="userTask" targetRef="end"/>
+    <userTask id="userTask" name="Schedule meeting"/>
+    <sequenceFlow id="flow3" sourceRef="userTask" targetRef="end"/>
 
-        <endEvent id="end"/>
+    <endEvent id="end"/>
 
-    </process>
+  </process>
 
 </definitions>

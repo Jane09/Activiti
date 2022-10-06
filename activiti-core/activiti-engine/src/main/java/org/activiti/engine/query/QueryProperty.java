@@ -23,10 +23,9 @@ import java.io.Serializable;
 
 /**
  * Describes a property that can be used in a Query.
- *
  */
 @Internal
 public interface QueryProperty extends Serializable {
 
-  String getName();
+    String getName();
 }

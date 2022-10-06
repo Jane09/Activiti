@@ -23,8 +23,6 @@ import org.springframework.messaging.MessagingException;
 
 /**
  * Spring Integration Java Configuration DSL integration for Activiti.
- *
-
  */
 public class Activiti {
 
@@ -54,7 +52,7 @@ public class Activiti {
             @Override
             public void handleMessage(Message<?> message) throws MessagingException {
                 String executionId = message.getHeaders().containsKey("executionId") ?
-                        (String) message.getHeaders().get("executionId") : (String) null;
+                    (String) message.getHeaders().get("executionId") : (String) null;
 
                 if (null != executionId)
                     processEngine.getRuntimeService().trigger(executionId);

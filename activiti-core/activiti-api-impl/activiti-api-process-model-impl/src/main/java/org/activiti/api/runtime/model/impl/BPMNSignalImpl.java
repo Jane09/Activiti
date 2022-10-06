@@ -15,10 +15,10 @@
  */
 package org.activiti.api.runtime.model.impl;
 
-import java.util.Objects;
-
 import org.activiti.api.process.model.BPMNSignal;
 import org.activiti.api.process.model.payloads.SignalPayload;
+
+import java.util.Objects;
 
 public class BPMNSignalImpl extends BPMNElementImpl implements BPMNSignal {
 
@@ -51,24 +51,24 @@ public class BPMNSignalImpl extends BPMNElementImpl implements BPMNSignal {
         BPMNSignalImpl that = (BPMNSignalImpl) o;
 
         return Objects.equals(getElementId(),
-                              that.getElementId()) &&
-                Objects.equals(signalPayload,
-                               that.getSignalPayload());
+            that.getElementId()) &&
+            Objects.equals(signalPayload,
+                that.getSignalPayload());
     }
 
     @Override
     public int hashCode() {
 
         return Objects.hash(getElementId(),
-                            signalPayload != null ? signalPayload.getId() : null,
-                            signalPayload != null ? signalPayload.getName() : null);
+            signalPayload != null ? signalPayload.getId() : null,
+            signalPayload != null ? signalPayload.getName() : null);
     }
 
     @Override
     public String toString() {
         return "BPMNActivityImpl{" +
-                ", elementId='" + getElementId() + '\'' +
-                ", signalPayload='" + (signalPayload != null ? signalPayload.toString() : null) + '\'' +
-                '}';
+            ", elementId='" + getElementId() + '\'' +
+            ", signalPayload='" + (signalPayload != null ? signalPayload.toString() : null) + '\'' +
+            '}';
     }
 }

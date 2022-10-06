@@ -15,6 +15,6 @@
  */
 package org.activiti.api.process.model.events;
 
-public interface ApplicationDeployedEvent extends ApplicationEvent{
+public interface ApplicationDeployedEvent extends ApplicationEvent {
 
 }

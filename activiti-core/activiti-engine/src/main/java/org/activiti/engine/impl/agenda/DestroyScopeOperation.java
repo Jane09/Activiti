@@ -15,24 +15,11 @@
  */
 package org.activiti.engine.impl.agenda;
 
-import java.util.Collection;
-
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.impl.interceptor.CommandContext;
-import org.activiti.engine.impl.persistence.entity.DeadLetterJobEntity;
-import org.activiti.engine.impl.persistence.entity.DeadLetterJobEntityManager;
-import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
-import org.activiti.engine.impl.persistence.entity.ExecutionEntityManager;
-import org.activiti.engine.impl.persistence.entity.JobEntity;
-import org.activiti.engine.impl.persistence.entity.JobEntityManager;
-import org.activiti.engine.impl.persistence.entity.SuspendedJobEntity;
-import org.activiti.engine.impl.persistence.entity.SuspendedJobEntityManager;
-import org.activiti.engine.impl.persistence.entity.TaskEntity;
-import org.activiti.engine.impl.persistence.entity.TaskEntityManager;
-import org.activiti.engine.impl.persistence.entity.TimerJobEntity;
-import org.activiti.engine.impl.persistence.entity.TimerJobEntityManager;
-import org.activiti.engine.impl.persistence.entity.VariableInstanceEntity;
-import org.activiti.engine.impl.persistence.entity.VariableInstanceEntityManager;
+import org.activiti.engine.impl.persistence.entity.*;
+
+import java.util.Collection;
 
 /**
  * Destroys a scope (for example a subprocess): this means that all child executions,
@@ -47,7 +34,7 @@ public class DestroyScopeOperation extends AbstractOperation {
     public DestroyScopeOperation(CommandContext commandContext,
                                  ExecutionEntity execution) {
         super(commandContext,
-              execution);
+            execution);
     }
 
     @Override
@@ -65,26 +52,26 @@ public class DestroyScopeOperation extends AbstractOperation {
 
         ExecutionEntityManager executionEntityManager = commandContext.getExecutionEntityManager();
         deleteAllChildExecutions(executionEntityManager,
-                                 scopeExecution);
+            scopeExecution);
 
         // Delete all scope tasks
         TaskEntityManager taskEntityManager = commandContext.getTaskEntityManager();
         deleteAllScopeTasks(scopeExecution,
-                            taskEntityManager);
+            taskEntityManager);
 
         // Delete all scope jobs
         TimerJobEntityManager timerJobEntityManager = commandContext.getTimerJobEntityManager();
         deleteAllScopeJobs(scopeExecution,
-                           timerJobEntityManager);
+            timerJobEntityManager);
 
 
         // Remove variables associated with this scope
         VariableInstanceEntityManager variableInstanceEntityManager = commandContext.getVariableInstanceEntityManager();
         removeAllVariablesFromScope(scopeExecution,
-                                    variableInstanceEntityManager);
+            variableInstanceEntityManager);
 
         commandContext.getHistoryManager().recordActivityEnd(scopeExecution,
-                                                             scopeExecution.getDeleteReason());
+            scopeExecution.getDeleteReason());
         executionEntityManager.delete(scopeExecution);
     }
 
@@ -127,9 +114,9 @@ public class DestroyScopeOperation extends AbstractOperation {
         Collection<TaskEntity> tasksForExecution = taskEntityManager.findTasksByExecutionId(scopeExecution.getId());
         for (TaskEntity taskEntity : tasksForExecution) {
             taskEntityManager.deleteTask(taskEntity,
-                                         execution.getDeleteReason(),
-                                         false,
-                                         false);
+                execution.getDeleteReason(),
+                false,
+                false);
         }
     }
 

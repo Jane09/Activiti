@@ -59,8 +59,8 @@ public class BaseElementTest {
         assertThat(baseElement.getExtensionElements()).hasSize(1);
 
         assertThat(baseElement.getExtensionElements().get("success"))
-                .isNotNull()
-                .containsExactly(successExtensionElement);
+            .isNotNull()
+            .containsExactly(successExtensionElement);
 
     }
 
@@ -76,9 +76,9 @@ public class BaseElementTest {
 
 
         baseElement.getAttributes().put("attributeOne", asList(
-                extensionAttributeOne,
-                extensionAttributeTwo,
-                extensionAttributeThree
+            extensionAttributeOne,
+            extensionAttributeTwo,
+            extensionAttributeThree
         ));
 
         //When
@@ -151,11 +151,11 @@ public class BaseElementTest {
         baseElement.setId("otherBaseElementId");
 
         ExtensionAttribute extensionAttributeElementOne =
-                createExtensionAttribute("attrOneElementOne", "attrOneElementOneValue");
+            createExtensionAttribute("attrOneElementOne", "attrOneElementOneValue");
 
         ExtensionElement extensionElementOne = createExtensionElement(
-                "elementOne",
-                singletonList(extensionAttributeElementOne)
+            "elementOne",
+            singletonList(extensionAttributeElementOne)
         );
 
         ExtensionAttribute extensionAttributeOne = createExtensionAttribute("attrOne", "prefix", "attrValueOne");

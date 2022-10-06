@@ -15,10 +15,10 @@
  */
 package org.activiti.api.runtime.event.impl;
 
-import java.util.List;
-
 import org.activiti.api.process.model.events.StartMessageDeployedEvent;
 import org.springframework.context.ApplicationEvent;
+
+import java.util.List;
 
 public class StartMessageDeployedEvents extends ApplicationEvent {
 

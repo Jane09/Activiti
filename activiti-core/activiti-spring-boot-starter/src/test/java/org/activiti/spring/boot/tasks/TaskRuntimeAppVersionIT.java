@@ -51,8 +51,8 @@ public class TaskRuntimeAppVersionIT {
         securityUtil.logInAs("user");
 
         taskRuntime.create(TaskPayloadBuilder.create()
-                                   .withName("new task")
-                                   .build());
+            .withName("new task")
+            .build());
 
         Page<Task> tasks = taskRuntime.tasks(Pageable.of(0, 50));
 

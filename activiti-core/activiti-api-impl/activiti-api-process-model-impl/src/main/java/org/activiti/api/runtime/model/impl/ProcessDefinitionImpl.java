@@ -105,38 +105,38 @@ public class ProcessDefinitionImpl extends ApplicationElementImpl implements Pro
         }
         ProcessDefinitionImpl that = (ProcessDefinitionImpl) o;
         return version == that.version &&
-                Objects.equals(id,
-                               that.id) &&
-                Objects.equals(name,
-                               that.name) &&
-                Objects.equals(description,
-                               that.description) &&
-                Objects.equals(key,
-                               that.key) &&
-                Objects.equals(formKey,
-                               that.formKey);
+            Objects.equals(id,
+                that.id) &&
+            Objects.equals(name,
+                that.name) &&
+            Objects.equals(description,
+                that.description) &&
+            Objects.equals(key,
+                that.key) &&
+            Objects.equals(formKey,
+                that.formKey);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(),
-                            id,
-                            name,
-                            description,
-                            version,
-                            key,
-                            formKey);
+            id,
+            name,
+            description,
+            version,
+            key,
+            formKey);
     }
 
     @Override
     public String toString() {
         return "ProcessDefinition{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", key='" + key + '\'' +
-                ", description='" + description + '\'' +
-                ", formKey='" + formKey + '\'' +
-                ", version=" + version +
-                '}';
+            "id='" + id + '\'' +
+            ", name='" + name + '\'' +
+            ", key='" + key + '\'' +
+            ", description='" + description + '\'' +
+            ", formKey='" + formKey + '\'' +
+            ", version=" + version +
+            '}';
     }
 }

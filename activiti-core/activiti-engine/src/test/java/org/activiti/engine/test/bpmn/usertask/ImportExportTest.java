@@ -15,11 +15,6 @@
  */
 package org.activiti.engine.test.bpmn.usertask;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-
 import org.activiti.bpmn.converter.BpmnXMLConverter;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.engine.impl.test.ResourceActivitiTestCase;
@@ -27,6 +22,11 @@ import org.activiti.engine.impl.util.io.InputStreamSource;
 import org.activiti.engine.impl.util.io.StreamSource;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.runtime.Execution;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ImportExportTest extends ResourceActivitiTestCase {
 
@@ -41,7 +41,7 @@ public class ImportExportTest extends ResourceActivitiTestCase {
         byte[] xml = new BpmnXMLConverter().convertToXML(bpmnModel);
 
         processEngine.getRepositoryService().createDeployment().name("test1").addString("test1.bpmn20.xml",
-                                                                                                                                               new String(xml)).deploy();
+            new String(xml)).deploy();
 
         String processInstanceKey = runtimeService.startProcessInstanceByKey("process").getId();
         Execution execution = runtimeService.createExecutionQuery().processInstanceId(processInstanceKey).messageEventSubscriptionName("InterruptMessage").singleResult();
@@ -52,7 +52,7 @@ public class ImportExportTest extends ResourceActivitiTestCase {
     protected void tearDown() throws Exception {
         for (Deployment deployment : repositoryService.createDeploymentQuery().list()) {
             repositoryService.deleteDeployment(deployment.getId(),
-                                               true);
+                true);
         }
         super.tearDown();
     }
@@ -65,20 +65,20 @@ public class ImportExportTest extends ResourceActivitiTestCase {
         InputStream xmlStream = this.getClass().getClassLoader().getResourceAsStream(getResource());
         StreamSource xmlSource = new InputStreamSource(xmlStream);
         BpmnModel bpmnModel = new BpmnXMLConverter().convertToBpmnModel(xmlSource,
-                                                                        false,
-                                                                        false,
-                                                                        processEngineConfiguration.getXmlEncoding());
+            false,
+            false,
+            processEngineConfiguration.getXmlEncoding());
         return bpmnModel;
     }
 
     protected BpmnModel exportAndReadXMLFile(BpmnModel bpmnModel) throws Exception {
         byte[] xml = new BpmnXMLConverter().convertToXML(bpmnModel,
-                                                         processEngineConfiguration.getXmlEncoding());
+            processEngineConfiguration.getXmlEncoding());
         StreamSource xmlSource = new InputStreamSource(new ByteArrayInputStream(xml));
         BpmnModel parsedModel = new BpmnXMLConverter().convertToBpmnModel(xmlSource,
-                                                                          false,
-                                                                          false,
-                                                                          processEngineConfiguration.getXmlEncoding());
+            false,
+            false,
+            processEngineConfiguration.getXmlEncoding());
         return parsedModel;
     }
 }

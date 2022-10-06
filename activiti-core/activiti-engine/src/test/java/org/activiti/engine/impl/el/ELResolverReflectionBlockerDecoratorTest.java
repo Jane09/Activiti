@@ -15,14 +15,16 @@
  */
 package org.activiti.engine.impl.el;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import java.util.Collections;
-import java.util.Map;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.impl.delegate.invocation.DefaultDelegateInterceptor;
 import org.junit.Test;
+
+import java.util.Collections;
+import java.util.Map;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class ELResolverReflectionBlockerDecoratorTest {
 

@@ -15,8 +15,9 @@
  */
 package org.activiti.api.runtime.event.impl;
 
-import java.util.List;
 import org.activiti.api.process.model.events.ApplicationDeployedEvent;
+
+import java.util.List;
 
 public class ApplicationDeployedEvents {
 

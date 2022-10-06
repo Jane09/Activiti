@@ -15,14 +15,6 @@
  */
 package org.activiti.spring.boot.tasks;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.assertj.core.api.Assertions.tuple;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.activiti.api.model.shared.model.VariableInstance;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.builders.ProcessPayloadBuilder;
@@ -39,6 +31,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class TaskRuntimeSaveTaskTest {
@@ -57,7 +55,7 @@ public class TaskRuntimeSaveTaskTest {
     private TaskCleanUpUtil taskCleanUpUtil;
 
     @AfterEach
-    public void taskCleanUp(){
+    public void taskCleanUp() {
         taskCleanUpUtil.cleanUpWithAdmin();
     }
 
@@ -67,9 +65,9 @@ public class TaskRuntimeSaveTaskTest {
         securityUtil.logInAs("garth");
 
         Task standAloneTask = taskRuntime.create(TaskPayloadBuilder.create()
-                .withName("simple task")
-                .withAssignee("garth")
-                .build());
+            .withName("simple task")
+            .withAssignee("garth")
+            .build());
 
         // when
         taskRuntime.save(new SaveTaskPayloadBuilder().withTaskId(standAloneTask.getId()).withVariable("name", "value").build());
@@ -77,7 +75,7 @@ public class TaskRuntimeSaveTaskTest {
         // then
         List<VariableInstance> variables = taskRuntime.variables(TaskPayloadBuilder.variables().withTaskId(standAloneTask.getId()).build());
         assertThat(variables).extracting(VariableInstance::getName, VariableInstance::getValue)
-                             .containsOnly(tuple("name", "value"));
+            .containsOnly(tuple("name", "value"));
     }
 
 
@@ -87,9 +85,9 @@ public class TaskRuntimeSaveTaskTest {
         securityUtil.logInAs("garth");
 
         Task standAloneTask = taskRuntime.create(TaskPayloadBuilder.create()
-                .withName("simple task")
-                .withAssignee("garth")
-                .build());
+            .withName("simple task")
+            .withAssignee("garth")
+            .build());
 
         // Complete should fail with a different user
         securityUtil.logInAs("user");
@@ -100,7 +98,7 @@ public class TaskRuntimeSaveTaskTest {
 
         //then
         assertThat(throwable)
-                .isInstanceOf(NotFoundException.class);
+            .isInstanceOf(NotFoundException.class);
 
     }
 
@@ -109,24 +107,24 @@ public class TaskRuntimeSaveTaskTest {
         // given
         securityUtil.logInAs("user");
 
-        Map<String,Object> startVariables = new HashMap<>();
-        startVariables.put("name","");
+        Map<String, Object> startVariables = new HashMap<>();
+        startVariables.put("name", "");
 
         // when
         ProcessInstance processInstance = processRuntime.start(ProcessPayloadBuilder.start()
-                .withProcessDefinitionKey(COMPLETE_REVIEW_TASK_PROCESS)
-                .withVariables(startVariables)
-                .build());
+            .withProcessDefinitionKey(COMPLETE_REVIEW_TASK_PROCESS)
+            .withVariables(startVariables)
+            .build());
 
         // complete task
         securityUtil.logInAs("garth");
 
-        Task task1 = taskRuntime.tasks(Pageable.of(0, 10),TaskPayloadBuilder.tasks().build()).getContent().get(0);
+        Task task1 = taskRuntime.tasks(Pageable.of(0, 10), TaskPayloadBuilder.tasks().build()).getContent().get(0);
 
         List<VariableInstance> variables = taskRuntime.variables(TaskPayloadBuilder.variables().withTaskId(task1.getId()).build());
 
         assertThat(variables).extracting(VariableInstance::getName, VariableInstance::getValue)
-                             .containsExactly(tuple("name", ""));
+            .containsExactly(tuple("name", ""));
 
         taskRuntime.save(new SaveTaskPayloadBuilder().withTaskId(task1.getId()).withVariable("name", "wrong").build());
 
@@ -135,19 +133,19 @@ public class TaskRuntimeSaveTaskTest {
         // reject task
         securityUtil.logInAs("user");
 
-        Task task2 = taskRuntime.tasks(Pageable.of(0, 10),TaskPayloadBuilder.tasks().build()).getContent().get(0);
+        Task task2 = taskRuntime.tasks(Pageable.of(0, 10), TaskPayloadBuilder.tasks().build()).getContent().get(0);
 
         List<VariableInstance> variables1 = taskRuntime.variables(TaskPayloadBuilder.variables().withTaskId(task2.getId()).build());
 
         assertThat(variables1).extracting(VariableInstance::getName, VariableInstance::getValue)
-                              .containsOnly(tuple("name", "wrong"), tuple("sys_task_assignee", "garth"));
+            .containsOnly(tuple("name", "wrong"), tuple("sys_task_assignee", "garth"));
 
         taskRuntime.complete(TaskPayloadBuilder.complete().withTaskId(task2.getId()).withVariable("approved", false).build());
 
         // fix task
         securityUtil.logInAs("garth");
 
-        Task task3 = taskRuntime.tasks(Pageable.of(0, 10),TaskPayloadBuilder.tasks().build()).getContent().get(0);
+        Task task3 = taskRuntime.tasks(Pageable.of(0, 10), TaskPayloadBuilder.tasks().build()).getContent().get(0);
 
         taskRuntime.save(new SaveTaskPayloadBuilder().withTaskId(task3.getId()).withVariable("name", "correct").build());
 
@@ -156,21 +154,21 @@ public class TaskRuntimeSaveTaskTest {
         // approve task
         securityUtil.logInAs("user");
 
-        Task task4 = taskRuntime.tasks(Pageable.of(0, 10),TaskPayloadBuilder.tasks().build()).getContent().get(0);
+        Task task4 = taskRuntime.tasks(Pageable.of(0, 10), TaskPayloadBuilder.tasks().build()).getContent().get(0);
 
         List<VariableInstance> variables2 = taskRuntime.variables(TaskPayloadBuilder.variables().withTaskId(task4.getId()).build());
 
         assertThat(variables2).extracting(VariableInstance::getName, VariableInstance::getValue)
-                              .contains(tuple("name", "correct"));
+            .contains(tuple("name", "correct"));
 
         taskRuntime.complete(TaskPayloadBuilder.complete().withTaskId(task4.getId()).withVariable("approved", true).build());
 
         // then process completes
         Throwable throwable = catchThrowable(() ->
-                assertThat(processRuntime.processInstance(processInstance.getId())).isNull());
+            assertThat(processRuntime.processInstance(processInstance.getId())).isNull());
 
         assertThat(throwable)
-                .isInstanceOf(NotFoundException.class);
+            .isInstanceOf(NotFoundException.class);
 
     }
 

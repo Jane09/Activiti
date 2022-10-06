@@ -15,8 +15,6 @@
  */
 package org.activiti.test.assertions;
 
-import java.util.List;
-
 import org.activiti.api.model.shared.event.RuntimeEvent;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.test.EventSource;
@@ -24,6 +22,8 @@ import org.activiti.test.TaskSource;
 import org.activiti.test.matchers.OperationScopeMatcher;
 import org.activiti.test.matchers.ProcessResultMatcher;
 import org.activiti.test.matchers.ProcessTaskMatcher;
+
+import java.util.List;
 
 import static org.activiti.test.matchers.OperationScopeImpl.processInstanceScope;
 
@@ -56,7 +56,7 @@ public class ProcessInstanceAssertionsImpl implements ProcessInstanceAssertions 
         List<RuntimeEvent<?, ?>> events = eventSource.getEvents();
         for (OperationScopeMatcher matcher : matchers) {
             matcher.match(processInstanceScope(processInstance.getId()),
-                          events);
+                events);
         }
         return this;
     }
@@ -65,7 +65,7 @@ public class ProcessInstanceAssertionsImpl implements ProcessInstanceAssertions 
     public ProcessInstanceAssertions expect(ProcessTaskMatcher... matchers) {
         for (ProcessTaskMatcher matcher : matchers) {
             matcher.match(processInstance.getId(),
-                          taskSources);
+                taskSources);
         }
         return this;
     }

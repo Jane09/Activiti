@@ -36,9 +36,9 @@ public class AuthenticationPrincipalRolesProvider implements PrincipalRolesProvi
     @Override
     public List<String> getRoles(@NonNull Principal principal) {
         return Optional.of(principal)
-                       .map(grantedAuthoritiesResolver::getAuthorities)
-                       .map(grantedAuthoritiesRolesMapper::getRoles)
-                       .orElseThrow(this::securityException);
+            .map(grantedAuthoritiesResolver::getAuthorities)
+            .map(grantedAuthoritiesRolesMapper::getRoles)
+            .orElseThrow(this::securityException);
     }
 
     protected SecurityException securityException() {

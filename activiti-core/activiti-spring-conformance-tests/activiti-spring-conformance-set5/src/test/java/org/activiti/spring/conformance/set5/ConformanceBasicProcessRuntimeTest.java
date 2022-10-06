@@ -22,10 +22,10 @@ import org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListe
 import org.activiti.api.runtime.shared.events.VariableEventListener;
 import org.activiti.api.runtime.shared.query.Page;
 import org.activiti.api.runtime.shared.query.Pageable;
+import org.activiti.spring.conformance.util.security.SecurityUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.activiti.spring.conformance.util.security.SecurityUtil;
 
 import java.util.List;
 
@@ -65,10 +65,10 @@ public class ConformanceBasicProcessRuntimeTest {
 
         List<ProcessDefinition> processDefinitions = processDefinitionPage.getContent();
         assertThat(processDefinitions).extracting(ProcessDefinition::getName).contains(
-                "Basic Call Activity",
-                "Basic Call Activity With Service Task",
-                "Sub Process A",
-                "Sub Process B"
+            "Basic Call Activity",
+            "Basic Call Activity With Service Task",
+            "Sub Process A",
+            "Sub Process B"
 
         );
 
@@ -82,17 +82,15 @@ public class ConformanceBasicProcessRuntimeTest {
 
         List<ProcessDefinition> processDefinitions = processDefinitionPage.getContent();
         assertThat(processDefinitions).extracting(ProcessDefinition::getName).contains(
-                "Basic Call Activity",
-                "Basic Call Activity With Service Task",
-                "Sub Process A",
-                "Sub Process B"
+            "Basic Call Activity",
+            "Basic Call Activity With Service Task",
+            "Sub Process A",
+            "Sub Process B"
 
         );
 
 
     }
-
-
 
 
 }

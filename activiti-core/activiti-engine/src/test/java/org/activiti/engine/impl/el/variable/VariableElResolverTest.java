@@ -15,16 +15,17 @@
  */
 package org.activiti.engine.impl.el.variable;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.Arrays;
 import org.activiti.engine.delegate.VariableScope;
 import org.activiti.engine.impl.persistence.entity.VariableInstance;
 import org.junit.Test;
+
+import java.util.Arrays;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 
 public class VariableElResolverTest {
 

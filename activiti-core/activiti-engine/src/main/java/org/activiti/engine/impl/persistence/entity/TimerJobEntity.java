@@ -22,16 +22,15 @@ import java.util.Date;
 
 /**
  * Stub of the common parts of a Job. You will normally work with a subclass of JobEntity, such as {@link TimerEntity} or {@link MessageEntity}.
- *
  */
 @Internal
 public interface TimerJobEntity extends AbstractJobEntity {
 
-  String getLockOwner();
+    String getLockOwner();
 
-  void setLockOwner(String claimedBy);
+    void setLockOwner(String claimedBy);
 
-  Date getLockExpirationTime();
+    Date getLockExpirationTime();
 
-  void setLockExpirationTime(Date claimedUntil);
+    void setLockExpirationTime(Date claimedUntil);
 }

@@ -34,7 +34,7 @@ public class TaskCancelledImpl extends RuntimeEventImpl<Task, TaskRuntimeEvent.T
         return TaskRuntimeEvent.TaskEvents.TASK_CANCELLED;
     }
 
-    public String getReason(){
+    public String getReason() {
         return reason;
     }
 

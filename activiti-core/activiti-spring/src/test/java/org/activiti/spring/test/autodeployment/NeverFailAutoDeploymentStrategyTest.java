@@ -15,16 +15,16 @@
  */
 package org.activiti.spring.test.autodeployment;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.List;
-
 import org.activiti.spring.autodeployment.NeverFailAutoDeploymentStrategy;
 import org.activiti.spring.impl.test.SpringActivitiTestCase;
 import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.test.context.ContextConfiguration;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ContextConfiguration("classpath:org/activiti/spring/test/autodeployment/errorHandling/spring-context.xml")
 public class NeverFailAutoDeploymentStrategyTest extends SpringActivitiTestCase {
@@ -43,12 +43,12 @@ public class NeverFailAutoDeploymentStrategyTest extends SpringActivitiTestCase 
     }
 
     @Override
-    public void setUp(){
+    public void setUp() {
         cleanUp();
     }
 
     @Override
-    public void tearDown(){
+    public void tearDown() {
         cleanUp();
     }
 

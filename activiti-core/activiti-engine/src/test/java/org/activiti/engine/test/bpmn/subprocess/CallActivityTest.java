@@ -17,14 +17,6 @@
 
 package org.activiti.engine.test.bpmn.subprocess;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.activiti.bpmn.converter.BpmnXMLConverter;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.engine.ActivitiException;
@@ -38,6 +30,14 @@ import org.activiti.engine.impl.util.io.StreamSource;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
+
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class CallActivityTest extends ResourceActivitiTestCase {
 
@@ -56,8 +56,8 @@ public class CallActivityTest extends ResourceActivitiTestCase {
         BpmnModel messageTriggeredBpmnModel = loadBPMNModel(MESSAGE_TRIGGERED_PROCESS_RESOURCE);
 
         processEngine.getRepositoryService().createDeployment().name("messageTriggeredProcessDeployment")
-                .addBpmnModel("messageTriggered.bpmn20.xml",
-                              messageTriggeredBpmnModel).deploy();
+            .addBpmnModel("messageTriggered.bpmn20.xml",
+                messageTriggeredBpmnModel).deploy();
 
         ProcessInstance childProcessInstance = runtimeService.startProcessInstanceByMessage("TRIGGER_PROCESS_MESSAGE");
         assertThat(childProcessInstance).isNotNull();
@@ -67,8 +67,8 @@ public class CallActivityTest extends ResourceActivitiTestCase {
         BpmnModel messageTriggeredBpmnModel = loadBPMNModel(MESSAGE_TRIGGERED_PROCESS_RESOURCE);
 
         Deployment messageTriggeredBpmnDeployment = processEngine.getRepositoryService().createDeployment().name("messageTriggeredProcessDeployment")
-                .addBpmnModel("messageTriggered.bpmn20.xml",
-                              messageTriggeredBpmnModel).deploy();
+            .addBpmnModel("messageTriggered.bpmn20.xml",
+                messageTriggeredBpmnModel).deploy();
 
         suspendProcessDefinitions(messageTriggeredBpmnDeployment);
 
@@ -81,7 +81,7 @@ public class CallActivityTest extends ResourceActivitiTestCase {
         BpmnModel childBpmnModel = loadBPMNModel(CHILD_PROCESS_RESOURCE);
 
         processEngine.getRepositoryService().createDeployment().name("childProcessDeployment").addBpmnModel("childProcess.bpmn20.xml",
-                                                                                                             childBpmnModel).deploy();
+            childBpmnModel).deploy();
 
         ProcessInstance childProcessInstance = runtimeService.startProcessInstanceByKey("childProcess");
         assertThat(childProcessInstance).isNotNull();
@@ -91,7 +91,7 @@ public class CallActivityTest extends ResourceActivitiTestCase {
         BpmnModel childBpmnModel = loadBPMNModel(CHILD_PROCESS_RESOURCE);
 
         Deployment childDeployment = processEngine.getRepositoryService().createDeployment().name("childProcessDeployment").addBpmnModel("childProcess.bpmn20.xml",
-                                                                                                                                         childBpmnModel).deploy();
+            childBpmnModel).deploy();
 
         suspendProcessDefinitions(childDeployment);
 
@@ -105,10 +105,10 @@ public class CallActivityTest extends ResourceActivitiTestCase {
         BpmnModel childBpmnModel = loadBPMNModel(CHILD_PROCESS_RESOURCE);
 
         Deployment childDeployment = processEngine.getRepositoryService().createDeployment().name("childProcessDeployment").addBpmnModel("childProcess.bpmn20.xml",
-                                                                                                                                         childBpmnModel).deploy();
+            childBpmnModel).deploy();
 
         processEngine.getRepositoryService().createDeployment().name("masterProcessDeployment").addBpmnModel("masterProcess.bpmn20.xml",
-                                                                                                                                           mainBpmnModel).deploy();
+            mainBpmnModel).deploy();
 
         suspendProcessDefinitions(childDeployment);
 
@@ -122,29 +122,29 @@ public class CallActivityTest extends ResourceActivitiTestCase {
         BpmnModel childBpmnModel = loadBPMNModel(INHERIT_VARIABLES_CHILD_PROCESS_RESOURCE);
 
         processEngine.getRepositoryService()
-                .createDeployment()
-                .name("mainProcessDeployment")
-                .addBpmnModel("mainProcess.bpmn20.xml",
-                              mainBpmnModel).deploy();
+            .createDeployment()
+            .name("mainProcessDeployment")
+            .addBpmnModel("mainProcess.bpmn20.xml",
+                mainBpmnModel).deploy();
 
         processEngine.getRepositoryService()
-                .createDeployment()
-                .name("childProcessDeployment")
-                .addBpmnModel("childProcess.bpmn20.xml",
-                              childBpmnModel).deploy();
+            .createDeployment()
+            .name("childProcessDeployment")
+            .addBpmnModel("childProcess.bpmn20.xml",
+                childBpmnModel).deploy();
 
         Map<String, Object> variables = new HashMap<String, Object>();
         variables.put("var1",
-                      "String test value");
+            "String test value");
         variables.put("var2",
-                      true);
+            true);
         variables.put("var3",
-                      12345);
+            12345);
         variables.put("var4",
-                      67890);
+            67890);
 
         ProcessInstance mainProcessInstance = runtimeService.startProcessInstanceByKey("mainProcess",
-                                                                                       variables);
+            variables);
 
         HistoricActivityInstanceQuery activityInstanceQuery = historyService.createHistoricActivityInstanceQuery();
         activityInstanceQuery.processInstanceId(mainProcessInstance.getId());
@@ -166,29 +166,29 @@ public class CallActivityTest extends ResourceActivitiTestCase {
         BpmnModel childBpmnModel = loadBPMNModel(INHERIT_VARIABLES_CHILD_PROCESS_RESOURCE);
 
         processEngine.getRepositoryService()
-                .createDeployment()
-                .name("childProcessDeployment")
-                .addBpmnModel("childProcess.bpmn20.xml",
-                              childBpmnModel).deploy();
+            .createDeployment()
+            .name("childProcessDeployment")
+            .addBpmnModel("childProcess.bpmn20.xml",
+                childBpmnModel).deploy();
 
         processEngine.getRepositoryService()
-                .createDeployment()
-                .name("mainProcessDeployment")
-                .addBpmnModel("mainProcess.bpmn20.xml",
-                              mainBpmnModel).deploy();
+            .createDeployment()
+            .name("mainProcessDeployment")
+            .addBpmnModel("mainProcess.bpmn20.xml",
+                mainBpmnModel).deploy();
 
         Map<String, Object> variables = new HashMap<String, Object>();
         variables.put("var1",
-                      "String test value");
+            "String test value");
         variables.put("var2",
-                      true);
+            true);
         variables.put("var3",
-                      12345);
+            12345);
         variables.put("var4",
-                      67890);
+            67890);
 
         ProcessInstance mainProcessInstance = runtimeService.startProcessInstanceByKey("mainProcess",
-                                                                                       variables);
+            variables);
 
         HistoricActivityInstanceQuery activityInstanceQuery = historyService.createHistoricActivityInstanceQuery();
         activityInstanceQuery.processInstanceId(mainProcessInstance.getId());
@@ -214,7 +214,7 @@ public class CallActivityTest extends ResourceActivitiTestCase {
     protected void tearDown() throws Exception {
         for (Deployment deployment : repositoryService.createDeploymentQuery().list()) {
             repositoryService.deleteDeployment(deployment.getId(),
-                                               true);
+                true);
         }
         super.tearDown();
     }
@@ -223,9 +223,9 @@ public class CallActivityTest extends ResourceActivitiTestCase {
         InputStream xmlStream = this.getClass().getClassLoader().getResourceAsStream(bpmnModelFilePath);
         StreamSource xmlSource = new InputStreamSource(xmlStream);
         BpmnModel bpmnModel = new BpmnXMLConverter().convertToBpmnModel(xmlSource,
-                                                                        false,
-                                                                        false,
-                                                                        processEngineConfiguration.getXmlEncoding());
+            false,
+            false,
+            processEngineConfiguration.getXmlEncoding());
         return bpmnModel;
     }
 }

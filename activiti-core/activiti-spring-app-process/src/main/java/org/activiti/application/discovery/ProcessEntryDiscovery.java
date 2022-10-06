@@ -15,10 +15,10 @@
  */
 package org.activiti.application.discovery;
 
+import org.activiti.application.ApplicationEntryDiscovery;
+
 import java.util.function.Predicate;
 import java.util.zip.ZipEntry;
-
-import org.activiti.application.ApplicationEntryDiscovery;
 
 public class ProcessEntryDiscovery implements ApplicationEntryDiscovery {
 

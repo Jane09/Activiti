@@ -86,9 +86,9 @@ public class TemplateDefinition {
     @Override
     public int hashCode() {
         return Objects.hash(from,
-                            subject,
-                            type,
-                            value);
+            subject,
+            type,
+            value);
     }
 
     @Override

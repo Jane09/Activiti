@@ -15,17 +15,6 @@
  */
 package org.activiti.spring;
 
-import static java.util.Arrays.asList;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.tuple;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-
-import java.io.ByteArrayInputStream;
-import java.util.List;
-
 import org.activiti.api.process.model.events.ProcessDeployedEvent;
 import org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener;
 import org.activiti.engine.RepositoryService;
@@ -40,6 +29,15 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.ApplicationEventPublisher;
+
+import java.io.ByteArrayInputStream;
+import java.util.List;
+
+import static java.util.Arrays.asList;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.tuple;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class ProcessDeployedEventProducerTest {
@@ -64,9 +62,9 @@ public class ProcessDeployedEventProducerTest {
     @BeforeEach
     public void setUp() {
         producer = new ProcessDeployedEventProducer(repositoryService,
-                                                    converter,
-                                                    asList(firstListener, secondListener),
-                                                    eventPublisher);
+            converter,
+            asList(firstListener, secondListener),
+            eventPublisher);
     }
 
     @Test
@@ -76,12 +74,12 @@ public class ProcessDeployedEventProducerTest {
         given(repositoryService.createProcessDefinitionQuery().latestVersion()).willReturn(definitionQuery);
 
         List<ProcessDefinition> internalProcessDefinitions = asList(mock(ProcessDefinition.class),
-                                                                    mock(ProcessDefinition.class));
+            mock(ProcessDefinition.class));
 
         given(definitionQuery.list()).willReturn(internalProcessDefinitions);
 
         List<org.activiti.api.process.model.ProcessDefinition> apiProcessDefinitions = asList(buildAPIProcessDefinition("id1"),
-                                                                                              buildAPIProcessDefinition("id2"));
+            buildAPIProcessDefinition("id2"));
         given(converter.from(internalProcessDefinitions)).willReturn(apiProcessDefinitions);
         given(repositoryService.getProcessModel("id1")).willReturn(new ByteArrayInputStream("content1".getBytes()));
         given(repositoryService.getProcessModel("id2")).willReturn(new ByteArrayInputStream("content2".getBytes()));
@@ -92,23 +90,23 @@ public class ProcessDeployedEventProducerTest {
         //then
         ArgumentCaptor<ProcessDeployedEvent> captor = ArgumentCaptor.forClass(ProcessDeployedEvent.class);
         verify(firstListener,
-               times(2)).onEvent(captor.capture());
+            times(2)).onEvent(captor.capture());
         verify(secondListener,
-               times(2)).onEvent(captor.capture());
+            times(2)).onEvent(captor.capture());
 
         List<ProcessDeployedEvent> allValues = captor.getAllValues();
         assertThat(allValues)
-                .extracting(ProcessDeployedEvent::getEntity,
-                            ProcessDeployedEvent::getProcessModelContent)
-                .containsExactly(tuple(apiProcessDefinitions.get(0),
-                                       "content1"),//firstListener
+            .extracting(ProcessDeployedEvent::getEntity,
+                ProcessDeployedEvent::getProcessModelContent)
+            .containsExactly(tuple(apiProcessDefinitions.get(0),
+                    "content1"),//firstListener
 
-                                 tuple(apiProcessDefinitions.get(1),
-                                       "content2"),//firstListener
-                                 tuple(apiProcessDefinitions.get(0),
-                                       "content1"),//secondListener
-                                 tuple(apiProcessDefinitions.get(1),
-                                       "content2"));//secondListener
+                tuple(apiProcessDefinitions.get(1),
+                    "content2"),//firstListener
+                tuple(apiProcessDefinitions.get(0),
+                    "content1"),//secondListener
+                tuple(apiProcessDefinitions.get(1),
+                    "content2"));//secondListener
     }
 
     private org.activiti.api.process.model.ProcessDefinition buildAPIProcessDefinition(String processDefinitionId) {

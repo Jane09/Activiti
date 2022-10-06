@@ -41,10 +41,10 @@
     </annotation>
     <simpleType>
       <restriction base="string">
-        <enumeration value="none" />
-        <enumeration value="activity" />
-        <enumeration value="audit" />
-        <enumeration value="full" />
+        <enumeration value="none"/>
+        <enumeration value="activity"/>
+        <enumeration value="audit"/>
+        <enumeration value="full"/>
       </restriction>
     </simpleType>
   </attribute>
@@ -217,12 +217,12 @@
     </annotation>
     <complexType>
       <choice minOccurs="0" maxOccurs="1">
-      	<element name="string" type="string" />
-      	<element name="expression" type="tns:tExpression" />
+        <element name="string" type="string"/>
+        <element name="expression" type="tns:tExpression"/>
       </choice>
       <attribute name="name" type="string" use="required"/>
-      <attribute name="stringValue" type="string" use="optional" />
-      <attribute name="expression" type="tns:tExpression" use="optional" />
+      <attribute name="stringValue" type="string" use="optional"/>
+      <attribute name="expression" type="tns:tExpression" use="optional"/>
     </complexType>
   </element>
 
@@ -277,7 +277,7 @@
     </annotation>
     <complexType>
       <sequence minOccurs="0" maxOccurs="unbounded">
-        <element ref="tns:field" />
+        <element ref="tns:field"/>
       </sequence>
       <attribute name="class" type="string">
         <annotation>
@@ -311,9 +311,9 @@
         </annotation>
         <simpleType>
           <restriction base="string">
-            <enumeration value="create" />
-            <enumeration value="assignment" />
-            <enumeration value="complete" />
+            <enumeration value="create"/>
+            <enumeration value="assignment"/>
+            <enumeration value="complete"/>
           </restriction>
         </simpleType>
       </attribute>
@@ -329,7 +329,7 @@
     </annotation>
     <complexType>
       <sequence minOccurs="0" maxOccurs="unbounded">
-        <element ref="tns:field" />
+        <element ref="tns:field"/>
       </sequence>
       <attribute name="class" type="string">
         <annotation>
@@ -363,9 +363,9 @@
         </annotation>
         <simpleType>
           <restriction base="string">
-            <enumeration value="start" />
-            <enumeration value="end" />
-            <enumeration value="take" />
+            <enumeration value="start"/>
+            <enumeration value="end"/>
+            <enumeration value="take"/>
           </restriction>
         </simpleType>
       </attribute>
@@ -382,7 +382,7 @@
     <complexType>
       <attribute name="source" type="string" use="optional"/>
       <attribute name="sourceExpression" type="tns:tExpression" use="optional"/>
-      <attribute name="target" type="string" use="required" />
+      <attribute name="target" type="string" use="required"/>
     </complexType>
   </element>
   <element name="out">
@@ -395,7 +395,7 @@
     <complexType>
       <attribute name="source" type="string" use="optional"/>
       <attribute name="sourceExpression" type="tns:tExpression" use="optional"/>
-      <attribute name="target" type="string" use="required" />
+      <attribute name="target" type="string" use="required"/>
     </complexType>
   </element>
 

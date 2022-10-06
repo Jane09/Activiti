@@ -16,19 +16,13 @@
 
 package org.activiti.api.runtime.model.impl;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Stream;
-
-import com.fasterxml.jackson.databind.JsonNode;
 
 public class ProcessVariablesMapTypeRegistry {
 
@@ -36,31 +30,31 @@ public class ProcessVariablesMapTypeRegistry {
     private static Map<String, Class<?>> typeRegistry = new HashMap<>();
     private static Map<Class<?>, String> classRegistry = new HashMap<>();
     private static List<Class<?>> scalarTypes = Arrays.asList(int.class,
-                                                              byte.class,
-                                                              short.class,
-                                                              boolean.class,
-                                                              long.class,
-                                                              double.class,
-                                                              float.class,
-                                                              char.class,
-                                                              Character.class,
-                                                              Integer.class,
-                                                              Byte.class,
-                                                              Short.class,
-                                                              Boolean.class,
-                                                              Long.class,
-                                                              Double.class,
-                                                              Float.class,
-                                                              BigDecimal.class,
-                                                              Date.class,
-                                                              String.class,
-                                                              LocalDateTime.class,
-                                                              LocalDate.class);
+        byte.class,
+        short.class,
+        boolean.class,
+        long.class,
+        double.class,
+        float.class,
+        char.class,
+        Character.class,
+        Integer.class,
+        Byte.class,
+        Short.class,
+        Boolean.class,
+        Long.class,
+        Double.class,
+        Float.class,
+        BigDecimal.class,
+        Date.class,
+        String.class,
+        LocalDateTime.class,
+        LocalDate.class);
 
     private static Class<?>[] containerTypes = {Map.class,
-                                                JsonNode.class,
-                                                List.class,
-                                                Set.class};
+        JsonNode.class,
+        List.class,
+        Set.class};
 
     static {
         typeRegistry.put("byte", Byte.class);
@@ -121,8 +115,8 @@ public class ProcessVariablesMapTypeRegistry {
     public static Optional<Class<?>> getContainerType(Class<?> clazz,
                                                       Object value) {
         return Stream.of(containerTypes)
-                     .filter(type -> type.isInstance(value))
-                     .findFirst();
+            .filter(type -> type.isInstance(value))
+            .findFirst();
     }
 
     public static boolean canConvert(Object value) {

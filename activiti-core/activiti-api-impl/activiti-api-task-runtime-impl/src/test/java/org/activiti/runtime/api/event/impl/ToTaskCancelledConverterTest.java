@@ -15,13 +15,6 @@
  */
 package org.activiti.runtime.api.event.impl;
 
-import static org.activiti.runtime.api.model.impl.MockTaskBuilder.taskEntityBuilder;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
-
-import java.util.Optional;
-
 import org.activiti.api.task.model.events.TaskRuntimeEvent;
 import org.activiti.api.task.model.impl.TaskImpl;
 import org.activiti.api.task.runtime.events.TaskCancelledEvent;
@@ -36,6 +29,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
+import static org.activiti.runtime.api.model.impl.MockTaskBuilder.taskEntityBuilder;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
+
 @ExtendWith(MockitoExtension.class)
 public class ToTaskCancelledConverterTest {
 
@@ -49,14 +49,14 @@ public class ToTaskCancelledConverterTest {
     public void should_returnConvertedTask_when_entityIsACancelledTask() {
         //given
         Task internalTask = taskEntityBuilder()
-                .withCancelled(true)
-                .build();
+            .withCancelled(true)
+            .build();
         ActivitiEntityEventImpl internalEvent = new ActivitiEntityEventImpl(internalTask,
-                                                                            ActivitiEventType.ENTITY_DELETED);
+            ActivitiEventType.ENTITY_DELETED);
 
         TaskImpl apiTask = new TaskImpl("id",
-                                        "myTask",
-                                        org.activiti.api.task.model.Task.TaskStatus.CANCELLED);
+            "myTask",
+            org.activiti.api.task.model.Task.TaskStatus.CANCELLED);
         given(taskConverter.from(internalTask, org.activiti.api.task.model.Task.TaskStatus.CANCELLED)).willReturn(apiTask);
 
         //when
@@ -73,10 +73,10 @@ public class ToTaskCancelledConverterTest {
     public void should_ReturnEmpty_when_entityIsANonCancelledTask() {
         //given
         Task internalTask = taskEntityBuilder()
-                .withCancelled(false)
-                .build();
+            .withCancelled(false)
+            .build();
         ActivitiEntityEventImpl internalEvent = new ActivitiEntityEventImpl(internalTask,
-                                                                            ActivitiEventType.ENTITY_DELETED);
+            ActivitiEventType.ENTITY_DELETED);
 
         //when
         Optional<TaskCancelledEvent> convertedTaskCancelledEvent = eventConverter.from(internalEvent);
@@ -90,7 +90,7 @@ public class ToTaskCancelledConverterTest {
     public void should_returnEmpty_when_entityIsNotTask() {
         //given
         ActivitiEntityEventImpl internalEvent = new ActivitiEntityEventImpl(mock(ProcessInstance.class),
-                                                                            ActivitiEventType.ENTITY_DELETED);
+            ActivitiEventType.ENTITY_DELETED);
 
         //when
         Optional<TaskCancelledEvent> convertedTaskCancelledEvent = eventConverter.from(internalEvent);

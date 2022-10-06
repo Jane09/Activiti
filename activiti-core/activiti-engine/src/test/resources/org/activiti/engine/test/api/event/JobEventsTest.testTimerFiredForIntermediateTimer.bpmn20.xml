@@ -16,13 +16,13 @@
       </timerEventDefinition>
     </intermediateCatchEvent>
 
-    <sequenceFlow sourceRef="intermediate" targetRef="receive" />
+    <sequenceFlow sourceRef="intermediate" targetRef="receive"/>
 
-    <receiveTask id="receive" />
+    <receiveTask id="receive"/>
 
     <sequenceFlow sourceRef="receive" targetRef="theEnd"/>
 
-    <endEvent id="theEnd" />
+    <endEvent id="theEnd"/>
 
   </process>
 

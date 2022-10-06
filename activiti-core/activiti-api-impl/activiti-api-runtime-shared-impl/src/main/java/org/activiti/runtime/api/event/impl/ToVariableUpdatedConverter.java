@@ -27,10 +27,10 @@ public class ToVariableUpdatedConverter implements EventConverter<VariableUpdate
     @Override
     public Optional<VariableUpdatedEvent> from(ActivitiVariableUpdatedEvent internalEvent) {
         VariableInstanceImpl<Object> variableInstance = new VariableInstanceImpl<>(internalEvent.getVariableName(),
-                                                                                   internalEvent.getVariableType().getTypeName(),
-                                                                                   internalEvent.getVariableValue(),
-                                                                                   internalEvent.getProcessInstanceId(),
-                                                                                   internalEvent.getTaskId());
+            internalEvent.getVariableType().getTypeName(),
+            internalEvent.getVariableValue(),
+            internalEvent.getProcessInstanceId(),
+            internalEvent.getTaskId());
         return Optional.of(new VariableUpdatedEventImpl<>(variableInstance, internalEvent.getVariablePreviousValue()));
     }
 }

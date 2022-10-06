@@ -11,9 +11,9 @@
     <userTask id="task3" name="task3">
       <extensionElements>
         <activiti:taskListener delegateExpression="${myTransactionDependentTaskListener}"
-                                    event="complete"
-                                    onTransaction="committed"
-                                    customPropertiesResolverExpression="${myCustomPropertiesResolver.calledInExpression(execution.currentActivityId)}"/>
+                               event="complete"
+                               onTransaction="committed"
+                               customPropertiesResolverExpression="${myCustomPropertiesResolver.calledInExpression(execution.currentActivityId)}"/>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow3" sourceRef="task3" targetRef="task4"/>
@@ -21,9 +21,9 @@
     <userTask id="task4" name="task4">
       <extensionElements>
         <activiti:taskListener delegateExpression="${myTransactionDependentTaskListener}"
-                                    event="complete"
-                                    onTransaction="committed"
-                                    customPropertiesResolverDelegateExpression="${myCustomPropertiesResolver}"/>
+                               event="complete"
+                               onTransaction="committed"
+                               customPropertiesResolverDelegateExpression="${myCustomPropertiesResolver}"/>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow4" sourceRef="task4" targetRef="end"/>

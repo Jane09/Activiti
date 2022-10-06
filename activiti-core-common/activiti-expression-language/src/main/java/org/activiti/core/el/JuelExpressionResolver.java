@@ -15,16 +15,14 @@
  */
 package org.activiti.core.el;
 
-import static org.activiti.core.el.CommonELResolversUtil.arrayResolver;
-import static org.activiti.core.el.CommonELResolversUtil.beanResolver;
-import static org.activiti.core.el.CommonELResolversUtil.jsonNodeResolver;
-import static org.activiti.core.el.CommonELResolversUtil.listResolver;
-import static org.activiti.core.el.CommonELResolversUtil.mapResolver;
-import java.util.Map;
+import de.odysseus.el.ExpressionFactoryImpl;
+
 import javax.el.ELContext;
 import javax.el.ExpressionFactory;
 import javax.el.ValueExpression;
-import de.odysseus.el.ExpressionFactoryImpl;
+import java.util.Map;
+
+import static org.activiti.core.el.CommonELResolversUtil.*;
 
 public class JuelExpressionResolver implements ExpressionResolver {
 
@@ -40,15 +38,15 @@ public class JuelExpressionResolver implements ExpressionResolver {
 
     @Override
     public <T> T resolveExpression(String expression, Map<String, Object> variables, Class<T> type) {
-        if(expression == null) {
+        if (expression == null) {
             return null;
         }
         final ELContext context = buildContext(variables);
         final ValueExpression valueExpression = expressionFactory.createValueExpression(context, expression, type);
-        return (T)valueExpression.getValue(context);
+        return (T) valueExpression.getValue(context);
     }
 
-    protected ELContext buildContext (Map<String, Object> variables) {
+    protected ELContext buildContext(Map<String, Object> variables) {
         return new ELContextBuilder()
             .withResolvers(
                 arrayResolver(),

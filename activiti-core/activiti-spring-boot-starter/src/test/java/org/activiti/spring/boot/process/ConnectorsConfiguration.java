@@ -15,11 +15,11 @@
  */
 package org.activiti.spring.boot.process;
 
-import java.util.Map;
-
 import org.activiti.api.process.runtime.connector.Connector;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -27,17 +27,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ConnectorsConfiguration {
 
     @Bean
-    public Connector connectorWithoutDefinition(){
-        return  integrationContext -> {
+    public Connector connectorWithoutDefinition() {
+        return integrationContext -> {
             Map<String, Object> inBoundVariables = integrationContext.getInBoundVariables();
             assertThat(inBoundVariables).containsKeys("age",
-                                                      "name",
-                                                      "nameAsStaticValue");
+                "name",
+                "nameAsStaticValue");
             assertThat(inBoundVariables.get("age")).isEqualTo(20);
             assertThat(inBoundVariables.get("name")).isEqualTo("inName");
             assertThat(inBoundVariables.get("nameAsStaticValue")).isEqualTo("Paul");
 
-            integrationContext.addOutBoundVariable("age", (Integer)inBoundVariables.get("age") + 1);
+            integrationContext.addOutBoundVariable("age", (Integer) inBoundVariables.get("age") + 1);
             integrationContext.addOutBoundVariable("name", inBoundVariables.get("nameAsStaticValue"));
             return integrationContext;
         };

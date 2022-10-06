@@ -20,16 +20,16 @@ import org.activiti.engine.api.internal.Internal;
 
 /**
  * Entities that are using revisions for optimistic locking, need to implement this interface.
- *
-
+ * Revision rɪˈvɪʒ(ə)n 修订
+ * optimistic 乐观的
  */
 @Internal
 public interface HasRevision {
 
-  void setRevision(int revision);
+    void setRevision(int revision);
 
-  int getRevision();
+    int getRevision();
 
-  int getRevisionNext();
+    int getRevisionNext();
 
 }

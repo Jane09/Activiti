@@ -15,9 +15,9 @@
  */
 package org.activiti.api.task.model.payloads;
 
-import java.util.UUID;
-
 import org.activiti.api.model.shared.Payload;
+
+import java.util.UUID;
 
 public class CreateTaskVariablePayload implements Payload {
 

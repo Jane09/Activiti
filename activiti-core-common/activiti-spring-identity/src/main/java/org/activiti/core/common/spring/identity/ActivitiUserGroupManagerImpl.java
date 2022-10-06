@@ -34,17 +34,17 @@ public class ActivitiUserGroupManagerImpl implements UserGroupManager {
     public List<String> getUserGroups(String username) {
 
         return userDetailsService.loadUserByUsername(username).getAuthorities().stream()
-                .filter((GrantedAuthority a) -> a.getAuthority().startsWith("GROUP_"))
-                .map((GrantedAuthority a) -> a.getAuthority().substring(6))
-                .collect(Collectors.toList());
+            .filter((GrantedAuthority a) -> a.getAuthority().startsWith("GROUP_"))
+            .map((GrantedAuthority a) -> a.getAuthority().substring(6))
+            .collect(Collectors.toList());
     }
 
     @Override
     public List<String> getUserRoles(String username) {
         return userDetailsService.loadUserByUsername(username).getAuthorities().stream()
-                .filter((GrantedAuthority a) -> a.getAuthority().startsWith("ROLE_"))
-                .map((GrantedAuthority a) -> a.getAuthority().substring(5))
-                .collect(Collectors.toList());
+            .filter((GrantedAuthority a) -> a.getAuthority().startsWith("ROLE_"))
+            .map((GrantedAuthority a) -> a.getAuthority().substring(5))
+            .collect(Collectors.toList());
     }
 
     @Override

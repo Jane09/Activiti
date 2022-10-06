@@ -22,21 +22,21 @@ public class Pageable {
     private Order order;
 
     private Pageable(int startIndex,
-                    int maxItems,
-                    Order order) {
+                     int maxItems,
+                     Order order) {
         this.startIndex = startIndex;
         this.maxItems = maxItems;
         this.order = order;
     }
 
     public static Pageable of(int startIndex,
-                              int maxItems){
+                              int maxItems) {
         return new Pageable(startIndex, maxItems, null);
     }
 
     public static Pageable of(int startIndex,
                               int maxItems,
-                              Order order){
+                              Order order) {
         return new Pageable(startIndex, maxItems, order);
     }
 

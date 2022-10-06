@@ -15,9 +15,6 @@
  */
 package org.activiti.spring.boot.security.util;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.Collection;
 import org.activiti.api.runtime.shared.security.SecurityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +26,10 @@ import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
+
+import java.util.Collection;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @Component
 public class SecurityUtil {

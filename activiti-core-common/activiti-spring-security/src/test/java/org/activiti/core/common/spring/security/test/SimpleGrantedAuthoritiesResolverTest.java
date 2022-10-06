@@ -15,8 +15,6 @@
  */
 package org.activiti.core.common.spring.security.test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesResolver;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,6 +24,8 @@ import org.springframework.security.core.authority.AuthorityUtils;
 
 import java.util.Collection;
 import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class SimpleGrantedAuthoritiesResolverTest {
@@ -37,19 +37,19 @@ public class SimpleGrantedAuthoritiesResolverTest {
         // given
         // given
         List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList("GROUP_users",
-                                                                                "ROLE_admin");
+            "ROLE_admin");
 
         Authentication authentication = new UsernamePasswordAuthenticationToken("user",
-                                                                                "password",
-                                                                                authorities);
+            "password",
+            authorities);
 
         // when
         Collection<? extends GrantedAuthority> result = subject.getAuthorities(authentication);
 
         // then
         assertThat(result).isNotEmpty()
-                          .asList()
-                          .containsAll(authorities);
+            .asList()
+            .containsAll(authorities);
     }
 
 }

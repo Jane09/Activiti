@@ -16,14 +16,6 @@
 
 package org.activiti.engine.test.api.event;
 
-import static java.util.Collections.singletonMap;
-import static org.activiti.engine.impl.util.CollectionUtil.map;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.tuple;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.delegate.event.ActivitiVariableEvent;
@@ -33,6 +25,15 @@ import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.test.Deployment;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import static java.util.Collections.singletonMap;
+import static org.activiti.engine.impl.util.CollectionUtil.map;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.tuple;
 
 /**
  * Test case for all {@link ActivitiEvent}s related to variables.
@@ -119,7 +120,7 @@ public class VariableEventsTest extends PluggableActivitiTestCase {
     @Deployment(resources = {"org/activiti/engine/test/api/runtime/oneTaskProcess.bpmn20.xml"})
     public void testStartEndProcessInstanceVariableEvents() throws Exception {
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("oneTaskProcess",
-                                                                                   singletonMap("var1", "value1"));
+            singletonMap("var1", "value1"));
 
         assertThat(listener.getEventsReceived()).hasSize(1);
         assertThat(listener.getEventsReceived().get(0).getType()).isEqualTo(ActivitiEventType.VARIABLE_CREATED);
@@ -138,7 +139,7 @@ public class VariableEventsTest extends PluggableActivitiTestCase {
     public void testProcessInstanceVariableEventsOnStart() throws Exception {
 
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("oneTaskProcess",
-                                                                                   singletonMap("testVariable", "The value"));
+            singletonMap("testVariable", "The value"));
         assertThat(processInstance).isNotNull();
 
         // Check create event
@@ -220,20 +221,21 @@ public class VariableEventsTest extends PluggableActivitiTestCase {
     @Deployment
     public void testProcessInstanceVariableEventsOnCallActivity() throws Exception {
         runtimeService.startProcessInstanceByKey("callVariableProcess",
-                singletonMap("parentVar1", "parentVar1Value"));
+            singletonMap("parentVar1", "parentVar1Value"));
 
         final List<ActivitiVariableEvent> variableEvents = listener.getEventsReceived().stream()
-                .filter(event -> event instanceof ActivitiVariableEvent).map(ActivitiVariableEvent.class::cast)
-                .collect(Collectors.toList());
+            .filter(event -> event instanceof ActivitiVariableEvent).map(ActivitiVariableEvent.class::cast)
+            .collect(Collectors.toList());
         assertThat(variableEvents).extracting(ActivitiVariableEvent::getType, ActivitiVariableEvent::getVariableName)
-                .containsExactly(tuple(ActivitiEventType.VARIABLE_CREATED, "parentVar1"),
-                        tuple(ActivitiEventType.VARIABLE_CREATED, "subVar1"),
-                        tuple(ActivitiEventType.VARIABLE_CREATED, "parentVar2"),
-                        tuple(ActivitiEventType.VARIABLE_DELETED, "subVar1"),
-                        tuple(ActivitiEventType.VARIABLE_DELETED, "parentVar2"),
-                        tuple(ActivitiEventType.VARIABLE_DELETED, "parentVar1"));
+            .containsExactly(tuple(ActivitiEventType.VARIABLE_CREATED, "parentVar1"),
+                tuple(ActivitiEventType.VARIABLE_CREATED, "subVar1"),
+                tuple(ActivitiEventType.VARIABLE_CREATED, "parentVar2"),
+                tuple(ActivitiEventType.VARIABLE_DELETED, "subVar1"),
+                tuple(ActivitiEventType.VARIABLE_DELETED, "parentVar2"),
+                tuple(ActivitiEventType.VARIABLE_DELETED, "parentVar1"));
 
     }
+
     /**
      * Test create, update and delete of task-local variables.
      */
@@ -331,13 +333,13 @@ public class VariableEventsTest extends PluggableActivitiTestCase {
             taskService.saveTask(newTask);
 
             taskService.setVariable(newTask.getId(),
-                                    "testVariable",
-                                    123);
+                "testVariable",
+                123);
             taskService.setVariable(newTask.getId(),
-                                    "testVariable",
-                                    456);
+                "testVariable",
+                456);
             taskService.removeVariable(newTask.getId(),
-                                       "testVariable");
+                "testVariable");
 
             assertThat(listener.getEventsReceived()).hasSize(3);
             ActivitiVariableEvent event = (ActivitiVariableEvent) listener.getEventsReceived().get(0);

@@ -30,14 +30,14 @@ public class AssertionsAPIAutoConfiguration {
     public ProcessOperations processOperations(ProcessOperations processRuntimeOperations,
                                                @Value("${activiti.assertions.await.enabled:false}") boolean awaitEnabled) {
         return new AwaitableProcessOperations(processRuntimeOperations,
-                                              awaitEnabled);
+            awaitEnabled);
     }
 
     @Bean
     public TaskOperations taskOperations(TaskOperations taskRuntimeOperations,
                                          @Value("${activiti.assertions.await.enabled:false}") boolean awaitEnabled) {
         return new AwaitableTaskOperations(
-                taskRuntimeOperations,
-                awaitEnabled);
+            taskRuntimeOperations,
+            awaitEnabled);
     }
 }

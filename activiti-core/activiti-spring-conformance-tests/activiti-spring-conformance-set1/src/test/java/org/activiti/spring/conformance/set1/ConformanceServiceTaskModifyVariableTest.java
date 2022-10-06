@@ -15,9 +15,6 @@
  */
 package org.activiti.spring.conformance.set1;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
-
 import org.activiti.api.model.shared.event.RuntimeEvent;
 import org.activiti.api.model.shared.event.VariableEvent;
 import org.activiti.api.model.shared.event.VariableUpdatedEvent;
@@ -34,6 +31,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class ConformanceServiceTaskModifyVariableTest {
@@ -76,12 +76,12 @@ public class ConformanceServiceTaskModifyVariableTest {
         securityUtil.logInAs("user1");
         //when
         ProcessInstance processInstance = processRuntime.start(ProcessPayloadBuilder
-                .start()
-                .withProcessDefinitionKey(processKey)
-                .withBusinessKey("my-business-key")
-                .withName("my-process-instance-name")
-                .withVariable("var1", "value1")
-                .build());
+            .start()
+            .withProcessDefinitionKey(processKey)
+            .withBusinessKey("my-business-key")
+            .withName("my-process-instance-name")
+            .withVariable("var1", "value1")
+            .build());
 
         //then
         assertThat(processInstance).isNotNull();
@@ -93,37 +93,37 @@ public class ConformanceServiceTaskModifyVariableTest {
         Throwable throwable = catchThrowable(() -> processRuntime.processInstance(processInstance.getId()));
 
         assertThat(throwable)
-                .isInstanceOf(NotFoundException.class);
+            .isInstanceOf(NotFoundException.class);
 
         // No Variable Instance should be found
         throwable = catchThrowable(() -> processRuntime.variables(
-                ProcessPayloadBuilder
-                        .variables()
-                        .withProcessInstanceId(processInstance.getId())
-                        .build()));
+            ProcessPayloadBuilder
+                .variables()
+                .withProcessInstanceId(processInstance.getId())
+                .build()));
         assertThat(throwable)
-                .isInstanceOf(NotFoundException.class);
+            .isInstanceOf(NotFoundException.class);
 
         assertThat(Set1RuntimeTestConfiguration.isConnector2Executed()).isTrue();
 
         assertThat(RuntimeTestConfiguration.collectedEvents)
-                .extracting(RuntimeEvent::getEventType)
-                .containsExactly(
-                        ProcessRuntimeEvent.ProcessEvents.PROCESS_CREATED,
-                        VariableEvent.VariableEvents.VARIABLE_CREATED,
-                        ProcessRuntimeEvent.ProcessEvents.PROCESS_STARTED,
-                        BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
-                        BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
-                        BPMNSequenceFlowTakenEvent.SequenceFlowEvents.SEQUENCE_FLOW_TAKEN,
-                        BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
-                        VariableEvent.VariableEvents.VARIABLE_UPDATED,
-                        BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
-                        BPMNSequenceFlowTakenEvent.SequenceFlowEvents.SEQUENCE_FLOW_TAKEN,
-                        BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
-                        BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
-                        ProcessRuntimeEvent.ProcessEvents.PROCESS_COMPLETED);
+            .extracting(RuntimeEvent::getEventType)
+            .containsExactly(
+                ProcessRuntimeEvent.ProcessEvents.PROCESS_CREATED,
+                VariableEvent.VariableEvents.VARIABLE_CREATED,
+                ProcessRuntimeEvent.ProcessEvents.PROCESS_STARTED,
+                BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
+                BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
+                BPMNSequenceFlowTakenEvent.SequenceFlowEvents.SEQUENCE_FLOW_TAKEN,
+                BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
+                VariableEvent.VariableEvents.VARIABLE_UPDATED,
+                BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
+                BPMNSequenceFlowTakenEvent.SequenceFlowEvents.SEQUENCE_FLOW_TAKEN,
+                BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
+                BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
+                ProcessRuntimeEvent.ProcessEvents.PROCESS_COMPLETED);
 
-        assertThat((String)((VariableUpdatedEvent)RuntimeTestConfiguration.collectedEvents.get(7)).getEntity().getValue()).isEqualTo("value1-modified");
+        assertThat((String) ((VariableUpdatedEvent) RuntimeTestConfiguration.collectedEvents.get(7)).getEntity().getValue()).isEqualTo("value1-modified");
 
     }
 

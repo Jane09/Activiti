@@ -15,13 +15,13 @@
  */
 package org.activiti.engine.impl.el.variable;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-
 import org.activiti.engine.delegate.VariableScope;
 import org.activiti.engine.impl.identity.Authentication;
 import org.junit.AfterClass;
 import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 
 public class AuthenticatedUserELResolverTest {
 

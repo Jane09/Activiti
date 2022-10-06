@@ -15,13 +15,13 @@
  */
 package org.activiti.runtime.api.conf.impl;
 
-import static java.util.Collections.unmodifiableList;
-
 import org.activiti.api.runtime.shared.events.VariableEventListener;
 import org.activiti.api.task.runtime.conf.TaskRuntimeConfiguration;
 import org.activiti.api.task.runtime.events.listener.TaskRuntimeEventListener;
 
 import java.util.List;
+
+import static java.util.Collections.unmodifiableList;
 
 public class TaskRuntimeConfigurationImpl implements TaskRuntimeConfiguration {
 

@@ -15,14 +15,14 @@
  */
 package org.activiti.core.common.spring.security.test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.activiti.core.common.spring.security.AuthenticationPrincipalIdentityProvider;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class AuthenticationPrincipalIdentityProviderTest {
@@ -33,8 +33,8 @@ public class AuthenticationPrincipalIdentityProviderTest {
     public void testGetUserId() {
         // given
         Authentication authentication = new UsernamePasswordAuthenticationToken("username",
-                                                                                "password",
-                                                                                AuthorityUtils.createAuthorityList("ROLE_user"));
+            "password",
+            AuthorityUtils.createAuthorityList("ROLE_user"));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -43,7 +43,7 @@ public class AuthenticationPrincipalIdentityProviderTest {
 
         // then
         assertThat(result).isNotEmpty()
-                          .contains("username");
+            .contains("username");
     }
 
 }

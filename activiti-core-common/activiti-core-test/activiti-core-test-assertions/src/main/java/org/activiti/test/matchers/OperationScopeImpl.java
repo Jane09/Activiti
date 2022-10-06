@@ -19,7 +19,7 @@ public class OperationScopeImpl implements OperationScope {
 
     private String processInstanceId;
 
-    private String  taskId;
+    private String taskId;
 
     public OperationScopeImpl(String processInstanceId,
                               String taskId) {

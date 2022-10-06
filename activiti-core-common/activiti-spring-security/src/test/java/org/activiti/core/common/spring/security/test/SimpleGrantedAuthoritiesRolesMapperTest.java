@@ -15,14 +15,14 @@
  */
 package org.activiti.core.common.spring.security.test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesRolesMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 
 import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class SimpleGrantedAuthoritiesRolesMapperTest {
@@ -39,7 +39,7 @@ public class SimpleGrantedAuthoritiesRolesMapperTest {
 
         // then
         assertThat(result).isNotEmpty()
-                          .containsExactly("admin");
+            .containsExactly("admin");
     }
 
 }

@@ -15,9 +15,6 @@
  */
 package org.activiti.spring.conformance.set0;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
-
 import org.activiti.api.model.shared.event.RuntimeEvent;
 import org.activiti.api.model.shared.event.VariableEvent;
 import org.activiti.api.process.model.ProcessInstance;
@@ -33,6 +30,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class ConformanceBasicProcessInformationTest {
@@ -68,11 +68,11 @@ public class ConformanceBasicProcessInformationTest {
         securityUtil.logInAs("user1");
         //when
         ProcessInstance processInstance = processRuntime.start(ProcessPayloadBuilder
-                .start()
-                .withProcessDefinitionKey(processKey)
-                .withBusinessKey("my-business-key")
-                .withName("my-process-instance-name")
-                .build());
+            .start()
+            .withProcessDefinitionKey(processKey)
+            .withBusinessKey("my-business-key")
+            .withName("my-process-instance-name")
+            .build());
 
         //then
         assertThat(processInstance).isNotNull();
@@ -84,17 +84,17 @@ public class ConformanceBasicProcessInformationTest {
         Throwable throwable = catchThrowable(() -> processRuntime.processInstance(processInstance.getId()));
 
         assertThat(throwable)
-                .isInstanceOf(NotFoundException.class);
+            .isInstanceOf(NotFoundException.class);
 
         assertThat(RuntimeTestConfiguration.collectedEvents).extracting(RuntimeEvent::getEventType).containsExactly(
-                ProcessRuntimeEvent.ProcessEvents.PROCESS_CREATED,
-                ProcessRuntimeEvent.ProcessEvents.PROCESS_STARTED,
-                BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
-                BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
-                BPMNSequenceFlowTakenEvent.SequenceFlowEvents.SEQUENCE_FLOW_TAKEN,
-                BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
-                BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
-                ProcessRuntimeEvent.ProcessEvents.PROCESS_COMPLETED);
+            ProcessRuntimeEvent.ProcessEvents.PROCESS_CREATED,
+            ProcessRuntimeEvent.ProcessEvents.PROCESS_STARTED,
+            BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
+            BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
+            BPMNSequenceFlowTakenEvent.SequenceFlowEvents.SEQUENCE_FLOW_TAKEN,
+            BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
+            BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
+            ProcessRuntimeEvent.ProcessEvents.PROCESS_COMPLETED);
 
     }
 
@@ -120,12 +120,12 @@ public class ConformanceBasicProcessInformationTest {
         securityUtil.logInAs("user1");
         //when
         ProcessInstance processInstance = processRuntime.start(ProcessPayloadBuilder
-                .start()
-                .withProcessDefinitionKey(processKey)
-                .withBusinessKey("my-business-key")
-                .withName("my-process-instance-name")
-                .withVariable("var1", "value1")
-                .build());
+            .start()
+            .withProcessDefinitionKey(processKey)
+            .withBusinessKey("my-business-key")
+            .withName("my-process-instance-name")
+            .withVariable("var1", "value1")
+            .build());
 
         //then
         assertThat(processInstance).isNotNull();
@@ -137,27 +137,27 @@ public class ConformanceBasicProcessInformationTest {
         Throwable throwable = catchThrowable(() -> processRuntime.processInstance(processInstance.getId()));
 
         assertThat(throwable)
-                .isInstanceOf(NotFoundException.class);
+            .isInstanceOf(NotFoundException.class);
 
         // No Variable Instance should be found
         throwable = catchThrowable(() -> processRuntime.variables(
-                ProcessPayloadBuilder
-                        .variables()
-                        .withProcessInstanceId(processInstance.getId())
-                        .build()));
+            ProcessPayloadBuilder
+                .variables()
+                .withProcessInstanceId(processInstance.getId())
+                .build()));
         assertThat(throwable)
-                .isInstanceOf(NotFoundException.class);
+            .isInstanceOf(NotFoundException.class);
 
         assertThat(RuntimeTestConfiguration.collectedEvents).extracting(RuntimeEvent::getEventType).containsExactly(
-                ProcessRuntimeEvent.ProcessEvents.PROCESS_CREATED,
-                VariableEvent.VariableEvents.VARIABLE_CREATED,
-                ProcessRuntimeEvent.ProcessEvents.PROCESS_STARTED,
-                BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
-                BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
-                BPMNSequenceFlowTakenEvent.SequenceFlowEvents.SEQUENCE_FLOW_TAKEN,
-                BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
-                BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
-                ProcessRuntimeEvent.ProcessEvents.PROCESS_COMPLETED);
+            ProcessRuntimeEvent.ProcessEvents.PROCESS_CREATED,
+            VariableEvent.VariableEvents.VARIABLE_CREATED,
+            ProcessRuntimeEvent.ProcessEvents.PROCESS_STARTED,
+            BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
+            BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
+            BPMNSequenceFlowTakenEvent.SequenceFlowEvents.SEQUENCE_FLOW_TAKEN,
+            BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
+            BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
+            ProcessRuntimeEvent.ProcessEvents.PROCESS_COMPLETED);
     }
 
 

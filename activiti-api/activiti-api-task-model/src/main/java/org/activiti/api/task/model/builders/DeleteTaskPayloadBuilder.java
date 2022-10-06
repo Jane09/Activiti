@@ -35,6 +35,6 @@ public class DeleteTaskPayloadBuilder {
 
     public DeleteTaskPayload build() {
         return new DeleteTaskPayload(taskId,
-                                     reason);
+            reason);
     }
 }

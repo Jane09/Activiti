@@ -26,7 +26,7 @@ import org.activiti.engine.impl.scripting.ResolverFactory;
  * <br>
  * In order to use it, you need to declare it as ResolverFactory, for example by using activiti.cfg.xml like this: <br>
  * <br>
- *
+ * <p>
  * &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br>
  * &lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;<br>
  * xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;<br>
@@ -50,24 +50,21 @@ import org.activiti.engine.impl.scripting.ResolverFactory;
  * &lt;/beans&gt; <br>
  * <br>
  * or by any other means of creating configuration.
- *
-
- *
  */
 public class MockResolverFactory implements ResolverFactory {
-  @Override
-  public Resolver createResolver(ProcessEngineConfigurationImpl processEngineConfiguration, VariableScope variableScope) {
-    return new Resolver() {
+    @Override
+    public Resolver createResolver(ProcessEngineConfigurationImpl processEngineConfiguration, VariableScope variableScope) {
+        return new Resolver() {
 
-      @Override
-      public Object get(Object key) {
-        return Mocks.get(key);
-      }
+            @Override
+            public Object get(Object key) {
+                return Mocks.get(key);
+            }
 
-      @Override
-      public boolean containsKey(Object key) {
-        return Mocks.get(key) != null;
-      }
-    };
-  }
+            @Override
+            public boolean containsKey(Object key) {
+                return Mocks.get(key) != null;
+            }
+        };
+    }
 }

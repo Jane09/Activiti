@@ -15,17 +15,17 @@
  */
 package org.activiti.spring.boot;
 
-import java.util.List;
-
 import org.activiti.spring.resources.ResourceFinderDescriptor;
 import org.springframework.core.io.Resource;
+
+import java.util.List;
 
 public class ProcessDefinitionResourceFinderDescriptor implements ResourceFinderDescriptor {
 
     private ActivitiProperties activitiProperties;
 
     public ProcessDefinitionResourceFinderDescriptor(ActivitiProperties activitiProperties) {
-       this.activitiProperties = activitiProperties;
+        this.activitiProperties = activitiProperties;
     }
 
     @Override

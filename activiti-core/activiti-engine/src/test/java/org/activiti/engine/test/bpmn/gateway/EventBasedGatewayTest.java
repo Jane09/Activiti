@@ -17,11 +17,6 @@
 
 package org.activiti.engine.test.bpmn.gateway;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-
-import java.util.Date;
-
 import org.activiti.engine.history.DeleteReason;
 import org.activiti.engine.impl.EventSubscriptionQueryImpl;
 import org.activiti.engine.impl.persistence.entity.EventSubscriptionEntity;
@@ -32,10 +27,15 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.test.Deployment;
 
+import java.util.Date;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+
 public class EventBasedGatewayTest extends PluggableActivitiTestCase {
 
     @Deployment(resources = {"org/activiti/engine/test/bpmn/gateway/EventBasedGatewayTest.testCatchAlertAndTimer.bpmn20.xml",
-            "org/activiti/engine/test/bpmn/gateway/EventBasedGatewayTest.throwAlertSignal.bpmn20.xml"})
+        "org/activiti/engine/test/bpmn/gateway/EventBasedGatewayTest.throwAlertSignal.bpmn20.xml"})
     public void testCatchSignalCancelsTimer() {
 
         ProcessInstance pi1 = runtimeService.startProcessInstanceByKey("catchSignal");
@@ -56,8 +56,8 @@ public class EventBasedGatewayTest extends PluggableActivitiTestCase {
         taskService.complete(task.getId());
 
         assertHistoricActivitiesDeleteReason(pi1,
-                                             DeleteReason.EVENT_BASED_GATEWAY_CANCEL,
-                                             "timerEvent");
+            DeleteReason.EVENT_BASED_GATEWAY_CANCEL,
+            "timerEvent");
     }
 
     @Deployment(resources = {"org/activiti/engine/test/bpmn/gateway/EventBasedGatewayTest.testCatchAlertAndTimer.bpmn20.xml"})
@@ -73,7 +73,7 @@ public class EventBasedGatewayTest extends PluggableActivitiTestCase {
 
         // wait for timer to fire
         waitForJobExecutorToProcessAllJobs(10000,
-                                           100);
+            100);
 
         assertThat(createEventSubscriptionQuery().count()).isEqualTo(0);
         assertThat(runtimeService.createProcessInstanceQuery().count()).isEqualTo(1);
@@ -87,8 +87,8 @@ public class EventBasedGatewayTest extends PluggableActivitiTestCase {
         taskService.complete(task.getId());
 
         assertHistoricActivitiesDeleteReason(processInstance,
-                                             DeleteReason.EVENT_BASED_GATEWAY_CANCEL,
-                                             "signalEvent");
+            DeleteReason.EVENT_BASED_GATEWAY_CANCEL,
+            "signalEvent");
     }
 
     @Deployment
@@ -113,7 +113,7 @@ public class EventBasedGatewayTest extends PluggableActivitiTestCase {
 
         EventSubscriptionEntity messageEventSubscription = messageEventSubscriptionQuery.singleResult();
         runtimeService.messageEventReceived(messageEventSubscription.getEventName(),
-                                            messageEventSubscription.getExecutionId());
+            messageEventSubscription.getExecutionId());
 
         assertThat(createEventSubscriptionQuery().count()).isEqualTo(0);
         assertThat(runtimeService.createProcessInstanceQuery().count()).isEqualTo(1);
@@ -125,11 +125,11 @@ public class EventBasedGatewayTest extends PluggableActivitiTestCase {
         taskService.complete(task.getId());
 
         assertHistoricActivitiesDeleteReason(processInstance,
-                                             DeleteReason.EVENT_BASED_GATEWAY_CANCEL,
-                                             "signalEvent");
+            DeleteReason.EVENT_BASED_GATEWAY_CANCEL,
+            "signalEvent");
         assertHistoricActivitiesDeleteReason(processInstance,
-                                             DeleteReason.EVENT_BASED_GATEWAY_CANCEL,
-                                             "timerEvent");
+            DeleteReason.EVENT_BASED_GATEWAY_CANCEL,
+            "timerEvent");
     }
 
     public void testConnectedToActivity() {

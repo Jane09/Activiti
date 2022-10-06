@@ -16,14 +16,14 @@
 
 package org.activiti.examples.bpmn.executionlistener;
 
-import java.util.List;
-import java.util.Map;
-
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.impl.context.Context;
 import org.activiti.engine.impl.history.HistoryLevel;
+
+import java.util.List;
+import java.util.Map;
 
 public class MyTransactionalOperationTransactionDependentExecutionListener extends CurrentActivityTransactionDependentExecutionListener {
 
@@ -35,10 +35,10 @@ public class MyTransactionalOperationTransactionDependentExecutionListener exten
                        Map<String, Object> customPropertiesMap) {
 
         super.notify(processInstanceId,
-                     executionId,
-                     currentFlowElement,
-                     executionVariables,
-                     customPropertiesMap);
+            executionId,
+            currentFlowElement,
+            executionVariables,
+            customPropertiesMap);
 
         if (Context.getCommandContext().getProcessEngineConfiguration().getHistoryLevel().isAtLeast(HistoryLevel.ACTIVITY)) {
             HistoryService historyService = Context.getCommandContext().getProcessEngineConfiguration().getHistoryService();

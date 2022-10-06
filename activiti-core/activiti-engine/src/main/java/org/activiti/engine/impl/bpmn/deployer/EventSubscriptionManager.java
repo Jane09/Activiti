@@ -16,28 +16,17 @@
 
 package org.activiti.engine.impl.bpmn.deployer;
 
-import java.util.List;
-
-import org.activiti.bpmn.model.BpmnModel;
-import org.activiti.bpmn.model.EventDefinition;
-import org.activiti.bpmn.model.FlowElement;
-import org.activiti.bpmn.model.Message;
-import org.activiti.bpmn.model.MessageEventDefinition;
 import org.activiti.bpmn.model.Process;
-import org.activiti.bpmn.model.Signal;
-import org.activiti.bpmn.model.SignalEventDefinition;
-import org.activiti.bpmn.model.StartEvent;
+import org.activiti.bpmn.model.*;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.impl.context.Context;
 import org.activiti.engine.impl.event.MessageEventHandler;
 import org.activiti.engine.impl.event.SignalEventHandler;
 import org.activiti.engine.impl.interceptor.CommandContext;
-import org.activiti.engine.impl.persistence.entity.EventSubscriptionEntity;
-import org.activiti.engine.impl.persistence.entity.EventSubscriptionEntityManager;
-import org.activiti.engine.impl.persistence.entity.MessageEventSubscriptionEntity;
-import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
-import org.activiti.engine.impl.persistence.entity.SignalEventSubscriptionEntity;
+import org.activiti.engine.impl.persistence.entity.*;
 import org.activiti.engine.impl.util.CollectionUtil;
+
+import java.util.List;
 
 /**
  * Manages event subscriptions for newly-deployed process definitions and their previous versions.
@@ -49,9 +38,9 @@ public class EventSubscriptionManager {
         // remove all subscriptions for the previous version
         EventSubscriptionEntityManager eventSubscriptionEntityManager = Context.getCommandContext().getEventSubscriptionEntityManager();
         List<EventSubscriptionEntity> subscriptionsToDelete =
-                eventSubscriptionEntityManager.findEventSubscriptionsByTypeAndProcessDefinitionId(eventHandlerType,
-                                                                                                  processDefinition.getId(),
-                                                                                                  processDefinition.getTenantId());
+            eventSubscriptionEntityManager.findEventSubscriptionsByTypeAndProcessDefinitionId(eventHandlerType,
+                processDefinition.getId(),
+                processDefinition.getTenantId());
 
         for (EventSubscriptionEntity eventSubscriptionEntity : subscriptionsToDelete) {
             eventSubscriptionEntityManager.delete(eventSubscriptionEntity);
@@ -62,7 +51,7 @@ public class EventSubscriptionManager {
         // remove all subscriptions for the previous version
         if (previousProcessDefinition != null) {
             removeObsoleteEventSubscriptionsImpl(previousProcessDefinition,
-                                                 MessageEventHandler.EVENT_HANDLER_TYPE);
+                MessageEventHandler.EVENT_HANDLER_TYPE);
         }
     }
 
@@ -70,7 +59,7 @@ public class EventSubscriptionManager {
         // remove all subscriptions for the previous version
         if (previousProcessDefinition != null) {
             removeObsoleteEventSubscriptionsImpl(previousProcessDefinition,
-                                                 SignalEventHandler.EVENT_HANDLER_TYPE);
+                SignalEventHandler.EVENT_HANDLER_TYPE);
         }
     }
 
@@ -86,9 +75,9 @@ public class EventSubscriptionManager {
                         if (eventDefinition instanceof MessageEventDefinition) {
                             MessageEventDefinition messageEventDefinition = (MessageEventDefinition) eventDefinition;
                             insertMessageEvent(messageEventDefinition,
-                                               startEvent,
-                                               processDefinition,
-                                               bpmnModel);
+                                startEvent,
+                                processDefinition,
+                                bpmnModel);
                         }
                     }
                 }
@@ -108,16 +97,16 @@ public class EventSubscriptionManager {
 
         // look for subscriptions for the same name in db:
         List<EventSubscriptionEntity> subscriptionsForSameMessageName = commandContext.getEventSubscriptionEntityManager()
-                .findEventSubscriptionsByName(MessageEventHandler.EVENT_HANDLER_TYPE,
-                                              messageEventDefinition.getMessageRef(),
-                                              processDefinition.getTenantId());
+            .findEventSubscriptionsByName(MessageEventHandler.EVENT_HANDLER_TYPE,
+                messageEventDefinition.getMessageRef(),
+                processDefinition.getTenantId());
 
         for (EventSubscriptionEntity eventSubscriptionEntity : subscriptionsForSameMessageName) {
             // throw exception only if there's already a subscription as start event
             if (eventSubscriptionEntity.getProcessInstanceId() == null || eventSubscriptionEntity.getProcessInstanceId().isEmpty()) { // processInstanceId != null or not empty -> it's a message related to an execution
                 // the event subscription has no instance-id, so it's a message start event
                 throw new ActivitiException("Cannot deploy process definition '" + processDefinition.getResourceName()
-                                                    + "': there already is a message event subscription for the message with name '" + messageEventDefinition.getMessageRef() + "'.");
+                    + "': there already is a message event subscription for the message with name '" + messageEventDefinition.getMessageRef() + "'.");
             }
         }
 

@@ -73,25 +73,25 @@ public class IntermediateThrowSignalEventActivityBehavior extends AbstractBpmnAc
         List<SignalEventSubscriptionEntity> subscriptionEntities = null;
         if (processInstanceScope) {
             subscriptionEntities = eventSubscriptionEntityManager
-                    .findSignalEventSubscriptionsByProcessInstanceAndEventName(execution.getProcessInstanceId(),
-                                                                               eventSubscriptionName);
+                .findSignalEventSubscriptionsByProcessInstanceAndEventName(execution.getProcessInstanceId(),
+                    eventSubscriptionName);
         } else {
             subscriptionEntities = eventSubscriptionEntityManager
-                    .findSignalEventSubscriptionsByEventName(eventSubscriptionName,
-                                                             execution.getTenantId());
+                .findSignalEventSubscriptionsByEventName(eventSubscriptionName,
+                    execution.getTenantId());
         }
 
         for (SignalEventSubscriptionEntity signalEventSubscriptionEntity : subscriptionEntities) {
             Map<String, Object> signalVariables = Optional.ofNullable(execution.getVariables())
-                                                          .filter(it -> !it.isEmpty())
-                                                          .orElse(null);
+                .filter(it -> !it.isEmpty())
+                .orElse(null);
 
             eventSubscriptionEntityManager.eventReceived(signalEventSubscriptionEntity,
-                                                         signalVariables,
-                                                         signalEventDefinition.isAsync());
+                signalVariables,
+                signalEventDefinition.isAsync());
         }
 
         Context.getAgenda().planTakeOutgoingSequenceFlowsOperation((ExecutionEntity) execution,
-                                                                   true);
+            true);
     }
 }

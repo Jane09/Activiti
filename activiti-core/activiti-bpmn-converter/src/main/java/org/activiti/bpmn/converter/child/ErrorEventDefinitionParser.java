@@ -15,13 +15,13 @@
  */
 package org.activiti.bpmn.converter.child;
 
-import javax.xml.stream.XMLStreamReader;
-
 import org.activiti.bpmn.converter.util.BpmnXMLUtil;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.ErrorEventDefinition;
 import org.activiti.bpmn.model.Event;
+
+import javax.xml.stream.XMLStreamReader;
 
 public class ErrorEventDefinitionParser extends BaseChildElementParser {
 
@@ -38,14 +38,14 @@ public class ErrorEventDefinitionParser extends BaseChildElementParser {
 
         ErrorEventDefinition eventDefinition = new ErrorEventDefinition();
         BpmnXMLUtil.addXMLLocation(eventDefinition,
-                                   xtr);
+            xtr);
         eventDefinition.setErrorRef(xtr.getAttributeValue(null,
-                                                          ATTRIBUTE_ERROR_REF));
+            ATTRIBUTE_ERROR_REF));
 
         BpmnXMLUtil.parseChildElements(ELEMENT_EVENT_ERRORDEFINITION,
-                                       eventDefinition,
-                                       xtr,
-                                       model);
+            eventDefinition,
+            xtr,
+            model);
 
         ((Event) parentElement).getEventDefinitions().add(eventDefinition);
     }

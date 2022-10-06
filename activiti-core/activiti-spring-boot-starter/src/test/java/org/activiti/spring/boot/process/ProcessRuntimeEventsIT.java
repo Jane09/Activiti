@@ -15,12 +15,6 @@
  */
 package org.activiti.spring.boot.process;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.tuple;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 import org.activiti.api.model.shared.event.RuntimeEvent;
 import org.activiti.api.model.shared.event.VariableCreatedEvent;
 import org.activiti.api.model.shared.event.VariableUpdatedEvent;
@@ -41,6 +35,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.tuple;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
@@ -76,7 +77,7 @@ public class ProcessRuntimeEventsIT {
     }
 
     @AfterEach
-    public void cleanUp(){
+    public void cleanUp() {
         processCleanUpUtil.cleanUpWithAdmin();
     }
 
@@ -95,7 +96,7 @@ public class ProcessRuntimeEventsIT {
             .extracting(
                 event -> event.getEntity().getCandidateUsers(),
                 event -> event.getEntity().getCandidateGroups()
-                )
+            )
             .containsExactly(
                 tuple(Arrays.asList("firstCandidateUser", "secondCandidateUser"),
                     Arrays.asList("firstCandidateGroup", "secondCandidateGroup"))
@@ -104,12 +105,12 @@ public class ProcessRuntimeEventsIT {
     }
 
     @Test
-    public void should_emitWithSameProcessInstanceForAllSequenceFlowTakenEvents(){
+    public void should_emitWithSameProcessInstanceForAllSequenceFlowTakenEvents() {
         //when
         ProcessInstance singleTaskProcess = processRuntime.start(ProcessPayloadBuilder.start()
-                .withProcessDefinitionKey(SINGLE_TASK_PROCESS)
-                .withVariable("name", "peter")
-                .build());
+            .withProcessDefinitionKey(SINGLE_TASK_PROCESS)
+            .withVariable("name", "peter")
+            .build());
 
         //then
         assertThat(localEventSource.getEvents(BPMNSequenceFlowTakenEvent.class))
@@ -118,7 +119,7 @@ public class ProcessRuntimeEventsIT {
     }
 
     @Test
-    public void should_emitSingleVariableCreatedEvent_when_createdWithVariable(){
+    public void should_emitSingleVariableCreatedEvent_when_createdWithVariable() {
         //when
         ProcessInstance singleTaskProcess = processRuntime.start(ProcessPayloadBuilder.start()
             .withProcessDefinitionKey(SINGLE_TASK_PROCESS)
@@ -138,7 +139,7 @@ public class ProcessRuntimeEventsIT {
     }
 
     @Test
-    public void should_emitThreeVariableCreatedEvents_when_createdWithThreeVariables(){
+    public void should_emitThreeVariableCreatedEvents_when_createdWithThreeVariables() {
         //when
         ProcessInstance singleTaskProcess = processRuntime.start(ProcessPayloadBuilder.start()
             .withProcessDefinitionKey(SINGLE_TASK_PROCESS)
@@ -160,7 +161,7 @@ public class ProcessRuntimeEventsIT {
     }
 
     @Test
-    public void should_emitSingleVariableUpdatedEvent_when_updatedWithVariable(){
+    public void should_emitSingleVariableUpdatedEvent_when_updatedWithVariable() {
         //given
         ProcessInstance singleTaskProcess = processRuntime.start(ProcessPayloadBuilder.start()
             .withProcessDefinitionKey(SINGLE_TASK_PROCESS)

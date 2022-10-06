@@ -6,10 +6,10 @@
 
   <bean id="processEngineConfiguration" class="org.activiti.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration">
 
-    <property name="databaseSchemaUpdate" value="true" />
+    <property name="databaseSchemaUpdate" value="true"/>
 
     <property name="processDefinitionCache">
-        <bean class="org.activiti.standalone.deploy.CustomDeploymentCache" />
+      <bean class="org.activiti.standalone.deploy.CustomDeploymentCache"/>
     </property>
 
   </bean>

@@ -21,7 +21,7 @@ import org.activiti.api.process.runtime.events.ProcessCompletedEvent;
 import org.activiti.api.runtime.event.impl.RuntimeEventImpl;
 
 public class ProcessCompletedImpl extends RuntimeEventImpl<ProcessInstance, ProcessRuntimeEvent.ProcessEvents>
-        implements ProcessCompletedEvent {
+    implements ProcessCompletedEvent {
 
     public ProcessCompletedImpl(ProcessInstance entity) {
         super(entity);

@@ -15,32 +15,13 @@
  */
 package org.activiti.engine.impl.event.logger;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.activiti.engine.delegate.event.ActivitiEntityEvent;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventListener;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.impl.context.Context;
-import org.activiti.engine.impl.event.logger.handler.ActivityCompensatedEventHandler;
-import org.activiti.engine.impl.event.logger.handler.ActivityCompletedEventHandler;
-import org.activiti.engine.impl.event.logger.handler.ActivityErrorReceivedEventHandler;
-import org.activiti.engine.impl.event.logger.handler.ActivityMessageEventHandler;
-import org.activiti.engine.impl.event.logger.handler.ActivitySignaledEventHandler;
-import org.activiti.engine.impl.event.logger.handler.ActivityStartedEventHandler;
-import org.activiti.engine.impl.event.logger.handler.EventLoggerEventHandler;
-import org.activiti.engine.impl.event.logger.handler.ProcessInstanceEndedEventHandler;
-import org.activiti.engine.impl.event.logger.handler.ProcessInstanceStartedEventHandler;
-import org.activiti.engine.impl.event.logger.handler.SequenceFlowTakenEventHandler;
-import org.activiti.engine.impl.event.logger.handler.TaskAssignedEventHandler;
-import org.activiti.engine.impl.event.logger.handler.TaskCompletedEventHandler;
-import org.activiti.engine.impl.event.logger.handler.TaskCreatedEventHandler;
-import org.activiti.engine.impl.event.logger.handler.VariableCreatedEventHandler;
-import org.activiti.engine.impl.event.logger.handler.VariableDeletedEventHandler;
-import org.activiti.engine.impl.event.logger.handler.VariableUpdatedEventHandler;
+import org.activiti.engine.impl.event.logger.handler.*;
 import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.impl.interceptor.CommandContextCloseListener;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
@@ -48,7 +29,10 @@ import org.activiti.engine.runtime.Clock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class EventLogger implements ActivitiEventListener {
 

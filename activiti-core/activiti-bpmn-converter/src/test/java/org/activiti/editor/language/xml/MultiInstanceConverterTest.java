@@ -15,13 +15,13 @@
  */
 package org.activiti.editor.language.xml;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.MultiInstanceLoopCharacteristics;
 import org.activiti.bpmn.model.UserTask;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class MultiInstanceConverterTest extends AbstractConverterTest {
 

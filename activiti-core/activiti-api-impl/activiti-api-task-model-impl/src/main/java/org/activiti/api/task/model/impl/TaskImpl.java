@@ -15,12 +15,12 @@
  */
 package org.activiti.api.task.model.impl;
 
+import org.activiti.api.runtime.model.impl.ApplicationElementImpl;
+import org.activiti.api.task.model.Task;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-
-import org.activiti.api.runtime.model.impl.ApplicationElementImpl;
-import org.activiti.api.task.model.Task;
 
 public class TaskImpl extends ApplicationElementImpl implements Task {
 
@@ -252,11 +252,13 @@ public class TaskImpl extends ApplicationElementImpl implements Task {
         this.taskDefinitionKey = taskDefinitionKey;
     }
 
-    @Override public String getCompletedBy() {
+    @Override
+    public String getCompletedBy() {
         return this.completedBy;
     }
-    public void setCompletedBy(String completedBy){
-        this.completedBy=completedBy;
+
+    public void setCompletedBy(String completedBy) {
+        this.completedBy = completedBy;
     }
 
 
@@ -273,92 +275,92 @@ public class TaskImpl extends ApplicationElementImpl implements Task {
         }
         TaskImpl task = (TaskImpl) o;
         return priority == task.priority &&
-                Objects.equals(id,
-                               task.id) &&
-                Objects.equals(name,
-                               task.name) &&
-                status == task.status &&
-                Objects.equals(owner,
-                               task.owner) &&
-                Objects.equals(assignee,
-                               task.assignee) &&
-                Objects.equals(description,
-                               task.description) &&
-                Objects.equals(createdDate,
-                               task.createdDate) &&
-                Objects.equals(claimedDate,
-                               task.claimedDate) &&
-                Objects.equals(dueDate,
-                               task.dueDate) &&
-                Objects.equals(processDefinitionId,
-                               task.processDefinitionId) &&
-                Objects.equals(processInstanceId,
-                               task.processInstanceId) &&
-                Objects.equals(parentTaskId,
-                               task.parentTaskId) &&
-                Objects.equals(formKey,
-                               task.formKey) &&
-                Objects.equals(completedDate,
-                               task.completedDate) &&
-                Objects.equals(duration,
-                               task.duration) &&
-                Objects.equals(processDefinitionVersion,
-                               task.processDefinitionVersion) &&
-                Objects.equals(businessKey,
-                               task.businessKey) &&
-                Objects.equals(taskDefinitionKey,
-                               task.taskDefinitionKey) &&
-                Objects.equals(completedBy,
-                              task.completedBy);
+            Objects.equals(id,
+                task.id) &&
+            Objects.equals(name,
+                task.name) &&
+            status == task.status &&
+            Objects.equals(owner,
+                task.owner) &&
+            Objects.equals(assignee,
+                task.assignee) &&
+            Objects.equals(description,
+                task.description) &&
+            Objects.equals(createdDate,
+                task.createdDate) &&
+            Objects.equals(claimedDate,
+                task.claimedDate) &&
+            Objects.equals(dueDate,
+                task.dueDate) &&
+            Objects.equals(processDefinitionId,
+                task.processDefinitionId) &&
+            Objects.equals(processInstanceId,
+                task.processInstanceId) &&
+            Objects.equals(parentTaskId,
+                task.parentTaskId) &&
+            Objects.equals(formKey,
+                task.formKey) &&
+            Objects.equals(completedDate,
+                task.completedDate) &&
+            Objects.equals(duration,
+                task.duration) &&
+            Objects.equals(processDefinitionVersion,
+                task.processDefinitionVersion) &&
+            Objects.equals(businessKey,
+                task.businessKey) &&
+            Objects.equals(taskDefinitionKey,
+                task.taskDefinitionKey) &&
+            Objects.equals(completedBy,
+                task.completedBy);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(),
-                            id,
-                            name,
-                            status,
-                            owner,
-                            assignee,
-                            description,
-                            createdDate,
-                            claimedDate,
-                            dueDate,
-                            priority,
-                            processDefinitionId,
-                            processInstanceId,
-                            parentTaskId,
-                            formKey,
-                            completedDate,
-                            duration,
-                            processDefinitionVersion,
-                            businessKey,
-                            taskDefinitionKey,
-                            completedBy);
+            id,
+            name,
+            status,
+            owner,
+            assignee,
+            description,
+            createdDate,
+            claimedDate,
+            dueDate,
+            priority,
+            processDefinitionId,
+            processInstanceId,
+            parentTaskId,
+            formKey,
+            completedDate,
+            duration,
+            processDefinitionVersion,
+            businessKey,
+            taskDefinitionKey,
+            completedBy);
     }
 
     @Override
     public String toString() {
         return "TaskImpl{" +
-                "id='" + id + '\'' +
-                ", owner='" + owner + '\'' +
-                ", assignee='" + assignee + '\'' +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", createdDate=" + createdDate +
-                ", claimedDate=" + claimedDate +
-                ", dueDate=" + dueDate +
-                ", priority=" + priority +
-                ", processDefinitionId='" + processDefinitionId + '\'' +
-                ", processInstanceId='" + processInstanceId + '\'' +
-                ", parentTaskId='" + parentTaskId + '\'' +
-                ", formKey='" + formKey + '\'' +
-                ", status=" + status +
-                ", processDefinitionVersion=" + processDefinitionVersion +
-                ", businessKey=" + businessKey +
-                ", taskDefinitionKey=" + taskDefinitionKey +
-                ", completedBy="+ completedBy +
-                '}';
+            "id='" + id + '\'' +
+            ", owner='" + owner + '\'' +
+            ", assignee='" + assignee + '\'' +
+            ", name='" + name + '\'' +
+            ", description='" + description + '\'' +
+            ", createdDate=" + createdDate +
+            ", claimedDate=" + claimedDate +
+            ", dueDate=" + dueDate +
+            ", priority=" + priority +
+            ", processDefinitionId='" + processDefinitionId + '\'' +
+            ", processInstanceId='" + processInstanceId + '\'' +
+            ", parentTaskId='" + parentTaskId + '\'' +
+            ", formKey='" + formKey + '\'' +
+            ", status=" + status +
+            ", processDefinitionVersion=" + processDefinitionVersion +
+            ", businessKey=" + businessKey +
+            ", taskDefinitionKey=" + taskDefinitionKey +
+            ", completedBy=" + completedBy +
+            '}';
     }
 
 }

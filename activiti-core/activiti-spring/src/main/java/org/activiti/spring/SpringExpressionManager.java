@@ -17,31 +17,28 @@
 
 package org.activiti.spring;
 
-import java.util.Map;
-import javax.el.CompositeELResolver;
-import org.activiti.engine.impl.el.ExpressionManager;
 import org.activiti.core.el.ReadOnlyMapELResolver;
+import org.activiti.engine.impl.el.ExpressionManager;
 import org.springframework.context.ApplicationContext;
+
+import javax.el.CompositeELResolver;
+import java.util.Map;
 
 /**
  * {@link ExpressionManager} that exposes the full application-context or a limited set of beans in expressions.
- *
-
  */
 public class SpringExpressionManager extends ExpressionManager {
 
-  protected ApplicationContext applicationContext;
+    protected ApplicationContext applicationContext;
 
-  /**
-   * @param applicationContext
-   *          the applicationContext to use. Ignored when 'beans' parameter is not null.
-   * @param beans
-   *          a map of custom beans to expose. If null, all beans in the application-context will be exposed.
-   */
-  public SpringExpressionManager(ApplicationContext applicationContext, Map<Object, Object> beans) {
-    super(beans);
-    this.applicationContext = applicationContext;
-  }
+    /**
+     * @param applicationContext the applicationContext to use. Ignored when 'beans' parameter is not null.
+     * @param beans              a map of custom beans to expose. If null, all beans in the application-context will be exposed.
+     */
+    public SpringExpressionManager(ApplicationContext applicationContext, Map<Object, Object> beans) {
+        super(beans);
+        this.applicationContext = applicationContext;
+    }
 
     @Override
     protected void addBeansResolver(CompositeELResolver elResolver) {

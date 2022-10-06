@@ -7,14 +7,14 @@
   <bean id="processEngineConfiguration" class="org.activiti.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration">
 
     <!-- Database configurations -->
-    <property name="databaseSchemaUpdate" value="true" />
-    <property name="jdbcUrl" value="jdbc:h2:mem:DisabledDefinitionInfoCacheTest;DB_CLOSE_DELAY=1000" />
+    <property name="databaseSchemaUpdate" value="true"/>
+    <property name="jdbcUrl" value="jdbc:h2:mem:DisabledDefinitionInfoCacheTest;DB_CLOSE_DELAY=1000"/>
 
     <!-- job executor configurations -->
-    <property name="asyncExecutorActivate" value="false" />
+    <property name="asyncExecutorActivate" value="false"/>
 
     <!-- mail server configurations -->
-    <property name="mailServerPort" value="5025" />
+    <property name="mailServerPort" value="5025"/>
   </bean>
 
 </beans>

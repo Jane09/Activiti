@@ -15,12 +15,12 @@
  */
 package org.activiti.spring.resources;
 
-import static java.util.Arrays.asList;
+import org.springframework.core.io.Resource;
 
 import java.io.IOException;
 import java.util.List;
 
-import org.springframework.core.io.Resource;
+import static java.util.Arrays.asList;
 
 public class DummyResourceFinderDescriptor implements ResourceFinderDescriptor {
 
@@ -29,7 +29,7 @@ public class DummyResourceFinderDescriptor implements ResourceFinderDescriptor {
     private String locationPrefix;
 
     public DummyResourceFinderDescriptor(String locationPrefix,
-                                         String ... suffixes) {
+                                         String... suffixes) {
         this.suffixes = asList(suffixes);
         this.locationPrefix = locationPrefix;
     }

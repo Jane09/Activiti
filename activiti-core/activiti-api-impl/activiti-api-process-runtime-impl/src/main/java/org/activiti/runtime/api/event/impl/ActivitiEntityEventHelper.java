@@ -22,8 +22,8 @@ public class ActivitiEntityEventHelper {
 
     public static boolean isProcessInstanceEntity(Object entity) {
         return entity != null &&
-                ProcessInstance.class.isAssignableFrom(entity.getClass()) &&
-                ((ExecutionEntity) entity).isProcessInstanceType();
+            ProcessInstance.class.isAssignableFrom(entity.getClass()) &&
+            ((ExecutionEntity) entity).isProcessInstanceType();
     }
 
 }

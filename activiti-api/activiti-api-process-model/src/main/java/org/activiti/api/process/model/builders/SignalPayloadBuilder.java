@@ -15,10 +15,10 @@
  */
 package org.activiti.api.process.model.builders;
 
+import org.activiti.api.process.model.payloads.SignalPayload;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import org.activiti.api.process.model.payloads.SignalPayload;
 
 public class SignalPayloadBuilder {
 
@@ -41,12 +41,12 @@ public class SignalPayloadBuilder {
             this.variables = new HashMap<>();
         }
         this.variables.put(name,
-                           value);
+            value);
         return this;
     }
 
     public SignalPayload build() {
         return new SignalPayload(name,
-                                 this.variables);
+            this.variables);
     }
 }

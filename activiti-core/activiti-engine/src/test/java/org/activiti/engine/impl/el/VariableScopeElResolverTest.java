@@ -15,27 +15,11 @@
  */
 package org.activiti.engine.impl.el;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doCallRealMethod;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoInteractions;
-import java.util.Arrays;
-import java.util.List;
-import javax.el.ELContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.activiti.engine.delegate.VariableScope;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.context.Context;
-import org.activiti.engine.impl.el.variable.AssigneeUserELResolver;
-import org.activiti.engine.impl.el.variable.AuthenticatedUserELResolver;
-import org.activiti.engine.impl.el.variable.ExecutionElResolver;
-import org.activiti.engine.impl.el.variable.ProcessInitiatorELResolver;
-import org.activiti.engine.impl.el.variable.TaskElResolver;
-import org.activiti.engine.impl.el.variable.VariableElResolver;
-import org.activiti.engine.impl.el.variable.VariableScopeItemELResolver;
+import org.activiti.engine.impl.el.variable.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,6 +27,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import javax.el.ELContext;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class VariableScopeElResolverTest {

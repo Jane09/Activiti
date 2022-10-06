@@ -26,29 +26,28 @@ public class ActivitiErrorMessageImpl implements ActivitiErrorMessage {
     }
 
     public ActivitiErrorMessageImpl(int status,
-                                    String message){
+                                    String message) {
         this.code = status;
         this.message = message;
     }
 
     @Override
-    public int getCode(){
+    public int getCode() {
         return code;
     }
 
-    public void setCode(int status){
+    public void setCode(int status) {
         this.code = status;
     }
 
     @Override
-    public String getMessage(){
+    public String getMessage() {
         return message;
     }
 
-    public void setMessage(String message){
+    public void setMessage(String message) {
         this.message = message;
     }
-
 
 
 }

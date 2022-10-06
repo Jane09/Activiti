@@ -58,13 +58,13 @@ public class ProcessCandidateStarterEventConverterHelperTest {
 
     @Test
     public void isNotProcessCandidateStarterGroupLink_when_processDefId_isNull() {
-        IdentityLink identityLink = createGroupIdentityLink(null,"aGroupId", IdentityLinkType.CANDIDATE);
+        IdentityLink identityLink = createGroupIdentityLink(null, "aGroupId", IdentityLinkType.CANDIDATE);
         assertThat(processCandidateStarterEventConverterHelper.isProcessCandidateStarterGroupLink(identityLink)).isFalse();
     }
 
     @Test
     public void isNotProcessCandidateStarterGroupLink_when_groupId_isNull() {
-        IdentityLink identityLink = createGroupIdentityLink("aProcessDefId",null, IdentityLinkType.CANDIDATE);
+        IdentityLink identityLink = createGroupIdentityLink("aProcessDefId", null, IdentityLinkType.CANDIDATE);
         assertThat(processCandidateStarterEventConverterHelper.isProcessCandidateStarterGroupLink(identityLink)).isFalse();
     }
 

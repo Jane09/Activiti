@@ -28,7 +28,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ServiceTaskParseHandlerTest {
@@ -56,7 +56,7 @@ public class ServiceTaskParseHandlerTest {
 
         //when
         serviceTaskParseHandler.executeParse(bpmnParse,
-                                             serviceTask);
+            serviceTask);
 
         //then
         assertThat(serviceTask.getBehavior()).isEqualTo(defaultBehavior);

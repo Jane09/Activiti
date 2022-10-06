@@ -21,16 +21,16 @@ import org.activiti.engine.api.internal.Internal;
 import java.util.List;
 
 /**
-
+ *
  */
 @Internal
 @Deprecated
 public interface AttachmentEntityManager extends EntityManager<AttachmentEntity> {
 
-  List<AttachmentEntity> findAttachmentsByProcessInstanceId(String processInstanceId);
+    List<AttachmentEntity> findAttachmentsByProcessInstanceId(String processInstanceId);
 
-  List<AttachmentEntity> findAttachmentsByTaskId(String taskId);
+    List<AttachmentEntity> findAttachmentsByTaskId(String taskId);
 
-  void deleteAttachmentsByTaskId(String taskId);
+    void deleteAttachmentsByTaskId(String taskId);
 
 }

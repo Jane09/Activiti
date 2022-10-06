@@ -7,7 +7,7 @@
   <process id="signalOnUserTask" isExecutable="true" name="signal boundary event">
     <startEvent id="cloudstartnoneevent1">
     </startEvent>
-      <userTask id="userTask" name="User Task"/>
+    <userTask id="userTask" name="User Task"/>
     <endEvent id="cloudendnoneevent2">
     </endEvent>
     <boundaryEvent attachedToRef="userTask" cancelActivity="true" id="boundarySignalEventCatching"

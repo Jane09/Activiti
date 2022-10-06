@@ -22,12 +22,11 @@ import org.activiti.engine.delegate.VariableScope;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 
 /**
-
-
+ *
  */
 @Internal
 public interface ResolverFactory {
 
-  Resolver createResolver(ProcessEngineConfigurationImpl processEngineConfiguration, VariableScope variableScope);
+    Resolver createResolver(ProcessEngineConfigurationImpl processEngineConfiguration, VariableScope variableScope);
 
 }

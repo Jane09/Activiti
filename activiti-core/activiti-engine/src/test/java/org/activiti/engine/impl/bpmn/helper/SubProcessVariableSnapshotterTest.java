@@ -15,19 +15,16 @@
  */
 package org.activiti.engine.impl.bpmn.helper;
 
-import java.util.Map;
-
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.junit.Test;
 
+import java.util.Map;
+
 import static java.util.Collections.singletonMap;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
-
+ *
  */
 public class SubProcessVariableSnapshotterTest {
 

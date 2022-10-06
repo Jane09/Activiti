@@ -15,16 +15,16 @@
  */
 package org.activiti.spring.test.expression.callactivity;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.List;
-
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.task.TaskQuery;
 import org.activiti.engine.test.Deployment;
 import org.activiti.spring.impl.test.SpringActivitiTestCase;
 import org.springframework.test.context.ContextConfiguration;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * The CallActivityBasedOnSpringBeansExpressionTest is isUsed to test dynamically wiring in the calledElement in the callActivity task. This test case helps verify that we do not have to hard code the
@@ -37,7 +37,7 @@ public class CallActivityBasedOnSpringBeansExpressionTest extends SpringActiviti
         List<org.activiti.engine.repository.Deployment> deployments = repositoryService.createDeploymentQuery().list();
         for (org.activiti.engine.repository.Deployment deployment : deployments) {
             repositoryService.deleteDeployment(deployment.getId(),
-                                               true);
+                true);
         }
     }
 
@@ -47,7 +47,7 @@ public class CallActivityBasedOnSpringBeansExpressionTest extends SpringActiviti
     }
 
     @Deployment(resources = {"org/activiti/spring/test/expression/callactivity/CallActivityBasedOnSpringBeansExpressionTest.testCallActivityByExpression.bpmn20.xml",
-            "org/activiti/spring/test/expression/callactivity/simpleSubProcess.bpmn20.xml"})
+        "org/activiti/spring/test/expression/callactivity/simpleSubProcess.bpmn20.xml"})
     public void testCallActivityByExpression() throws Exception {
         // Start process (main)
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("testCallActivityByExpression");

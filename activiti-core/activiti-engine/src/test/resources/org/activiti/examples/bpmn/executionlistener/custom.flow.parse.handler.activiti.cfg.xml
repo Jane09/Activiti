@@ -7,15 +7,15 @@
   <bean id="processEngineConfiguration" class="org.activiti.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration">
 
     <!-- Database configurations -->
-    <property name="history" value="audit" />
-    <property name="databaseSchemaUpdate" value="true" />
+    <property name="history" value="audit"/>
+    <property name="databaseSchemaUpdate" value="true"/>
 
     <!-- job executor configurations -->
-    <property name="asyncExecutorActivate" value="false" />
+    <property name="asyncExecutorActivate" value="false"/>
 
     <property name="customDefaultBpmnParseHandlers">
       <list>
-        <bean class="org.activiti.examples.bpmn.executionlistener.CustomSequenceFlowBpmnParseHandler" />
+        <bean class="org.activiti.examples.bpmn.executionlistener.CustomSequenceFlowBpmnParseHandler"/>
       </list>
     </property>
 

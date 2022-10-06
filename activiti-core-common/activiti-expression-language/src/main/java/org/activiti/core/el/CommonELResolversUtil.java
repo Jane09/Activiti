@@ -15,12 +15,7 @@
  */
 package org.activiti.core.el;
 
-import javax.el.ArrayELResolver;
-import javax.el.BeanELResolver;
-import javax.el.ELContext;
-import javax.el.ELResolver;
-import javax.el.ListELResolver;
-import javax.el.MapELResolver;
+import javax.el.*;
 
 /**
  * Builder of {@link ELContext} instances.

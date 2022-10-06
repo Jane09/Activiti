@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema
-        xmlns="http://www.w3.org/2001/XMLSchema"
-        targetNamespace="http://activiti.org/bpmn"
-        xmlns:tns="http://activiti.org/bpmn"
-        xmlns:sem="http://www.omg.org/spec/BPMN/20100524/MODEL"
-        elementFormDefault="qualified">
+  xmlns="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://activiti.org/bpmn"
+  xmlns:tns="http://activiti.org/bpmn"
+  xmlns:sem="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  elementFormDefault="qualified">
 
-  <import namespace="http://www.omg.org/spec/BPMN/20100524/MODEL" schemaLocation="Semantic.xsd" />
+  <import namespace="http://www.omg.org/spec/BPMN/20100524/MODEL" schemaLocation="Semantic.xsd"/>
 
   <annotation>
     <documentation>
@@ -44,10 +44,10 @@
     </annotation>
     <simpleType>
       <restriction base="string">
-        <enumeration value="none" />
-        <enumeration value="activity" />
-        <enumeration value="audit" />
-        <enumeration value="full" />
+        <enumeration value="none"/>
+        <enumeration value="activity"/>
+        <enumeration value="audit"/>
+        <enumeration value="full"/>
       </restriction>
     </simpleType>
   </attribute>
@@ -285,12 +285,12 @@
     </annotation>
     <complexType>
       <choice minOccurs="0" maxOccurs="1">
-        <element name="string" type="string" />
-        <element name="expression" type="tns:tExpression" />
+        <element name="string" type="string"/>
+        <element name="expression" type="tns:tExpression"/>
       </choice>
       <attribute name="name" type="string" use="required"/>
-      <attribute name="stringValue" type="string" use="optional" />
-      <attribute name="expression" type="tns:tExpression" use="optional" />
+      <attribute name="stringValue" type="string" use="optional"/>
+      <attribute name="expression" type="tns:tExpression" use="optional"/>
     </complexType>
   </element>
 
@@ -324,12 +324,12 @@
   </attribute>
 
   <attribute name="businessCalendarName" type="tns:tExpression">
- 	<annotation>
- 		<documentation>
- 		  User Task attribute specifies business calendar to use to resolve dueDate expression.
- 	      Business calendar with the given name has to be configured in process engine configuration.
- 		</documentation>
- 	</annotation>
+    <annotation>
+      <documentation>
+        User Task attribute specifies business calendar to use to resolve dueDate expression.
+        Business calendar with the given name has to be configured in process engine configuration.
+      </documentation>
+    </annotation>
   </attribute>
 
   <attribute name="candidateUsers">
@@ -388,13 +388,13 @@
 
   <complexType name="tPotentialStarter">
     <complexContent>
-      <extension base="sem:tHumanPerformer" />
+      <extension base="sem:tHumanPerformer"/>
     </complexContent>
   </complexType>
 
-  <element name="potentialStarter" type="string" />
+  <element name="potentialStarter" type="string"/>
 
-  <element name="businessCalendarName" type="string" />
+  <element name="businessCalendarName" type="string"/>
 
   <element name="taskListener">
     <annotation>
@@ -404,88 +404,89 @@
       </documentation>
     </annotation>
     <complexType>
-    <sequence>
-      <element ref="tns:field" minOccurs="0" maxOccurs="unbounded" />
-    </sequence>
-    <attribute name="class" type="string">
-      <annotation>
-        <documentation>
-          An implementation of the org.activiti.engine.impl.pvm.delegate.TaskListener interface
-          that will be called when the task event occurs.
-        </documentation>
-      </annotation>
-    </attribute>
-    <attribute name="expression" type="tns:tExpression">
-      <annotation>
-        <documentation>
-          Expression that will be evaluated when the task event occurs.
-        </documentation>
-      </annotation>
-    </attribute>
-    <attribute name="delegateExpression" type="tns:tExpression">
-      <annotation>
-        <documentation>
-          Expression that must resolve to an object implementing a compatible interface
-          for a taskListener. Evaluation and delegation to the resulting object is done
-          when the task event occurs.
-        </documentation>
-      </annotation>
-    </attribute>
-    <attribute name="event" use="required">
-      <annotation>
-        <documentation>
-          The event on which the delegation class or expression will be executed.
-        </documentation>
-      </annotation>
-      <simpleType>
-        <restriction base="string">
-          <enumeration value="create" />
-          <enumeration value="assignment" />
-          <enumeration value="complete" />
-          <enumeration value="delete" />
-        </restriction>
-      </simpleType>
-    </attribute>
-    <attribute name="onTransaction" use="optional">
-      <annotation>
-        <documentation>
-          Execute executionListener after a successful commit or after a rollback.
-        </documentation>
-      </annotation>
-      <simpleType>
-        <restriction base="string">
-          <enumeration value="before-commit" />
-          <enumeration value="committed" />
-          <enumeration value="rolled-back" />
-        </restriction>
-      </simpleType>
-    </attribute>
-    <attribute name="customPropertiesResolverClass" type="string">
-      <annotation>
-        <documentation>
-          An implementation of the org.activiti.engine.delegate.CustomPropertiesResolver interface
-          that will be called when the event occurs.
-        </documentation>
-      </annotation>
-    </attribute>
-    <attribute name="customPropertiesResolverExpression" type="tns:tExpression">
-      <annotation>
-        <documentation>
-          Expression that must resolve to an object implementing a compatible interface
-          for an customPropertiesResolver. Evaluation and delegation to the resulting object is done
-          when the task event occurs.
-        </documentation>
-      </annotation>
-    </attribute>
-    <attribute name="customPropertiesResolverDelegateExpression" type="tns:tExpression">
-      <annotation>
-        <documentation>
-          Expression that must resolve to an object implementing the customPropertiesResolver interface. Evaluation and delegation to the resulting object is done
-          when the task event occurs.
-        </documentation>
-      </annotation>
-    </attribute>
-   </complexType>
+      <sequence>
+        <element ref="tns:field" minOccurs="0" maxOccurs="unbounded"/>
+      </sequence>
+      <attribute name="class" type="string">
+        <annotation>
+          <documentation>
+            An implementation of the org.activiti.engine.impl.pvm.delegate.TaskListener interface
+            that will be called when the task event occurs.
+          </documentation>
+        </annotation>
+      </attribute>
+      <attribute name="expression" type="tns:tExpression">
+        <annotation>
+          <documentation>
+            Expression that will be evaluated when the task event occurs.
+          </documentation>
+        </annotation>
+      </attribute>
+      <attribute name="delegateExpression" type="tns:tExpression">
+        <annotation>
+          <documentation>
+            Expression that must resolve to an object implementing a compatible interface
+            for a taskListener. Evaluation and delegation to the resulting object is done
+            when the task event occurs.
+          </documentation>
+        </annotation>
+      </attribute>
+      <attribute name="event" use="required">
+        <annotation>
+          <documentation>
+            The event on which the delegation class or expression will be executed.
+          </documentation>
+        </annotation>
+        <simpleType>
+          <restriction base="string">
+            <enumeration value="create"/>
+            <enumeration value="assignment"/>
+            <enumeration value="complete"/>
+            <enumeration value="delete"/>
+          </restriction>
+        </simpleType>
+      </attribute>
+      <attribute name="onTransaction" use="optional">
+        <annotation>
+          <documentation>
+            Execute executionListener after a successful commit or after a rollback.
+          </documentation>
+        </annotation>
+        <simpleType>
+          <restriction base="string">
+            <enumeration value="before-commit"/>
+            <enumeration value="committed"/>
+            <enumeration value="rolled-back"/>
+          </restriction>
+        </simpleType>
+      </attribute>
+      <attribute name="customPropertiesResolverClass" type="string">
+        <annotation>
+          <documentation>
+            An implementation of the org.activiti.engine.delegate.CustomPropertiesResolver interface
+            that will be called when the event occurs.
+          </documentation>
+        </annotation>
+      </attribute>
+      <attribute name="customPropertiesResolverExpression" type="tns:tExpression">
+        <annotation>
+          <documentation>
+            Expression that must resolve to an object implementing a compatible interface
+            for an customPropertiesResolver. Evaluation and delegation to the resulting object is done
+            when the task event occurs.
+          </documentation>
+        </annotation>
+      </attribute>
+      <attribute name="customPropertiesResolverDelegateExpression" type="tns:tExpression">
+        <annotation>
+          <documentation>
+            Expression that must resolve to an object implementing the customPropertiesResolver interface. Evaluation
+            and delegation to the resulting object is done
+            when the task event occurs.
+          </documentation>
+        </annotation>
+      </attribute>
+    </complexType>
   </element>
 
   <element name="executionListener">
@@ -533,9 +534,9 @@
         </annotation>
         <simpleType>
           <restriction base="string">
-            <enumeration value="start" />
-            <enumeration value="end" />
-            <enumeration value="take" />
+            <enumeration value="start"/>
+            <enumeration value="end"/>
+            <enumeration value="take"/>
           </restriction>
         </simpleType>
       </attribute>
@@ -547,9 +548,9 @@
         </annotation>
         <simpleType>
           <restriction base="string">
-            <enumeration value="before-commit" />
-            <enumeration value="committed" />
-            <enumeration value="rolled-back" />
+            <enumeration value="before-commit"/>
+            <enumeration value="committed"/>
+            <enumeration value="rolled-back"/>
           </restriction>
         </simpleType>
       </attribute>
@@ -573,7 +574,8 @@
       <attribute name="customPropertiesResolverDelegateExpression" type="tns:tExpression">
         <annotation>
           <documentation>
-            Expression that must resolve to an object implementing the customPropertiesResolver interface. Evaluation and delegation to the resulting object is done
+            Expression that must resolve to an object implementing the customPropertiesResolver interface. Evaluation
+            and delegation to the resulting object is done
             when the event occurs.
           </documentation>
         </annotation>
@@ -591,7 +593,8 @@
       <attribute name="events">
         <annotation>
           <documentation>
-            Comma-separated list of event-types an event-listener is configured to be notified of. Can also be a single event-type.
+            Comma-separated list of event-types an event-listener is configured to be notified of. Can also be a single
+            event-type.
           </documentation>
         </annotation>
       </attribute>
@@ -603,14 +606,14 @@
         </annotation>
         <simpleType>
           <restriction base="string">
-            <enumeration value="attachment" />
-            <enumeration value="comment" />
-            <enumeration value="execution" />
-            <enumeration value="identity-link" />
-            <enumeration value="job" />
-            <enumeration value="process-definition" />
-            <enumeration value="process-instance" />
-            <enumeration value="task" />
+            <enumeration value="attachment"/>
+            <enumeration value="comment"/>
+            <enumeration value="execution"/>
+            <enumeration value="identity-link"/>
+            <enumeration value="job"/>
+            <enumeration value="process-definition"/>
+            <enumeration value="process-instance"/>
+            <enumeration value="task"/>
           </restriction>
         </simpleType>
       </attribute>
@@ -622,10 +625,10 @@
         </annotation>
         <simpleType>
           <restriction base="string">
-            <enumeration value="signal" />
-            <enumeration value="globalSignal" />
-            <enumeration value="message" />
-            <enumeration value="error" />
+            <enumeration value="signal"/>
+            <enumeration value="globalSignal"/>
+            <enumeration value="message"/>
+            <enumeration value="error"/>
           </restriction>
         </simpleType>
       </attribute>
@@ -663,7 +666,7 @@
     <complexType>
       <attribute name="source" type="string" use="optional"/>
       <attribute name="sourceExpression" type="tns:tExpression" use="optional"/>
-      <attribute name="target" type="string" use="required" />
+      <attribute name="target" type="string" use="required"/>
     </complexType>
   </element>
   <element name="out">
@@ -676,7 +679,7 @@
     <complexType>
       <attribute name="source" type="string" use="optional"/>
       <attribute name="sourceExpression" type="tns:tExpression" use="optional"/>
-      <attribute name="target" type="string" use="required" />
+      <attribute name="target" type="string" use="required"/>
     </complexType>
   </element>
 
@@ -721,7 +724,7 @@
   <attribute name="businessKey" type="tns:tExpression">
     <annotation>
       <documentation>
-		To be used on the callActivity element to set the business key of that started process instance.
+        To be used on the callActivity element to set the business key of that started process instance.
       </documentation>
     </annotation>
   </attribute>

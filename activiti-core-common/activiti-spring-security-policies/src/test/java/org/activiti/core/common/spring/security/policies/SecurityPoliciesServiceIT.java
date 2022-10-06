@@ -15,8 +15,6 @@
  */
 package org.activiti.core.common.spring.security.policies;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.activiti.api.runtime.shared.security.SecurityManager;
 import org.activiti.core.common.spring.security.policies.conf.SecurityPoliciesProperties;
 import org.junit.jupiter.api.Test;
@@ -28,6 +26,8 @@ import org.springframework.test.context.ContextConfiguration;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @ContextConfiguration
@@ -45,7 +45,7 @@ public class SecurityPoliciesServiceIT {
     @Test
     public void basicParsingTest() {
         List<SecurityPolicy> policies =
-                securityPoliciesProperties.getPolicies();
+            securityPoliciesProperties.getPolicies();
 
         assertThat(policies).isNotNull();
         assertThat(policies).hasSize(3);
@@ -116,7 +116,7 @@ public class SecurityPoliciesServiceIT {
         assertThat(userGroups).contains("developers", "activitiTeam");
 
         Map<String, Set<String>> keys = processSecurityPoliciesManager.getAllowedKeys(SecurityPolicyAccess.WRITE,
-                SecurityPolicyAccess.READ);
+            SecurityPolicyAccess.READ);
         assertThat(keys.keySet()).hasSize(3);
 
         assertThat(keys.get("runtime-bundle")).hasSize(2);

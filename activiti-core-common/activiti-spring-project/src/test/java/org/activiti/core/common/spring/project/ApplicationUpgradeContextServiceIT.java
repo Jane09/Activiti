@@ -15,14 +15,14 @@
  */
 package org.activiti.core.common.spring.project;
 
-import java.io.IOException;
-
 import org.activiti.core.common.project.model.ProjectManifest;
 import org.activiti.core.common.spring.project.conf.ApplicationUpgradeContextAutoConfiguration;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
+
+import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

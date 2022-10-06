@@ -4,24 +4,24 @@
              xmlns:activiti="http://activiti.org/bpmn"
              targetNamespace="Examples">
 
-    <process id="catchErrorThrownByExpressionDelegateOnServiceTask">
+  <process id="catchErrorThrownByExpressionDelegateOnServiceTask">
 
-        <startEvent id="theStart"/>
-        <sequenceFlow id="flow1" sourceRef="theStart" targetRef="serviceTask"/>
+    <startEvent id="theStart"/>
+    <sequenceFlow id="flow1" sourceRef="theStart" targetRef="serviceTask"/>
 
-        <serviceTask id="serviceTask" activiti:delegateExpression="${throwBpmnErrorDelegate}"/>
+    <serviceTask id="serviceTask" activiti:delegateExpression="${throwBpmnErrorDelegate}"/>
 
-        <boundaryEvent id="catchError" attachedToRef="serviceTask">
-            <errorEventDefinition/>
-        </boundaryEvent>
+    <boundaryEvent id="catchError" attachedToRef="serviceTask">
+      <errorEventDefinition/>
+    </boundaryEvent>
 
-        <sequenceFlow id="flow3" sourceRef="catchError" targetRef="escalatedTask"/>
+    <sequenceFlow id="flow3" sourceRef="catchError" targetRef="escalatedTask"/>
 
-        <userTask id="escalatedTask" name="Escalated Task"/>
-        <sequenceFlow id="flow4" sourceRef="serviceTask" targetRef="theEnd"/>
+    <userTask id="escalatedTask" name="Escalated Task"/>
+    <sequenceFlow id="flow4" sourceRef="serviceTask" targetRef="theEnd"/>
 
-        <endEvent id="theEnd"/>
+    <endEvent id="theEnd"/>
 
-    </process>
+  </process>
 
 </definitions>

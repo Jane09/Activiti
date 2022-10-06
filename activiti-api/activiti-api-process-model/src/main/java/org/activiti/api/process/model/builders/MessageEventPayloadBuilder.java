@@ -15,11 +15,11 @@
  */
 package org.activiti.api.process.model.builders;
 
+import org.activiti.api.process.model.payloads.MessageEventPayload;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
-
-import org.activiti.api.process.model.payloads.MessageEventPayload;
 
 public class MessageEventPayloadBuilder {
 
@@ -32,9 +32,9 @@ public class MessageEventPayloadBuilder {
         Objects.requireNonNull(messagePayload, "messagePayload must not be null");
 
         return new MessageEventPayloadBuilder().withName(messagePayload.getName())
-                                               .withBusinessKey(messagePayload.getBusinessKey())
-                                               .withCorrelationKey(messagePayload.getCorrelationKey())
-                                               .withVariables(messagePayload.getVariables());
+            .withBusinessKey(messagePayload.getBusinessKey())
+            .withCorrelationKey(messagePayload.getCorrelationKey())
+            .withVariables(messagePayload.getVariables());
     }
 
     public static MessageEventPayloadBuilder messageEvent(String name) {
@@ -56,12 +56,12 @@ public class MessageEventPayloadBuilder {
     }
 
     public MessageEventPayloadBuilder withVariable(String name,
-                                                     Object value) {
+                                                   Object value) {
         if (this.variables == null) {
             this.variables = new LinkedHashMap<>();
         }
         this.variables.put(name,
-                           value);
+            value);
         return this;
     }
 
@@ -80,9 +80,9 @@ public class MessageEventPayloadBuilder {
 
     public MessageEventPayload build() {
         return new MessageEventPayload(name,
-                                       correlationKey,
-                                       businessKey,
-                                       variables);
+            correlationKey,
+            businessKey,
+            variables);
     }
 
     @Override
@@ -115,8 +115,8 @@ public class MessageEventPayloadBuilder {
             return false;
         MessageEventPayloadBuilder other = (MessageEventPayloadBuilder) obj;
         return Objects.equals(correlationKey, other.correlationKey)
-                && Objects.equals(businessKey, other.businessKey)
-                && Objects.equals(name, other.name)
-                && Objects.equals(variables, other.variables);
+            && Objects.equals(businessKey, other.businessKey)
+            && Objects.equals(name, other.name)
+            && Objects.equals(variables, other.variables);
     }
 }

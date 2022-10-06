@@ -15,18 +15,6 @@
  */
 package org.activiti.runtime.api.impl;
 
-import static java.util.Arrays.asList;
-import static org.activiti.engine.impl.bpmn.behavior.MappingExecutionContext.buildMappingExecutionContext;
-import static org.activiti.engine.impl.util.CollectionUtil.map;
-import static org.activiti.engine.impl.util.CollectionUtil.singletonMap;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.assertj.core.api.Assertions.tuple;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
-import java.io.File;
-import java.io.IOException;
-import java.util.Map;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.delegate.DelegateExecution;
@@ -44,6 +32,18 @@ import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Map;
+
+import static java.util.Arrays.asList;
+import static org.activiti.engine.impl.bpmn.behavior.MappingExecutionContext.buildMappingExecutionContext;
+import static org.activiti.engine.impl.util.CollectionUtil.map;
+import static org.activiti.engine.impl.util.CollectionUtil.singletonMap;
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
+
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
 public class ExtensionsVariablesMappingProviderTest {
@@ -60,7 +60,7 @@ public class ExtensionsVariablesMappingProviderTest {
         //given
         ObjectMapper objectMapper = new ObjectMapper();
         ProcessExtensionModel extensions = objectMapper.readValue(new File("src/test/resources/task-variable-mapping-extensions.json"),
-                                                                  ProcessExtensionModel.class);
+            ProcessExtensionModel.class);
 
         Extension processExtensions = extensions.getExtensions("Process_taskVarMapping");
         DelegateExecution execution = buildExecution(processExtensions);
@@ -71,8 +71,8 @@ public class ExtensionsVariablesMappingProviderTest {
             processExtensions);
 
         ReflectionTestUtils.setField(variablesMappingProvider,
-                                     "expressionResolver",
-                                     expressionResolver);
+            "expressionResolver",
+            expressionResolver);
 
         //when
         Map<String, Object> inputVariables = variablesMappingProvider.calculateInputVariables(execution);
@@ -103,7 +103,7 @@ public class ExtensionsVariablesMappingProviderTest {
         //given
         ObjectMapper objectMapper = new ObjectMapper();
         ProcessExtensionModel extensions = objectMapper.readValue(new File("src/test/resources/task-variable-no-mapping-extensions.json"),
-                                                                  ProcessExtensionModel.class);
+            ProcessExtensionModel.class);
 
         Extension processExtensions = extensions.getExtensions("Process_taskVariableNoMapping");
         DelegateExecution execution = buildExecution(processExtensions);
@@ -111,8 +111,8 @@ public class ExtensionsVariablesMappingProviderTest {
             processExtensions);
 
         ReflectionTestUtils.setField(variablesMappingProvider,
-                                     "expressionResolver",
-                                     expressionResolver);
+            "expressionResolver",
+            expressionResolver);
 
         Map<String, Object> variables = map(
             "var-one", "one",
@@ -134,7 +134,7 @@ public class ExtensionsVariablesMappingProviderTest {
         //given
         ObjectMapper objectMapper = new ObjectMapper();
         ProcessExtensionModel extensions = objectMapper.readValue(new File("src/test/resources/task-variable-empty-mapping-extensions.json"),
-                                                                  ProcessExtensionModel.class);
+            ProcessExtensionModel.class);
 
         DelegateExecution execution = buildExecution(extensions.getExtensions("Process_taskVariableEmptyMapping"));
 
@@ -151,7 +151,7 @@ public class ExtensionsVariablesMappingProviderTest {
         //given
         ObjectMapper objectMapper = new ObjectMapper();
         ProcessExtensionModel extensions = objectMapper.readValue(new File("src/test/resources/task-variable-empty-mapping-with-constants-extensions.json"),
-                                                                  ProcessExtensionModel.class);
+            ProcessExtensionModel.class);
 
         DelegateExecution execution = buildExecution(extensions.getExtensions("Process_taskVariableEmptyMappingWithContants"));
 
@@ -161,10 +161,10 @@ public class ExtensionsVariablesMappingProviderTest {
         //then
         assertThat(inputVariables).isNotEmpty();
         assertThat(inputVariables.entrySet()).extracting(Map.Entry::getKey,
-                                                         Map.Entry::getValue)
-                                             .containsOnly(
-                                                           tuple("process_constant_1_2", "constant_2_value"),
-                                                           tuple("process_constant_inputmap_2", "constant_value"));
+                Map.Entry::getValue)
+            .containsOnly(
+                tuple("process_constant_1_2", "constant_2_value"),
+                tuple("process_constant_inputmap_2", "constant_value"));
 
     }
 
@@ -174,15 +174,15 @@ public class ExtensionsVariablesMappingProviderTest {
         //given
         ObjectMapper objectMapper = new ObjectMapper();
         ProcessExtensionModel extensions = objectMapper.readValue(new File("src/test/resources/task-variable-mapping-extensions.json"),
-                                                                  ProcessExtensionModel.class);
+            ProcessExtensionModel.class);
 
         Extension processExtensions = extensions.getExtensions("Process_taskVarMapping");
         DelegateExecution execution = buildExecution(processExtensions);
         ExpressionResolver expressionResolver = ExpressionResolverHelper.initContext(execution, processExtensions);
 
         ReflectionTestUtils.setField(variablesMappingProvider,
-                                     "expressionResolver",
-                                     expressionResolver);
+            "expressionResolver",
+            expressionResolver);
 
         Map<String, Object> entityVariables = singletonMap("task_output_variable_name_1", "var-one");
 
@@ -190,7 +190,7 @@ public class ExtensionsVariablesMappingProviderTest {
 
         //when
         Map<String, Object> outPutVariables = variablesMappingProvider.calculateOutPutVariables(buildMappingExecutionContext(execution),
-                                                                                                entityVariables);
+            entityVariables);
 
         //then
         assertThat(outPutVariables.get("process_variable_outputmap_1")).isEqualTo("var-one");
@@ -204,7 +204,7 @@ public class ExtensionsVariablesMappingProviderTest {
         //given
         ObjectMapper objectMapper = new ObjectMapper();
         ProcessExtensionModel extensions = objectMapper.readValue(new File("src/test/resources/task-variable-no-mapping-extensions.json"),
-                                                                  ProcessExtensionModel.class);
+            ProcessExtensionModel.class);
 
         DelegateExecution execution = buildExecution(extensions.getExtensions("Process_taskVariableNoMapping"));
 
@@ -215,7 +215,7 @@ public class ExtensionsVariablesMappingProviderTest {
 
         //when
         Map<String, Object> outPutVariables = variablesMappingProvider.calculateOutPutVariables(buildMappingExecutionContext(execution),
-                                                                                                taskVariables);
+            taskVariables);
 
         //then
         assertThat(outPutVariables).isEqualTo(taskVariables);
@@ -227,7 +227,7 @@ public class ExtensionsVariablesMappingProviderTest {
         //given
         ObjectMapper objectMapper = new ObjectMapper();
         ProcessExtensionModel extensions = objectMapper.readValue(new File("src/test/resources/task-variable-empty-mapping-extensions.json"),
-                                                                  ProcessExtensionModel.class);
+            ProcessExtensionModel.class);
 
         DelegateExecution execution = buildExecution(extensions.getExtensions("Process_taskVariableEmptyMapping"));
 
@@ -238,7 +238,7 @@ public class ExtensionsVariablesMappingProviderTest {
 
         //when
         Map<String, Object> outputVariables = variablesMappingProvider.calculateOutPutVariables(buildMappingExecutionContext(execution),
-                                                                                                taskVariables);
+            taskVariables);
 
         //then
         assertThat(outputVariables).isEmpty();
@@ -247,15 +247,15 @@ public class ExtensionsVariablesMappingProviderTest {
     private DelegateExecution initExpressionResolverTest(String fileName, String processDefinitionKey) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         ProcessExtensionModel extensions = objectMapper.readValue(new File("src/test/resources/expressions/" + fileName),
-                                                                  ProcessExtensionModel.class);
+            ProcessExtensionModel.class);
 
         DelegateExecution execution = buildExecution(extensions.getExtensions(processDefinitionKey));
         ExpressionResolver expressionResolver = ExpressionResolverHelper.initContext(execution,
-                                                                                     extensions.getExtensions(processDefinitionKey));
+            extensions.getExtensions(processDefinitionKey));
 
         ReflectionTestUtils.setField(variablesMappingProvider,
-                                     "expressionResolver",
-                                     expressionResolver);
+            "expressionResolver",
+            expressionResolver);
 
         return execution;
     }
@@ -268,11 +268,11 @@ public class ExtensionsVariablesMappingProviderTest {
 
         assertThat(inputVariables).isNotEmpty();
         assertThat(inputVariables.entrySet()).extracting(Map.Entry::getKey,
-                                                         Map.Entry::getValue)
-                                             .containsOnly(tuple("process_constant_1", "constant_1_value"),
-                                                           tuple("process_constant_2", "constant_2_value"),
-                                                           tuple("task_input_variable_name_1", "variable_value_1"),
-                                                           tuple("task_input_variable_name_2", "static_value_1"));
+                Map.Entry::getValue)
+            .containsOnly(tuple("process_constant_1", "constant_1_value"),
+                tuple("process_constant_2", "constant_2_value"),
+                tuple("task_input_variable_name_1", "variable_value_1"),
+                tuple("task_input_variable_name_2", "static_value_1"));
 
         Map<String, Object> taskVariables = map(
             "task_input_variable_name_1", "variable_value_1",
@@ -280,28 +280,28 @@ public class ExtensionsVariablesMappingProviderTest {
         );
 
         Map<String, Object> outputVariables = variablesMappingProvider.calculateOutPutVariables(buildMappingExecutionContext(execution),
-                                                                                                taskVariables);
+            taskVariables);
 
         assertThat(outputVariables).isNotEmpty();
         assertThat(outputVariables.entrySet()).extracting(Map.Entry::getKey, Map.Entry::getValue)
-                                              .containsOnly(tuple("process_variable_3", "variable_value_1"),
-                                                            tuple("process_variable_4", "static_value_2"));
+            .containsOnly(tuple("process_variable_3", "variable_value_1"),
+                tuple("process_variable_4", "static_value_2"));
     }
 
     @Test
     public void should_notSubstituteExpressions_when_expressionIsInConstants() throws Exception {
         DelegateExecution execution = initExpressionResolverTest("expression-in-constants.json",
-                                                       "Process_expression-in-constants");
+            "Process_expression-in-constants");
 
         Map<String, Object> inputVariables = variablesMappingProvider.calculateInputVariables(execution);
 
         assertThat(inputVariables).isNotEmpty();
         assertThat(inputVariables.entrySet()).extracting(Map.Entry::getKey,
-                                                         Map.Entry::getValue)
-                                             .containsOnly(tuple("process_constant_1", "${process_variable_1}"),
-                                                           tuple("process_constant_2", "constant_2_value"),
-                                                           tuple("task_input_variable_name_1", "variable_value_1"),
-                                                           tuple("task_input_variable_name_2", "static_value_1"));
+                Map.Entry::getValue)
+            .containsOnly(tuple("process_constant_1", "${process_variable_1}"),
+                tuple("process_constant_2", "constant_2_value"),
+                tuple("task_input_variable_name_1", "variable_value_1"),
+                tuple("task_input_variable_name_2", "static_value_1"));
 
         Map<String, Object> outputVariables = variablesMappingProvider.calculateOutPutVariables(buildMappingExecutionContext(execution),
             map(
@@ -311,38 +311,38 @@ public class ExtensionsVariablesMappingProviderTest {
 
         assertThat(outputVariables).isNotEmpty();
         assertThat(outputVariables.entrySet()).extracting(Map.Entry::getKey,
-                                                          Map.Entry::getValue)
-                                              .containsOnly(tuple("process_variable_3", "variable_value_1"),
-                                                            tuple("process_variable_4", "static_value_2"));
+                Map.Entry::getValue)
+            .containsOnly(tuple("process_variable_3", "variable_value_1"),
+                tuple("process_variable_4", "static_value_2"));
     }
 
     @Test
     public void should_substituteExpressions_when_expressionIsInInputMappingValue() throws Exception {
         DelegateExecution execution = initExpressionResolverTest("expression-in-mapping-input-value.json",
-                    "Process_expressionMappingInputValue");
+            "Process_expressionMappingInputValue");
 
         Map<String, Object> inputVariables = variablesMappingProvider.calculateInputVariables(execution);
 
         assertThat(inputVariables).isNotEmpty();
         assertThat(inputVariables.entrySet()).extracting(Map.Entry::getKey, Map.Entry::getValue)
-                                             .containsOnly(tuple("process_constant_1", "constant_1_value"),
-                                                           tuple("process_constant_2", "constant_2_value"),
-                                                           tuple("task_input_variable_name_1", "variable_value_1"),
-                                                           tuple("task_input_variable_name_2", "variable_value_1"));
+            .containsOnly(tuple("process_constant_1", "constant_1_value"),
+                tuple("process_constant_2", "constant_2_value"),
+                tuple("task_input_variable_name_1", "variable_value_1"),
+                tuple("task_input_variable_name_2", "variable_value_1"));
     }
 
     @Test
     public void should_notSubstituteExpressions_when_expressionIsInInputMappingVariable() throws Exception {
         DelegateExecution execution = initExpressionResolverTest("expression-in-mapping-input-variable.json",
-                                                "Process_expressionMappingInputVariable");
+            "Process_expressionMappingInputVariable");
 
         Map<String, Object> inputVariables = variablesMappingProvider.calculateInputVariables(execution);
 
         assertThat(inputVariables).isNotEmpty();
         assertThat(inputVariables.entrySet()).extracting(Map.Entry::getKey, Map.Entry::getValue)
-                                             .containsOnly(tuple("process_constant_1", "constant_1_value"),
-                                                           tuple("process_constant_2", "constant_2_value"),
-                                                           tuple("task_input_variable_name_2", "static_value_1"));
+            .containsOnly(tuple("process_constant_1", "constant_1_value"),
+                tuple("process_constant_2", "constant_2_value"),
+                tuple("task_input_variable_name_2", "static_value_1"));
     }
 
     @Test
@@ -358,8 +358,8 @@ public class ExtensionsVariablesMappingProviderTest {
 
         assertThat(outputVariables).isNotEmpty();
         assertThat(outputVariables.entrySet()).extracting(Map.Entry::getKey, Map.Entry::getValue)
-                                              .containsOnly(tuple("process_variable_3", "variable_value_1"),
-                                                            tuple("process_variable_4", "static_value_2"));
+            .containsOnly(tuple("process_variable_3", "variable_value_1"),
+                tuple("process_variable_4", "static_value_2"));
     }
 
     @Test
@@ -373,11 +373,11 @@ public class ExtensionsVariablesMappingProviderTest {
         );
 
         Map<String, Object> outputVariables = variablesMappingProvider.calculateOutPutVariables(buildMappingExecutionContext(execution),
-                                                                                                taskVariables);
+            taskVariables);
 
         assertThat(outputVariables).isNotEmpty();
         assertThat(outputVariables.entrySet()).extracting(Map.Entry::getKey, Map.Entry::getValue)
-                                              .containsOnly(tuple("process_variable_4", "static_value_2"));
+            .containsOnly(tuple("process_variable_4", "static_value_2"));
     }
 
     @Test
@@ -394,10 +394,10 @@ public class ExtensionsVariablesMappingProviderTest {
         Map<String, Object> inputVariables = variablesMappingProvider.calculateInputVariables(execution);
         assertThat(inputVariables).isNotEmpty();
         assertThat(inputVariables.entrySet()).extracting(Map.Entry::getKey, Map.Entry::getValue)
-                                             .containsOnly(tuple("process_constant_1", "constant_1_value"),
-                                                           tuple("process_constant_2", "constant_2_value"),
-                                                           tuple("task_input_variable_name_1", var1),
-                                                           tuple("task_input_variable_name_2", "static_value_1"));
+            .containsOnly(tuple("process_constant_1", "constant_1_value"),
+                tuple("process_constant_2", "constant_2_value"),
+                tuple("task_input_variable_name_1", var1),
+                tuple("task_input_variable_name_2", "static_value_1"));
     }
 
     @Test
@@ -406,11 +406,11 @@ public class ExtensionsVariablesMappingProviderTest {
             "Process_expressionMappingOutputValue");
 
         assertThatExceptionOfType(ActivitiIllegalArgumentException.class)
-            .isThrownBy(() ->  variablesMappingProvider.calculateOutPutVariables(buildMappingExecutionContext(execution),
-                                                          map(
-                                                              "task_input_variable_name_1", "variable_value_1",
-                                                              "task_input_variable_name_2", "${expression}"
-                                                          )));
+            .isThrownBy(() -> variablesMappingProvider.calculateOutPutVariables(buildMappingExecutionContext(execution),
+                map(
+                    "task_input_variable_name_1", "variable_value_1",
+                    "task_input_variable_name_2", "${expression}"
+                )));
     }
 
     @Test
@@ -419,7 +419,7 @@ public class ExtensionsVariablesMappingProviderTest {
             "Process_expressionMappingOutputValue");
 
         Map<String, Object> outputMapping = variablesMappingProvider.calculateOutPutVariables(buildMappingExecutionContext(execution),
-                                                                                              null);
+            null);
 
         assertThat(outputMapping).containsOnly(Map.entry("process_variable_4", "${task_input_variable_name_2}"));
     }

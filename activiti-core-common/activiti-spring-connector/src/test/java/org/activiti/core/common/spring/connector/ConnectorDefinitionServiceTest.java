@@ -43,8 +43,8 @@ public class ConnectorDefinitionServiceTest {
     @BeforeEach
     public void setUp() {
         connectorDefinitionService = new ConnectorDefinitionService("/connectors",
-                                                                       objectMapper,
-                                                                       resourceLoader);
+            objectMapper,
+            resourceLoader);
     }
 
     @Test
@@ -55,13 +55,13 @@ public class ConnectorDefinitionServiceTest {
 
         //when
         Throwable throwable = catchThrowable(
-                () -> connectorDefinitionService.validate(singletonList(connectorDefinition))
+            () -> connectorDefinitionService.validate(singletonList(connectorDefinition))
         );
 
         //then
         assertThat(throwable)
-                .isInstanceOf(IllegalStateException.class)
-                .hasMessage("connectorDefinition name cannot be null or empty");
+            .isInstanceOf(IllegalStateException.class)
+            .hasMessage("connectorDefinition name cannot be null or empty");
     }
 
     @Test
@@ -72,13 +72,13 @@ public class ConnectorDefinitionServiceTest {
 
         //when
         Throwable throwable = catchThrowable(
-                () -> connectorDefinitionService.validate(singletonList(connectorDefinition))
+            () -> connectorDefinitionService.validate(singletonList(connectorDefinition))
         );
 
         //then
         assertThat(throwable)
-                .isInstanceOf(IllegalStateException.class)
-                .hasMessage("connectorDefinition name cannot be null or empty");
+            .isInstanceOf(IllegalStateException.class)
+            .hasMessage("connectorDefinition name cannot be null or empty");
     }
 
     @Test
@@ -89,13 +89,13 @@ public class ConnectorDefinitionServiceTest {
 
         //when
         Throwable throwable = catchThrowable(
-                () -> connectorDefinitionService.validate(singletonList(connectorDefinition))
+            () -> connectorDefinitionService.validate(singletonList(connectorDefinition))
         );
 
         //then
         assertThat(throwable)
-                .isInstanceOf(IllegalStateException.class)
-                .hasMessage("connectorDefinition name cannot have '.' character");
+            .isInstanceOf(IllegalStateException.class)
+            .hasMessage("connectorDefinition name cannot have '.' character");
     }
 
     @Test
@@ -112,8 +112,8 @@ public class ConnectorDefinitionServiceTest {
 
         //then
         assertThat(throwable)
-                .isInstanceOf(IllegalStateException.class)
-                .hasMessage("More than one connectorDefinition with name '" + connectorDefinition.getName() + "' was found. Names must be unique.");
+            .isInstanceOf(IllegalStateException.class)
+            .hasMessage("More than one connectorDefinition with name '" + connectorDefinition.getName() + "' was found. Names must be unique.");
     }
 
 }

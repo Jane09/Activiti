@@ -15,11 +15,11 @@
  */
 package org.activiti.runtime.api.event.impl;
 
-import java.util.Optional;
-
 import org.activiti.api.process.model.events.BPMNErrorReceivedEvent;
 import org.activiti.api.runtime.event.impl.BPMNErrorReceivedEventImpl;
 import org.activiti.engine.delegate.event.ActivitiErrorEvent;
+
+import java.util.Optional;
 
 public class ToErrorReceivedConverter implements EventConverter<BPMNErrorReceivedEvent, ActivitiErrorEvent> {
 

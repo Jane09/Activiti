@@ -15,10 +15,10 @@
  */
 package org.activiti.api.task.model.builders;
 
+import org.activiti.api.task.model.payloads.GetTasksPayload;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.activiti.api.task.model.payloads.GetTasksPayload;
 
 public class GetTasksPayloadBuilder {
 
@@ -57,8 +57,8 @@ public class GetTasksPayloadBuilder {
 
     public GetTasksPayload build() {
         return new GetTasksPayload(assignee,
-                                   groups,
-                                   processInstanceId,
-                                   parentTaskId);
+            groups,
+            processInstanceId,
+            parentTaskId);
     }
 }

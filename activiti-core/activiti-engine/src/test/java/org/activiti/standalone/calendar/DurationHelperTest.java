@@ -17,7 +17,11 @@
 
 package org.activiti.standalone.calendar;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.activiti.engine.impl.calendar.DurationHelper;
+import org.activiti.engine.impl.util.DefaultClockImpl;
+import org.activiti.engine.runtime.Clock;
+import org.apache.commons.lang3.time.DateUtils;
+import org.junit.Test;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -25,11 +29,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
-import org.activiti.engine.impl.calendar.DurationHelper;
-import org.activiti.engine.impl.util.DefaultClockImpl;
-import org.activiti.engine.runtime.Clock;
-import org.apache.commons.lang3.time.DateUtils;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class DurationHelperTest {
 

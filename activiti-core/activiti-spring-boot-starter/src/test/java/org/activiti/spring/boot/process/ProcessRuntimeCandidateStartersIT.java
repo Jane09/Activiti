@@ -49,7 +49,7 @@ public class ProcessRuntimeCandidateStartersIT {
     private ProcessCleanUpUtil processCleanUpUtil;
 
     @AfterEach
-    public void cleanUp(){
+    public void cleanUp() {
         processCleanUpUtil.cleanUpWithAdmin();
     }
 
@@ -58,7 +58,7 @@ public class ProcessRuntimeCandidateStartersIT {
         loginAsCandidateStarterUser();
 
         Page<ProcessDefinition> processDefinitionPage = processRuntime.processDefinitions(Pageable.of(0,
-                                                                                                      50));
+            50));
         assertThat(processDefinitionPage.getContent()).isNotNull();
         assertThat(processDefinitionPage.getContent()).hasSize(1);
         assertThat(processDefinitionPage.getContent().get(0).getKey()).isEqualTo(RESTRICTED_PROCESS_DEFINITION_KEY);

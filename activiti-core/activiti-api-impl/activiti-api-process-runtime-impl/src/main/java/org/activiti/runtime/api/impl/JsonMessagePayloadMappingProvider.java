@@ -15,15 +15,15 @@
  */
 package org.activiti.runtime.api.impl;
 
-import java.util.Map;
-import java.util.Optional;
-
 import org.activiti.bpmn.model.Event;
 import org.activiti.bpmn.model.MessageEventDefinition;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.impl.bpmn.behavior.VariablesCalculator;
 import org.activiti.engine.impl.delegate.MessagePayloadMappingProvider;
 import org.activiti.engine.impl.el.ExpressionManager;
+
+import java.util.Map;
+import java.util.Optional;
 
 public class JsonMessagePayloadMappingProvider implements MessagePayloadMappingProvider {
 
@@ -44,7 +44,7 @@ public class JsonMessagePayloadMappingProvider implements MessagePayloadMappingP
 
     public Optional<Map<String, Object>> getMessagePayload(DelegateExecution execution) {
         return Optional.of(variablesCalculator.calculateInputVariables(execution))
-                       .filter(payload -> !payload.isEmpty());
+            .filter(payload -> !payload.isEmpty());
     }
 
     public Event getBpmnEvent() {

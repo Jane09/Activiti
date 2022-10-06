@@ -23,7 +23,7 @@ import org.activiti.engine.impl.persistence.entity.EventSubscriptionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 
 /**
-
+ *
  */
 public class MessageEventHandler extends AbstractEventHandler {
 
@@ -49,16 +49,16 @@ public class MessageEventHandler extends AbstractEventHandler {
             String correlationKey = eventSubscription.getConfiguration();
 
             commandContext.getProcessEngineConfiguration()
-                          .getEventDispatcher()
-                          .dispatchEvent(
-                                         ActivitiEventBuilder.createMessageReceivedEvent(execution,
-                                                                                         messageName,
-                                                                                         correlationKey,
-                                                                                         payload));
+                .getEventDispatcher()
+                .dispatchEvent(
+                    ActivitiEventBuilder.createMessageReceivedEvent(execution,
+                        messageName,
+                        correlationKey,
+                        payload));
         }
 
         Object variables = messageEventVariableMappingProvider.apply(payload,
-                                                                     eventSubscription);
+            eventSubscription);
 
         super.handleEvent(eventSubscription, variables, commandContext);
     }

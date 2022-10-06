@@ -40,11 +40,11 @@ public class ProcessCandidateStarterGroupRemovedListenerDelegate implements Acti
     public void onEvent(ActivitiEvent event) {
         if (event instanceof ActivitiEntityEvent) {
             processCandidateStarterGroupRemovedEventConverter.from((ActivitiEntityEvent) event)
-                    .ifPresent(convertedEvent -> {
-                        for (ProcessRuntimeEventListener<ProcessCandidateStarterGroupRemovedEvent> listener : listeners ) {
-                            listener.onEvent(convertedEvent);
-                        }
-                    });
+                .ifPresent(convertedEvent -> {
+                    for (ProcessRuntimeEventListener<ProcessCandidateStarterGroupRemovedEvent> listener : listeners) {
+                        listener.onEvent(convertedEvent);
+                    }
+                });
         }
     }
 

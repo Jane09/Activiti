@@ -39,7 +39,7 @@ public class ToProcessResumedConverter implements EventConverter<ProcessResumedE
         ProcessResumedEventImpl event = null;
         if (isProcessInstanceEntity(entity)) {
             event = new ProcessResumedEventImpl(processInstanceConverter.from(((ExecutionEntity)
-                    entity).getProcessInstance()));
+                entity).getProcessInstance()));
         }
         return Optional.ofNullable(event);
     }

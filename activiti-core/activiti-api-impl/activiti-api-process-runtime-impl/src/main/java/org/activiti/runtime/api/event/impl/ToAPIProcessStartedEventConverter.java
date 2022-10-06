@@ -33,9 +33,9 @@ public class ToAPIProcessStartedEventConverter implements EventConverter<Process
     @Override
     public Optional<ProcessStartedEvent> from(ActivitiProcessStartedEvent internalEvent) {
         ExecutionEntity entity = (ExecutionEntity)
-                internalEvent.getEntity();
+            internalEvent.getEntity();
         ProcessStartedEventImpl processStartedEvent = new ProcessStartedEventImpl(
-                processInstanceConverter.from(entity.getProcessInstance()));
+            processInstanceConverter.from(entity.getProcessInstance()));
         processStartedEvent.setNestedProcessDefinitionId(internalEvent.getNestedProcessDefinitionId());
         processStartedEvent.setNestedProcessInstanceId(internalEvent.getNestedProcessInstanceId());
         return Optional.of(processStartedEvent);

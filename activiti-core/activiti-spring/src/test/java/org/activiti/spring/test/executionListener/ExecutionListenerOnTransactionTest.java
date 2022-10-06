@@ -16,12 +16,6 @@
 
 package org.activiti.spring.test.executionListener;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.impl.history.HistoryLevel;
 import org.activiti.engine.runtime.ProcessInstance;
@@ -29,8 +23,14 @@ import org.activiti.engine.test.Deployment;
 import org.activiti.spring.impl.test.SpringActivitiTestCase;
 import org.springframework.test.context.ContextConfiguration;
 
-/**
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+/**
+ *
  */
 @ContextConfiguration("classpath:org/activiti/spring/test/executionListener/TransactionDependentListenerTest-context.xml")
 public class ExecutionListenerOnTransactionTest extends SpringActivitiTestCase {
@@ -39,7 +39,7 @@ public class ExecutionListenerOnTransactionTest extends SpringActivitiTestCase {
         List<org.activiti.engine.repository.Deployment> deployments = repositoryService.createDeploymentQuery().list();
         for (org.activiti.engine.repository.Deployment deployment : deployments) {
             repositoryService.deleteDeployment(deployment.getId(),
-                                               true);
+                true);
         }
     }
 
@@ -55,16 +55,16 @@ public class ExecutionListenerOnTransactionTest extends SpringActivitiTestCase {
 
         Map<String, Object> variables = new HashMap<>();
         variables.put("serviceTask1",
-                      false);
+            false);
         variables.put("serviceTask2",
-                      false);
+            false);
         variables.put("serviceTask3",
-                      true);
+            true);
 
         processEngineConfiguration.setAsyncExecutorActivate(false);
 
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("transactionDependentExecutionListenerProcess",
-                                                                                   variables);
+            variables);
 
         // execute the only job that should be there 1 time
         try {
@@ -94,16 +94,16 @@ public class ExecutionListenerOnTransactionTest extends SpringActivitiTestCase {
 
         Map<String, Object> variables = new HashMap<>();
         variables.put("serviceTask1",
-                      false);
+            false);
         variables.put("serviceTask2",
-                      false);
+            false);
         variables.put("serviceTask3",
-                      true);
+            true);
 
         processEngineConfiguration.setAsyncExecutorActivate(false);
 
         runtimeService.startProcessInstanceByKey("transactionDependentExecutionListenerProcess",
-                                                 variables);
+            variables);
 
         // execute the only job that should be there 1 time
         try {

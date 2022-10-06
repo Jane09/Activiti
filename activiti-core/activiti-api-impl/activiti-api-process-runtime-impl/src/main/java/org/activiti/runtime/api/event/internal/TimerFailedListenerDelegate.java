@@ -38,11 +38,11 @@ public class TimerFailedListenerDelegate implements ActivitiEventListener {
     @Override
     public void onEvent(ActivitiEvent event) {
         converter.from(event)
-                .ifPresent(convertedEvent -> {
-                    for (BPMNElementEventListener<BPMNTimerFailedEvent> listener : processRuntimeEventListeners) {
-                        listener.onEvent(convertedEvent);
-                    }
-                });
+            .ifPresent(convertedEvent -> {
+                for (BPMNElementEventListener<BPMNTimerFailedEvent> listener : processRuntimeEventListeners) {
+                    listener.onEvent(convertedEvent);
+                }
+            });
     }
 
     @Override

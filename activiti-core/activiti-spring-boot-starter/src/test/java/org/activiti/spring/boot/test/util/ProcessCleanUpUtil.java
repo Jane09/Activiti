@@ -36,14 +36,14 @@ public class ProcessCleanUpUtil {
     public void cleanUpWithAdmin() {
         securityUtil.logInAs("admin");
         Page<ProcessInstance> processes = processAdminRuntime.processInstances(Pageable.of(0,
-                50));
+            50));
         for (ProcessInstance processInstance : processes.getContent()) {
             if (processInstance.getParentId() == null) {
                 processAdminRuntime.delete(ProcessPayloadBuilder
-                                                   .delete()
-                                                   .withProcessInstance(processInstance)
-                                                   .withReason("test clean up")
-                                                   .build());
+                    .delete()
+                    .withProcessInstance(processInstance)
+                    .withReason("test clean up")
+                    .build());
             }
         }
     }

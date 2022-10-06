@@ -15,8 +15,6 @@
  */
 package org.activiti.spring.conformance.set3;
 
-import java.util.List;
-
 import org.activiti.api.process.model.ProcessDefinition;
 import org.activiti.api.process.runtime.ProcessRuntime;
 import org.activiti.api.process.runtime.conf.ProcessRuntimeConfiguration;
@@ -28,6 +26,8 @@ import org.activiti.spring.conformance.util.security.SecurityUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -65,9 +65,9 @@ public class ConformanceBasicProcessRuntimeTest {
 
         List<ProcessDefinition> processDefinitions = processDefinitionPage.getContent();
         assertThat(processDefinitions).extracting(ProcessDefinition::getName).contains(
-                "UserTask Assignee Followed By Group1",
-                "UserTask Candidate Group",
-                "UserTask Candidate Group1 Followed by Group2"
+            "UserTask Assignee Followed By Group1",
+            "UserTask Candidate Group",
+            "UserTask Candidate Group1 Followed by Group2"
 
         );
 
@@ -81,16 +81,14 @@ public class ConformanceBasicProcessRuntimeTest {
 
         List<ProcessDefinition> processDefinitions = processDefinitionPage.getContent();
         assertThat(processDefinitions).extracting(ProcessDefinition::getName).contains(
-                "UserTask Assignee Followed By Group1",
-                "UserTask Candidate Group",
-                "UserTask Candidate Group1 Followed by Group2"
+            "UserTask Assignee Followed By Group1",
+            "UserTask Candidate Group",
+            "UserTask Candidate Group1 Followed by Group2"
 
         );
 
 
     }
-
-
 
 
 }

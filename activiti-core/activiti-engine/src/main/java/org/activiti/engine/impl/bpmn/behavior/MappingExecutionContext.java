@@ -15,8 +15,9 @@
  */
 package org.activiti.engine.impl.bpmn.behavior;
 
-import java.util.Objects;
 import org.activiti.engine.delegate.DelegateExecution;
+
+import java.util.Objects;
 
 public class MappingExecutionContext {
 
@@ -59,7 +60,7 @@ public class MappingExecutionContext {
     public static MappingExecutionContext buildMappingExecutionContext(String processDefinitionId,
                                                                        String activityId) {
         return new MappingExecutionContext(processDefinitionId,
-                activityId);
+            activityId);
     }
 
     @Override
@@ -72,14 +73,14 @@ public class MappingExecutionContext {
         }
         MappingExecutionContext that = (MappingExecutionContext) o;
         return Objects.equals(processDefinitionId,
-                that.processDefinitionId) &&
-                Objects.equals(activityId,
-                        that.activityId);
+            that.processDefinitionId) &&
+            Objects.equals(activityId,
+                that.activityId);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(processDefinitionId,
-                activityId);
+            activityId);
     }
 }

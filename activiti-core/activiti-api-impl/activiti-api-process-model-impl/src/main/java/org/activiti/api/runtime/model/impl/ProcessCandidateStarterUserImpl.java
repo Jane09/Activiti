@@ -37,7 +37,7 @@ public class ProcessCandidateStarterUserImpl extends ProcessCandidateStarterImpl
         if (o == null || getClass() != o.getClass()) return false;
         ProcessCandidateStarterUserImpl that = (ProcessCandidateStarterUserImpl) o;
         return Objects.equals(userId, that.userId) &&
-                Objects.equals(getProcessDefinitionId(), that.getProcessDefinitionId());
+            Objects.equals(getProcessDefinitionId(), that.getProcessDefinitionId());
     }
 
     @Override

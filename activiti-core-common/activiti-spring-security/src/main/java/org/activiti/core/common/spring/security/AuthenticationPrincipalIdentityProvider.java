@@ -28,15 +28,15 @@ public class AuthenticationPrincipalIdentityProvider implements PrincipalIdentit
     @Override
     public String getUserId(Principal principal) {
         return Optional.of(principal)
-                       .filter(Authentication.class::isInstance)
-                       .map(Authentication.class::cast)
-                       .map(this::getUserId)
-                       .orElseThrow(this::securityException);
+            .filter(Authentication.class::isInstance)
+            .map(Authentication.class::cast)
+            .map(this::getUserId)
+            .orElseThrow(this::securityException);
     }
 
     protected String getUserId(Authentication authentication) {
         return Optional.ofNullable(authentication.getName())
-                       .orElseGet(this::getAnonymousUserId);
+            .orElseGet(this::getAnonymousUserId);
     }
 
     protected String getAnonymousUserId() {

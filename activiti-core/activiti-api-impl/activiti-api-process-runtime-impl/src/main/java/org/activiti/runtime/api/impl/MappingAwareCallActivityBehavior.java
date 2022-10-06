@@ -16,9 +16,6 @@
 
 package org.activiti.runtime.api.impl;
 
-import java.util.List;
-import java.util.Map;
-
 import org.activiti.bpmn.model.MapExceptionEntry;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
@@ -28,20 +25,23 @@ import org.activiti.engine.impl.bpmn.behavior.VariablesPropagator;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.spring.process.ProcessVariablesInitiator;
 
+import java.util.List;
+import java.util.Map;
+
 public class MappingAwareCallActivityBehavior extends CallActivityBehavior {
 
     private VariablesCalculator variablesCalculator;
     private ProcessVariablesInitiator processVariablesInitiator;
 
     public MappingAwareCallActivityBehavior(String processDefinitionKey, List<MapExceptionEntry> mapExceptions,
-        VariablesCalculator variablesCalculator, ProcessVariablesInitiator processVariablesInitiator, VariablesPropagator variablesPropagator) {
+                                            VariablesCalculator variablesCalculator, ProcessVariablesInitiator processVariablesInitiator, VariablesPropagator variablesPropagator) {
         super(processDefinitionKey, mapExceptions, variablesPropagator);
         this.variablesCalculator = variablesCalculator;
         this.processVariablesInitiator = processVariablesInitiator;
     }
 
     public MappingAwareCallActivityBehavior(Expression processDefinitionExpression, List<MapExceptionEntry> mapExceptions,
-        VariablesCalculator variablesCalculator, ProcessVariablesInitiator processVariablesInitiator, VariablesPropagator variablesPropagator) {
+                                            VariablesCalculator variablesCalculator, ProcessVariablesInitiator processVariablesInitiator, VariablesPropagator variablesPropagator) {
         super(processDefinitionExpression, mapExceptions, variablesPropagator);
         this.variablesCalculator = variablesCalculator;
         this.processVariablesInitiator = processVariablesInitiator;

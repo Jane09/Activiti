@@ -16,18 +16,7 @@
 
 package org.activiti.engine.impl.interceptor;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
-import org.activiti.engine.ActivitiEngineAgenda;
-import org.activiti.engine.ActivitiException;
-import org.activiti.engine.ActivitiOptimisticLockingException;
-import org.activiti.engine.ActivitiTaskAlreadyClaimedException;
-import org.activiti.engine.JobNotFoundException;
+import org.activiti.engine.*;
 import org.activiti.engine.delegate.event.ActivitiEventDispatcher;
 import org.activiti.engine.impl.asyncexecutor.JobManager;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
@@ -35,36 +24,12 @@ import org.activiti.engine.impl.db.DbSqlSession;
 import org.activiti.engine.impl.history.HistoryManager;
 import org.activiti.engine.impl.jobexecutor.FailedJobCommandFactory;
 import org.activiti.engine.impl.persistence.cache.EntityCache;
-import org.activiti.engine.impl.persistence.entity.AttachmentEntityManager;
-import org.activiti.engine.impl.persistence.entity.ByteArrayEntityManager;
-import org.activiti.engine.impl.persistence.entity.CommentEntityManager;
-import org.activiti.engine.impl.persistence.entity.DeadLetterJobEntityManager;
-import org.activiti.engine.impl.persistence.entity.DeploymentEntityManager;
-import org.activiti.engine.impl.persistence.entity.EventLogEntryEntityManager;
-import org.activiti.engine.impl.persistence.entity.EventSubscriptionEntityManager;
-import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
-import org.activiti.engine.impl.persistence.entity.ExecutionEntityManager;
-import org.activiti.engine.impl.persistence.entity.HistoricActivityInstanceEntityManager;
-import org.activiti.engine.impl.persistence.entity.HistoricDetailEntityManager;
-import org.activiti.engine.impl.persistence.entity.HistoricIdentityLinkEntityManager;
-import org.activiti.engine.impl.persistence.entity.HistoricProcessInstanceEntityManager;
-import org.activiti.engine.impl.persistence.entity.HistoricTaskInstanceEntityManager;
-import org.activiti.engine.impl.persistence.entity.HistoricVariableInstanceEntityManager;
-import org.activiti.engine.impl.persistence.entity.IdentityLinkEntityManager;
-import org.activiti.engine.impl.persistence.entity.JobEntityManager;
-import org.activiti.engine.impl.persistence.entity.ModelEntityManager;
-import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntityManager;
-import org.activiti.engine.impl.persistence.entity.ProcessDefinitionInfoEntityManager;
-import org.activiti.engine.impl.persistence.entity.PropertyEntityManager;
-import org.activiti.engine.impl.persistence.entity.ResourceEntityManager;
-import org.activiti.engine.impl.persistence.entity.SuspendedJobEntityManager;
-import org.activiti.engine.impl.persistence.entity.TableDataManager;
-import org.activiti.engine.impl.persistence.entity.TaskEntityManager;
-import org.activiti.engine.impl.persistence.entity.TimerJobEntityManager;
-import org.activiti.engine.impl.persistence.entity.VariableInstanceEntityManager;
+import org.activiti.engine.impl.persistence.entity.*;
 import org.activiti.engine.logging.LogMDC;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.*;
 
 public class CommandContext {
 
@@ -145,13 +110,13 @@ public class CommandContext {
         if (exception instanceof JobNotFoundException || exception instanceof ActivitiTaskAlreadyClaimedException) {
             // reduce log level, because this may have been caused because of job deletion due to cancelActiviti="true"
             log.info("Error while closing command context",
-                     exception);
+                exception);
         } else if (exception instanceof ActivitiOptimisticLockingException) {
             // reduce log level, as normally we're not interested in logging this exception
             log.debug("Optimistic locking exception : " + exception);
         } else {
             log.error("Error while closing command context",
-                      exception);
+                exception);
         }
     }
 
@@ -162,7 +127,7 @@ public class CommandContext {
             throw (RuntimeException) exception;
         } else {
             throw new ActivitiException("exception while executing command " + command,
-                                        exception);
+                exception);
         }
     }
 
@@ -263,7 +228,7 @@ public class CommandContext {
             this.exception = exception;
         } else {
             log.error("masked exception in command context. for root cause, see below as it will be rethrown later.",
-                      exception);
+                exception);
             LogMDC.clear();
         }
     }
@@ -274,7 +239,7 @@ public class CommandContext {
             attributes = new HashMap<>(1);
         }
         attributes.put(key,
-                       value);
+            value);
     }
 
     public Object getAttribute(String key) {
@@ -302,7 +267,7 @@ public class CommandContext {
             }
             session = sessionFactory.openSession(this);
             sessions.put(sessionClass,
-                         session);
+                session);
         }
 
         return (T) session;
@@ -437,7 +402,7 @@ public class CommandContext {
     public void addInvolvedExecution(ExecutionEntity executionEntity) {
         if (executionEntity.getId() != null) {
             involvedExecutions.put(executionEntity.getId(),
-                                   executionEntity);
+                executionEntity);
         }
     }
 

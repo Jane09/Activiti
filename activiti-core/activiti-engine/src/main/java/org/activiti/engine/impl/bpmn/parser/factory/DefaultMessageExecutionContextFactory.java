@@ -32,8 +32,8 @@ public class DefaultMessageExecutionContextFactory implements MessageExecutionCo
                                           ExpressionManager expressionManager) {
 
         return new DefaultMessageExecutionContext(messageEventDefinition,
-                                                  expressionManager,
-                                                  messagePayloadMappingProvider);
+            expressionManager,
+            messagePayloadMappingProvider);
     }
 
 }

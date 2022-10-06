@@ -15,10 +15,6 @@
  */
 package org.activiti.spring.boot.process;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.tuple;
-
-import java.util.List;
 import org.activiti.api.model.shared.model.VariableInstance;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.builders.ProcessPayloadBuilder;
@@ -29,6 +25,11 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.tuple;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class ProcessRuntimeMultipleInstancesIT {
@@ -62,13 +63,13 @@ public class ProcessRuntimeMultipleInstancesIT {
         assertThat(processInstance1).isNotNull();
 
         List<VariableInstance> processInstance1Vars = processRuntime.variables(ProcessPayloadBuilder
-                                                                                   .variables()
-                                                                                   .withProcessInstanceId(processInstance1.getId())
-                                                                                   .build());
+            .variables()
+            .withProcessInstanceId(processInstance1.getId())
+            .build());
         assertThat(processInstance1Vars).extracting(VariableInstance::getName,
-                                                    VariableInstance::getValue)
+                VariableInstance::getValue)
             .containsOnly(tuple("name",
-                                "Kermit"));
+                "Kermit"));
 
         ProcessInstance processInstance2 = processRuntime.start(
             ProcessPayloadBuilder
@@ -78,13 +79,13 @@ public class ProcessRuntimeMultipleInstancesIT {
         assertThat(processInstance1).isNotNull();
 
         List<VariableInstance> processInstance2Vars = processRuntime.variables(ProcessPayloadBuilder
-                                                                                   .variables()
-                                                                                   .withProcessInstanceId(processInstance2.getId())
-                                                                                   .build());
+            .variables()
+            .withProcessInstanceId(processInstance2.getId())
+            .build());
         assertThat(processInstance2Vars).extracting(VariableInstance::getName,
-                                                    VariableInstance::getValue)
+                VariableInstance::getValue)
             .containsOnly(tuple("lastName",
-                                "The Frog"));
+                "The Frog"));
 
 
     }

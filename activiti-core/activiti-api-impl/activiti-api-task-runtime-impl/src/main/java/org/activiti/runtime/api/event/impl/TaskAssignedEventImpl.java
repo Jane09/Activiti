@@ -21,7 +21,7 @@ import org.activiti.api.task.model.events.TaskRuntimeEvent;
 import org.activiti.api.task.runtime.events.TaskAssignedEvent;
 
 public class TaskAssignedEventImpl extends RuntimeEventImpl<Task, TaskRuntimeEvent.TaskEvents>
-        implements TaskAssignedEvent {
+    implements TaskAssignedEvent {
 
     public TaskAssignedEventImpl(Task entity) {
         super(entity);

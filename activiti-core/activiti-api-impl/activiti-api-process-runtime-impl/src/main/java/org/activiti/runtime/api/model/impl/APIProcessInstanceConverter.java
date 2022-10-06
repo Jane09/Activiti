@@ -15,13 +15,13 @@
  */
 package org.activiti.runtime.api.model.impl;
 
-import java.util.Objects;
-
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.runtime.model.impl.ProcessInstanceImpl;
 
+import java.util.Objects;
+
 public class APIProcessInstanceConverter extends ListConverter<org.activiti.engine.runtime.ProcessInstance, ProcessInstance>
-        implements ModelConverter<org.activiti.engine.runtime.ProcessInstance, ProcessInstance> {
+    implements ModelConverter<org.activiti.engine.runtime.ProcessInstance, ProcessInstance> {
 
     @Override
     public ProcessInstance from(org.activiti.engine.runtime.ProcessInstance internalProcessInstance) {
@@ -48,7 +48,7 @@ public class APIProcessInstanceConverter extends ListConverter<org.activiti.engi
             return ProcessInstance.ProcessInstanceStatus.SUSPENDED;
         } else if (internalProcessInstance.isEnded()) {
             return ProcessInstance.ProcessInstanceStatus.COMPLETED;
-        }else if(internalProcessInstance.getStartTime() == null){
+        } else if (internalProcessInstance.getStartTime() == null) {
             return ProcessInstance.ProcessInstanceStatus.CREATED;
         }
         return ProcessInstance.ProcessInstanceStatus.RUNNING;

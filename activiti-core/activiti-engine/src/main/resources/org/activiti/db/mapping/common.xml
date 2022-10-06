@@ -20,27 +20,27 @@
 
   <!-- select By Native Query -->
 
-	<sql id="selectByNativeQuery">
-		<if test="resultType == 'LIST_PAGE'">
-			<include refid="org.activiti.engine.db.common.limitBeforeNativeQuerySql"/>
-		</if>
-		${sql}
-		<if test="resultType == 'LIST_PAGE'">
-			${limitAfter}
-		</if>
-	</sql>
+  <sql id="selectByNativeQuery">
+    <if test="resultType == 'LIST_PAGE'">
+      <include refid="org.activiti.engine.db.common.limitBeforeNativeQuerySql"/>
+    </if>
+    ${sql}
+    <if test="resultType == 'LIST_PAGE'">
+      ${limitAfter}
+    </if>
+  </sql>
 
-	<sql id="limitBeforeNativeQuerySql">
-		${limitBefore}
-	</sql>
+  <sql id="limitBeforeNativeQuerySql">
+    ${limitBefore}
+  </sql>
 
-	<sql id="limitBeforeNativeQuerySql" databaseId="db2">
-		${limitBeforeNativeQuery}
-	</sql>
+  <sql id="limitBeforeNativeQuerySql" databaseId="db2">
+    ${limitBeforeNativeQuery}
+  </sql>
 
-	<sql id="limitBeforeNativeQuerySql" databaseId="mssql">
-		${limitBeforeNativeQuery}
-	</sql>
+  <sql id="limitBeforeNativeQuerySql" databaseId="mssql">
+    ${limitBeforeNativeQuery}
+  </sql>
 
 
 </mapper>

@@ -34,6 +34,6 @@ public class AssignTaskPayloadBuilder {
 
     public AssignTaskPayload build() {
         return new AssignTaskPayload(taskId,
-                                     assignee);
+            assignee);
     }
 }

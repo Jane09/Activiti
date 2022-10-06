@@ -16,25 +16,20 @@
 
 package org.activiti.spring.test.autodeployment;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.zip.ZipInputStream;
-
 import org.activiti.spring.autodeployment.ResourceParentFolderAutoDeploymentStrategy;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.springframework.core.io.Resource;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.zip.ZipInputStream;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
 
 public class ResourceParentFolderAutoDeploymentStrategyTest extends AbstractAutoDeploymentStrategyTest {
 

@@ -6,7 +6,7 @@
   xmlns:sem="http://www.omg.org/spec/BPMN/20100524/MODEL"
   elementFormDefault="qualified">
 
-<import namespace="http://www.omg.org/spec/BPMN/20100524/MODEL" schemaLocation="Semantic.xsd" />
+  <import namespace="http://www.omg.org/spec/BPMN/20100524/MODEL" schemaLocation="Semantic.xsd"/>
 
   <annotation>
     <documentation>
@@ -44,10 +44,10 @@
     </annotation>
     <simpleType>
       <restriction base="string">
-        <enumeration value="none" />
-        <enumeration value="activity" />
-        <enumeration value="audit" />
-        <enumeration value="full" />
+        <enumeration value="none"/>
+        <enumeration value="activity"/>
+        <enumeration value="audit"/>
+        <enumeration value="full"/>
       </restriction>
     </simpleType>
   </attribute>
@@ -93,31 +93,31 @@
     </annotation>
     <complexType>
       <sequence>
-	    <element name="value" minOccurs="0" maxOccurs="unbounded">
-	   	  <annotation>
-		    <documentation>
-		      Defines a (potential) value for the form property.
-		      Especially usedful when using 'enum' as type.
-		    </documentation>
-		  </annotation>
-		  <complexType>
-		    <attribute name="id" type="string">
-			  <annotation>
-			    <documentation>
-					Defines the internal value for the form property value.
-			    </documentation>
-			  </annotation>
-		    </attribute>
-		    <attribute name="name" type="string">
-			  <annotation>
-			    <documentation>
-					Defines the display label for the form property value.
-			    </documentation>
-			  </annotation>
-		    </attribute>
-	      </complexType>
-	    </element>
-	  </sequence>
+        <element name="value" minOccurs="0" maxOccurs="unbounded">
+          <annotation>
+            <documentation>
+              Defines a (potential) value for the form property.
+              Especially usedful when using 'enum' as type.
+            </documentation>
+          </annotation>
+          <complexType>
+            <attribute name="id" type="string">
+              <annotation>
+                <documentation>
+                  Defines the internal value for the form property value.
+                </documentation>
+              </annotation>
+            </attribute>
+            <attribute name="name" type="string">
+              <annotation>
+                <documentation>
+                  Defines the display label for the form property value.
+                </documentation>
+              </annotation>
+            </attribute>
+          </complexType>
+        </element>
+      </sequence>
       <attribute name="id" use="required" type="string">
         <annotation>
           <documentation>
@@ -177,19 +177,19 @@
       </attribute>
       <attribute name="datePattern" type="string">
         <annotation>
-			<documentation>
-				Can be used when type is 'date' and defines how a date should be provided
-				in the form. Any date pattern that is compatible
-				with java.text.SimpleDataFormat is valid.
-			</documentation>
+          <documentation>
+            Can be used when type is 'date' and defines how a date should be provided
+            in the form. Any date pattern that is compatible
+            with java.text.SimpleDataFormat is valid.
+          </documentation>
         </annotation>
       </attribute>
       <attribute name="value" type="tns:tExpression">
         <annotation>
-			<documentation>
-				A literal or an expression that evaluates at runtime to the value for
-				the form property.
-			</documentation>
+          <documentation>
+            A literal or an expression that evaluates at runtime to the value for
+            the form property.
+          </documentation>
         </annotation>
       </attribute>
     </complexType>
@@ -282,12 +282,12 @@
     </annotation>
     <complexType>
       <choice minOccurs="0" maxOccurs="1">
-      	<element name="string" type="string" />
-      	<element name="expression" type="tns:tExpression" />
+        <element name="string" type="string"/>
+        <element name="expression" type="tns:tExpression"/>
       </choice>
       <attribute name="name" type="string" use="required"/>
-      <attribute name="stringValue" type="string" use="optional" />
-      <attribute name="expression" type="tns:tExpression" use="optional" />
+      <attribute name="stringValue" type="string" use="optional"/>
+      <attribute name="expression" type="tns:tExpression" use="optional"/>
     </complexType>
   </element>
 
@@ -365,12 +365,12 @@
   </attribute>
 
   <complexType name="tPotentialStarter">
-	<complexContent>
-		<extension base="sem:tHumanPerformer" />
-	</complexContent>
+    <complexContent>
+      <extension base="sem:tHumanPerformer"/>
+    </complexContent>
   </complexType>
 
-  <element name="potentialStarter" type="string" />
+  <element name="potentialStarter" type="string"/>
 
   <element name="taskListener">
     <annotation>
@@ -381,7 +381,7 @@
     </annotation>
     <complexType>
       <sequence>
-        <element ref="tns:field" minOccurs="0" maxOccurs="unbounded" />
+        <element ref="tns:field" minOccurs="0" maxOccurs="unbounded"/>
       </sequence>
       <attribute name="class" type="string">
         <annotation>
@@ -415,10 +415,10 @@
         </annotation>
         <simpleType>
           <restriction base="string">
-            <enumeration value="create" />
-            <enumeration value="assignment" />
-            <enumeration value="complete" />
-            <enumeration value="delete" />
+            <enumeration value="create"/>
+            <enumeration value="assignment"/>
+            <enumeration value="complete"/>
+            <enumeration value="delete"/>
           </restriction>
         </simpleType>
       </attribute>
@@ -468,9 +468,9 @@
         </annotation>
         <simpleType>
           <restriction base="string">
-            <enumeration value="start" />
-            <enumeration value="end" />
-            <enumeration value="take" />
+            <enumeration value="start"/>
+            <enumeration value="end"/>
+            <enumeration value="take"/>
           </restriction>
         </simpleType>
       </attribute>
@@ -487,7 +487,7 @@
     <complexType>
       <attribute name="source" type="string" use="optional"/>
       <attribute name="sourceExpression" type="tns:tExpression" use="optional"/>
-      <attribute name="target" type="string" use="required" />
+      <attribute name="target" type="string" use="required"/>
     </complexType>
   </element>
   <element name="out">
@@ -500,7 +500,7 @@
     <complexType>
       <attribute name="source" type="string" use="optional"/>
       <attribute name="sourceExpression" type="tns:tExpression" use="optional"/>
-      <attribute name="target" type="string" use="required" />
+      <attribute name="target" type="string" use="required"/>
     </complexType>
   </element>
 

@@ -22,9 +22,9 @@ import static com.fasterxml.jackson.annotation.JsonTypeInfo.As.PROPERTY;
 import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
 
 @JsonTypeInfo(
-        use = NAME,
-        include = PROPERTY,
-        property = "payloadType")
+    use = NAME,
+    include = PROPERTY,
+    property = "payloadType")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PayloadMixIn {
 

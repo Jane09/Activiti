@@ -15,14 +15,14 @@
  */
 package org.activiti.runtime.api.event.internal;
 
-import java.util.List;
-
 import org.activiti.api.process.model.events.BPMNMessageSentEvent;
 import org.activiti.api.process.runtime.events.listener.BPMNElementEventListener;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventListener;
 import org.activiti.engine.delegate.event.ActivitiMessageEvent;
 import org.activiti.runtime.api.event.impl.ToMessageSentConverter;
+
+import java.util.List;
 
 public class MessageSentListenerDelegate implements ActivitiEventListener {
 
@@ -40,11 +40,11 @@ public class MessageSentListenerDelegate implements ActivitiEventListener {
     public void onEvent(ActivitiEvent event) {
         if (event instanceof ActivitiMessageEvent) {
             converter.from((ActivitiMessageEvent) event)
-                    .ifPresent(convertedEvent -> {
-                        for (BPMNElementEventListener<BPMNMessageSentEvent> listener : processRuntimeEventListeners) {
-                            listener.onEvent(convertedEvent);
-                        }
-                    });
+                .ifPresent(convertedEvent -> {
+                    for (BPMNElementEventListener<BPMNMessageSentEvent> listener : processRuntimeEventListeners) {
+                        listener.onEvent(convertedEvent);
+                    }
+                });
         }
     }
 

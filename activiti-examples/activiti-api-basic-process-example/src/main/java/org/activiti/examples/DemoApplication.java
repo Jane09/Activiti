@@ -15,11 +15,6 @@
  */
 package org.activiti.examples;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
-import java.util.Random;
-
 import org.activiti.api.process.model.ProcessDefinition;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.builders.ProcessPayloadBuilder;
@@ -38,6 +33,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
+import java.util.Random;
 
 @SpringBootApplication
 @EnableScheduling
@@ -80,11 +80,11 @@ public class DemoApplication implements CommandLineRunner {
         logger.info("> Processing content: " + content + " at " + formatter.format(new Date()));
 
         ProcessInstance processInstance = processRuntime.start(ProcessPayloadBuilder
-                .start()
-                .withProcessDefinitionKey("categorizeProcess")
-                .withName("Processing Content: " + content)
-                .withVariable("content", content)
-                .build());
+            .start()
+            .withProcessDefinitionKey("categorizeProcess")
+            .withName("Processing Content: " + content)
+            .withVariable("content", content)
+            .build());
         logger.info(">>> Created Process Instance: " + processInstance);
 
 
@@ -99,11 +99,11 @@ public class DemoApplication implements CommandLineRunner {
             if (contentToProcess.contains("activiti")) {
                 logger.info("> Approving content: " + contentToProcess);
                 integrationContext.addOutBoundVariable("approved",
-                        true);
+                    true);
             } else {
                 logger.info("> Discarding content: " + contentToProcess);
                 integrationContext.addOutBoundVariable("approved",
-                        false);
+                    false);
             }
             return integrationContext;
         };
@@ -115,7 +115,7 @@ public class DemoApplication implements CommandLineRunner {
             String contentToTag = (String) integrationContext.getInBoundVariables().get("content");
             contentToTag += " :) ";
             integrationContext.addOutBoundVariable("content",
-                    contentToTag);
+                contentToTag);
             logger.info("Final Content: " + contentToTag);
             return integrationContext;
         };
@@ -127,7 +127,7 @@ public class DemoApplication implements CommandLineRunner {
             String contentToDiscard = (String) integrationContext.getInBoundVariables().get("content");
             contentToDiscard += " :( ";
             integrationContext.addOutBoundVariable("content",
-                    contentToDiscard);
+                contentToDiscard);
             logger.info("Final Content: " + contentToDiscard);
             return integrationContext;
         };
@@ -136,13 +136,13 @@ public class DemoApplication implements CommandLineRunner {
     @Bean
     public ProcessRuntimeEventListener<ProcessCompletedEvent> processCompletedListener() {
         return processCompleted -> logger.info(">>> Process Completed: '"
-                + processCompleted.getEntity().getName() +
-                "' We can send a notification to the initiator: " + processCompleted.getEntity().getInitiator());
+            + processCompleted.getEntity().getName() +
+            "' We can send a notification to the initiator: " + processCompleted.getEntity().getInitiator());
     }
 
     private String pickRandomString() {
         String[] texts = {"hello from london", "Hi there from activiti!", "all good news over here.", "I've tweeted about activiti today.",
-                "other boring projects.", "activiti cloud - Cloud Native Java BPM"};
+            "other boring projects.", "activiti cloud - Cloud Native Java BPM"};
         return texts[new Random().nextInt(texts.length)];
     }
 

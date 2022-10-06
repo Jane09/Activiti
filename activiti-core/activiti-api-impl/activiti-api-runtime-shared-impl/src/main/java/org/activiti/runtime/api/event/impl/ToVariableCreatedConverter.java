@@ -27,10 +27,10 @@ public class ToVariableCreatedConverter implements EventConverter<VariableCreate
     @Override
     public Optional<VariableCreatedEvent> from(ActivitiVariableEvent internalEvent) {
         VariableInstanceImpl<Object> variableInstance = new VariableInstanceImpl<>(internalEvent.getVariableName(),
-                                                                                   internalEvent.getVariableType().getTypeName(),
-                                                                                   internalEvent.getVariableValue(),
-                                                                                   internalEvent.getProcessInstanceId(),
-                                                                                   internalEvent.getTaskId());
+            internalEvent.getVariableType().getTypeName(),
+            internalEvent.getVariableValue(),
+            internalEvent.getProcessInstanceId(),
+            internalEvent.getTaskId());
         return Optional.of(new VariableCreatedEventImpl(variableInstance, internalEvent.getProcessDefinitionId()));
     }
 }

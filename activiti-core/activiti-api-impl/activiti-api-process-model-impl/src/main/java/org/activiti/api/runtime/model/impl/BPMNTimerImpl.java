@@ -65,8 +65,8 @@ public class BPMNTimerImpl extends BPMNElementImpl implements BPMNTimer {
     @Override
     public String toString() {
         return "BPMNActivityImpl{" +
-                ", elementId='" + getElementId() + '\'' +
-                ", timerPayload='" + (timerPayload != null ? timerPayload.toString() : null) + '\'' +
-                '}';
+            ", elementId='" + getElementId() + '\'' +
+            ", timerPayload='" + (timerPayload != null ? timerPayload.toString() : null) + '\'' +
+            '}';
     }
 }

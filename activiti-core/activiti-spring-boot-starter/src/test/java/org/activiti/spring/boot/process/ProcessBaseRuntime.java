@@ -15,8 +15,6 @@
  */
 package org.activiti.spring.boot.process;
 
-import java.util.List;
-
 import org.activiti.api.model.shared.model.VariableInstance;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.builders.ProcessPayloadBuilder;
@@ -29,11 +27,13 @@ import org.activiti.spring.boot.security.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class ProcessBaseRuntime {
 
     public static final Pageable DEFAULT_PAGEABLE = Pageable.of(0,
-                                                                50);
+        50);
     @Autowired
     private ProcessRuntime processRuntime;
 
@@ -46,13 +46,13 @@ public class ProcessBaseRuntime {
     public ProcessInstance startProcessWithProcessDefinitionKey(String processDefinitionKey) {
         securityUtil.logInAs("user");
         return processRuntime.start(ProcessPayloadBuilder.start()
-        .withProcessDefinitionKey(processDefinitionKey)
-        .build());
+            .withProcessDefinitionKey(processDefinitionKey)
+            .build());
     }
 
     public List<ProcessInstance> getProcessInstances() {
         return processRuntime
-                .processInstances(DEFAULT_PAGEABLE, ProcessPayloadBuilder.processInstances().build()).getContent();
+            .processInstances(DEFAULT_PAGEABLE, ProcessPayloadBuilder.processInstances().build()).getContent();
     }
 
     public List<ProcessInstance> getProcessInstancesAsAdmin() {
@@ -70,7 +70,7 @@ public class ProcessBaseRuntime {
 
     public Page<ProcessInstance> getChildrenProcessInstances(String parentProcessId) {
         return processRuntime.processInstances(DEFAULT_PAGEABLE,
-                                               ProcessPayloadBuilder.subprocesses(parentProcessId));
+            ProcessPayloadBuilder.subprocesses(parentProcessId));
     }
 
     public List<VariableInstance> getProcessVariablesByProcessId(String processId) {

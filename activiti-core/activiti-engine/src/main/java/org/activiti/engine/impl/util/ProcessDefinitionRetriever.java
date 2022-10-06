@@ -26,7 +26,7 @@ public class ProcessDefinitionRetriever {
     private String tenantId;
     private DeploymentManager deploymentCache;
 
-    public ProcessDefinitionRetriever(String tenantId, DeploymentManager deploymentCache){
+    public ProcessDefinitionRetriever(String tenantId, DeploymentManager deploymentCache) {
         this.tenantId = tenantId;
         this.deploymentCache = deploymentCache;
     }
@@ -37,9 +37,9 @@ public class ProcessDefinitionRetriever {
         }
 
         ProcessDefinition processDefinition = this.getProcessDefinitionByProcessDefinitionId(processDefinitionId, deploymentCache);
-        if(processDefinition == null) {
+        if (processDefinition == null) {
             processDefinition = (processDefinitionKey != null && hasNoTenant(tenantId)) ?
-                this.getProcessDefinitionByProcessDefinitionKey(processDefinitionKey, deploymentCache):
+                this.getProcessDefinitionByProcessDefinitionKey(processDefinitionKey, deploymentCache) :
                 this.getProcessDefinitionByProcessDefinitionKeyAndTenantId(processDefinitionKey, tenantId, deploymentCache);
             if (processDefinition == null) {
                 throw new ActivitiObjectNotFoundException("No process definition found for key '" + processDefinitionKey + "' for tenant identifier " + tenantId, ProcessDefinition.class);
@@ -49,7 +49,7 @@ public class ProcessDefinitionRetriever {
         return processDefinition;
     }
 
-    private ProcessDefinition getProcessDefinitionByProcessDefinitionId(String processDefinitionId, DeploymentManager deploymentCache){
+    private ProcessDefinition getProcessDefinitionByProcessDefinitionId(String processDefinitionId, DeploymentManager deploymentCache) {
         ProcessDefinition processDefinition = null;
         if (processDefinitionId != null) {
             processDefinition = deploymentCache.findDeployedProcessDefinitionById(processDefinitionId);
@@ -74,7 +74,7 @@ public class ProcessDefinitionRetriever {
         return processDefinition;
     }
 
-    private boolean hasNoTenant(String tenantId){
+    private boolean hasNoTenant(String tenantId) {
         return tenantId == null || ProcessEngineConfiguration.NO_TENANT_ID.equals(tenantId);
     }
 

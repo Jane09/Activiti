@@ -23,8 +23,8 @@ public class ToActivityConverter {
 
     public BPMNActivity from(ActivitiActivityEvent internalEvent) {
         BPMNActivityImpl activity = new BPMNActivityImpl(internalEvent.getActivityId(),
-                                                             internalEvent.getActivityName(),
-                                                             internalEvent.getActivityType());
+            internalEvent.getActivityName(),
+            internalEvent.getActivityType());
         activity.setProcessDefinitionId(internalEvent.getProcessDefinitionId());
         activity.setProcessInstanceId(internalEvent.getProcessInstanceId());
         activity.setExecutionId(internalEvent.getExecutionId());

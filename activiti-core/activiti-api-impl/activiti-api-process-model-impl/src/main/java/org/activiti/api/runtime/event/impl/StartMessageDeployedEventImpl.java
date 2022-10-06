@@ -21,7 +21,7 @@ import org.activiti.api.process.model.events.MessageDefinitionEvent;
 import org.activiti.api.process.model.events.StartMessageDeployedEvent;
 
 public class StartMessageDeployedEventImpl extends RuntimeEventImpl<StartMessageDeploymentDefinition, MessageDefinitionEvent.MessageDefinitionEvents>
-                                           implements StartMessageDeployedEvent {
+    implements StartMessageDeployedEvent {
 
     private StartMessageDeployedEventImpl(Builder builder) {
         this(builder.entity);
@@ -46,6 +46,7 @@ public class StartMessageDeployedEventImpl extends RuntimeEventImpl<StartMessage
 
     /**
      * Creates a builder to build {@link StartMessageDeployedEventImpl} and initialize it with the given object.
+     *
      * @param startMessageDeployedEventImpl to initialize the builder with
      * @return created builder
      */
@@ -68,19 +69,21 @@ public class StartMessageDeployedEventImpl extends RuntimeEventImpl<StartMessage
         }
 
         /**
-        * Builder method for entity parameter.
-        * @param entity field to set
-        * @return builder
-        */
+         * Builder method for entity parameter.
+         *
+         * @param entity field to set
+         * @return builder
+         */
         public Builder withEntity(StartMessageDeploymentDefinition entity) {
             this.entity = entity;
             return this;
         }
 
         /**
-        * Builder method of the builder.
-        * @return built class
-        */
+         * Builder method of the builder.
+         *
+         * @return built class
+         */
         public StartMessageDeployedEventImpl build() {
             return new StartMessageDeployedEventImpl(this);
         }

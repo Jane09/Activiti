@@ -15,11 +15,12 @@
  */
 package org.activiti.engine.impl.el;
 
-import javax.el.CompositeELResolver;
-import javax.el.ELResolver;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.activiti.core.el.JsonNodeELResolver;
 import org.activiti.engine.impl.context.Context;
+
+import javax.el.CompositeELResolver;
+import javax.el.ELResolver;
 
 /**
  * Defines property resolution behavior on JsonNodes.

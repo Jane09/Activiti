@@ -32,31 +32,29 @@ import javax.persistence.EntityManagerFactory;
  * <p>
  * Must be used when the {@link EntityManagerFactory} is managed by Spring. This implementation will retrieve the {@link EntityManager} bound to the thread by Spring in case a transaction already
  * started.
- *
-
  */
 public class SpringEntityManagerSessionFactory implements SessionFactory {
 
-  protected EntityManagerFactory entityManagerFactory;
-  protected boolean handleTransactions;
-  protected boolean closeEntityManager;
+    protected EntityManagerFactory entityManagerFactory;
+    protected boolean handleTransactions;
+    protected boolean closeEntityManager;
 
-  public SpringEntityManagerSessionFactory(Object entityManagerFactory, boolean handleTransactions, boolean closeEntityManager) {
-    this.entityManagerFactory = (EntityManagerFactory) entityManagerFactory;
-    this.handleTransactions = handleTransactions;
-    this.closeEntityManager = closeEntityManager;
-  }
-
-  public Class<?> getSessionType() {
-    return EntityManagerFactory.class;
-  }
-
-  public Session openSession(CommandContext commandContext) {
-    EntityManager entityManager = EntityManagerFactoryUtils.getTransactionalEntityManager(entityManagerFactory);
-    if (entityManager == null) {
-      return new EntityManagerSessionImpl(entityManagerFactory, handleTransactions, closeEntityManager);
+    public SpringEntityManagerSessionFactory(Object entityManagerFactory, boolean handleTransactions, boolean closeEntityManager) {
+        this.entityManagerFactory = (EntityManagerFactory) entityManagerFactory;
+        this.handleTransactions = handleTransactions;
+        this.closeEntityManager = closeEntityManager;
     }
-    return new EntityManagerSessionImpl(entityManagerFactory, entityManager, false, false);
-  }
+
+    public Class<?> getSessionType() {
+        return EntityManagerFactory.class;
+    }
+
+    public Session openSession(CommandContext commandContext) {
+        EntityManager entityManager = EntityManagerFactoryUtils.getTransactionalEntityManager(entityManagerFactory);
+        if (entityManager == null) {
+            return new EntityManagerSessionImpl(entityManagerFactory, handleTransactions, closeEntityManager);
+        }
+        return new EntityManagerSessionImpl(entityManagerFactory, entityManager, false, false);
+    }
 
 }

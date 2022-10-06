@@ -15,10 +15,10 @@
  */
 package org.activiti.application.deployer;
 
-import java.util.List;
-
 import org.activiti.application.ApplicationContent;
 import org.activiti.application.ApplicationService;
+
+import java.util.List;
 
 public class ApplicationDeployer {
 

@@ -15,8 +15,6 @@
  */
 package org.activiti.spring.conformance.set4;
 
-import java.util.List;
-
 import org.activiti.api.process.model.ProcessDefinition;
 import org.activiti.api.process.runtime.ProcessRuntime;
 import org.activiti.api.process.runtime.conf.ProcessRuntimeConfiguration;
@@ -28,6 +26,8 @@ import org.activiti.spring.conformance.util.security.SecurityUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -65,10 +65,10 @@ public class ConformanceBasicProcessRuntimeTest {
 
         List<ProcessDefinition> processDefinitions = processDefinitionPage.getContent();
         assertThat(processDefinitions).extracting(ProcessDefinition::getName).contains(
-                "Basic Exclusive Gateway",
-                "Basic Exclusive Gateway Expr Error",
-                "Basic Parallel Gateway",
-                "Basic Parallel Gateway Groups"
+            "Basic Exclusive Gateway",
+            "Basic Exclusive Gateway Expr Error",
+            "Basic Parallel Gateway",
+            "Basic Parallel Gateway Groups"
 
         );
 
@@ -82,17 +82,15 @@ public class ConformanceBasicProcessRuntimeTest {
 
         List<ProcessDefinition> processDefinitions = processDefinitionPage.getContent();
         assertThat(processDefinitions).extracting(ProcessDefinition::getName).contains(
-                "Basic Exclusive Gateway",
-                "Basic Exclusive Gateway Expr Error",
-                "Basic Parallel Gateway",
-                "Basic Parallel Gateway Groups"
+            "Basic Exclusive Gateway",
+            "Basic Exclusive Gateway Expr Error",
+            "Basic Parallel Gateway",
+            "Basic Parallel Gateway Groups"
 
         );
 
 
     }
-
-
 
 
 }

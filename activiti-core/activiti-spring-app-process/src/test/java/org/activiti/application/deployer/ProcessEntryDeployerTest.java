@@ -46,12 +46,12 @@ public class ProcessEntryDeployerTest {
         //given
         ApplicationContent applicationContent = new ApplicationContent();
         FileContent fileContent = new FileContent("process",
-                                              "any".getBytes());
+            "any".getBytes());
         applicationContent.add(new ApplicationEntry("processes",
-                                                    fileContent));
+            fileContent));
 
         DeploymentBuilder deploymentBuilder = mock(DeploymentBuilder.class,
-                                      Answers.RETURNS_SELF);
+            Answers.RETURNS_SELF);
         given(repositoryService.createDeployment()).willReturn(deploymentBuilder);
 
         //when

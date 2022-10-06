@@ -28,7 +28,7 @@ public class AuthenticationPrincipalGroupsProvider implements PrincipalGroupsPro
     private final GrantedAuthoritiesGroupsMapper grantedAuthoritiesGroupsMapper;
 
     public AuthenticationPrincipalGroupsProvider(@NonNull GrantedAuthoritiesResolver grantedAuthoritiesResolver,
-                                                  @NonNull GrantedAuthoritiesGroupsMapper grantedAuthoritiesGroupsMapper) {
+                                                 @NonNull GrantedAuthoritiesGroupsMapper grantedAuthoritiesGroupsMapper) {
         this.grantedAuthoritiesResolver = grantedAuthoritiesResolver;
         this.grantedAuthoritiesGroupsMapper = grantedAuthoritiesGroupsMapper;
     }
@@ -36,9 +36,9 @@ public class AuthenticationPrincipalGroupsProvider implements PrincipalGroupsPro
     @Override
     public List<String> getGroups(@NonNull Principal principal) {
         return Optional.of(principal)
-                       .map(grantedAuthoritiesResolver::getAuthorities)
-                       .map(grantedAuthoritiesGroupsMapper::getGroups)
-                       .orElseThrow(this::securityException);
+            .map(grantedAuthoritiesResolver::getAuthorities)
+            .map(grantedAuthoritiesGroupsMapper::getGroups)
+            .orElseThrow(this::securityException);
     }
 
     protected SecurityException securityException() {

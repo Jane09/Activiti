@@ -28,6 +28,6 @@ public class TaskResult extends Result<Task> {
     public TaskResult(Payload payload,
                       Task entity) {
         super(payload,
-              entity);
+            entity);
     }
 }

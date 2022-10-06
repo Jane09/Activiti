@@ -15,10 +15,6 @@
  */
 package org.activiti.engine.impl.runtime;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
-
 import org.activiti.engine.impl.RuntimeServiceImpl;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.junit.Test;
@@ -26,6 +22,10 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ProcessInstanceBuilderImplTest {

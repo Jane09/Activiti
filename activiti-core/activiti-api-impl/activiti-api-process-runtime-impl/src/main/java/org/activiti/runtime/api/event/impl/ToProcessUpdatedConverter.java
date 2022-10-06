@@ -37,7 +37,7 @@ public class ToProcessUpdatedConverter implements EventConverter<ProcessUpdatedE
         ProcessUpdatedEvent event = null;
         if (isProcessInstanceEntity(internalEvent.getEntity())) {
             event = new ProcessUpdatedEventImpl(processInstanceConverter.from(((ExecutionEntity)
-                    internalEvent.getEntity()).getProcessInstance()));
+                internalEvent.getEntity()).getProcessInstance()));
         }
         return Optional.ofNullable(event);
     }

@@ -53,7 +53,7 @@ public class TaskTemplateDefinition {
     @Override
     public int hashCode() {
         return Objects.hash(assignee,
-                            candidate);
+            candidate);
     }
 
 }

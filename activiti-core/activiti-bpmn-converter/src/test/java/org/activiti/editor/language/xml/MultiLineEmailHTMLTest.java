@@ -15,7 +15,8 @@
  */
 package org.activiti.editor.language.xml;
 
-import org.activiti.bpmn.model.*;
+import org.activiti.bpmn.model.BpmnModel;
+import org.activiti.bpmn.model.ExtensionElement;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -24,7 +25,7 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class MultiLineEmailHTMLTest extends AbstractConverterTest{
+public class MultiLineEmailHTMLTest extends AbstractConverterTest {
 
     @Test
     public void convertXMLToModel() throws Exception {
@@ -46,7 +47,7 @@ public class MultiLineEmailHTMLTest extends AbstractConverterTest{
         return "htmlEmailSplit.bpmn.xml";
     }
 
-    private String getEmailBody(){
+    private String getEmailBody() {
         return "<html>\n" +
             "<body style=\"background-color: #ffffff; padding: 0; margin: 0;\">\n" +
             "<table width=\"100%\" height=\"400\" cellpadding=\"0\" cellspacing=\"0\" style=\"margin:0; padding:0\">\n" +

@@ -15,12 +15,12 @@
  */
 package org.activiti.spring.boot.process.listener;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import org.activiti.api.process.model.events.BPMNSignalReceivedEvent;
 import org.activiti.api.process.runtime.events.listener.BPMNElementEventListener;
 import org.springframework.stereotype.Component;
+
+import java.util.LinkedList;
+import java.util.List;
 
 @Component
 public class DummyBPMNSignalReceivedListener implements BPMNElementEventListener<BPMNSignalReceivedEvent> {
@@ -36,7 +36,7 @@ public class DummyBPMNSignalReceivedListener implements BPMNElementEventListener
         return signalReceivedEvents;
     }
 
-    public void clear(){
+    public void clear() {
         signalReceivedEvents.clear();
     }
 }

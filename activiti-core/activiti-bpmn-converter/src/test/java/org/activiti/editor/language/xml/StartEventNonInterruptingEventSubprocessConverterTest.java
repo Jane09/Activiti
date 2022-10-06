@@ -15,14 +15,14 @@
  */
 package org.activiti.editor.language.xml;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.tuple;
-
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.EventSubProcess;
 import org.activiti.bpmn.model.Message;
 import org.activiti.bpmn.model.StartEvent;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.tuple;
 
 public class StartEventNonInterruptingEventSubprocessConverterTest extends AbstractConverterTest {
 
@@ -43,17 +43,17 @@ public class StartEventNonInterruptingEventSubprocessConverterTest extends Abstr
         Message message = model.getMessage("Message_1");
 
         assertThat(message).isNotNull()
-                           .extracting(Message::getId,
-                                       Message::getName)
-                           .contains("Message_1",
-                                     "eventSubprocessMessage");
+            .extracting(Message::getId,
+                Message::getName)
+            .contains("Message_1",
+                "eventSubprocessMessage");
 
         assertThat(model.getProcessById("process")
-                        .getFlowElements()).filteredOn(EventSubProcess.class::isInstance)
-                                           .flatExtracting("flowElements")
-                                           .filteredOn(StartEvent.class::isInstance)
-                                           .extracting("id", "isInterrupting")
-                                           .contains(tuple("eventProcessStart", false));
+            .getFlowElements()).filteredOn(EventSubProcess.class::isInstance)
+            .flatExtracting("flowElements")
+            .filteredOn(StartEvent.class::isInstance)
+            .extracting("id", "isInterrupting")
+            .contains(tuple("eventProcessStart", false));
 
     }
 

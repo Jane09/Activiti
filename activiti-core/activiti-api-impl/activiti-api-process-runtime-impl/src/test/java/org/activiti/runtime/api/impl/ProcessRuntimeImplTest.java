@@ -57,13 +57,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoInteractions;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class ProcessRuntimeImplTest {
@@ -140,10 +134,10 @@ public class ProcessRuntimeImplTest {
 
 
         UpdateProcessPayload updateProcessPayload = ProcessPayloadBuilder.update()
-                .withProcessInstanceId("processId")
-                .withBusinessKey("businessKey")
-                .withName("name")
-                .build();
+            .withProcessInstanceId("processId")
+            .withBusinessKey("businessKey")
+            .withName("name")
+            .build();
 
         //when
         processRuntime.update(updateProcessPayload);
@@ -168,7 +162,7 @@ public class ProcessRuntimeImplTest {
         deploymentEntity.setId("deploymentId");
 
         given(commandExecutor.execute(any())).willReturn(Arrays.asList(deploymentEntity))
-                                             .willReturn(findProcessDefinitionResult);
+            .willReturn(findProcessDefinitionResult);
         given(securityPoliciesManager.canRead(processDefinitionKey)).willReturn(true);
 
         processRuntime.processDefinition(processDefinitionId);
@@ -244,15 +238,15 @@ public class ProcessRuntimeImplTest {
         processDefinition.setKey("key");
 
         CreateProcessInstancePayload createPayload = ProcessPayloadBuilder.create()
-        .withProcessDefinitionId(processDefinitionId)
+            .withProcessDefinitionId(processDefinitionId)
             .withProcessDefinitionKey("key")
             .withName("test-create")
             .build();
 
         doReturn(processDefinition)
             .when(processRuntime)
-                .getProcessDefinitionAndCheckUserHasRights(createPayload.getProcessDefinitionId(),
-                    createPayload.getProcessDefinitionKey());
+            .getProcessDefinitionAndCheckUserHasRights(createPayload.getProcessDefinitionId(),
+                createPayload.getProcessDefinitionKey());
 
         ProcessInstanceBuilder processInstanceBuilder = mock(ProcessInstanceBuilder.class, Answers.RETURNS_SELF);
         given(runtimeService.createProcessInstanceBuilder()).willReturn(processInstanceBuilder);

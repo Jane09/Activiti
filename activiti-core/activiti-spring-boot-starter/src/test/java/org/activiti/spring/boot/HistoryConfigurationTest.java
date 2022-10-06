@@ -100,7 +100,7 @@ public class HistoryConfigurationTest {
     private SecurityManager securityManager;
 
     @AfterEach
-    public void cleanUp(){
+    public void cleanUp() {
         processCleanUpUtil.cleanUpWithAdmin();
     }
 
@@ -109,25 +109,25 @@ public class HistoryConfigurationTest {
         ApplicationEventPublisher eventPublisher = spy(applicationEventPublisher);
 
         spy(new ProcessRuntimeImpl(repositoryService,
-                     processDefinitionConverter,
-                     runtimeService,
-                     taskService,
-                     securityPoliciesManager,
-                     processInstanceConverter,
-                     variableInstanceConverter,
-                     deploymentConverter,
-                     configuration,
-                     eventPublisher,
-                     processVariablesValidator,
-                     securityManager));
+            processDefinitionConverter,
+            runtimeService,
+            taskService,
+            securityPoliciesManager,
+            processInstanceConverter,
+            variableInstanceConverter,
+            deploymentConverter,
+            configuration,
+            eventPublisher,
+            processVariablesValidator,
+            securityManager));
 
         spy(new ProcessAdminRuntimeImpl(repositoryService,
-                     processDefinitionConverter,
-                     runtimeService,
-                     processInstanceConverter,
-                     variableInstanceConverter,
-                     eventPublisher,
-                     processVariablesValidator));
+            processDefinitionConverter,
+            runtimeService,
+            processInstanceConverter,
+            variableInstanceConverter,
+            eventPublisher,
+            processVariablesValidator));
 
         //Reset test variables
         RuntimeTestConfiguration.processImageConnectorExecuted = false;
@@ -142,10 +142,10 @@ public class HistoryConfigurationTest {
 
         //when
         ProcessInstance categorizeProcess = processRuntime.start(ProcessPayloadBuilder.start()
-                .withProcessDefinitionKey(CATEGORIZE_PROCESS)
-                .withVariable("expectedKey",
-                        true)
-                .build());
+            .withProcessDefinitionKey(CATEGORIZE_PROCESS)
+            .withVariable("expectedKey",
+                true)
+            .build());
 
         assertThat(RuntimeTestConfiguration.completedProcesses).contains(categorizeProcess.getId());
         assertThat(historyService.createHistoricProcessInstanceQuery().processInstanceId(categorizeProcess.getId()).count()).isEqualTo(1);

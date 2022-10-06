@@ -15,10 +15,10 @@
  */
 package org.activiti.spring.resources;
 
+import org.springframework.core.io.Resource;
+
 import java.io.IOException;
 import java.util.List;
-
-import org.springframework.core.io.Resource;
 
 public interface ResourceFinderDescriptor {
 

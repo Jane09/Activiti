@@ -15,13 +15,6 @@
  */
 package org.activiti.spring.process;
 
-import static java.util.Collections.emptyMap;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.impl.bpmn.behavior.MappingExecutionContext;
@@ -31,11 +24,14 @@ import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.util.ProcessDefinitionUtil;
 import org.activiti.engine.impl.util.ProcessInstanceHelper;
 import org.activiti.engine.repository.ProcessDefinition;
-import org.activiti.runtime.api.impl.ExtensionsVariablesMappingProvider;
 import org.activiti.spring.process.model.Extension;
 import org.activiti.spring.process.model.VariableDefinition;
 import org.activiti.spring.process.variable.VariableParsingService;
 import org.activiti.spring.process.variable.VariableValidationService;
+
+import java.util.*;
+
+import static java.util.Collections.emptyMap;
 
 public class ProcessVariablesInitiator extends ProcessInstanceHelper {
 
@@ -67,16 +63,16 @@ public class ProcessVariablesInitiator extends ProcessInstanceHelper {
             processedVariables = processVariables(variables, variableDefinitionMap);
 
             Set<String> missingRequiredVars = checkRequiredVariables(processedVariables,
-                    variableDefinitionMap);
+                variableDefinitionMap);
             if (!missingRequiredVars.isEmpty()) {
                 throw new ActivitiException("Can't start process '" + processDefinition.getKey() + "' without required variables - " + String.join(", ",
-                        missingRequiredVars));
+                    missingRequiredVars));
             }
             Set<String> varsWithMismatchedTypes = validateVariablesAgainstDefinitions(processedVariables,
-                    variableDefinitionMap);
+                variableDefinitionMap);
             if (!varsWithMismatchedTypes.isEmpty()) {
                 throw new ActivitiException("Can't start process '" + processDefinition.getKey() + "' as variables fail type validation - " + String.join(", ",
-                        varsWithMismatchedTypes));
+                    varsWithMismatchedTypes));
             }
         }
 
@@ -89,10 +85,10 @@ public class ProcessVariablesInitiator extends ProcessInstanceHelper {
         if (processExtensionService.hasExtensionsFor(processDefinition)) {
 
             Map<String, Object> calculateOutPutVariables = variablesCalculator.calculateOutPutVariables(MappingExecutionContext.buildMappingExecutionContext(
-                processDefinition.getId(),
-                initialFlowElement.getId()),
+                    processDefinition.getId(),
+                    initialFlowElement.getId()),
                 variables);
-            if(!calculateOutPutVariables.isEmpty()) {
+            if (!calculateOutPutVariables.isEmpty()) {
                 processVariables = calculateOutPutVariables;
             }
 

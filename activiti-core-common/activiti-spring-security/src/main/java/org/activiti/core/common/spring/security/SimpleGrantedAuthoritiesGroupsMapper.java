@@ -21,7 +21,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class SimpleGrantedAuthoritiesGroupsMapper extends AbstractSimpleGrantedAuthoritiesMapper
-                                                  implements GrantedAuthoritiesGroupsMapper {
+    implements GrantedAuthoritiesGroupsMapper {
 
     private final String prefix;
 

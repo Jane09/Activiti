@@ -78,15 +78,15 @@ public class ProcessVariablesTest {
         setVariables();
 
         assertThat(RuntimeTestConfiguration.collectedEvents)
-                .extracting("eventType","entity.name","entity.value")
-                .containsExactly(
-                        tuple(  VariableEvent.VariableEvents.VARIABLE_CREATED,
-                                variableInstanceList.get(0).getName(),
-                                variableInstanceList.get(0).getValue()),
-                        tuple(  VariableEvent.VariableEvents.VARIABLE_CREATED,
-                                variableInstanceList.get(1).getName(),
-                                variableInstanceList.get(1).getValue())
-                );
+            .extracting("eventType", "entity.name", "entity.value")
+            .containsExactly(
+                tuple(VariableEvent.VariableEvents.VARIABLE_CREATED,
+                    variableInstanceList.get(0).getName(),
+                    variableInstanceList.get(0).getValue()),
+                tuple(VariableEvent.VariableEvents.VARIABLE_CREATED,
+                    variableInstanceList.get(1).getName(),
+                    variableInstanceList.get(1).getValue())
+            );
     }
 
     @Test
@@ -103,15 +103,15 @@ public class ProcessVariablesTest {
         assertThat(variableOneRuntime.getTaskId()).isNull();
 
         assertThat(RuntimeTestConfiguration.collectedEvents)
-                .extracting("eventType","entity.name","entity.value")
-                .containsExactly(
-                        tuple(  VariableEvent.VariableEvents.VARIABLE_CREATED,
-                                variableInstanceList.get(0).getName(),
-                                variableInstanceList.get(0).getValue()),
-                        tuple(  VariableEvent.VariableEvents.VARIABLE_CREATED,
-                                variableInstanceList.get(1).getName(),
-                                variableInstanceList.get(1).getValue())
-                );
+            .extracting("eventType", "entity.name", "entity.value")
+            .containsExactly(
+                tuple(VariableEvent.VariableEvents.VARIABLE_CREATED,
+                    variableInstanceList.get(0).getName(),
+                    variableInstanceList.get(0).getValue()),
+                tuple(VariableEvent.VariableEvents.VARIABLE_CREATED,
+                    variableInstanceList.get(1).getName(),
+                    variableInstanceList.get(1).getValue())
+            );
     }
 
     @Test
@@ -126,19 +126,19 @@ public class ProcessVariablesTest {
         assertThat(variableOneRuntime.isTaskVariable()).isFalse();
 
         assertThat(RuntimeTestConfiguration.collectedEvents)
-                .extracting("eventType","entity.name","entity.value")
-                .containsExactly(
-                        tuple(  VariableEvent.VariableEvents.VARIABLE_CREATED,
-                                variableInstanceList.get(0).getName(),
-                                variableInstanceList.get(0).getValue()),
-                        tuple(  VariableEvent.VariableEvents.VARIABLE_CREATED,
-                                variableInstanceList.get(1).getName(),
-                                variableInstanceList.get(1).getValue())
-                );
+            .extracting("eventType", "entity.name", "entity.value")
+            .containsExactly(
+                tuple(VariableEvent.VariableEvents.VARIABLE_CREATED,
+                    variableInstanceList.get(0).getName(),
+                    variableInstanceList.get(0).getValue()),
+                tuple(VariableEvent.VariableEvents.VARIABLE_CREATED,
+                    variableInstanceList.get(1).getName(),
+                    variableInstanceList.get(1).getValue())
+            );
     }
 
     @Test
-    public void shouldGetRightVariableType(){
+    public void shouldGetRightVariableType() {
         securityUtil.logInAs("user1");
 
         startProcess();
@@ -151,15 +151,15 @@ public class ProcessVariablesTest {
         assertThat(variableTwoRuntime.getType()).isEqualTo("integer");
 
         assertThat(RuntimeTestConfiguration.collectedEvents)
-                .extracting("eventType","entity.name","entity.value")
-                .containsExactly(
-                        tuple(  VariableEvent.VariableEvents.VARIABLE_CREATED,
-                                variableInstanceList.get(0).getName(),
-                                variableInstanceList.get(0).getValue()),
-                        tuple(  VariableEvent.VariableEvents.VARIABLE_CREATED,
-                                variableInstanceList.get(1).getName(),
-                                variableInstanceList.get(1).getValue())
-                );
+            .extracting("eventType", "entity.name", "entity.value")
+            .containsExactly(
+                tuple(VariableEvent.VariableEvents.VARIABLE_CREATED,
+                    variableInstanceList.get(0).getName(),
+                    variableInstanceList.get(0).getValue()),
+                tuple(VariableEvent.VariableEvents.VARIABLE_CREATED,
+                    variableInstanceList.get(1).getName(),
+                    variableInstanceList.get(1).getValue())
+            );
     }
 
     @AfterEach
@@ -173,31 +173,31 @@ public class ProcessVariablesTest {
         clearEvents();
     }
 
-    private void startProcess(){
+    private void startProcess() {
         processInstanceId = processRuntime.start(ProcessPayloadBuilder
-                .start()
-                .withProcessDefinitionKey(processKey)
-                .withBusinessKey("my-business-key")
-                .withName("my-process-instance-name")
-                .build()).getId();
+            .start()
+            .withProcessDefinitionKey(processKey)
+            .withBusinessKey("my-business-key")
+            .withName("my-process-instance-name")
+            .build()).getId();
 
         assertThat(RuntimeTestConfiguration.collectedEvents)
-                .extracting(RuntimeEvent::getEventType)
-                .containsExactly(
-                        ProcessRuntimeEvent.ProcessEvents.PROCESS_CREATED,
-                        ProcessRuntimeEvent.ProcessEvents.PROCESS_STARTED,
-                        BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
-                        BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
-                        BPMNSequenceFlowTakenEvent.SequenceFlowEvents.SEQUENCE_FLOW_TAKEN,
-                        BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
-                        TaskRuntimeEvent.TaskEvents.TASK_CREATED,
-                        TaskRuntimeEvent.TaskEvents.TASK_ASSIGNED
-                );
+            .extracting(RuntimeEvent::getEventType)
+            .containsExactly(
+                ProcessRuntimeEvent.ProcessEvents.PROCESS_CREATED,
+                ProcessRuntimeEvent.ProcessEvents.PROCESS_STARTED,
+                BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
+                BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
+                BPMNSequenceFlowTakenEvent.SequenceFlowEvents.SEQUENCE_FLOW_TAKEN,
+                BPMNActivityEvent.ActivityEvents.ACTIVITY_STARTED,
+                TaskRuntimeEvent.TaskEvents.TASK_CREATED,
+                TaskRuntimeEvent.TaskEvents.TASK_ASSIGNED
+            );
 
         clearEvents();
     }
 
-    private void setVariables(){
+    private void setVariables() {
 
         Map<String, Object> variablesMap = new HashMap<>();
         variablesMap.put("one", "variableOne");

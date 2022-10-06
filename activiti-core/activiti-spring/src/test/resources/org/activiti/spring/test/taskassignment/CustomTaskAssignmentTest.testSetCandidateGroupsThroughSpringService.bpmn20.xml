@@ -5,17 +5,17 @@
              xmlns:activiti="http://activiti.org/bpmn"
              targetNamespace="Examples">
 
-    <process id="candidateUsersThroughSpringService">
+  <process id="candidateUsersThroughSpringService">
 
-        <startEvent id="start"/>
-        <sequenceFlow id="flow1" sourceRef="start" targetRef="task"/>
+    <startEvent id="start"/>
+    <sequenceFlow id="flow1" sourceRef="start" targetRef="task"/>
 
-        <userTask id="task" name="Schedule meeting"
-                  activiti:candidateGroups="accountancy, ${fakeLdapService.findManagers(execution, emp)}"/>
-        <sequenceFlow id="flow2" sourceRef="task" targetRef="end"/>
+    <userTask id="task" name="Schedule meeting"
+              activiti:candidateGroups="accountancy, ${fakeLdapService.findManagers(execution, emp)}"/>
+    <sequenceFlow id="flow2" sourceRef="task" targetRef="end"/>
 
-        <endEvent id="end"/>
+    <endEvent id="end"/>
 
-    </process>
+  </process>
 
 </definitions>

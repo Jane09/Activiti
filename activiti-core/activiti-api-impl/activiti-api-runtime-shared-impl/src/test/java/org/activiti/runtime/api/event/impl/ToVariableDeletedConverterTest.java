@@ -15,10 +15,6 @@
  */
 package org.activiti.runtime.api.event.impl;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-
-import java.util.Optional;
 import org.activiti.api.model.shared.event.VariableDeletedEvent;
 import org.activiti.api.model.shared.event.VariableEvent.VariableEvents;
 import org.activiti.api.model.shared.model.VariableInstance;
@@ -27,6 +23,11 @@ import org.activiti.engine.delegate.event.impl.ActivitiVariableEventImpl;
 import org.activiti.engine.impl.variable.BooleanType;
 import org.activiti.engine.impl.variable.VariableType;
 import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 
 class ToVariableDeletedConverterTest {
 

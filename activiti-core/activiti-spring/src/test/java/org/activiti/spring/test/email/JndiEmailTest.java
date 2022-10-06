@@ -15,18 +15,6 @@
  */
 package org.activiti.spring.test.email;
 
-import static java.util.Collections.emptyMap;
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.List;
-import java.util.Properties;
-
-import javax.mail.NoSuchProviderException;
-import javax.mail.Provider;
-import javax.mail.Provider.Type;
-import javax.mail.Session;
-import javax.naming.NamingException;
-
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.test.Deployment;
 import org.activiti.spring.impl.test.SpringActivitiTestCase;
@@ -35,6 +23,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.mock.jndi.SimpleNamingContextBuilder;
 import org.springframework.test.context.ContextConfiguration;
+
+import javax.mail.NoSuchProviderException;
+import javax.mail.Provider;
+import javax.mail.Provider.Type;
+import javax.mail.Session;
+import javax.naming.NamingException;
+import java.util.List;
+import java.util.Properties;
+
+import static java.util.Collections.emptyMap;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ContextConfiguration("classpath:org/activiti/spring/test/email/jndiEmailConfiguration-context.xml")
 public class JndiEmailTest extends SpringActivitiTestCase {
@@ -51,10 +50,10 @@ public class JndiEmailTest extends SpringActivitiTestCase {
         props.put("mail.smtp.provider.version", "0.0.0");
 
         Provider provider = new Provider(Type.TRANSPORT,
-                                         "smtp",
-                                         MockEmailTransport.class.getName(),
-                                         "test",
-                                         "1.0");
+            "smtp",
+            MockEmailTransport.class.getName(),
+            "test",
+            "1.0");
         Session mailSession = Session.getDefaultInstance(props);
         SimpleNamingContextBuilder builder = null;
         try {

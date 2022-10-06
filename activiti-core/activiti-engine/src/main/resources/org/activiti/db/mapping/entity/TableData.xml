@@ -5,8 +5,9 @@
 <mapper namespace="org.activiti.engine.impl.TablePageMap">
 
   <!-- The property passing doesn't seem to work with parameterType='string', so we are forced to use a map here -->
-  <select id="selectTableCount" parameterType="org.activiti.engine.impl.TablePageQueryImpl" resultType="long" >
-    select count(*) from ${tableName}
+  <select id="selectTableCount" parameterType="org.activiti.engine.impl.TablePageQueryImpl" resultType="long">
+    select count(*)
+    from ${tableName}
   </select>
 
   <select id="selectTableData" parameterType="org.activiti.engine.impl.TablePageQueryImpl" resultType="map">

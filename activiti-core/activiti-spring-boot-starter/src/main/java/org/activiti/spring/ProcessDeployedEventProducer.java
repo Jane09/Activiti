@@ -15,12 +15,6 @@
  */
 package org.activiti.spring;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.activiti.api.process.model.ProcessDefinition;
 import org.activiti.api.process.model.events.ProcessDeployedEvent;
 import org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener;
@@ -31,6 +25,12 @@ import org.activiti.engine.RepositoryService;
 import org.activiti.runtime.api.model.impl.APIProcessDefinitionConverter;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.util.StreamUtils;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProcessDeployedEventProducer extends AbstractActivitiSmartLifeCycle {
 

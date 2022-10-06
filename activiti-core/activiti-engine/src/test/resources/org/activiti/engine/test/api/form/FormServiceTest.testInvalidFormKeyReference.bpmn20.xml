@@ -7,7 +7,7 @@
 
   <process id="invalidFormKeyReference">
 
-    <startEvent id="start" activiti:formKey="IDoNotExist" />
+    <startEvent id="start" activiti:formKey="IDoNotExist"/>
 
   </process>
 

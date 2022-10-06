@@ -15,9 +15,6 @@
  */
 package org.activiti.spring.boot;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.io.IOException;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.spring.process.ProcessExtensionService;
@@ -25,6 +22,10 @@ import org.activiti.spring.process.model.Extension;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.io.IOException;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class ProcessExtensionServiceIT {
@@ -39,8 +40,8 @@ public class ProcessExtensionServiceIT {
     @Test
     public void canReadExtension() throws IOException {
         ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
-                .processDefinitionKey("Process_initialVarsProcess")
-                .singleResult();
+            .processDefinitionKey("Process_initialVarsProcess")
+            .singleResult();
 
         boolean hasExtensionsFor = processExtensionService.hasExtensionsFor(processDefinition);
 

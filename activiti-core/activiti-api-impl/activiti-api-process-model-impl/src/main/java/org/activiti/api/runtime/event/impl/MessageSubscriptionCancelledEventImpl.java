@@ -20,7 +20,7 @@ import org.activiti.api.process.model.events.MessageSubscriptionCancelledEvent;
 import org.activiti.api.process.model.events.MessageSubscriptionEvent;
 
 public class MessageSubscriptionCancelledEventImpl extends RuntimeEventImpl<MessageSubscription, MessageSubscriptionEvent.MessageSubscriptionEvents>
-                                                   implements MessageSubscriptionCancelledEvent {
+    implements MessageSubscriptionCancelledEvent {
 
     public MessageSubscriptionCancelledEventImpl() {
     }

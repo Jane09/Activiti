@@ -16,9 +16,6 @@
 
 package org.activiti.engine.impl.bpmn.behavior;
 
-import java.io.Serializable;
-import java.util.List;
-
 import org.activiti.engine.ActivitiEngineAgenda;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.delegate.event.ActivitiEventType;
@@ -27,6 +24,9 @@ import org.activiti.engine.impl.context.Context;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.JobEntity;
 import org.activiti.engine.impl.persistence.entity.TimerJobEntity;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * Helper class for implementing BPMN 2.0 activities, offering convenience methods specific to BPMN 2.0.
@@ -45,12 +45,13 @@ public class BpmnActivityBehavior implements Serializable {
      */
     public void performDefaultOutgoingBehavior(ExecutionEntity activityExecution) {
         performOutgoingBehavior(activityExecution,
-                                true,
-                                false);
+            true,
+            false);
     }
 
     /**
      * dispatch job canceled event for job associated with given execution entity
+     *
      * @param activityExecution
      */
     protected void dispatchJobCanceledEvents(ExecutionEntity activityExecution) {
@@ -59,7 +60,7 @@ public class BpmnActivityBehavior implements Serializable {
             for (JobEntity job : jobs) {
                 if (Context.getProcessEngineConfiguration().getEventDispatcher().isEnabled()) {
                     Context.getProcessEngineConfiguration().getEventDispatcher().dispatchEvent(ActivitiEventBuilder.createEntityEvent(ActivitiEventType.JOB_CANCELED,
-                                                                                                                                      job));
+                        job));
                 }
             }
 
@@ -67,7 +68,7 @@ public class BpmnActivityBehavior implements Serializable {
             for (TimerJobEntity job : timerJobs) {
                 if (Context.getProcessEngineConfiguration().getEventDispatcher().isEnabled()) {
                     Context.getProcessEngineConfiguration().getEventDispatcher().dispatchEvent(ActivitiEventBuilder.createEntityEvent(ActivitiEventType.JOB_CANCELED,
-                                                                                                                                      job));
+                        job));
                 }
             }
         }
@@ -81,21 +82,22 @@ public class BpmnActivityBehavior implements Serializable {
      */
     public void performIgnoreConditionsOutgoingBehavior(ExecutionEntity activityExecution) {
         performOutgoingBehavior(activityExecution,
-                                false,
-                                false);
+            false,
+            false);
     }
 
     /**
      * Actual implementation of leaving an activity.
-     * @param execution The current execution context
-     * @param checkConditions Whether or not to check conditions before determining whether or not to take a transition.
+     *
+     * @param execution                      The current execution context
+     * @param checkConditions                Whether or not to check conditions before determining whether or not to take a transition.
      * @param throwExceptionIfExecutionStuck If true, an {@link ActivitiException} will be thrown in case no transition could be found to leave the activity.
      */
     protected void performOutgoingBehavior(ExecutionEntity execution,
                                            boolean checkConditions,
                                            boolean throwExceptionIfExecutionStuck) {
         getAgenda().planTakeOutgoingSequenceFlowsOperation(execution,
-                                                                   true);
+            true);
     }
 
     protected ActivitiEngineAgenda getAgenda() {

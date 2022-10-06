@@ -16,13 +16,14 @@
 
 package org.activiti.engine.impl.bpmn.behavior;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
+import org.activiti.engine.delegate.DelegateExecution;
+import org.junit.Test;
 
 import java.util.Collections;
 import java.util.Map;
-import org.activiti.engine.delegate.DelegateExecution;
-import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 
 public class NoneVariablesCalculatorTest {
 

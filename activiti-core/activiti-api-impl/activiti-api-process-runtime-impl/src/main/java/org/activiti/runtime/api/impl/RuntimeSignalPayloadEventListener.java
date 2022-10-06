@@ -23,7 +23,6 @@ import org.springframework.context.event.EventListener;
 /**
  * Default implementation of SignalPayloadEventListener that delegates
  * Spring SignalPayload event into embedded RuntimeService.
- *
  */
 public class RuntimeSignalPayloadEventListener implements SignalPayloadEventListener {
 
@@ -37,7 +36,7 @@ public class RuntimeSignalPayloadEventListener implements SignalPayloadEventList
     @EventListener
     public void sendSignal(SignalPayload signalPayload) {
         runtimeService.signalEventReceived(signalPayload.getName(),
-                                           signalPayload.getVariables());
+            signalPayload.getVariables());
     }
 
 }

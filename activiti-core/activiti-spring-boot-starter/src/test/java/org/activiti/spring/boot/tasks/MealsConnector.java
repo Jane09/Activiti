@@ -16,11 +16,12 @@
 
 package org.activiti.spring.boot.tasks;
 
+import org.activiti.api.process.model.IntegrationContext;
+import org.activiti.api.process.runtime.connector.Connector;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import org.activiti.api.process.model.IntegrationContext;
-import org.activiti.api.process.runtime.connector.Connector;
 
 public class MealsConnector implements Connector {
 

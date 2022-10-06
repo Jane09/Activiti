@@ -17,12 +17,6 @@
 
 package org.activiti.spring.test.autodeployment;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.impl.test.AbstractTestCase;
 import org.activiti.engine.impl.util.IoUtil;
@@ -33,6 +27,12 @@ import org.activiti.engine.repository.ProcessDefinitionQuery;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractXmlApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class SpringAutoDeployTest extends AbstractTestCase {
 
@@ -99,7 +99,7 @@ public class SpringAutoDeployTest extends AbstractTestCase {
         String filePath = "org/activiti/spring/test/autodeployment/autodeploy.a.bpmn20.xml";
         String originalBpmnFileContent = IoUtil.readFileAsString(filePath);
         String updatedBpmnFileContent = originalBpmnFileContent.replace("flow1",
-                                                                        "fromStartToEndFlow");
+            "fromStartToEndFlow");
         assertThat(updatedBpmnFileContent.length() > originalBpmnFileContent.length()).isTrue();
         IoUtil.writeStringToFile(updatedBpmnFileContent, filePath);
 
@@ -111,7 +111,7 @@ public class SpringAutoDeployTest extends AbstractTestCase {
         // sometimes
         // not yet fully written to disk
         waitUntilFileIsWritten(filePath,
-                               updatedBpmnFileContent.length());
+            updatedBpmnFileContent.length());
 
         try {
             applicationContext = new ClassPathXmlApplicationContext(CTX_NO_DROP_PATH);
@@ -120,7 +120,7 @@ public class SpringAutoDeployTest extends AbstractTestCase {
             // Reset file content such that future test are not seeing something
             // funny
             IoUtil.writeStringToFile(originalBpmnFileContent,
-                                     filePath);
+                filePath);
         }
 
         // Assertions come AFTER the file write! Otherwise the process file is

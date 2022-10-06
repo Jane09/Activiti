@@ -15,8 +15,6 @@
  */
 package org.activiti.spring.resources;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.impl.util.IoUtil;
 import org.junit.jupiter.api.Test;
@@ -30,6 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class DeploymentResourceLoaderTest {
 
     @Test
@@ -42,9 +42,9 @@ public class DeploymentResourceLoaderTest {
 
         RepositoryService service = Mockito.mock(RepositoryService.class);
         Mockito.when(service.getDeploymentResourceNames("123456"))
-                .thenReturn(names);
+            .thenReturn(names);
         Mockito.when(service.getResourceAsStream("123456", "classpath:file-selected.txt"))
-                .thenReturn(resource.getInputStream());
+            .thenReturn(resource.getInputStream());
 
         DeploymentResourceLoader deploymentResourceLoader = new DeploymentResourceLoader<String>();
         deploymentResourceLoader.setRepositoryService(service);
@@ -67,8 +67,8 @@ public class DeploymentResourceLoaderTest {
 
         //then
         assertThat(loaded)
-                .hasSize(1)
-                .contains("a selected resource"+System.getProperty("line.separator"));
+            .hasSize(1)
+            .contains("a selected resource" + System.getProperty("line.separator"));
 
     }
 }

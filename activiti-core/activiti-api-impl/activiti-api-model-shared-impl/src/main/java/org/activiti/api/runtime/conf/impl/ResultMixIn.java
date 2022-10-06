@@ -22,9 +22,9 @@ import static com.fasterxml.jackson.annotation.JsonTypeInfo.As.PROPERTY;
 import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
 
 @JsonTypeInfo(
-        use = NAME,
-        include = PROPERTY,
-        property = "resultType")
+    use = NAME,
+    include = PROPERTY,
+    property = "resultType")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ResultMixIn {
 

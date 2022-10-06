@@ -17,9 +17,6 @@
 
 package org.activiti.spring.process.conf;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.activiti.common.util.DateFormatterProvider;
 import org.activiti.engine.RepositoryService;
@@ -40,6 +37,10 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 @Configuration
 @EnableCaching
 public class ProcessExtensionsAutoConfiguration {
@@ -53,7 +54,7 @@ public class ProcessExtensionsAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public ProcessExtensionResourceReader processExtensionResourceReader(ObjectMapper objectMapper,
-                                                            Map<String, VariableType> variableTypeMap) {
+                                                                         Map<String, VariableType> variableTypeMap) {
         return new ProcessExtensionResourceReader(objectMapper, variableTypeMap);
     }
 
@@ -62,8 +63,8 @@ public class ProcessExtensionsAutoConfiguration {
     public ProcessExtensionService processExtensionService(ProcessExtensionResourceReader processExtensionResourceReader,
                                                            DeploymentResourceLoader<ProcessExtensionModel> deploymentResourceLoader) {
         return new ProcessExtensionService(
-                deploymentResourceLoader,
-                processExtensionResourceReader);
+            deploymentResourceLoader,
+            processExtensionResourceReader);
     }
 
     @Bean

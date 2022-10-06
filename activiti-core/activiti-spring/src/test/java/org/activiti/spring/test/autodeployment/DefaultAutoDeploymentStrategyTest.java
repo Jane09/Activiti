@@ -16,23 +16,19 @@
 
 package org.activiti.spring.test.autodeployment;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.zip.ZipInputStream;
-
 import org.activiti.spring.autodeployment.DefaultAutoDeploymentStrategy;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.core.io.Resource;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.zip.ZipInputStream;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class DefaultAutoDeploymentStrategyTest extends AbstractAutoDeploymentStrategyTest {
 
@@ -55,22 +51,22 @@ public class DefaultAutoDeploymentStrategyTest extends AbstractAutoDeploymentStr
     public void testDeployResources() {
         final Resource[] resources = new Resource[]{resourceMock1, resourceMock2, resourceMock3, resourceMock4, resourceMock5};
         deploymentStrategy.deployResources(deploymentNameHint,
-                                           resources,
-                                           repositoryServiceMock);
+            resources,
+            repositoryServiceMock);
 
         verify(repositoryServiceMock).createDeployment();
         verify(deploymentBuilderMock).enableDuplicateFiltering();
         verify(deploymentBuilderMock).name(deploymentNameHint);
         verify(deploymentBuilderMock).addInputStream(eq(resourceName1),
-                                        isA(Resource.class));
+            isA(Resource.class));
         verify(deploymentBuilderMock).addInputStream(eq(resourceName2),
-                                        isA(Resource.class));
+            isA(Resource.class));
         verify(deploymentBuilderMock).addInputStream(eq(resourceName3),
-                                        isA(Resource.class));
+            isA(Resource.class));
         verify(deploymentBuilderMock).addInputStream(eq(resourceName4),
-                                        isA(Resource.class));
+            isA(Resource.class));
         verify(deploymentBuilderMock).addInputStream(eq(resourceName5),
-                                        isA(Resource.class));
+            isA(Resource.class));
         verify(deploymentBuilderMock).deploy();
     }
 
@@ -78,25 +74,25 @@ public class DefaultAutoDeploymentStrategyTest extends AbstractAutoDeploymentStr
     public void testDeployResourcesNoResources() {
         final Resource[] resources = new Resource[]{};
         deploymentStrategy.deployResources(deploymentNameHint,
-                                           resources,
-                                           repositoryServiceMock);
+            resources,
+            repositoryServiceMock);
 
         verify(repositoryServiceMock,
-               times(1)).createDeployment();
+            times(1)).createDeployment();
         verify(deploymentBuilderMock,
-               times(1)).enableDuplicateFiltering();
+            times(1)).enableDuplicateFiltering();
         verify(deploymentBuilderMock,
-               times(1)).name(deploymentNameHint);
+            times(1)).name(deploymentNameHint);
         verify(deploymentBuilderMock,
-               never()).addInputStream(isA(String.class),
-                                       isA(InputStream.class));
+            never()).addInputStream(isA(String.class),
+            isA(InputStream.class));
         verify(deploymentBuilderMock,
-               never()).addInputStream(eq(resourceName2),
-                                       isA(InputStream.class));
+            never()).addInputStream(eq(resourceName2),
+            isA(InputStream.class));
         verify(deploymentBuilderMock,
-               never()).addZipInputStream(isA(ZipInputStream.class));
+            never()).addZipInputStream(isA(ZipInputStream.class));
         verify(deploymentBuilderMock,
-               times(1)).deploy();
+            times(1)).deploy();
     }
 
     @Test
@@ -106,8 +102,8 @@ public class DefaultAutoDeploymentStrategyTest extends AbstractAutoDeploymentStr
 
         final Resource[] resources = new Resource[]{resourceMock3};
         deploymentStrategy.deployResources(deploymentNameHint,
-                                           resources,
-                                           repositoryServiceMock);
+            resources,
+            repositoryServiceMock);
     }
 
 }

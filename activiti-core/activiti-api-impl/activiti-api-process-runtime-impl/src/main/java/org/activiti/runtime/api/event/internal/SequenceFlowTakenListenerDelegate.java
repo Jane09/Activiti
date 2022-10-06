@@ -40,11 +40,11 @@ public class SequenceFlowTakenListenerDelegate implements ActivitiEventListener 
     public void onEvent(ActivitiEvent event) {
         if (event instanceof ActivitiSequenceFlowTakenEvent) {
             converter.from((ActivitiSequenceFlowTakenEvent) event)
-                    .ifPresent(convertedEvent -> {
-                        for (BPMNElementEventListener<BPMNSequenceFlowTakenEvent> listener : listeners) {
-                            listener.onEvent(convertedEvent);
-                        }
-                    });
+                .ifPresent(convertedEvent -> {
+                    for (BPMNElementEventListener<BPMNSequenceFlowTakenEvent> listener : listeners) {
+                        listener.onEvent(convertedEvent);
+                    }
+                });
         }
     }
 

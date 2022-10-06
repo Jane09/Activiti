@@ -9,9 +9,11 @@
     </startEvent>
     <subProcess id="subProcess">
       <startEvent id="subProcessStart"/>
-      <sequenceFlow id="cloudsequenceflow5" isImmediate="false" sourceRef="subProcessStart" targetRef="userTaskInsideProcess"/>
+      <sequenceFlow id="cloudsequenceflow5" isImmediate="false" sourceRef="subProcessStart"
+                    targetRef="userTaskInsideProcess"/>
       <userTask id="userTaskInsideProcess" name="User Task"/>
-      <sequenceFlow id="cloudsequenceflow6" isImmediate="false" sourceRef="userTaskInsideProcess" targetRef="subprocessEnd"/>
+      <sequenceFlow id="cloudsequenceflow6" isImmediate="false" sourceRef="userTaskInsideProcess"
+                    targetRef="subprocessEnd"/>
       <endEvent id="subprocessEnd"/>
     </subProcess>
     <endEvent id="cloudendnoneevent2">

@@ -15,17 +15,17 @@
  */
 package org.activiti.engine.test.api.runtime;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.activiti.engine.impl.history.HistoryLevel;
 import org.activiti.engine.impl.test.PluggableActivitiTestCase;
 import org.activiti.engine.task.IdentityLinkType;
 import org.activiti.engine.task.Task;
 
-public class TaskInvolvementTest  extends PluggableActivitiTestCase {
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+public class TaskInvolvementTest extends PluggableActivitiTestCase {
 
     public void testQueryByInvolvedGroupOrUserO() {
         try {
@@ -40,27 +40,27 @@ public class TaskInvolvementTest  extends PluggableActivitiTestCase {
             groups.add("group1");
 
             assertThat(taskService.createTaskQuery()
+                .or()
+                .taskInvolvedUser("involvedUser")
+                .taskInvolvedGroupsIn(groups)
+                .endOr()
+                .count()).isEqualTo(1);
+
+            if (processEngineConfiguration.getHistoryLevel().isAtLeast(HistoryLevel.AUDIT)) {
+                assertThat(historyService.createHistoricTaskInstanceQuery()
                     .or()
                     .taskInvolvedUser("involvedUser")
                     .taskInvolvedGroupsIn(groups)
                     .endOr()
                     .count()).isEqualTo(1);
-
-            if(processEngineConfiguration.getHistoryLevel().isAtLeast(HistoryLevel.AUDIT)) {
-                assertThat(historyService.createHistoricTaskInstanceQuery()
-                        .or()
-                        .taskInvolvedUser("involvedUser")
-                        .taskInvolvedGroupsIn(groups)
-                        .endOr()
-                        .count()).isEqualTo(1);
             }
 
         } finally {
             List<Task> allTasks = taskService.createTaskQuery().list();
-            for(Task task : allTasks) {
-                if(task.getExecutionId() == null) {
+            for (Task task : allTasks) {
+                if (task.getExecutionId() == null) {
                     taskService.deleteTask(task.getId());
-                    if(processEngineConfiguration.getHistoryLevel().isAtLeast(HistoryLevel.AUDIT)) {
+                    if (processEngineConfiguration.getHistoryLevel().isAtLeast(HistoryLevel.AUDIT)) {
                         historyService.deleteHistoricTaskInstance(task.getId());
                     }
                 }
@@ -82,28 +82,28 @@ public class TaskInvolvementTest  extends PluggableActivitiTestCase {
 
             assertThat(taskService.getIdentityLinksForTask(adhocTask.getId())).hasSize(3);
             assertThat(taskService.createTaskQuery()
-                    //.taskId(adhocTask.getId())
+                //.taskId(adhocTask.getId())
+                .or()
+                .taskInvolvedUser("involvedUser")
+                .taskInvolvedGroupsIn(groups)
+                .endOr()
+                .count()).isEqualTo(1);
+
+            if (processEngineConfiguration.getHistoryLevel().isAtLeast(HistoryLevel.AUDIT)) {
+                assertThat(historyService.createHistoricTaskInstanceQuery()
+                    .or().taskCategory("j").taskPriority(10).endOr()
                     .or()
                     .taskInvolvedUser("involvedUser")
                     .taskInvolvedGroupsIn(groups)
                     .endOr()
                     .count()).isEqualTo(1);
-
-            if(processEngineConfiguration.getHistoryLevel().isAtLeast(HistoryLevel.AUDIT)) {
-                assertThat(historyService.createHistoricTaskInstanceQuery()
-                        .or().taskCategory("j").taskPriority(10).endOr()
-                        .or()
-                        .taskInvolvedUser("involvedUser")
-                        .taskInvolvedGroupsIn(groups)
-                        .endOr()
-                        .count()).isEqualTo(1);
             }
         } finally {
             List<Task> allTasks = taskService.createTaskQuery().list();
-            for(Task task : allTasks) {
-                if(task.getExecutionId() == null) {
+            for (Task task : allTasks) {
+                if (task.getExecutionId() == null) {
                     taskService.deleteTask(task.getId());
-                    if(processEngineConfiguration.getHistoryLevel().isAtLeast(HistoryLevel.AUDIT)) {
+                    if (processEngineConfiguration.getHistoryLevel().isAtLeast(HistoryLevel.AUDIT)) {
                         historyService.deleteHistoricTaskInstance(task.getId());
                     }
                 }
@@ -130,40 +130,39 @@ public class TaskInvolvementTest  extends PluggableActivitiTestCase {
             taskService.addCandidateUser(taskUser1WithGroupsCandidateUser.getId(), "candidateUser1");
 
 
-
             List<String> groups = new ArrayList<String>();
             groups.add("group1");
 
             assertThat(taskService.createTaskQuery()
-                    //.taskId(adhocTask.getId())
-                    .or()
-                    .taskInvolvedUser("user1")
-                    .taskInvolvedGroupsIn(groups)
-                    .endOr()
-                    .count()).isEqualTo(2);
+                //.taskId(adhocTask.getId())
+                .or()
+                .taskInvolvedUser("user1")
+                .taskInvolvedGroupsIn(groups)
+                .endOr()
+                .count()).isEqualTo(2);
 
             assertThat(taskService.createTaskQuery()
-                    //.taskId(adhocTask.getId())
-                    .or()
-                    .taskCandidateUser("user1")
-                    .taskInvolvedGroupsIn(groups)
-                    .endOr()
-                    .count()).isEqualTo(2);
+                //.taskId(adhocTask.getId())
+                .or()
+                .taskCandidateUser("user1")
+                .taskInvolvedGroupsIn(groups)
+                .endOr()
+                .count()).isEqualTo(2);
 
             assertThat(taskService.createTaskQuery()
-                    //.taskId(adhocTask.getId())
-                    .or()
-                    .taskCandidateGroup("group2")
-                    .taskInvolvedGroupsIn(groups)
-                    .endOr()
-                    .count()).isEqualTo(2);
+                //.taskId(adhocTask.getId())
+                .or()
+                .taskCandidateGroup("group2")
+                .taskInvolvedGroupsIn(groups)
+                .endOr()
+                .count()).isEqualTo(2);
 
         } finally {
             List<Task> allTasks = taskService.createTaskQuery().list();
-            for(Task task : allTasks) {
-                if(task.getExecutionId() == null) {
+            for (Task task : allTasks) {
+                if (task.getExecutionId() == null) {
                     taskService.deleteTask(task.getId());
-                    if(processEngineConfiguration.getHistoryLevel().isAtLeast(HistoryLevel.AUDIT)) {
+                    if (processEngineConfiguration.getHistoryLevel().isAtLeast(HistoryLevel.AUDIT)) {
                         historyService.deleteHistoricTaskInstance(task.getId());
                     }
                 }
@@ -185,23 +184,23 @@ public class TaskInvolvementTest  extends PluggableActivitiTestCase {
 
             assertThat(taskService.getIdentityLinksForTask(adhocTask.getId())).hasSize(3);
             assertThat(taskService.createTaskQuery()
-                    .taskInvolvedUser("involvedUser")
-                    .taskInvolvedGroupsIn(groups)
-                    .count()).isEqualTo(0);
+                .taskInvolvedUser("involvedUser")
+                .taskInvolvedGroupsIn(groups)
+                .count()).isEqualTo(0);
 
             if (processEngineConfiguration.getHistoryLevel().isAtLeast(HistoryLevel.AUDIT)) {
                 assertThat(historyService.createHistoricTaskInstanceQuery()
-                        .taskInvolvedUser("involvedUser")
-                        .taskInvolvedGroupsIn(groups)
-                        .count()).isEqualTo(0);
+                    .taskInvolvedUser("involvedUser")
+                    .taskInvolvedGroupsIn(groups)
+                    .count()).isEqualTo(0);
             }
 
         } finally {
             List<Task> allTasks = taskService.createTaskQuery().list();
-            for(Task task : allTasks) {
-                if(task.getExecutionId() == null) {
+            for (Task task : allTasks) {
+                if (task.getExecutionId() == null) {
                     taskService.deleteTask(task.getId());
-                    if(processEngineConfiguration.getHistoryLevel().isAtLeast(HistoryLevel.AUDIT)) {
+                    if (processEngineConfiguration.getHistoryLevel().isAtLeast(HistoryLevel.AUDIT)) {
                         historyService.deleteHistoricTaskInstance(task.getId());
                     }
                 }
@@ -253,7 +252,6 @@ public class TaskInvolvementTest  extends PluggableActivitiTestCase {
             taskService.addGroupIdentityLink(taskUser1Group1and4.getId(), "group4", IdentityLinkType.PARTICIPANT);
 
 
-
             List<String> andGroup = new ArrayList<String>();
             andGroup.add("group1");
 
@@ -262,17 +260,17 @@ public class TaskInvolvementTest  extends PluggableActivitiTestCase {
             orGroup.add("group4");
 
             assertThat(taskService.createTaskQuery()
-                    .taskInvolvedUser("user1")
-                    .taskInvolvedGroupsIn(andGroup)
-                    .or().taskInvolvedGroupsIn(orGroup).endOr()
-                    .count()).isEqualTo(2);
+                .taskInvolvedUser("user1")
+                .taskInvolvedGroupsIn(andGroup)
+                .or().taskInvolvedGroupsIn(orGroup).endOr()
+                .count()).isEqualTo(2);
 
         } finally {
             List<Task> allTasks = taskService.createTaskQuery().list();
-            for(Task task : allTasks) {
-                if(task.getExecutionId() == null) {
+            for (Task task : allTasks) {
+                if (task.getExecutionId() == null) {
                     taskService.deleteTask(task.getId());
-                    if(processEngineConfiguration.getHistoryLevel().isAtLeast(HistoryLevel.AUDIT)) {
+                    if (processEngineConfiguration.getHistoryLevel().isAtLeast(HistoryLevel.AUDIT)) {
                         historyService.deleteHistoricTaskInstance(task.getId());
                     }
                 }
@@ -368,6 +366,17 @@ public class TaskInvolvementTest  extends PluggableActivitiTestCase {
             orGroup.add("group4");
 
             assertThat(taskService.createTaskQuery()
+                .taskInvolvedUser("user1")
+                .taskInvolvedGroupsIn(andGroup)
+                .or()
+                .taskInvolvedGroupsIn(orGroup)
+                .taskInvolvedUser("user2")
+                .endOr()
+                .count()).isEqualTo(4);
+
+            if (processEngineConfiguration.getHistoryLevel().isAtLeast(HistoryLevel.AUDIT)) {
+
+                assertThat(historyService.createHistoricTaskInstanceQuery()
                     .taskInvolvedUser("user1")
                     .taskInvolvedGroupsIn(andGroup)
                     .or()
@@ -375,27 +384,15 @@ public class TaskInvolvementTest  extends PluggableActivitiTestCase {
                     .taskInvolvedUser("user2")
                     .endOr()
                     .count()).isEqualTo(4);
-
-            if (processEngineConfiguration.getHistoryLevel().isAtLeast(HistoryLevel.AUDIT)) {
-
-                assertThat(historyService.createHistoricTaskInstanceQuery()
-                        .taskInvolvedUser("user1")
-                        .taskInvolvedGroupsIn(andGroup)
-                        .or()
-                        .taskInvolvedGroupsIn(orGroup)
-                        .taskInvolvedUser("user2")
-                        .endOr()
-                        .count()).isEqualTo(4);
             }
-
 
 
         } finally {
             List<Task> allTasks = taskService.createTaskQuery().list();
-            for(Task task : allTasks) {
-                if(task.getExecutionId() == null) {
+            for (Task task : allTasks) {
+                if (task.getExecutionId() == null) {
                     taskService.deleteTask(task.getId());
-                    if(processEngineConfiguration.getHistoryLevel().isAtLeast(HistoryLevel.AUDIT)) {
+                    if (processEngineConfiguration.getHistoryLevel().isAtLeast(HistoryLevel.AUDIT)) {
                         historyService.deleteHistoricTaskInstance(task.getId());
                     }
                 }

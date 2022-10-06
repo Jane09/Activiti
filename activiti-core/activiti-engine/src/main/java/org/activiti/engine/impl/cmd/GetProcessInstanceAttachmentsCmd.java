@@ -17,26 +17,26 @@
 
 package org.activiti.engine.impl.cmd;
 
-import java.io.Serializable;
-import java.util.List;
-
 import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.task.Attachment;
 
-/**
+import java.io.Serializable;
+import java.util.List;
 
+/**
+ *
  */
 public class GetProcessInstanceAttachmentsCmd implements Command<List<? extends Attachment>>, Serializable {
 
-  private static final long serialVersionUID = 1L;
-  protected String processInstanceId;
+    private static final long serialVersionUID = 1L;
+    protected String processInstanceId;
 
-  public GetProcessInstanceAttachmentsCmd(String taskId) {
-    this.processInstanceId = taskId;
-  }
+    public GetProcessInstanceAttachmentsCmd(String taskId) {
+        this.processInstanceId = taskId;
+    }
 
-  public List<? extends Attachment> execute(CommandContext commandContext) {
-    return commandContext.getAttachmentEntityManager().findAttachmentsByProcessInstanceId(processInstanceId);
-  }
+    public List<? extends Attachment> execute(CommandContext commandContext) {
+        return commandContext.getAttachmentEntityManager().findAttachmentsByProcessInstanceId(processInstanceId);
+    }
 }

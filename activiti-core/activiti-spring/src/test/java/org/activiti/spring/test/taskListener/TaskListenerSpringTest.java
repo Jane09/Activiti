@@ -17,18 +17,18 @@
 
 package org.activiti.spring.test.taskListener;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.List;
-
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.test.Deployment;
 import org.activiti.spring.impl.test.SpringActivitiTestCase;
 import org.springframework.test.context.ContextConfiguration;
 
-/**
+import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+/**
+ *
  */
 @ContextConfiguration("classpath:org/activiti/spring/test/taskListener/TaskListenerDelegateExpressionTest-context.xml")
 public class TaskListenerSpringTest extends SpringActivitiTestCase {

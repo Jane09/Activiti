@@ -15,14 +15,15 @@
  */
 package org.activiti.api.task.model.payloads;
 
-import java.util.UUID;
-
 import org.activiti.api.model.shared.Payload;
+
+import java.util.UUID;
 
 public class GetTaskVariablesPayload implements Payload {
 
     private String id;
     private String taskId;
+
     public GetTaskVariablesPayload() {
         this.id = UUID.randomUUID().toString();
     }

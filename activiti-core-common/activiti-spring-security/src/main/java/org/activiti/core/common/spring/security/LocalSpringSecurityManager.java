@@ -15,11 +15,7 @@
  */
 package org.activiti.core.common.spring.security;
 
-import org.activiti.api.runtime.shared.security.AbstractSecurityManager;
-import org.activiti.api.runtime.shared.security.PrincipalGroupsProvider;
-import org.activiti.api.runtime.shared.security.PrincipalIdentityProvider;
-import org.activiti.api.runtime.shared.security.PrincipalRolesProvider;
-import org.activiti.api.runtime.shared.security.SecurityContextPrincipalProvider;
+import org.activiti.api.runtime.shared.security.*;
 import org.springframework.lang.NonNull;
 
 /*
@@ -32,9 +28,9 @@ public class LocalSpringSecurityManager extends AbstractSecurityManager {
                                       @NonNull PrincipalGroupsProvider principalGroupsProvider,
                                       @NonNull PrincipalRolesProvider principalRolesProvider) {
         super(securityContextPrincipalProvider,
-              principalIdentityProvider,
-              principalGroupsProvider,
-              principalRolesProvider);
+            principalIdentityProvider,
+            principalGroupsProvider,
+            principalRolesProvider);
     }
 
 }

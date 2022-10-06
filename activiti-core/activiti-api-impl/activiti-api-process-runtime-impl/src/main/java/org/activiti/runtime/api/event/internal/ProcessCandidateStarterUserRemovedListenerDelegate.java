@@ -40,11 +40,11 @@ public class ProcessCandidateStarterUserRemovedListenerDelegate implements Activ
     public void onEvent(ActivitiEvent event) {
         if (event instanceof ActivitiEntityEvent) {
             processCandidateStarterUserRemovedEventConverter.from((ActivitiEntityEvent) event)
-                    .ifPresent(convertedEvent -> {
-                        for (ProcessRuntimeEventListener<ProcessCandidateStarterUserRemovedEvent> listener : listeners ) {
-                            listener.onEvent(convertedEvent);
-                        }
-                    });
+                .ifPresent(convertedEvent -> {
+                    for (ProcessRuntimeEventListener<ProcessCandidateStarterUserRemovedEvent> listener : listeners) {
+                        listener.onEvent(convertedEvent);
+                    }
+                });
         }
     }
 

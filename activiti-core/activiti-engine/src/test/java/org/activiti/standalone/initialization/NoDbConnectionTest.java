@@ -17,11 +17,12 @@
 
 package org.activiti.standalone.initialization;
 
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-
-import java.sql.SQLException;
 import org.activiti.engine.ProcessEngineConfiguration;
 import org.activiti.engine.impl.test.AbstractTestCase;
+
+import java.sql.SQLException;
+
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
  *
@@ -36,13 +37,13 @@ public class NoDbConnectionTest extends AbstractTestCase {
             .matches(this::containsSqlException);
     }
 
-  private boolean containsSqlException(Throwable e) {
-    if (e == null) {
-      return false;
+    private boolean containsSqlException(Throwable e) {
+        if (e == null) {
+            return false;
+        }
+        if (e instanceof SQLException) {
+            return true;
+        }
+        return containsSqlException(e.getCause());
     }
-    if (e instanceof SQLException) {
-      return true;
-    }
-    return containsSqlException(e.getCause());
-  }
 }

@@ -17,17 +17,6 @@
 
 package org.activiti.engine.impl.el;
 
-import java.util.Collections;
-import java.util.Map;
-import javax.el.ArrayELResolver;
-import javax.el.BeanELResolver;
-import javax.el.CompositeELResolver;
-import javax.el.ELContext;
-import javax.el.ELResolver;
-import javax.el.ExpressionFactory;
-import javax.el.ListELResolver;
-import javax.el.MapELResolver;
-import javax.el.ValueExpression;
 import de.odysseus.el.ExpressionFactoryImpl;
 import org.activiti.core.el.ActivitiElContext;
 import org.activiti.core.el.ELContextBuilder;
@@ -37,6 +26,10 @@ import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.VariableScope;
 import org.activiti.engine.impl.bpmn.data.ItemInstance;
 import org.activiti.engine.impl.persistence.entity.VariableScopeImpl;
+
+import javax.el.*;
+import java.util.Collections;
+import java.util.Map;
 
 /**
  * <p>
@@ -60,12 +53,12 @@ public class ExpressionManager {
 
     public ExpressionManager(boolean initFactory) {
         this(null,
-             initFactory);
+            initFactory);
     }
 
     public ExpressionManager(Map<Object, Object> beans) {
         this(beans,
-             true);
+            true);
     }
 
     public ExpressionManager(Map<Object, Object> beans,
@@ -134,8 +127,8 @@ public class ExpressionManager {
         elResolver.add(new MapELResolver());
         elResolver.add(new CustomMapperJsonNodeELResolver());
         elResolver.add(new DynamicBeanPropertyELResolver(ItemInstance.class,
-                                                         "getFieldValue",
-                                                         "setFieldValue")); // TODO: needs verification
+            "getFieldValue",
+            "setFieldValue")); // TODO: needs verification
         elResolver.add(new ELResolverReflectionBlockerDecorator(new BeanELResolver()));
     }
 

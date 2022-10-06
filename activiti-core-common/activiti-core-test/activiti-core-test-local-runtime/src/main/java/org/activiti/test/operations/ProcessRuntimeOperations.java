@@ -15,8 +15,6 @@
  */
 package org.activiti.test.operations;
 
-import java.util.List;
-
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.payloads.SignalPayload;
 import org.activiti.api.process.model.payloads.StartProcessPayload;
@@ -27,6 +25,8 @@ import org.activiti.test.assertions.ProcessInstanceAssertions;
 import org.activiti.test.assertions.ProcessInstanceAssertionsImpl;
 import org.activiti.test.assertions.SignalAssertions;
 import org.activiti.test.assertions.SignalAssertionsImpl;
+
+import java.util.List;
 
 public class ProcessRuntimeOperations implements ProcessOperations {
 
@@ -43,11 +43,11 @@ public class ProcessRuntimeOperations implements ProcessOperations {
     }
 
     @Override
-    public ProcessInstanceAssertions start(StartProcessPayload startProcessPayload)  {
+    public ProcessInstanceAssertions start(StartProcessPayload startProcessPayload) {
         ProcessInstance processInstance = processRuntime.start(startProcessPayload);
         return new ProcessInstanceAssertionsImpl(eventSource,
-                                                 taskSources,
-                                                 processInstance);
+            taskSources,
+            processInstance);
     }
 
     @Override

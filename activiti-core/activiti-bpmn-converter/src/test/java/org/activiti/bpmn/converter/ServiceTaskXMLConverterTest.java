@@ -15,9 +15,6 @@
  */
 package org.activiti.bpmn.converter;
 
-import javax.xml.stream.XMLStreamReader;
-import javax.xml.stream.XMLStreamWriter;
-
 import org.activiti.bpmn.constants.BpmnXMLConstants;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
@@ -29,10 +26,14 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import javax.xml.stream.XMLStreamReader;
+import javax.xml.stream.XMLStreamWriter;
+
 import static org.activiti.bpmn.constants.BpmnXMLConstants.ATTRIBUTE_TASK_IMPLEMENTATION;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 public class ServiceTaskXMLConverterTest {
@@ -55,11 +56,11 @@ public class ServiceTaskXMLConverterTest {
     public void convertXMLToElementShouldSetTheImplementationFromXMLImplementationAttribute() throws Exception {
         //given
         given(reader.getAttributeValue(BpmnXMLConstants.ACTIVITI_EXTENSIONS_NAMESPACE,
-                                       BpmnXMLConstants.ATTRIBUTE_TASK_SERVICE_CLASS)).willReturn("myConnector");
+            BpmnXMLConstants.ATTRIBUTE_TASK_SERVICE_CLASS)).willReturn("myConnector");
 
         //when
         BaseElement element = converter.convertXMLToElement(reader,
-                                                            new BpmnModel());
+            new BpmnModel());
 
         //then
         assertThat(((ServiceTask) element).getImplementation()).isEqualTo("myConnector");
@@ -72,11 +73,11 @@ public class ServiceTaskXMLConverterTest {
 
         //when
         converter.writeAdditionalAttributes(serviceTask,
-                                            bpmnModel,
-                                            writer);
+            bpmnModel,
+            writer);
 
         //then
         verify(writer).writeAttribute(eq(ATTRIBUTE_TASK_IMPLEMENTATION),
-                                      eq("myConnectorImplementation"));
+            eq("myConnectorImplementation"));
     }
 }

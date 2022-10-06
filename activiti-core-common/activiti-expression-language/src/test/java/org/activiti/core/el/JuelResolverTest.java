@@ -15,18 +15,20 @@
  */
 package org.activiti.core.el;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
+import org.hamcrest.MatcherAssert;
+import org.junit.Test;
+
+import javax.el.ELException;
+import javax.el.PropertyNotFoundException;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import javax.el.ELException;
-import javax.el.PropertyNotFoundException;
-import org.hamcrest.MatcherAssert;
-import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
 public class JuelResolverTest {
 

@@ -15,10 +15,6 @@
  */
 package org.activiti.bpmn.converter.child.multi.instance;
 
-import static java.util.Arrays.asList;
-
-import java.util.List;
-import javax.xml.stream.XMLStreamReader;
 import org.activiti.bpmn.converter.child.BaseChildElementParser;
 import org.activiti.bpmn.converter.child.ElementParser;
 import org.activiti.bpmn.converter.util.BpmnXMLUtil;
@@ -26,6 +22,11 @@ import org.activiti.bpmn.model.Activity;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.MultiInstanceLoopCharacteristics;
+
+import javax.xml.stream.XMLStreamReader;
+import java.util.List;
+
+import static java.util.Arrays.asList;
 
 public class MultiInstanceParser extends BaseChildElementParser {
 
@@ -65,7 +66,7 @@ public class MultiInstanceParser extends BaseChildElementParser {
     }
 
     private void parseMultiInstanceProperties(XMLStreamReader xtr,
-        MultiInstanceLoopCharacteristics multiInstanceDef) {
+                                              MultiInstanceLoopCharacteristics multiInstanceDef) {
         boolean readyWithMultiInstance = false;
         try {
             do {
@@ -86,7 +87,7 @@ public class MultiInstanceParser extends BaseChildElementParser {
             } while (!readyWithMultiInstance && xtr.hasNext());
         } catch (Exception e) {
             LOGGER.warn("Error parsing multi instance definition",
-                        e);
+                e);
         }
     }
 

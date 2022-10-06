@@ -15,13 +15,13 @@
  */
 package org.activiti.editor.language.xml;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.activiti.bpmn.converter.BpmnXMLConverter;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.UserTask;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class MultiInstanceUserTaskConverterTest extends AbstractConverterTest {
 
@@ -54,11 +54,11 @@ public class MultiInstanceUserTaskConverterTest extends AbstractConverterTest {
     private void checkXml(BpmnModel model) throws Exception {
 
         String xml = new String(new BpmnXMLConverter().convertToXML(model),
-                                "UTF-8");
+            "UTF-8");
 
         assertThat(xml).containsSubsequence("incoming>SequenceFlow_0c6mbti<",
-                                            "outgoing>SequenceFlow_0pj9a04<",
-                                            "<multiInstanceLoopCharacteristics");
+            "outgoing>SequenceFlow_0pj9a04<",
+            "<multiInstanceLoopCharacteristics");
 
     }
 }

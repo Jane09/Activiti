@@ -31,13 +31,13 @@ public class ErrorConverterTest extends AbstractConverterTest {
     public void testConversionFromXmlToBPMNModel() throws Exception {
         BpmnModel bpmnModel = readXMLFile();
         assertThat(bpmnModel.getErrors().values())
-                .usingRecursiveFieldByFieldElementComparator()
-                .isSubsetOf(newArrayList(new Error("Error_0v4rsz5",
-                                                               "ok",
-                                                               "200"),
-                                                     new Error("Error_02htlc0",
-                                                               "conflict",
-                                                               "409")));
+            .usingRecursiveFieldByFieldElementComparator()
+            .isSubsetOf(newArrayList(new Error("Error_0v4rsz5",
+                    "ok",
+                    "200"),
+                new Error("Error_02htlc0",
+                    "conflict",
+                    "409")));
     }
 
     @Test

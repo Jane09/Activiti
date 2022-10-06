@@ -15,12 +15,12 @@
  */
 package org.activiti.engine.impl.delegate;
 
-import java.util.List;
-
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.impl.bpmn.helper.DelegateExpressionUtil;
 import org.activiti.engine.impl.bpmn.parser.FieldDeclaration;
+
+import java.util.List;
 
 public class ThrowMessageDelegateExpression implements ThrowMessageDelegate {
 
@@ -37,11 +37,11 @@ public class ThrowMessageDelegateExpression implements ThrowMessageDelegate {
     public boolean send(DelegateExecution execution, ThrowMessage message) {
 
         Object delegate = DelegateExpressionUtil.resolveDelegateExpression(delegateExpression,
-                                                                           execution,
-                                                                           fieldDeclarations);
-        if(ThrowMessageDelegate.class.isInstance(delegate)) {
+            execution,
+            fieldDeclarations);
+        if (ThrowMessageDelegate.class.isInstance(delegate)) {
             return ThrowMessageDelegate.class.cast(delegate)
-                                             .send(execution, message);
+                .send(execution, message);
         }
 
         return false;

@@ -15,13 +15,13 @@
  */
 package org.activiti.bpmn.converter.child;
 
-import javax.xml.stream.XMLStreamReader;
-
 import org.activiti.bpmn.converter.util.BpmnXMLUtil;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.CancelEventDefinition;
 import org.activiti.bpmn.model.Event;
+
+import javax.xml.stream.XMLStreamReader;
 
 public class CancelEventDefinitionParser extends BaseChildElementParser {
 
@@ -37,7 +37,7 @@ public class CancelEventDefinitionParser extends BaseChildElementParser {
         }
         CancelEventDefinition eventDefinition = new CancelEventDefinition();
         BpmnXMLUtil.addXMLLocation(eventDefinition,
-                                   xtr);
+            xtr);
         ((Event) parentElement).getEventDefinitions().add(eventDefinition);
     }
 }

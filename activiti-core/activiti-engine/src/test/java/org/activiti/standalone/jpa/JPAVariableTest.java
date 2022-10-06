@@ -17,20 +17,6 @@
 
 package org.activiti.standalone.jpa;
 
-import static java.util.Arrays.asList;
-import static java.util.Collections.singletonMap;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.ProcessEngine;
@@ -41,6 +27,17 @@ import org.activiti.engine.impl.variable.EntityManagerSession;
 import org.activiti.engine.impl.variable.EntityManagerSessionFactory;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.test.Deployment;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.*;
+
+import static java.util.Arrays.asList;
+import static java.util.Collections.singletonMap;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class JPAVariableTest extends AbstractActivitiTestCase {
 

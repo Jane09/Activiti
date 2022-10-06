@@ -1,8 +1,10 @@
 #
 # Activiti 5.15 shipped with some broken DDL statements for MySQL 5.6+ concering timestamps with millisecond precision
-# If you are currently running on <= 5.14, simply execute the 5.15 and 5.15.1 update scripts.
-# They have some duplication, but your shema will be in a correct state afterwards
-# If you are currently running 5.15 on MySQL 5.6+ (by a sheer of luck of having data that didn't clash with the DDL),
+# If you are currently running on <= 5.14, simply execute the 5.15 and 5.15.1
+update scripts.
+  # They have some duplication, but your shema will be in a correct state afterwards
+  # If you are currently running 5.15
+on MySQL 5.6+ (by a sheer of luck of having data that didn 't clash with the DDL),
 # execute the 5.15.1 upgrade script, and all bugs shipped in Activiti 5.15 around these timestamp problems have been solved.
 #
 

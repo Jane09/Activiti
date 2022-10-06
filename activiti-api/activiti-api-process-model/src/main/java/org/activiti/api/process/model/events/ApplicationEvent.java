@@ -20,7 +20,7 @@ import org.activiti.api.process.model.Deployment;
 import org.activiti.api.process.model.events.ApplicationEvent.ApplicationEvents;
 
 public interface ApplicationEvent extends
-        RuntimeEvent<Deployment, ApplicationEvents> {
+    RuntimeEvent<Deployment, ApplicationEvents> {
 
     enum ApplicationEvents {
         APPLICATION_DEPLOYED

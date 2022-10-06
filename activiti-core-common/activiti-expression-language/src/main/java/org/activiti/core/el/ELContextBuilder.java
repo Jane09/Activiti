@@ -15,20 +15,17 @@
  */
 package org.activiti.core.el;
 
-import static org.activiti.core.el.DateResolverHelper.addDateFunctions;
-import static org.activiti.core.el.ListResolverHelper.addListFunctions;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Stream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.el.CompositeELResolver;
 import javax.el.ELContext;
 import javax.el.ELResolver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.*;
+import java.util.stream.Stream;
+
+import static org.activiti.core.el.DateResolverHelper.addDateFunctions;
+import static org.activiti.core.el.ListResolverHelper.addListFunctions;
 
 /**
  * Builder of {@link javax.el.ELContext} instances.

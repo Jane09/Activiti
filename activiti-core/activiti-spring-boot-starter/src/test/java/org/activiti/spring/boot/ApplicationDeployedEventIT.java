@@ -15,14 +15,15 @@
  */
 package org.activiti.spring.boot;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.List;
 import org.activiti.api.process.model.Deployment;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
 public class ApplicationDeployedEventIT {
@@ -32,10 +33,10 @@ public class ApplicationDeployedEventIT {
 
     @Test
     public void shouldTriggerApplicationDeployedEvents() {
-       List<Deployment> deployedApplications = listener.getDeployedApplication();
+        List<Deployment> deployedApplications = listener.getDeployedApplication();
 
-       assertThat(deployedApplications)
-               .extracting(Deployment::getName)
-               .containsExactly(DEPLOYMENT_TYPE_NAME);
+        assertThat(deployedApplications)
+            .extracting(Deployment::getName)
+            .containsExactly(DEPLOYMENT_TYPE_NAME);
     }
 }

@@ -44,7 +44,6 @@ public class AsyncExecutorProperties {
      * setting > 0 takes resources, but in the case of many job executions it
      * avoids creating new threads all the time. If 0, threads will be destroyed
      * after they've been used for job execution.
-     *
      */
     private long keepAliveTime = 5000L;
 
@@ -58,7 +57,6 @@ public class AsyncExecutorProperties {
      * The time (in seconds) that is waited to gracefully shut down the threadpool
      * used for job execution when the a shutdown on the executor (or process
      * engine) is requested. Default value = 60.
-     *
      */
     private long secondsToWaitOnShutdown = 60L;
 
@@ -66,10 +64,9 @@ public class AsyncExecutorProperties {
      * The number of timer jobs that are acquired during one query (before a job
      * is executed, an acquirement thread fetches jobs from the database and puts
      * them on the queue).
-     *
+     * <p>
      * Default value = 1, as this lowers the potential on optimistic locking
      * exceptions. Change this value if you know what you are doing.
-     *
      */
     private int maxTimerJobsPerAcquisition = 1;
 
@@ -77,10 +74,9 @@ public class AsyncExecutorProperties {
      * The number of async jobs that are acquired during one query (before a job
      * is executed, an acquirement thread fetches jobs from the database and puts
      * them on the queue).
-     *
+     * <p>
      * Default value = 1, as this lowers the potential on optimistic locking
      * exceptions. Change this value if you know what you are doing.
-     *
      */
     private int maxAsyncJobsDuePerAcquisition = 1;
 
@@ -89,7 +85,6 @@ public class AsyncExecutorProperties {
      * execute the next acquirement query. This happens when no new timer jobs
      * were found or when less timer jobs have been fetched than set. Default value = 10
      * seconds.
-     *
      */
     private int defaultTimerJobAcquireWaitTimeInMillis = 10 * 1000;
 
@@ -97,9 +92,8 @@ public class AsyncExecutorProperties {
      * The time (in milliseconds) the async job acquisition thread will wait to
      * execute the next acquirement query. This happens when no new async jobs
      * were found or when less async jobs have been fetched than set.
-     *
+     * <p>
      * Default value = 10 seconds.
-     *
      */
     private int defaultAsyncJobAcquireWaitTimeInMillis = 10 * 1000;
 
@@ -113,9 +107,8 @@ public class AsyncExecutorProperties {
      * The amount of time (in milliseconds) a timer job is locked when acquired by
      * the async executor. During this period of time, no other async executor
      * will try to acquire and lock this job.
-     *
+     * <p>
      * Default value = 5 minutes;
-     *
      */
     private int timerLockTimeInMillis = 5 * 60 * 1000;
 
@@ -123,9 +116,8 @@ public class AsyncExecutorProperties {
      * The amount of time (in milliseconds) an async job is locked when acquired
      * by the async executor. During this period of time, no other async executor
      * will try to acquire and lock this job.
-     *
+     * <p>
      * Default value = 5 minutes;
-     *
      */
     private int asyncJobLockTimeInMillis = 5 * 60 * 1000;
 
@@ -133,13 +125,13 @@ public class AsyncExecutorProperties {
      * The amount of time (in milliseconds) that is between two consecutive checks
      * of 'expired jobs'. Expired jobs are jobs that were locked (a lock owner + time
      * was written by some executor, but the job was never completed).
-     *
+     * <p>
      * During such a check, jobs that are expired are again made available,
      * meaning the lock owner and lock time will be removed. Other executors
      * will now be able to pick it up.
-     *
+     * <p>
      * A job is deemed expired if the lock time is before the current date.
-     *
+     * <p>
      * By default one minute.
      */
     private int resetExpiredJobsInterval = 60 * 1000;

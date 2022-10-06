@@ -15,16 +15,12 @@
  */
 package org.activiti.bpmn.converter.child.multi.instance;
 
-import static org.activiti.bpmn.constants.BpmnXMLConstants.ACTIVITI_EXTENSIONS_NAMESPACE;
-import static org.activiti.bpmn.constants.BpmnXMLConstants.ATTRIBUTE_MULTIINSTANCE_COLLECTION;
-import static org.activiti.bpmn.constants.BpmnXMLConstants.ATTRIBUTE_MULTIINSTANCE_INDEX_VARIABLE;
-import static org.activiti.bpmn.constants.BpmnXMLConstants.ATTRIBUTE_MULTIINSTANCE_SEQUENTIAL;
-import static org.activiti.bpmn.constants.BpmnXMLConstants.ATTRIBUTE_MULTIINSTANCE_VARIABLE;
-import static org.activiti.bpmn.constants.BpmnXMLConstants.ELEMENT_MULTIINSTANCE;
-
-import javax.xml.stream.XMLStreamReader;
 import org.activiti.bpmn.converter.child.ElementParser;
 import org.activiti.bpmn.model.MultiInstanceLoopCharacteristics;
+
+import javax.xml.stream.XMLStreamReader;
+
+import static org.activiti.bpmn.constants.BpmnXMLConstants.*;
 
 public class MultiInstanceAttributesParser implements
     ElementParser<MultiInstanceLoopCharacteristics> {
@@ -36,7 +32,7 @@ public class MultiInstanceAttributesParser implements
 
     @Override
     public void setInformation(XMLStreamReader reader,
-        MultiInstanceLoopCharacteristics loopCharacteristics) {
+                               MultiInstanceLoopCharacteristics loopCharacteristics) {
         loopCharacteristics.setInputDataItem(reader.getAttributeValue(ACTIVITI_EXTENSIONS_NAMESPACE,
             ATTRIBUTE_MULTIINSTANCE_COLLECTION));
         loopCharacteristics.setElementVariable(reader.getAttributeValue(ACTIVITI_EXTENSIONS_NAMESPACE,

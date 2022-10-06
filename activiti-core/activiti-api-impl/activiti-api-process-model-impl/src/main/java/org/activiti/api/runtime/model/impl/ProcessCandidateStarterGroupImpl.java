@@ -37,7 +37,7 @@ public class ProcessCandidateStarterGroupImpl extends ProcessCandidateStarterImp
         if (o == null || getClass() != o.getClass()) return false;
         ProcessCandidateStarterGroupImpl that = (ProcessCandidateStarterGroupImpl) o;
         return Objects.equals(groupId, that.groupId) &&
-                Objects.equals(getProcessDefinitionId(), that.getProcessDefinitionId());
+            Objects.equals(getProcessDefinitionId(), that.getProcessDefinitionId());
     }
 
     @Override

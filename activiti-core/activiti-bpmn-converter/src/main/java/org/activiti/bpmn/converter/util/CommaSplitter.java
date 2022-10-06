@@ -30,7 +30,7 @@ public class CommaSplitter {
             if (!inExpression && st.charAt(i) == ',') {
                 if ((i - offset) > 1) {
                     result.add(st.substring(offset,
-                                            i));
+                        i));
                 }
                 offset = i + 1;
             } else if ((st.charAt(i) == '$' || st.charAt(i) == '#') && st.charAt(i + 1) == '{') {

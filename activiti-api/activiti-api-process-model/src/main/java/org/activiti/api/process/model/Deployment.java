@@ -26,5 +26,4 @@ public interface Deployment {
     String getProjectReleaseVersion();
 
 
-
 }

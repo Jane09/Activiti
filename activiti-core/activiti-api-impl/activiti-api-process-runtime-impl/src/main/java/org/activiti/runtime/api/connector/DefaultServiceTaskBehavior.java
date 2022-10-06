@@ -31,7 +31,7 @@ public class DefaultServiceTaskBehavior extends AbstractBpmnActivityBehavior {
     private final VariablesPropagator variablesPropagator;
 
     public DefaultServiceTaskBehavior(ApplicationContext applicationContext,
-        IntegrationContextBuilder integrationContextBuilder, VariablesPropagator variablesPropagator) {
+                                      IntegrationContextBuilder integrationContextBuilder, VariablesPropagator variablesPropagator) {
         this.applicationContext = applicationContext;
         this.integrationContextBuilder = integrationContextBuilder;
         this.variablesPropagator = variablesPropagator;
@@ -56,7 +56,7 @@ public class DefaultServiceTaskBehavior extends AbstractBpmnActivityBehavior {
 
     private Connector getConnector(String implementation) {
         return applicationContext.getBean(implementation,
-                                          Connector.class);
+            Connector.class);
     }
 
     private String getServiceTaskImplementation(DelegateExecution execution) {

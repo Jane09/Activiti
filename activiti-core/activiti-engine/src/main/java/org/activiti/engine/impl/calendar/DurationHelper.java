@@ -16,25 +16,20 @@
 
 package org.activiti.engine.impl.calendar;
 
-import static java.util.Arrays.asList;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Locale;
-
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.Duration;
-
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.api.internal.Internal;
 import org.activiti.engine.impl.util.TimeZoneUtil;
 import org.activiti.engine.runtime.ClockReader;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.ISODateTimeFormat;
+
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.Duration;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+import static java.util.Arrays.asList;
 
 @Internal
 public class DurationHelper {
@@ -91,7 +86,7 @@ public class DurationHelper {
             }
 
             expression = expression.subList(1,
-                                            expression.size());
+                expression.size());
         }
 
         if (isDuration(expression.get(0))) {
@@ -114,8 +109,8 @@ public class DurationHelper {
     public DurationHelper(String expressionS,
                           ClockReader clockReader) throws Exception {
         this(expressionS,
-             -1,
-             clockReader);
+            -1,
+            clockReader);
     }
 
     public Calendar getCalendarAfter() {
@@ -131,7 +126,7 @@ public class DurationHelper {
             return end;
         }
         return add(start,
-                   period);
+            period);
     }
 
     public Boolean isValidDate(Date newTimer) {
@@ -146,13 +141,13 @@ public class DurationHelper {
 
     private Calendar getDateAfterRepeat(Calendar date) {
         Calendar current = TimeZoneUtil.convertToTimeZone(start,
-                                                          date.getTimeZone());
+            date.getTimeZone());
 
         if (repeatWithNoBounds) {
 
             while (current.before(date) || current.equals(date)) { // As long as current date is not past the engine date, we keep looping
                 Calendar newTime = add(current,
-                                       period);
+                    period);
                 if (newTime.equals(current) || newTime.before(current)) {
                     break;
                 }
@@ -166,11 +161,11 @@ public class DurationHelper {
             }
             for (int i = 0; i < maxLoops + 1 && !current.after(date); i++) {
                 current = add(current,
-                              period);
+                    period);
             }
         }
         return current.before(date) ? date : TimeZoneUtil.convertToTimeZone(current,
-                                                                            clockReader.getCurrentTimeZone());
+            clockReader.getCurrentTimeZone());
     }
 
     protected Calendar add(Calendar date,
@@ -180,17 +175,17 @@ public class DurationHelper {
         // duration.addTo does not account for daylight saving time (xerces),
         // reversing order of addition fixes the problem
         calendar.add(Calendar.SECOND,
-                     duration.getSeconds() * duration.getSign());
+            duration.getSeconds() * duration.getSign());
         calendar.add(Calendar.MINUTE,
-                     duration.getMinutes() * duration.getSign());
+            duration.getMinutes() * duration.getSign());
         calendar.add(Calendar.HOUR,
-                     duration.getHours() * duration.getSign());
+            duration.getHours() * duration.getSign());
         calendar.add(Calendar.DAY_OF_MONTH,
-                     duration.getDays() * duration.getSign());
+            duration.getDays() * duration.getSign());
         calendar.add(Calendar.MONTH,
-                     duration.getMonths() * duration.getSign());
+            duration.getMonths() * duration.getSign());
         calendar.add(Calendar.YEAR,
-                     duration.getYears() * duration.getSign());
+            duration.getYears() * duration.getSign());
 
         return calendar;
     }
@@ -199,12 +194,12 @@ public class DurationHelper {
         Calendar dateCalendar = null;
         try {
             dateCalendar = ISODateTimeFormat.dateTimeParser().withZone(DateTimeZone.forTimeZone(
-                    clockReader.getCurrentTimeZone())).parseDateTime(date).toCalendar(null);
+                clockReader.getCurrentTimeZone())).parseDateTime(date).toCalendar(null);
         } catch (IllegalArgumentException e) {
             // try to parse a java.util.date to string back to a java.util.date
             dateCalendar = new GregorianCalendar();
             DateFormat DATE_FORMAT = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy",
-                                                          Locale.ENGLISH);
+                Locale.ENGLISH);
             dateCalendar.setTime(DATE_FORMAT.parse(date));
         }
 

@@ -15,19 +15,12 @@
  */
 package org.activiti.bpmn.converter.export;
 
-import javax.xml.stream.XMLStreamWriter;
-
 import org.activiti.bpmn.constants.BpmnXMLConstants;
-import org.activiti.bpmn.model.BpmnModel;
-import org.activiti.bpmn.model.Event;
-import org.activiti.bpmn.model.EventDefinition;
-import org.activiti.bpmn.model.FlowElement;
-import org.activiti.bpmn.model.Message;
-import org.activiti.bpmn.model.MessageEventDefinition;
 import org.activiti.bpmn.model.Process;
-import org.activiti.bpmn.model.Signal;
-import org.activiti.bpmn.model.SignalEventDefinition;
+import org.activiti.bpmn.model.*;
 import org.apache.commons.lang3.StringUtils;
+
+import javax.xml.stream.XMLStreamWriter;
 
 public class SignalAndMessageDefinitionExport implements BpmnXMLConstants {
 
@@ -44,7 +37,7 @@ public class SignalAndMessageDefinitionExport implements BpmnXMLConstants {
                         if (StringUtils.isNotEmpty(signalEvent.getSignalRef())) {
                             if (!model.containsSignalId(signalEvent.getSignalRef())) {
                                 Signal signal = new Signal(signalEvent.getSignalRef(),
-                                                           signalEvent.getSignalRef());
+                                    signalEvent.getSignalRef());
                                 model.addSignal(signal);
                             }
                         }
@@ -53,8 +46,8 @@ public class SignalAndMessageDefinitionExport implements BpmnXMLConstants {
                         if (StringUtils.isNotEmpty(messageEvent.getMessageRef())) {
                             if (!model.containsMessageId(messageEvent.getMessageRef())) {
                                 Message message = new Message(messageEvent.getMessageRef(),
-                                                              messageEvent.getMessageRef(),
-                                                              null);
+                                    messageEvent.getMessageRef(),
+                                    null);
                                 model.addMessage(message);
                             }
                         }
@@ -66,13 +59,13 @@ public class SignalAndMessageDefinitionExport implements BpmnXMLConstants {
         for (Signal signal : model.getSignals()) {
             xtw.writeStartElement(ELEMENT_SIGNAL);
             xtw.writeAttribute(ATTRIBUTE_ID,
-                               signal.getId());
+                signal.getId());
             xtw.writeAttribute(ATTRIBUTE_NAME,
-                               signal.getName());
+                signal.getName());
             if (signal.getScope() != null) {
                 xtw.writeAttribute(ACTIVITI_EXTENSIONS_NAMESPACE,
-                                   ATTRIBUTE_SCOPE,
-                                   signal.getScope());
+                    ATTRIBUTE_SCOPE,
+                    signal.getScope());
             }
             xtw.writeEndElement();
         }
@@ -83,24 +76,24 @@ public class SignalAndMessageDefinitionExport implements BpmnXMLConstants {
             // remove the namespace from the message id if set
             if (model.getTargetNamespace() != null && messageId.startsWith(model.getTargetNamespace())) {
                 messageId = messageId.replace(model.getTargetNamespace(),
-                                              "");
+                    "");
                 messageId = messageId.replaceFirst(":",
-                                                   "");
+                    "");
             } else {
                 for (String prefix : model.getNamespaces().keySet()) {
                     String namespace = model.getNamespace(prefix);
                     if (messageId.startsWith(namespace)) {
                         messageId = messageId.replace(model.getTargetNamespace(),
-                                                      "");
+                            "");
                         messageId = prefix + messageId;
                     }
                 }
             }
             xtw.writeAttribute(ATTRIBUTE_ID,
-                               messageId);
+                messageId);
             if (StringUtils.isNotEmpty(message.getName())) {
                 xtw.writeAttribute(ATTRIBUTE_NAME,
-                                   message.getName());
+                    message.getName());
             }
             if (StringUtils.isNotEmpty(message.getItemRef())) {
                 // replace the namespace by the right prefix
@@ -110,16 +103,16 @@ public class SignalAndMessageDefinitionExport implements BpmnXMLConstants {
                     if (itemRef.startsWith(namespace)) {
                         if (prefix.isEmpty()) {
                             itemRef = itemRef.replace(namespace + ":",
-                                                      "");
+                                "");
                         } else {
                             itemRef = itemRef.replace(namespace,
-                                                      prefix);
+                                prefix);
                         }
                         break;
                     }
                 }
                 xtw.writeAttribute(ATTRIBUTE_ITEM_REF,
-                                   itemRef);
+                    itemRef);
             }
             xtw.writeEndElement();
         }

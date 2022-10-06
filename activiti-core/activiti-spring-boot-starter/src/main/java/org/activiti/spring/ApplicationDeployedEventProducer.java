@@ -15,8 +15,6 @@
  */
 package org.activiti.spring;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.activiti.api.process.model.Deployment;
 import org.activiti.api.process.model.events.ApplicationDeployedEvent;
 import org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener;
@@ -26,18 +24,21 @@ import org.activiti.engine.RepositoryService;
 import org.activiti.runtime.api.model.impl.APIDeploymentConverter;
 import org.springframework.context.ApplicationEventPublisher;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ApplicationDeployedEventProducer extends AbstractActivitiSmartLifeCycle {
 
     private RepositoryService repositoryService;
     private APIDeploymentConverter deploymentConverter;
     private List<ProcessRuntimeEventListener<ApplicationDeployedEvent>> listeners;
     private ApplicationEventPublisher eventPublisher;
-    private static final String APPLICATION_DEPLOYMENT_NAME= "SpringAutoDeployment";
+    private static final String APPLICATION_DEPLOYMENT_NAME = "SpringAutoDeployment";
 
     public ApplicationDeployedEventProducer(RepositoryService repositoryService,
-            APIDeploymentConverter deploymentConverter,
-            List<ProcessRuntimeEventListener<ApplicationDeployedEvent>> listeners,
-            ApplicationEventPublisher eventPublisher) {
+                                            APIDeploymentConverter deploymentConverter,
+                                            List<ProcessRuntimeEventListener<ApplicationDeployedEvent>> listeners,
+                                            ApplicationEventPublisher eventPublisher) {
         this.repositoryService = repositoryService;
         this.deploymentConverter = deploymentConverter;
         this.listeners = listeners;
@@ -57,9 +58,9 @@ public class ApplicationDeployedEventProducer extends AbstractActivitiSmartLifeC
 
     private List<ApplicationDeployedEvent> getApplicationDeployedEvents() {
         List<Deployment> deployments = deploymentConverter.from(repositoryService
-                        .createDeploymentQuery()
-                        .deploymentName(APPLICATION_DEPLOYMENT_NAME)
-                        .list());
+            .createDeploymentQuery()
+            .deploymentName(APPLICATION_DEPLOYMENT_NAME)
+            .list());
 
         List<ApplicationDeployedEvent> applicationDeployedEvents = new ArrayList<>();
         for (Deployment deployment : deployments) {

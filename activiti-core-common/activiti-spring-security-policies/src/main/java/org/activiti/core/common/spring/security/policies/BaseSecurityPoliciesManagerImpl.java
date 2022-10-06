@@ -15,16 +15,12 @@
  */
 package org.activiti.core.common.spring.security.policies;
 
-import static java.util.Arrays.asList;
-
 import org.activiti.api.runtime.shared.security.SecurityManager;
 import org.activiti.core.common.spring.security.policies.conf.SecurityPoliciesProperties;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+
+import static java.util.Arrays.asList;
 
 public abstract class BaseSecurityPoliciesManagerImpl implements SecurityPoliciesManager {
 
@@ -56,7 +52,7 @@ public abstract class BaseSecurityPoliciesManagerImpl implements SecurityPolicie
         }
         for (SecurityPolicy ssp : policies) {
             definitionKeysAllowedByPolicy.computeIfAbsent(ssp.getServiceName(),
-                                                          k -> new HashSet<>());
+                k -> new HashSet<>());
 
             // I need to check that the user is listed in the user lists or that at least one of the user groups is in the group list
             if (isUserInPolicy(ssp, authenticatedUserId) || isGroupInPolicy(ssp, groups)) {
@@ -101,8 +97,8 @@ public abstract class BaseSecurityPoliciesManagerImpl implements SecurityPolicie
     public boolean canRead(String processDefinitionKey,
                            String appName) {
         return hasPermission(processDefinitionKey,
-                SecurityPolicyAccess.READ,
-                appName);
+            SecurityPolicyAccess.READ,
+            appName);
     }
 
 
@@ -138,7 +134,7 @@ public abstract class BaseSecurityPoliciesManagerImpl implements SecurityPolicie
         }
 
         return anEntryInSetStartsKey(keys,
-                processDefinitionKey) || keys.contains(securityPoliciesProperties.getWildcard());
+            processDefinitionKey) || keys.contains(securityPoliciesProperties.getWildcard());
     }
 
     //startsWith logic supports the case of audit where only definition id might be available and it would start with the key

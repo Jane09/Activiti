@@ -28,8 +28,8 @@ public class LocalSpringSecurityContextPrincipalProvider implements SecurityCont
     @Override
     public Optional<Principal> getCurrentPrincipal() {
         return Optional.ofNullable(SecurityContextHolder.getContext())
-                       .map(SecurityContext::getAuthentication)
-                       .filter(Authentication::isAuthenticated)
-                       .map(Authentication.class::cast);
+            .map(SecurityContext::getAuthentication)
+            .filter(Authentication::isAuthenticated)
+            .map(Authentication.class::cast);
     }
 }

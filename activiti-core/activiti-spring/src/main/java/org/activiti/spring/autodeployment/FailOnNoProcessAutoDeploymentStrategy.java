@@ -41,7 +41,7 @@ public class FailOnNoProcessAutoDeploymentStrategy extends AbstractAutoDeploymen
     @Override
     public void deployResources(String deploymentNameHint, Resource[] resources, RepositoryService repositoryService) {
         DeploymentBuilder deploymentBuilder = repositoryService.createDeployment().enableDuplicateFiltering()
-                .name(deploymentNameHint);
+            .name(deploymentNameHint);
 
         int validProcessCount = 0;
         for (final Resource resource : resources) {
@@ -52,7 +52,7 @@ public class FailOnNoProcessAutoDeploymentStrategy extends AbstractAutoDeploymen
                 deploymentBuilder.addInputStream(resourceName, resource);
             } else {
                 LOGGER.error("The following resource wasn't included in the deployment since it is invalid:\n{}",
-                        resourceName);
+                    resourceName);
             }
         }
 

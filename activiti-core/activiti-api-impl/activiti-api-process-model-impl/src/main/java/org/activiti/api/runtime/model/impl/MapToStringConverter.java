@@ -15,11 +15,10 @@
  */
 package org.activiti.api.runtime.model.impl;
 
-import java.util.Map;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.convert.converter.Converter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Map;
 
 @ProcessVariableTypeConverter
 public class MapToStringConverter implements Converter<Map<String, Object>, String> {

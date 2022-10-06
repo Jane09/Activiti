@@ -39,22 +39,22 @@ public abstract class AbstractSecurityManager implements SecurityManager {
     @Override
     public String getAuthenticatedUserId() {
         return securityContextPrincipalProvider.getCurrentPrincipal()
-                                               .map(principalIdentityProvider::getUserId)
-                                               .orElseThrow(this::securityException);
+            .map(principalIdentityProvider::getUserId)
+            .orElseThrow(this::securityException);
     }
 
     @Override
     public List<String> getAuthenticatedUserGroups() {
         return securityContextPrincipalProvider.getCurrentPrincipal()
-                                               .map(principalGroupsProvider::getGroups)
-                                               .orElseThrow(this::securityException);
+            .map(principalGroupsProvider::getGroups)
+            .orElseThrow(this::securityException);
     }
 
     @Override
     public List<String> getAuthenticatedUserRoles() {
         return securityContextPrincipalProvider.getCurrentPrincipal()
-                                               .map(principalRolesProvider::getRoles)
-                                               .orElseThrow(this::securityException);
+            .map(principalRolesProvider::getRoles)
+            .orElseThrow(this::securityException);
     }
 
     protected SecurityException securityException() {

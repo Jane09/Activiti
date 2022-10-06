@@ -35,9 +35,7 @@ import static org.activiti.spring.process.model.AssignmentDefinition.AssignmentE
 import static org.activiti.spring.process.model.AssignmentDefinition.AssignmentEnum.CANDIDATES;
 import static org.activiti.spring.process.model.AssignmentDefinition.AssignmentMode.MANUAL;
 import static org.activiti.spring.process.model.AssignmentDefinition.AssignmentMode.SEQUENTIAL;
-import static org.activiti.spring.process.model.AssignmentDefinition.AssignmentType.EXPRESSION;
-import static org.activiti.spring.process.model.AssignmentDefinition.AssignmentType.IDENTITY;
-import static org.activiti.spring.process.model.AssignmentDefinition.AssignmentType.STATIC;
+import static org.activiti.spring.process.model.AssignmentDefinition.AssignmentType.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
@@ -241,8 +239,8 @@ public class ExtensionTest {
     public void should_readAssignmentDefinitionExtension() throws Exception {
         //given
         try (InputStream inputStream = Thread.currentThread()
-                                             .getContextClassLoader()
-                                             .getResourceAsStream("processes/assignment-mapping-extensions.json")) {
+            .getContextClassLoader()
+            .getResourceAsStream("processes/assignment-mapping-extensions.json")) {
             ProcessExtensionModel processExtensionModel = MAPPER.readValue(inputStream, ProcessExtensionModel.class);
             Extension extensions = processExtensionModel
                 .getExtensions("processDefinitionId");
@@ -253,8 +251,8 @@ public class ExtensionTest {
             //then
             assertThat(assignments).hasSize(3)
                 .containsValues(new AssignmentDefinition("1", ASSIGNEE, STATIC, MANUAL),
-                                new AssignmentDefinition("2", CANDIDATES, IDENTITY, MANUAL),
-                                new AssignmentDefinition("3", CANDIDATES, EXPRESSION, SEQUENTIAL));
+                    new AssignmentDefinition("2", CANDIDATES, IDENTITY, MANUAL),
+                    new AssignmentDefinition("3", CANDIDATES, EXPRESSION, SEQUENTIAL));
         }
     }
 }

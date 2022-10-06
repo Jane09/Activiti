@@ -17,11 +17,12 @@ package org.activiti.engine.impl.el.variable;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.List;
 import org.activiti.engine.delegate.VariableScope;
 import org.activiti.engine.impl.persistence.entity.VariableInstance;
 import org.activiti.engine.impl.variable.JsonType;
 import org.activiti.engine.impl.variable.LongJsonType;
+
+import java.util.List;
 
 public class VariableElResolver implements VariableScopeItemELResolver {
 

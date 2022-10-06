@@ -21,24 +21,21 @@ import org.activiti.engine.api.internal.Internal;
 
 /**
  * Interface describing a listener that gets notified when certain event occurs, related to the process-engine lifecycle it is attached to.
- *
  */
 @Internal
 public interface ProcessEngineLifecycleListener {
 
-  /**
-   * Called right after the process-engine has been built.
-   *
-   * @param processEngine
-   *          engine that was built
-   */
-  void onProcessEngineBuilt(ProcessEngine processEngine);
+    /**
+     * Called right after the process-engine has been built.
+     *
+     * @param processEngine engine that was built
+     */
+    void onProcessEngineBuilt(ProcessEngine processEngine);
 
-  /**
-   * Called right after the process-engine has been closed.
-   *
-   * @param processEngine
-   *          engine that was closed
-   */
-  void onProcessEngineClosed(ProcessEngine processEngine);
+    /**
+     * Called right after the process-engine has been closed.
+     *
+     * @param processEngine engine that was closed
+     */
+    void onProcessEngineClosed(ProcessEngine processEngine);
 }

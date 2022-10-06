@@ -15,8 +15,6 @@
  */
 package org.activiti.bpmn.converter.child;
 
-import javax.xml.stream.XMLStreamReader;
-
 import org.activiti.bpmn.converter.util.BpmnXMLUtil;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
@@ -24,8 +22,10 @@ import org.activiti.bpmn.model.Event;
 import org.activiti.bpmn.model.TimerEventDefinition;
 import org.apache.commons.lang3.StringUtils;
 
-/**
+import javax.xml.stream.XMLStreamReader;
 
+/**
+ *
  */
 public class TimerEventDefinitionParser extends BaseChildElementParser {
 
@@ -41,16 +41,16 @@ public class TimerEventDefinitionParser extends BaseChildElementParser {
         }
         TimerEventDefinition eventDefinition = new TimerEventDefinition();
         String calendarName = xtr.getAttributeValue(ACTIVITI_EXTENSIONS_NAMESPACE,
-                                                    ATTRIBUTE_CALENDAR_NAME);
+            ATTRIBUTE_CALENDAR_NAME);
         if (StringUtils.isNotEmpty(calendarName)) {
             eventDefinition.setCalendarName(calendarName);
         }
         BpmnXMLUtil.addXMLLocation(eventDefinition,
-                                   xtr);
+            xtr);
         BpmnXMLUtil.parseChildElements(ELEMENT_EVENT_TIMERDEFINITION,
-                                       eventDefinition,
-                                       xtr,
-                                       model);
+            eventDefinition,
+            xtr,
+            model);
 
         ((Event) parentElement).getEventDefinitions().add(eventDefinition);
     }

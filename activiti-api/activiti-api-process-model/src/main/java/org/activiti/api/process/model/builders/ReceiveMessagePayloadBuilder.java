@@ -15,11 +15,11 @@
  */
 package org.activiti.api.process.model.builders;
 
+import org.activiti.api.process.model.payloads.ReceiveMessagePayload;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
-
-import org.activiti.api.process.model.payloads.ReceiveMessagePayload;
 
 public class ReceiveMessagePayloadBuilder {
 
@@ -31,8 +31,8 @@ public class ReceiveMessagePayloadBuilder {
         Objects.requireNonNull(messagePayload, "messagePayload must not be null");
 
         return new ReceiveMessagePayloadBuilder().withName(messagePayload.getName())
-                                                 .withCorrelationKey(messagePayload.getCorrelationKey())
-                                                 .withVariables(messagePayload.getVariables());
+            .withCorrelationKey(messagePayload.getCorrelationKey())
+            .withVariables(messagePayload.getVariables());
     }
 
     public static ReceiveMessagePayloadBuilder receive(String name) {
@@ -59,7 +59,7 @@ public class ReceiveMessagePayloadBuilder {
             this.variables = new LinkedHashMap<>();
         }
         this.variables.put(name,
-                           value);
+            value);
         return this;
     }
 
@@ -71,8 +71,8 @@ public class ReceiveMessagePayloadBuilder {
 
     public ReceiveMessagePayload build() {
         return new ReceiveMessagePayload(name,
-                                         correlationKey,
-                                         this.variables);
+            correlationKey,
+            this.variables);
     }
 
     @Override
@@ -103,7 +103,7 @@ public class ReceiveMessagePayloadBuilder {
             return false;
         ReceiveMessagePayloadBuilder other = (ReceiveMessagePayloadBuilder) obj;
         return Objects.equals(correlationKey, other.correlationKey)
-                && Objects.equals(name, other.name)
-                && Objects.equals(variables, other.variables);
+            && Objects.equals(name, other.name)
+            && Objects.equals(variables, other.variables);
     }
 }

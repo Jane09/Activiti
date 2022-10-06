@@ -15,18 +15,14 @@
  */
 package org.activiti.core.common.spring.connector;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.activiti.core.common.model.connector.ConnectorDefinition;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.ResourcePatternResolver;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
 
 public class ConnectorDefinitionService {
 
@@ -55,7 +51,7 @@ public class ConnectorDefinitionService {
 
     private ConnectorDefinition read(InputStream inputStream) throws IOException {
         return objectMapper.readValue(inputStream,
-                ConnectorDefinition.class);
+            ConnectorDefinition.class);
     }
 
     public List<ConnectorDefinition> get() throws IOException {

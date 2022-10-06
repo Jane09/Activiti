@@ -15,13 +15,13 @@
  */
 package org.activiti.editor.language.xml;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.activiti.bpmn.converter.BpmnXMLConverter;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.Task;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class TaskConverterTest extends AbstractConverterTest {
 
@@ -54,10 +54,10 @@ public class TaskConverterTest extends AbstractConverterTest {
     private void checkXml(BpmnModel model) throws Exception {
 
         String xml = new String(new BpmnXMLConverter().convertToXML(model),
-                                "UTF-8");
+            "UTF-8");
 
         assertThat(xml).contains("incoming>SequenceFlow_12r6kuh<",
-                                 "outgoing>SequenceFlow_1h7t0iw<");
+            "outgoing>SequenceFlow_1h7t0iw<");
 
     }
 }

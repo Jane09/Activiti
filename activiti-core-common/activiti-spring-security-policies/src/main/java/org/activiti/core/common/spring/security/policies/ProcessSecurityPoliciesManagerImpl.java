@@ -25,7 +25,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class ProcessSecurityPoliciesManagerImpl extends BaseSecurityPoliciesManagerImpl implements ProcessSecurityPoliciesManager{
+public class ProcessSecurityPoliciesManagerImpl extends BaseSecurityPoliciesManagerImpl implements ProcessSecurityPoliciesManager {
 
     private final SecurityPoliciesRestrictionApplier<GetProcessDefinitionsPayload> processDefinitionRestrictionApplier;
 
@@ -97,7 +97,7 @@ public class ProcessSecurityPoliciesManagerImpl extends BaseSecurityPoliciesMana
 
     public boolean canRead(String processDefinitionKey) {
         return hasPermission(processDefinitionKey, SecurityPolicyAccess.READ, applicationName)
-                || hasPermission(processDefinitionKey, SecurityPolicyAccess.WRITE, applicationName);
+            || hasPermission(processDefinitionKey, SecurityPolicyAccess.WRITE, applicationName);
     }
 
     protected boolean anEntryInSetStartsKey(Set<String> keys, String processDefinitionKey) {

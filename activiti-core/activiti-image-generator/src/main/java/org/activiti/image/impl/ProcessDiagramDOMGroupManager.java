@@ -24,11 +24,11 @@ public class ProcessDiagramDOMGroupManager extends DOMGroupManager {
     public ProcessDiagramDOMGroupManager(GraphicContext gc,
                                          DOMTreeManager domTreeManager) {
         super(gc,
-              domTreeManager);
+            domTreeManager);
     }
 
     public void setCurrentGroupId(String id) {
         this.currentGroup.setAttribute("id",
-                                       id);
+            id);
     }
 }

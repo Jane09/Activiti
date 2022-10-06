@@ -16,10 +16,10 @@
 
 package org.activiti.api.runtime.model.impl;
 
+import org.springframework.core.convert.converter.Converter;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
-import org.springframework.core.convert.converter.Converter;
 
 @ProcessVariableTypeConverter
 public class StringToLocalDateTimeConverter implements Converter<String, LocalDateTime> {

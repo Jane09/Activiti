@@ -15,12 +15,13 @@
  */
 package org.activiti.bpmn.converter.child.multi.instance;
 
-import static org.activiti.bpmn.constants.BpmnXMLConstants.ELEMENT_MULTI_INSTANCE_DATA_OUTPUT;
+import org.activiti.bpmn.converter.child.ElementParser;
+import org.activiti.bpmn.model.MultiInstanceLoopCharacteristics;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import org.activiti.bpmn.converter.child.ElementParser;
-import org.activiti.bpmn.model.MultiInstanceLoopCharacteristics;
+
+import static org.activiti.bpmn.constants.BpmnXMLConstants.ELEMENT_MULTI_INSTANCE_DATA_OUTPUT;
 
 public class LoopDataOutputRefParser implements ElementParser<MultiInstanceLoopCharacteristics> {
 
@@ -31,7 +32,7 @@ public class LoopDataOutputRefParser implements ElementParser<MultiInstanceLoopC
 
     @Override
     public void setInformation(XMLStreamReader reader,
-        MultiInstanceLoopCharacteristics loopCharacteristics) throws XMLStreamException {
+                               MultiInstanceLoopCharacteristics loopCharacteristics) throws XMLStreamException {
         loopCharacteristics.setLoopDataOutputRef(reader.getElementText());
     }
 }

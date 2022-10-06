@@ -15,9 +15,10 @@
  */
 package org.activiti.spring.process.variable.types;
 
-import java.util.List;
 import org.activiti.common.util.DateFormatterProvider;
 import org.activiti.engine.ActivitiException;
+
+import java.util.List;
 
 /**
  * Basic date type for setting default date values for vars in extension json

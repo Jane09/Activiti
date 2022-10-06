@@ -20,14 +20,14 @@ import org.activiti.engine.impl.persistence.CachedEntityMatcherAdapter;
 import org.activiti.engine.impl.persistence.entity.VariableInstanceEntity;
 
 /**
-
+ *
  */
 public class VariableByExecutionIdMatcher extends CachedEntityMatcherAdapter<VariableInstanceEntity> {
 
-  @Override
-  public boolean isRetained(VariableInstanceEntity variableInstanceEntity, Object parameter) {
-    return variableInstanceEntity.getExecutionId() != null
-        && variableInstanceEntity.getExecutionId().equals((String) parameter);
-  }
+    @Override
+    public boolean isRetained(VariableInstanceEntity variableInstanceEntity, Object parameter) {
+        return variableInstanceEntity.getExecutionId() != null
+            && variableInstanceEntity.getExecutionId().equals((String) parameter);
+    }
 
 }

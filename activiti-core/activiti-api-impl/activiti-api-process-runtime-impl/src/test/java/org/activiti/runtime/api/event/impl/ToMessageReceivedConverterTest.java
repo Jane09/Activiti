@@ -15,10 +15,6 @@
  */
 package org.activiti.runtime.api.event.impl;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
-
 import org.activiti.api.process.model.events.BPMNMessageReceivedEvent;
 import org.activiti.api.runtime.model.impl.BPMNMessageImpl;
 import org.activiti.engine.delegate.event.ActivitiMessageEvent;
@@ -27,6 +23,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 
 @ExtendWith(MockitoExtension.class)
 public class ToMessageReceivedConverterTest {

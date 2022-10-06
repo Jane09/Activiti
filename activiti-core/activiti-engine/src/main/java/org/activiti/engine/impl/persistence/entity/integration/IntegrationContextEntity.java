@@ -15,9 +15,9 @@
  */
 package org.activiti.engine.impl.persistence.entity.integration;
 
-import java.util.Date;
-
 import org.activiti.engine.impl.persistence.entity.Entity;
+
+import java.util.Date;
 
 public interface IntegrationContextEntity extends Entity {
 

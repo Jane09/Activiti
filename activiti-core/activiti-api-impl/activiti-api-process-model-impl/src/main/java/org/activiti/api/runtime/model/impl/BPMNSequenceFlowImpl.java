@@ -15,9 +15,9 @@
  */
 package org.activiti.api.runtime.model.impl;
 
-import java.util.Objects;
-
 import org.activiti.api.process.model.BPMNSequenceFlow;
+
+import java.util.Objects;
 
 public class BPMNSequenceFlowImpl extends BPMNElementImpl implements BPMNSequenceFlow {
 
@@ -32,8 +32,8 @@ public class BPMNSequenceFlowImpl extends BPMNElementImpl implements BPMNSequenc
     }
 
     public BPMNSequenceFlowImpl(String elementId,
-                            String sourceActivityElementId,
-                            String targetActivityElementId) {
+                                String sourceActivityElementId,
+                                String targetActivityElementId) {
         this.setElementId(elementId);
         this.sourceActivityElementId = sourceActivityElementId;
         this.targetActivityElementId = targetActivityElementId;
@@ -95,38 +95,38 @@ public class BPMNSequenceFlowImpl extends BPMNElementImpl implements BPMNSequenc
         }
         BPMNSequenceFlowImpl that = (BPMNSequenceFlowImpl) o;
         return Objects.equals(getElementId(),
-                              that.getElementId()) &&
-                Objects.equals(sourceActivityElementId,
-                               that.getSourceActivityElementId()) &&
-                Objects.equals(sourceActivityType,
-                               that.getSourceActivityType()) &&
-                Objects.equals(sourceActivityName,
-                               that.getSourceActivityName()) &&
-                Objects.equals(targetActivityElementId,
-                               that.getTargetActivityElementId()) &&
-                Objects.equals(targetActivityType,
-                                  that.getTargetActivityType()) &&
-                Objects.equals(targetActivityName,
-                                  that.getTargetActivityName());
+            that.getElementId()) &&
+            Objects.equals(sourceActivityElementId,
+                that.getSourceActivityElementId()) &&
+            Objects.equals(sourceActivityType,
+                that.getSourceActivityType()) &&
+            Objects.equals(sourceActivityName,
+                that.getSourceActivityName()) &&
+            Objects.equals(targetActivityElementId,
+                that.getTargetActivityElementId()) &&
+            Objects.equals(targetActivityType,
+                that.getTargetActivityType()) &&
+            Objects.equals(targetActivityName,
+                that.getTargetActivityName());
     }
 
     @Override
     public int hashCode() {
 
         return Objects.hash(getElementId(),
-                            sourceActivityElementId,
-                            targetActivityElementId);
+            sourceActivityElementId,
+            targetActivityElementId);
     }
 
     @Override
     public String toString() {
         return "SequenceFlowImpl{" +
-                "sourceActivityElementId='" + sourceActivityElementId + '\'' +
-                ", sourceActivityName='" + sourceActivityName + '\'' +
-                ", sourceActivityType='" + sourceActivityType + '\'' +
-                ", targetActivityElementId='" + targetActivityElementId + '\'' +
-                ", targetActivityName='" + targetActivityName + '\'' +
-                ", targetActivityType='" + targetActivityType + '\'' +
-                '}';
+            "sourceActivityElementId='" + sourceActivityElementId + '\'' +
+            ", sourceActivityName='" + sourceActivityName + '\'' +
+            ", sourceActivityType='" + sourceActivityType + '\'' +
+            ", targetActivityElementId='" + targetActivityElementId + '\'' +
+            ", targetActivityName='" + targetActivityName + '\'' +
+            ", targetActivityType='" + targetActivityType + '\'' +
+            '}';
     }
 }

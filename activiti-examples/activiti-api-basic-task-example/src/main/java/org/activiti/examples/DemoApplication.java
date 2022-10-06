@@ -58,11 +58,11 @@ public class DemoApplication implements CommandLineRunner {
         // Here 'bob' is the owner of the created task
         logger.info("> Creating a Group Task for 'activitiTeam'");
         taskRuntime.create(TaskPayloadBuilder.create()
-                .withName("First Team Task")
-                .withDescription("This is something really important")
-                .withCandidateGroup("activitiTeam")
-                .withPriority(10)
-                .build());
+            .withName("First Team Task")
+            .withDescription("This is something really important")
+            .withCandidateGroup("activitiTeam")
+            .withPriority(10)
+            .build());
 
         // Let's log in as 'other' user that doesn't belong to the 'activitiTeam' group
         securityUtil.logInAs("other");
@@ -103,15 +103,15 @@ public class DemoApplication implements CommandLineRunner {
     @Bean
     public TaskRuntimeEventListener<TaskAssignedEvent> taskAssignedListener() {
         return taskAssigned -> logger.info(">>> Task Assigned: '"
-                + taskAssigned.getEntity().getName() +
-                "' We can send a notification to the assginee: " + taskAssigned.getEntity().getAssignee());
+            + taskAssigned.getEntity().getName() +
+            "' We can send a notification to the assginee: " + taskAssigned.getEntity().getAssignee());
     }
 
     @Bean
     public TaskRuntimeEventListener<TaskCompletedEvent> taskCompletedListener() {
         return taskCompleted -> logger.info(">>> Task Completed: '"
-                + taskCompleted.getEntity().getName() +
-                "' We can send a notification to the owner: " + taskCompleted.getEntity().getOwner());
+            + taskCompleted.getEntity().getName() +
+            "' We can send a notification to the owner: " + taskCompleted.getEntity().getOwner());
     }
 
 

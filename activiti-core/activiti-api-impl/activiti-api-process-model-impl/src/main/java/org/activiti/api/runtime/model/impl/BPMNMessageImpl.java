@@ -15,10 +15,10 @@
  */
 package org.activiti.api.runtime.model.impl;
 
-import java.util.Objects;
-
 import org.activiti.api.process.model.BPMNMessage;
 import org.activiti.api.process.model.payloads.MessageEventPayload;
+
+import java.util.Objects;
 
 public class BPMNMessageImpl extends BPMNElementImpl implements BPMNMessage {
 
@@ -50,9 +50,9 @@ public class BPMNMessageImpl extends BPMNElementImpl implements BPMNMessage {
         BPMNMessageImpl that = (BPMNMessageImpl) o;
 
         return Objects.equals(getElementId(),
-                              that.getElementId()) &&
-               Objects.equals(messagePayload,
-                               that.getMessagePayload());
+            that.getElementId()) &&
+            Objects.equals(messagePayload,
+                that.getMessagePayload());
     }
 
     @Override
@@ -66,8 +66,8 @@ public class BPMNMessageImpl extends BPMNElementImpl implements BPMNMessage {
     @Override
     public String toString() {
         return "BPMNMessageImpl{" +
-                ", elementId='" + getElementId() + '\'' +
-                ", messagePayload='" + (messagePayload != null ? messagePayload.toString() : null) + '\'' +
-                '}';
+            ", elementId='" + getElementId() + '\'' +
+            ", messagePayload='" + (messagePayload != null ? messagePayload.toString() : null) + '\'' +
+            '}';
     }
 }

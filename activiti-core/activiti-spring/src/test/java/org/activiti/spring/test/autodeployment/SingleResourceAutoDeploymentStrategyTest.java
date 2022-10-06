@@ -17,20 +17,18 @@
 
 package org.activiti.spring.test.autodeployment;
 
-import java.io.InputStream;
-import java.util.zip.ZipInputStream;
-
 import org.activiti.spring.autodeployment.SingleResourceAutoDeploymentStrategy;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.core.io.Resource;
 
+import java.io.InputStream;
+import java.util.zip.ZipInputStream;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 public class SingleResourceAutoDeploymentStrategyTest extends AbstractAutoDeploymentStrategyTest {
 
@@ -54,62 +52,62 @@ public class SingleResourceAutoDeploymentStrategyTest extends AbstractAutoDeploy
     public void testDeployResources() {
         final Resource[] resources = new Resource[]{resourceMock1, resourceMock2, resourceMock3, resourceMock4, resourceMock5};
         deploymentStrategy.deployResources(deploymentNameHint,
-                                           resources,
-                                           repositoryServiceMock);
+            resources,
+            repositoryServiceMock);
 
         verify(repositoryServiceMock,
-               times(5)).createDeployment();
+            times(5)).createDeployment();
         verify(deploymentBuilderMock,
-               times(5)).enableDuplicateFiltering();
+            times(5)).enableDuplicateFiltering();
         verify(deploymentBuilderMock,
-               times(1)).name(resourceName1);
+            times(1)).name(resourceName1);
         verify(deploymentBuilderMock,
-               times(1)).name(resourceName2);
+            times(1)).name(resourceName2);
         verify(deploymentBuilderMock,
-               times(1)).name(resourceName3);
+            times(1)).name(resourceName3);
         verify(deploymentBuilderMock,
-               times(1)).name(resourceName4);
+            times(1)).name(resourceName4);
         verify(deploymentBuilderMock,
-               times(1)).name(resourceName5);
+            times(1)).name(resourceName5);
         verify(deploymentBuilderMock,
-               times(1)).addInputStream(eq(resourceName1),
-                                        isA(Resource.class));
+            times(1)).addInputStream(eq(resourceName1),
+            isA(Resource.class));
         verify(deploymentBuilderMock,
-               times(1)).addInputStream(eq(resourceName2),
-                                        isA(Resource.class));
+            times(1)).addInputStream(eq(resourceName2),
+            isA(Resource.class));
         verify(deploymentBuilderMock).addInputStream(eq(resourceName3),
-                                        isA(Resource.class));
+            isA(Resource.class));
         verify(deploymentBuilderMock).addInputStream(eq(resourceName4),
-                                        isA(Resource.class));
+            isA(Resource.class));
         verify(deploymentBuilderMock).addInputStream(eq(resourceName5),
-                                        isA(Resource.class));
+            isA(Resource.class));
         verify(deploymentBuilderMock,
-               times(5)).deploy();
+            times(5)).deploy();
     }
 
     @Test
     public void testDeployResourcesNoResources() {
         final Resource[] resources = new Resource[]{};
         deploymentStrategy.deployResources(deploymentNameHint,
-                                           resources,
-                                           repositoryServiceMock);
+            resources,
+            repositoryServiceMock);
 
         verify(repositoryServiceMock,
-               never()).createDeployment();
+            never()).createDeployment();
         verify(deploymentBuilderMock,
-               never()).enableDuplicateFiltering();
+            never()).enableDuplicateFiltering();
         verify(deploymentBuilderMock,
-               never()).name(deploymentNameHint);
+            never()).name(deploymentNameHint);
         verify(deploymentBuilderMock,
-               never()).addInputStream(isA(String.class),
-                                       isA(InputStream.class));
+            never()).addInputStream(isA(String.class),
+            isA(InputStream.class));
         verify(deploymentBuilderMock,
-               never()).addInputStream(eq(resourceName2),
-                                       isA(InputStream.class));
+            never()).addInputStream(eq(resourceName2),
+            isA(InputStream.class));
         verify(deploymentBuilderMock,
-               never()).addZipInputStream(isA(ZipInputStream.class));
+            never()).addZipInputStream(isA(ZipInputStream.class));
         verify(deploymentBuilderMock,
-               never()).deploy();
+            never()).deploy();
     }
 
 }

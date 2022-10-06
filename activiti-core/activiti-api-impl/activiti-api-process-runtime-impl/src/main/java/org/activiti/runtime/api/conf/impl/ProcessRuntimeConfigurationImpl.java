@@ -15,13 +15,13 @@
  */
 package org.activiti.runtime.api.conf.impl;
 
-import static java.util.Collections.unmodifiableList;
-
 import org.activiti.api.process.runtime.conf.ProcessRuntimeConfiguration;
 import org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener;
 import org.activiti.api.runtime.shared.events.VariableEventListener;
 
 import java.util.List;
+
+import static java.util.Collections.unmodifiableList;
 
 public class ProcessRuntimeConfigurationImpl implements ProcessRuntimeConfiguration {
 

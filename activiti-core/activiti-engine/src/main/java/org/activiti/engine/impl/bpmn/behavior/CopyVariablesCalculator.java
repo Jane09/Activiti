@@ -16,18 +16,19 @@
 
 package org.activiti.engine.impl.bpmn.behavior;
 
-import static java.util.Collections.emptyMap;
-
-import java.util.Map;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.impl.context.Context;
 import org.activiti.engine.impl.interceptor.CommandContext;
+
+import java.util.Map;
+
+import static java.util.Collections.emptyMap;
 
 public class CopyVariablesCalculator implements VariablesCalculator {
 
     @Override
     public Map<String, Object> calculateOutPutVariables(MappingExecutionContext mappingExecutionContext,
-        Map<String, Object> availableVariables) {
+                                                        Map<String, Object> availableVariables) {
         CommandContext commandContext = Context.getCommandContext();
         if (commandContext.getProcessEngineConfiguration().isCopyVariablesToLocalForTasks()) {
             return availableVariables;

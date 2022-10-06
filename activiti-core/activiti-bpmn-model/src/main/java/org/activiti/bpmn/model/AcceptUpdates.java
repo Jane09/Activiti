@@ -17,5 +17,6 @@ package org.activiti.bpmn.model;
 
 public interface AcceptUpdates {
 
-    default void accept(ReferenceOverrider referenceOverrider) {}
+    default void accept(ReferenceOverrider referenceOverrider) {
+    }
 }

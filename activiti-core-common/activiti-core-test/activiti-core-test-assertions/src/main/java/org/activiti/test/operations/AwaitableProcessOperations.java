@@ -34,10 +34,10 @@ public class AwaitableProcessOperations implements ProcessOperations {
     }
 
     @Override
-    public ProcessInstanceAssertions start(StartProcessPayload startProcessPayload)  {
+    public ProcessInstanceAssertions start(StartProcessPayload startProcessPayload) {
 
         ProcessInstanceAssertions processInstanceAssertions = processOperations.start(startProcessPayload);
-        if (awaitEnabled){
+        if (awaitEnabled) {
             processInstanceAssertions = new AwaitProcessInstanceAssertions(processInstanceAssertions);
         }
         return processInstanceAssertions;

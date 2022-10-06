@@ -17,12 +17,6 @@
 
 package org.activiti.spring.test.transaction;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-
-import java.util.List;
-import javax.sql.DataSource;
-
 import org.activiti.bpmn.exceptions.XMLException;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.test.Deployment;
@@ -30,6 +24,12 @@ import org.activiti.spring.impl.test.SpringActivitiTestCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
+
+import javax.sql.DataSource;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 @ContextConfiguration("classpath:org/activiti/spring/test/transaction/SpringTransactionIntegrationTest-context.xml")
 public class SpringTransactionIntegrationTest extends SpringActivitiTestCase {

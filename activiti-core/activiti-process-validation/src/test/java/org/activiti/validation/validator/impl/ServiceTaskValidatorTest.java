@@ -15,13 +15,13 @@
  */
 package org.activiti.validation.validator.impl;
 
-import java.util.ArrayList;
-
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.Process;
 import org.activiti.bpmn.model.ServiceTask;
 import org.activiti.validation.ValidationError;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -39,15 +39,15 @@ public class ServiceTaskValidatorTest {
 
         //when
         validator.executeValidation(bpmnModel, process,
-                                    errors);
+            errors);
 
         //then
         assertThat(errors).hasSize(1);
         assertThat(errors.get(0).getProblem()).isEqualTo("activiti-servicetask-missing-implementation");
         assertThat(errors.get(0).getDefaultDescription())
-                .isEqualTo(
-                        "One of the attributes 'implementation', 'class', 'delegateExpression', 'type', 'operation', or 'expression' is mandatory on serviceTask."
-                );
+            .isEqualTo(
+                "One of the attributes 'implementation', 'class', 'delegateExpression', 'type', 'operation', or 'expression' is mandatory on serviceTask."
+            );
     }
 
     @Test
@@ -62,12 +62,12 @@ public class ServiceTaskValidatorTest {
 
         //when
         validator.executeValidation(bpmnModel, process,
-                                    errors);
+            errors);
 
         //then
         assertThat(errors)
-                .as("No error is expected: the default behavior will be used")
-                .isEmpty();
+            .as("No error is expected: the default behavior will be used")
+            .isEmpty();
     }
 
 }

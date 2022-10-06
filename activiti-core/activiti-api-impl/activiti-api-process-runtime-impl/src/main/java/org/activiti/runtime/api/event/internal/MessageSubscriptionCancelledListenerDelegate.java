@@ -15,9 +15,6 @@
  */
 package org.activiti.runtime.api.event.internal;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.activiti.api.process.model.events.MessageSubscriptionCancelledEvent;
 import org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener;
 import org.activiti.engine.delegate.event.ActivitiEntityEvent;
@@ -25,6 +22,9 @@ import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventListener;
 import org.activiti.engine.impl.persistence.entity.MessageEventSubscriptionEntity;
 import org.activiti.runtime.api.event.impl.ToMessageSubscriptionCancelledConverter;
+
+import java.util.List;
+import java.util.Optional;
 
 public class MessageSubscriptionCancelledListenerDelegate implements ActivitiEventListener {
 
@@ -42,9 +42,9 @@ public class MessageSubscriptionCancelledListenerDelegate implements ActivitiEve
     public void onEvent(ActivitiEvent event) {
         if (isValidEvent(event)) {
             converter.from((ActivitiEntityEvent) event)
-                    .ifPresent(convertedEvent -> {
-                        processRuntimeEventListeners.forEach(listener -> listener.onEvent(convertedEvent));
-                    });
+                .ifPresent(convertedEvent -> {
+                    processRuntimeEventListeners.forEach(listener -> listener.onEvent(convertedEvent));
+                });
         }
     }
 
@@ -55,8 +55,8 @@ public class MessageSubscriptionCancelledListenerDelegate implements ActivitiEve
 
     protected boolean isValidEvent(ActivitiEvent event) {
         return Optional.ofNullable(event)
-                       .filter(ActivitiEntityEvent.class::isInstance)
-                       .map(e -> ((ActivitiEntityEvent) event).getEntity() instanceof MessageEventSubscriptionEntity)
-                       .orElse(false);
+            .filter(ActivitiEntityEvent.class::isInstance)
+            .map(e -> ((ActivitiEntityEvent) event).getEntity() instanceof MessageEventSubscriptionEntity)
+            .orElse(false);
     }
 }

@@ -15,13 +15,6 @@
  */
 package org.activiti.spring.boot.tasks;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.assertj.core.api.Assertions.tuple;
-
-import java.util.HashMap;
-import java.util.Map;
-
 import org.activiti.api.runtime.shared.query.Page;
 import org.activiti.api.runtime.shared.query.Pageable;
 import org.activiti.api.task.model.Task;
@@ -34,6 +27,11 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class TaskRuntimeStandaloneTaskTest {
@@ -51,7 +49,7 @@ public class TaskRuntimeStandaloneTaskTest {
     private TaskRuntimeEventListeners taskRuntimeEventListeners;
 
     @AfterEach
-    public void taskCleanUp(){
+    public void taskCleanUp() {
         taskCleanUpUtil.cleanUpWithAdmin();
     }
 
@@ -61,9 +59,9 @@ public class TaskRuntimeStandaloneTaskTest {
         securityUtil.logInAs("user");
 
         Task standAloneTask = taskRuntime.create(TaskPayloadBuilder.create()
-                .withName("cure Skipper")
-                .withAssignee("user")
-                .build());
+            .withName("cure Skipper")
+            .withAssignee("user")
+            .build());
 
         assertThat(RuntimeTestConfiguration.createdTasks).contains(standAloneTask.getId());
 
@@ -77,10 +75,10 @@ public class TaskRuntimeStandaloneTaskTest {
         assertThat(task.isStandalone()).isTrue();
 
         Task deletedTask = taskRuntime.delete(TaskPayloadBuilder
-                .delete()
-                .withTaskId(task.getId())
-                .withReason("test clean up")
-                .build());
+            .delete()
+            .withTaskId(task.getId())
+            .withReason("test clean up")
+            .build());
 
         assertThat(deletedTask).isNotNull();
         assertThat(deletedTask.getStatus()).isEqualTo(Task.TaskStatus.CANCELLED);
@@ -95,25 +93,25 @@ public class TaskRuntimeStandaloneTaskTest {
         securityUtil.logInAs("user");
 
         Task firstTask = taskRuntime.create(TaskPayloadBuilder.create()
-                                                         .withName("First task")
-                                                         .withAssignee("user")
-                                                         .build());
+            .withName("First task")
+            .withAssignee("user")
+            .build());
         Task secondTask = taskRuntime.create(TaskPayloadBuilder.create()
-                                                         .withName("Second task")
-                                                         .withAssignee("user")
-                                                         .build());
+            .withName("Second task")
+            .withAssignee("user")
+            .build());
 
         //when
         taskRuntime.delete(TaskPayloadBuilder
-                                   .delete()
-                                   .withTaskId(secondTask.getId())
-                                   .build());
+            .delete()
+            .withTaskId(secondTask.getId())
+            .build());
 
         //then
         assertThat(taskRuntimeEventListeners.getCancelledTasks())
-                .extracting(Task::getId, Task::getName)
-                .contains(tuple(secondTask.getId(), secondTask.getName()))
-                .doesNotContain(tuple(firstTask.getId(), firstTask.getName()));
+            .extracting(Task::getId, Task::getName)
+            .contains(tuple(secondTask.getId(), secondTask.getName()))
+            .doesNotContain(tuple(firstTask.getId(), firstTask.getName()));
     }
 
     @Test
@@ -122,12 +120,12 @@ public class TaskRuntimeStandaloneTaskTest {
         securityUtil.logInAs("garth");
 
         Task standAloneTask = taskRuntime.create(TaskPayloadBuilder.create()
-                .withName("find Lucien Sanchez")
-                .withCandidateGroup("doctor")
-                .build());
+            .withName("find Lucien Sanchez")
+            .withCandidateGroup("doctor")
+            .build());
 
         Page<Task> tasks = taskRuntime.tasks(Pageable.of(0,
-                50));
+            50));
 
         assertThat(tasks.getContent()).hasSize(1);
         Task task = tasks.getContent().get(0);
@@ -143,16 +141,16 @@ public class TaskRuntimeStandaloneTaskTest {
         assertThat(claimedTask.getStatus()).isEqualTo(Task.TaskStatus.ASSIGNED);
 
         Task deletedTask = taskRuntime.delete(TaskPayloadBuilder
-                .delete()
-                .withTaskId(task.getId())
-                .withReason("test clean up")
-                .build());
+            .delete()
+            .withTaskId(task.getId())
+            .withReason("test clean up")
+            .build());
 
         assertThat(deletedTask).isNotNull();
         assertThat(deletedTask.getStatus()).isEqualTo(Task.TaskStatus.CANCELLED);
 
         tasks = taskRuntime.tasks(Pageable.of(0,
-                50));
+            50));
         assertThat(tasks.getContent()).hasSize(0);
 
 
@@ -165,12 +163,12 @@ public class TaskRuntimeStandaloneTaskTest {
 
         //when
         Throwable throwable = catchThrowable(() -> taskRuntime.create(TaskPayloadBuilder.create()
-                                                                      .withAssignee("user")
-                                                                      .build()));
+            .withAssignee("user")
+            .build()));
 
         //then
         assertThat(throwable)
-                .isInstanceOf(IllegalStateException.class);
+            .isInstanceOf(IllegalStateException.class);
 
 
         Page<Task> tasks = taskRuntime.tasks(Pageable.of(0, 50));
@@ -184,25 +182,25 @@ public class TaskRuntimeStandaloneTaskTest {
         securityUtil.logInAs("user");
 
         Task task = taskRuntime.create(TaskPayloadBuilder.create()
-                                                 .withName("name")
-                                                 .withAssignee("user")
-                                                 .build());
+            .withName("name")
+            .withAssignee("user")
+            .build());
 
         Page<Task> tasks = taskRuntime.tasks(Pageable.of(0,
-                                                         50));
+            50));
 
         assertThat(tasks.getContent()).hasSize(1);
 
-        Map<String,Object> variables = new HashMap<>();
-        variables.put("var_name1","good_value");
-        variables.put("!wrong_name","!any_value>");
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("var_name1", "good_value");
+        variables.put("!wrong_name", "!any_value>");
         Throwable throwable = catchThrowable(() -> taskRuntime.save(TaskPayloadBuilder.save()
-                                                                    .withTaskId(task.getId())
-                                                                    .withVariables(variables)
-                                                                    .build()));
+            .withTaskId(task.getId())
+            .withVariables(variables)
+            .build()));
 
         assertThat(throwable)
-                .isInstanceOf(IllegalStateException.class);
+            .isInstanceOf(IllegalStateException.class);
     }
 
     @Test
@@ -211,25 +209,25 @@ public class TaskRuntimeStandaloneTaskTest {
         securityUtil.logInAs("user");
 
         Task task = taskRuntime.create(TaskPayloadBuilder.create()
-                                                 .withName("name")
-                                                 .withAssignee("user")
-                                                 .build());
+            .withName("name")
+            .withAssignee("user")
+            .build());
 
         Page<Task> tasks = taskRuntime.tasks(Pageable.of(0,
-                                                         50));
+            50));
 
         assertThat(tasks.getContent()).hasSize(1);
 
-        Map<String,Object> variables = new HashMap<>();
-        variables.put("var_name1","good_value");
-        variables.put("!wrong_name","!any_value>");
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("var_name1", "good_value");
+        variables.put("!wrong_name", "!any_value>");
         Throwable throwable = catchThrowable(() -> taskRuntime.complete(TaskPayloadBuilder.complete()
-                                                                        .withTaskId(task.getId())
-                                                                        .withVariables(variables)
-                                                                        .build()));
+            .withTaskId(task.getId())
+            .withVariables(variables)
+            .build()));
 
         assertThat(throwable)
-                .isInstanceOf(IllegalStateException.class);
+            .isInstanceOf(IllegalStateException.class);
     }
 
     @Test
@@ -238,22 +236,22 @@ public class TaskRuntimeStandaloneTaskTest {
         securityUtil.logInAs("user");
 
         Task task = taskRuntime.create(TaskPayloadBuilder.create()
-                                                 .withName("name")
-                                                 .withAssignee("user")
-                                                 .build());
+            .withName("name")
+            .withAssignee("user")
+            .build());
 
         Page<Task> tasks = taskRuntime.tasks(Pageable.of(0,
-                                                         50));
+            50));
 
         assertThat(tasks.getContent()).hasSize(1);
 
         Throwable throwable = catchThrowable(() -> taskRuntime.createVariable(TaskPayloadBuilder.createVariable()
-                                                                              .withTaskId(task.getId())
-                                                                              .withVariable("!wrong_name", "value")
-                                                                              .build()));
+            .withTaskId(task.getId())
+            .withVariable("!wrong_name", "value")
+            .build()));
 
         assertThat(throwable)
-                .isInstanceOf(IllegalStateException.class);
+            .isInstanceOf(IllegalStateException.class);
     }
 
     @Test
@@ -262,21 +260,21 @@ public class TaskRuntimeStandaloneTaskTest {
         securityUtil.logInAs("user");
 
         Task task = taskRuntime.create(TaskPayloadBuilder.create()
-                                                 .withName("name")
-                                                 .withAssignee("user")
-                                                 .build());
+            .withName("name")
+            .withAssignee("user")
+            .build());
 
         Page<Task> tasks = taskRuntime.tasks(Pageable.of(0,
-                                                         50));
+            50));
 
         assertThat(tasks.getContent()).hasSize(1);
 
         Throwable throwable = catchThrowable(() -> taskRuntime.updateVariable(TaskPayloadBuilder.updateVariable()
-                                                                              .withTaskId(task.getId())
-                                                                              .withVariable("!wrong_name", "value")
-                                                                              .build()));
+            .withTaskId(task.getId())
+            .withVariable("!wrong_name", "value")
+            .build()));
 
         assertThat(throwable)
-                .isInstanceOf(IllegalStateException.class);
+            .isInstanceOf(IllegalStateException.class);
     }
 }

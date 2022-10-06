@@ -16,11 +16,11 @@
 
 package org.activiti.runtime.api.event.internal;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.delegate.event.impl.ActivitiVariableEventImpl;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class VariableEventFilterTest {
 

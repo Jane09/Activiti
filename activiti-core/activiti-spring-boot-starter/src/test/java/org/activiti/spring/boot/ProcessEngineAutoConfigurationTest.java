@@ -47,16 +47,16 @@ public class ProcessEngineAutoConfigurationTest {
 
         //when
         processEngineAutoConfiguration.addAsyncPropertyValidator(activitiProperties,
-                                                                 conf);
+            conf);
 
         //then
         ProcessValidator processValidator = conf.getProcessValidator();
         assertThat(processValidator).isNotNull();
         assertThat(processValidator.getValidatorSets())
-                .flatExtracting(ValidatorSet::getValidators)
-                .haveExactly(1,
-                             new Condition<>(validator -> validator instanceof AsyncPropertyValidator,
-                                             "instance of AsyncPropertyValidator"));
+            .flatExtracting(ValidatorSet::getValidators)
+            .haveExactly(1,
+                new Condition<>(validator -> validator instanceof AsyncPropertyValidator,
+                    "instance of AsyncPropertyValidator"));
 
     }
 
@@ -69,7 +69,7 @@ public class ProcessEngineAutoConfigurationTest {
 
         //when
         processEngineAutoConfiguration.addAsyncPropertyValidator(activitiProperties,
-                                                                 conf);
+            conf);
 
         //then
         ProcessValidator processValidator = conf.getProcessValidator();

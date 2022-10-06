@@ -15,17 +15,18 @@
  */
 package org.activiti.bpmn.converter;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatCode;
+import org.junit.jupiter.api.Test;
 
+import javax.xml.XMLConstants;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import javax.xml.XMLConstants;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 
 public class BpmnXMLConverterTest {
 
@@ -48,7 +49,7 @@ public class BpmnXMLConverterTest {
     @Test
     public void should_createSchema() throws Exception {
         Schema schema = bpmnXMLConverter.createSchema(factory, getClass().getClassLoader()
-                .getResource("org/activiti/impl/bpmn/parser/BPMN20.xsd"));
+            .getResource("org/activiti/impl/bpmn/parser/BPMN20.xsd"));
         assertThat(schema).isNotNull();
     }
 

@@ -42,7 +42,9 @@ public interface IntegrationContext {
     String getAppVersion();
 
     String getClientId();
+
     String getClientName();
+
     String getClientType();
 
     Map<String, Object> getInBoundVariables();

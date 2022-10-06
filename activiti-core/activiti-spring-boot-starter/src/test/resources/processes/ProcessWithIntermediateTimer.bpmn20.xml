@@ -4,24 +4,24 @@
              xmlns:activiti="http://activiti.org/bpmn"
              targetNamespace="Examples">
 
-    <process id="intermediateTimerEventExample" name="Timer intermediate event example">
+  <process id="intermediateTimerEventExample" name="Timer intermediate event example">
 
-        <startEvent id="theStart"/>
-        <sequenceFlow id="flow1" sourceRef="theStart" targetRef="timer"/>
+    <startEvent id="theStart"/>
+    <sequenceFlow id="flow1" sourceRef="theStart" targetRef="timer"/>
 
-        <intermediateCatchEvent id="timer">
-            <timerEventDefinition>
-                <timeDuration>PT5M</timeDuration>
-            </timerEventDefinition>
-        </intermediateCatchEvent>
+    <intermediateCatchEvent id="timer">
+      <timerEventDefinition>
+        <timeDuration>PT5M</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
 
-        <sequenceFlow id="flow2" sourceRef="timer" targetRef="userTask"/>
+    <sequenceFlow id="flow2" sourceRef="timer" targetRef="userTask"/>
 
-        <userTask id="userTask" name="User Task" activiti:candidateUsers="user"/>
+    <userTask id="userTask" name="User Task" activiti:candidateUsers="user"/>
 
-        <sequenceFlow id="flow3" sourceRef="userTask" targetRef="theEnd"/>
+    <sequenceFlow id="flow3" sourceRef="userTask" targetRef="theEnd"/>
 
-        <endEvent id="theEnd"/>
+    <endEvent id="theEnd"/>
 
-    </process>
+  </process>
 </definitions>

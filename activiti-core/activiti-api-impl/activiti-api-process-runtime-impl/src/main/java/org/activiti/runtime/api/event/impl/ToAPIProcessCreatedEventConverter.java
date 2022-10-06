@@ -39,7 +39,7 @@ public class ToAPIProcessCreatedEventConverter implements EventConverter<Process
         ProcessCreatedEventImpl event = null;
         if (isProcessInstanceEntity(entity)) {
             event = new ProcessCreatedEventImpl(processInstanceConverter.from(((ExecutionEntity)
-                                entity).getProcessInstance()));
+                entity).getProcessInstance()));
         }
         return Optional.ofNullable(event);
     }

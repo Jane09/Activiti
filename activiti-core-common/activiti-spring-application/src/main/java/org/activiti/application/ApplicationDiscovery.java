@@ -15,14 +15,14 @@
  */
 package org.activiti.application;
 
-import static java.util.Arrays.asList;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.ResourcePatternResolver;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.ResourcePatternResolver;
+import static java.util.Arrays.asList;
 
 public class ApplicationDiscovery {
 

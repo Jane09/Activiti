@@ -15,11 +15,11 @@
  */
 package org.activiti.runtime.api.event.impl;
 
-import java.util.Optional;
-
 import org.activiti.api.process.model.events.BPMNMessageReceivedEvent;
 import org.activiti.api.runtime.event.impl.BPMNMessageReceivedEventImpl;
 import org.activiti.engine.delegate.event.ActivitiMessageEvent;
+
+import java.util.Optional;
 
 public class ToMessageReceivedConverter implements EventConverter<BPMNMessageReceivedEvent, ActivitiMessageEvent> {
 

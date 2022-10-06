@@ -15,11 +15,11 @@
  */
 package org.activiti.api.process.model.payloads;
 
+import org.activiti.api.model.shared.Payload;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-
-import org.activiti.api.model.shared.Payload;
 
 public class GetProcessInstancesPayload implements Payload {
 
@@ -76,7 +76,7 @@ public class GetProcessInstancesPayload implements Payload {
     }
 
     public void setParentProcessInstanceId(String parentProcessInstanceId) {
-        this.parentProcessInstanceId=parentProcessInstanceId;
+        this.parentProcessInstanceId = parentProcessInstanceId;
     }
 
 

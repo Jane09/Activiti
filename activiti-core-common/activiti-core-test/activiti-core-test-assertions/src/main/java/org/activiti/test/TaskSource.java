@@ -15,9 +15,9 @@
  */
 package org.activiti.test;
 
-import java.util.List;
-
 import org.activiti.api.task.model.Task;
+
+import java.util.List;
 
 public interface TaskSource {
 

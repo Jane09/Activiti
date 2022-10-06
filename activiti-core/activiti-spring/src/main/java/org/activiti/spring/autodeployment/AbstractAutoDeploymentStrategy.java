@@ -17,9 +17,6 @@
 
 package org.activiti.spring.autodeployment;
 
-import java.io.IOException;
-import java.util.List;
-
 import org.activiti.bpmn.converter.BpmnXMLConverter;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.core.common.spring.project.ApplicationUpgradeContextService;
@@ -33,6 +30,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.ContextResource;
 import org.springframework.core.io.Resource;
+
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Abstract base class for implementations of {@link AutoDeploymentStrategy}.
@@ -89,40 +89,40 @@ public abstract class AbstractAutoDeploymentStrategy implements AutoDeploymentSt
         String resourceName = determineResourceName(resource);
 
         if (isProcessDefinitionResource(resourceName)) {
-        try {
-            BpmnXMLConverter converter = new BpmnXMLConverter();
-            BpmnModel bpmnModel = converter.convertToBpmnModel(new InputStreamSource(resource.getInputStream()), true,
+            try {
+                BpmnXMLConverter converter = new BpmnXMLConverter();
+                BpmnModel bpmnModel = converter.convertToBpmnModel(new InputStreamSource(resource.getInputStream()), true,
                     false);
-            List<ValidationError> validationErrors = repositoryService.validateProcess(bpmnModel);
-            if ( validationErrors != null && !validationErrors.isEmpty() ) {
-                StringBuilder warningBuilder = new StringBuilder();
-                StringBuilder errorBuilder = new StringBuilder();
+                List<ValidationError> validationErrors = repositoryService.validateProcess(bpmnModel);
+                if (validationErrors != null && !validationErrors.isEmpty()) {
+                    StringBuilder warningBuilder = new StringBuilder();
+                    StringBuilder errorBuilder = new StringBuilder();
 
-                for (ValidationError error : validationErrors) {
-                    if ( error.isWarning() ) {
-                        warningBuilder.append(error.toString());
-                        warningBuilder.append("\n");
-                    } else {
-                        errorBuilder.append(error.toString());
-                        errorBuilder.append("\n");
-                    }
+                    for (ValidationError error : validationErrors) {
+                        if (error.isWarning()) {
+                            warningBuilder.append(error.toString());
+                            warningBuilder.append("\n");
+                        } else {
+                            errorBuilder.append(error.toString());
+                            errorBuilder.append("\n");
+                        }
 
-                    // Write out warnings (if any)
-                    if ( warningBuilder.length() > 0 ) {
-                        LOGGER.warn("Following warnings encountered during process validation: "
+                        // Write out warnings (if any)
+                        if (warningBuilder.length() > 0) {
+                            LOGGER.warn("Following warnings encountered during process validation: "
                                 + warningBuilder.toString());
-                    }
+                        }
 
-                    if ( errorBuilder.length() > 0 ) {
-                        LOGGER.error("Errors while parsing:\n" + errorBuilder.toString());
-                        return false;
+                        if (errorBuilder.length() > 0) {
+                            LOGGER.error("Errors while parsing:\n" + errorBuilder.toString());
+                            return false;
+                        }
                     }
                 }
+            } catch (Exception e) {
+                LOGGER.error("Error parsing XML", e);
+                return false;
             }
-        } catch ( Exception e ) {
-            LOGGER.error("Error parsing XML", e);
-            return false;
-        }
         }
         return true;
     }
@@ -132,7 +132,7 @@ public abstract class AbstractAutoDeploymentStrategy implements AutoDeploymentSt
     }
 
     protected DeploymentBuilder loadApplicationUpgradeContext(DeploymentBuilder deploymentBuilder) {
-        if(applicationUpgradeContextService != null){
+        if (applicationUpgradeContextService != null) {
             loadProjectManifest(deploymentBuilder);
             loadEnforcedAppVersion(deploymentBuilder);
         }

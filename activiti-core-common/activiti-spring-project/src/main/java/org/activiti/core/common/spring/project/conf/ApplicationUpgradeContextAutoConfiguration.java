@@ -40,8 +40,8 @@ public class ApplicationUpgradeContextAutoConfiguration {
                                                                              ObjectMapper objectMapper,
                                                                              ResourcePatternResolver resourceLoader) {
         return new ApplicationUpgradeContextService(absolutePath,
-                                                    enforcedAppVersion,
-                                                    objectMapper,
-                                                    resourceLoader);
+            enforcedAppVersion,
+            objectMapper,
+            resourceLoader);
     }
 }

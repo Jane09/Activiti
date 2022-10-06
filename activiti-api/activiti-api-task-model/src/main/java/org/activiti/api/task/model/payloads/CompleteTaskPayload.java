@@ -15,10 +15,10 @@
  */
 package org.activiti.api.task.model.payloads;
 
+import org.activiti.api.model.shared.Payload;
+
 import java.util.Map;
 import java.util.UUID;
-
-import org.activiti.api.model.shared.Payload;
 
 public class CompleteTaskPayload implements Payload {
 

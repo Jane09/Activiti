@@ -17,12 +17,12 @@
 
 package org.activiti.standalone.interceptor;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.activiti.engine.impl.context.Context;
 import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.impl.test.PluggableActivitiTestCase;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class CommandContextIT extends PluggableActivitiTestCase {
 

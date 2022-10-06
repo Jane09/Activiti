@@ -15,12 +15,12 @@
  */
 package org.activiti.application;
 
-import static java.util.Collections.emptyList;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static java.util.Collections.emptyList;
 
 public class ApplicationContent {
 
@@ -28,7 +28,7 @@ public class ApplicationContent {
 
     public void add(ApplicationEntry entry) {
         List<FileContent> fileContents = entries.computeIfAbsent(entry.getType(),
-                                                                 k -> new ArrayList<>());
+            k -> new ArrayList<>());
         fileContents.add(entry.getFileContent());
     }
 

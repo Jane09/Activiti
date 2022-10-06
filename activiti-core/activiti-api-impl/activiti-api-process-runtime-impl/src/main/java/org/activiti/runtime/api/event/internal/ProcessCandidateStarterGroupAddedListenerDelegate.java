@@ -40,11 +40,11 @@ public class ProcessCandidateStarterGroupAddedListenerDelegate implements Activi
     public void onEvent(ActivitiEvent event) {
         if (event instanceof ActivitiEntityEvent) {
             processCandidateStarterGroupAddedEventConverter.from((ActivitiEntityEvent) event)
-                    .ifPresent(convertedEvent -> {
-                        for (ProcessRuntimeEventListener<ProcessCandidateStarterGroupAddedEvent> listener : listeners ) {
-                            listener.onEvent(convertedEvent);
-                        }
-                    });
+                .ifPresent(convertedEvent -> {
+                    for (ProcessRuntimeEventListener<ProcessCandidateStarterGroupAddedEvent> listener : listeners) {
+                        listener.onEvent(convertedEvent);
+                    }
+                });
         }
     }
 

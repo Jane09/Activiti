@@ -15,8 +15,6 @@
  */
 package org.activiti.core.common.spring.security.test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.activiti.core.common.spring.security.LocalSpringSecurityContextPrincipalProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,6 +25,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.security.Principal;
 import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class LocalSpringSecurityContextPrincipalProviderTest {
@@ -42,8 +42,8 @@ public class LocalSpringSecurityContextPrincipalProviderTest {
     public void testGetCurrentPrincipalAuthenticated() {
         // given
         Authentication authentication = new UsernamePasswordAuthenticationToken("user",
-                                                                                "password",
-                                                                                AuthorityUtils.createAuthorityList("ROLE_user"));
+            "password",
+            AuthorityUtils.createAuthorityList("ROLE_user"));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -53,14 +53,14 @@ public class LocalSpringSecurityContextPrincipalProviderTest {
         // then
         assertThat(authentication.isAuthenticated()).isTrue();
         assertThat(principal).isNotEmpty()
-                             .contains(authentication);
+            .contains(authentication);
     }
 
     @Test
     public void testGetCurrentPrincipalNotAuthenticated() {
         // given
         Authentication authentication = new UsernamePasswordAuthenticationToken("user",
-                                                                                "password");
+            "password");
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 

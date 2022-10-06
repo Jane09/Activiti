@@ -30,8 +30,8 @@ public class ActivitiMethodSecurityAutoConfiguration {
 
     @Configuration
     @EnableGlobalMethodSecurity(prePostEnabled = true,
-                                securedEnabled = true,
-                                jsr250Enabled = true)
+        securedEnabled = true,
+        jsr250Enabled = true)
     public static class ActivitiMethodSecurityConfiguration extends GlobalMethodSecurityConfiguration {
 
     }

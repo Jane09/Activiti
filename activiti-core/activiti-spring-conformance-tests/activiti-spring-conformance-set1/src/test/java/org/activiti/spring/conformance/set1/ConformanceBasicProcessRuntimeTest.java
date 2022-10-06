@@ -16,7 +16,6 @@
 package org.activiti.spring.conformance.set1;
 
 import org.activiti.api.process.model.ProcessDefinition;
-import org.activiti.api.process.model.ProcessDefinitionMeta;
 import org.activiti.api.process.runtime.ProcessRuntime;
 import org.activiti.api.process.runtime.conf.ProcessRuntimeConfiguration;
 import org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener;
@@ -66,8 +65,8 @@ public class ConformanceBasicProcessRuntimeTest {
 
         List<ProcessDefinition> processDefinitions = processDefinitionPage.getContent();
         assertThat(processDefinitions).extracting(ProcessDefinition::getName).containsOnly(
-                "ServiceTask with Implementation",
-                "ServiceTask with Implementation Modify Variable"
+            "ServiceTask with Implementation",
+            "ServiceTask with Implementation Modify Variable"
 
         );
 
@@ -81,13 +80,11 @@ public class ConformanceBasicProcessRuntimeTest {
 
         List<ProcessDefinition> processDefinitions = processDefinitionPage.getContent();
         assertThat(processDefinitions).extracting(ProcessDefinition::getName).containsOnly(
-                "ServiceTask with Implementation",
-                "ServiceTask with Implementation Modify Variable"
+            "ServiceTask with Implementation",
+            "ServiceTask with Implementation Modify Variable"
         );
 
     }
-
-
 
 
 }

@@ -48,11 +48,13 @@ public abstract class AbstractThrowMessageEventActivityBehavior extends FlowNode
         DelegateInvocation invocation = new ThrowMessageDelegateInvocation(delegate, execution, message);
 
         Context.getProcessEngineConfiguration()
-               .getDelegateInterceptor()
-               .handleInvocation(invocation);
+            .getDelegateInterceptor()
+            .handleInvocation(invocation);
 
         return (boolean) invocation.getInvocationResult();
-    };
+    }
+
+    ;
 
     @Override
     public void execute(DelegateExecution execution) {
@@ -60,7 +62,7 @@ public abstract class AbstractThrowMessageEventActivityBehavior extends FlowNode
 
         boolean isSent = send(execution, throwMessage);
 
-        if(isSent) {
+        if (isSent) {
             dispatchEvent(execution, throwMessage);
         }
 
@@ -77,23 +79,23 @@ public abstract class AbstractThrowMessageEventActivityBehavior extends FlowNode
 
     protected void dispatchEvent(DelegateExecution execution, ThrowMessage throwMessage) {
         Optional.ofNullable(Context.getCommandContext())
-                .filter(commandContext -> commandContext.getProcessEngineConfiguration()
-                                                        .getEventDispatcher()
-                                                        .isEnabled())
-                .ifPresent(commandContext -> {
-                    String messageName = throwMessage.getName();
-                    String correlationKey = throwMessage.getCorrelationKey()
-                                                        .orElse(null);
-                    Object payload = throwMessage.getPayload()
-                                                 .orElse(null);
+            .filter(commandContext -> commandContext.getProcessEngineConfiguration()
+                .getEventDispatcher()
+                .isEnabled())
+            .ifPresent(commandContext -> {
+                String messageName = throwMessage.getName();
+                String correlationKey = throwMessage.getCorrelationKey()
+                    .orElse(null);
+                Object payload = throwMessage.getPayload()
+                    .orElse(null);
 
-                    commandContext.getProcessEngineConfiguration()
-                                  .getEventDispatcher()
-                                  .dispatchEvent(ActivitiEventBuilder.createMessageSentEvent(execution,
-                                                                                             messageName,
-                                                                                             correlationKey,
-                                                                                             payload));
-                });
+                commandContext.getProcessEngineConfiguration()
+                    .getEventDispatcher()
+                    .dispatchEvent(ActivitiEventBuilder.createMessageSentEvent(execution,
+                        messageName,
+                        correlationKey,
+                        payload));
+            });
     }
 
     public ThrowMessageDelegate getDelegate() {

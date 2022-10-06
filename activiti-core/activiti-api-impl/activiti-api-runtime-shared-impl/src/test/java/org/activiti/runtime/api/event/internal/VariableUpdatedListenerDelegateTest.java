@@ -16,13 +16,6 @@
 
 package org.activiti.runtime.api.event.internal;
 
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoInteractions;
-
-import java.util.Arrays;
-import java.util.Optional;
 import org.activiti.api.model.shared.event.VariableUpdatedEvent;
 import org.activiti.api.runtime.shared.events.VariableEventListener;
 import org.activiti.engine.delegate.event.ActivitiEvent;
@@ -33,6 +26,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Arrays;
+import java.util.Optional;
+
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class VariableUpdatedListenerDelegateTest {

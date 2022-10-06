@@ -15,9 +15,9 @@
  */
 package org.activiti.engine.delegate.event.impl;
 
-import static org.activiti.engine.delegate.event.ActivitiEventType.VARIABLE_UPDATED;
-
 import org.activiti.engine.delegate.event.ActivitiVariableUpdatedEvent;
+
+import static org.activiti.engine.delegate.event.ActivitiEventType.VARIABLE_UPDATED;
 
 public class ActivitiVariableUpdatedEventImpl extends ActivitiVariableEventImpl implements ActivitiVariableUpdatedEvent {
 

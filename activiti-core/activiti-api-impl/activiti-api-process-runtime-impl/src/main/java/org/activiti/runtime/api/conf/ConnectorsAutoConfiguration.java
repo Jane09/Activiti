@@ -52,7 +52,7 @@ public class ConnectorsAutoConfiguration {
     public IntegrationContextBuilder integrationContextBuilder(ExtensionsVariablesMappingProvider variablesMappingProvider,
                                                                ExpressionManager expressionManager) {
         return new IntegrationContextBuilder(variablesMappingProvider,
-                                             expressionManager);
+            expressionManager);
     }
 
     @Bean(name = DefaultActivityBehaviorFactory.DEFAULT_SERVICE_TASK_BEAN_NAME)
@@ -67,7 +67,7 @@ public class ConnectorsAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public ExtensionsVariablesMappingProvider variablesMappingProvider(ProcessExtensionService processExtensionService,
-                                                             ExpressionResolver expressionResolver) {
+                                                                       ExpressionResolver expressionResolver) {
         return new ExtensionsVariablesMappingProvider(processExtensionService, expressionResolver);
     }
 

@@ -22,18 +22,18 @@ import org.activiti.engine.impl.bpmn.behavior.NoneStartEventActivityBehavior;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
 
 /**
-
+ *
  */
 public class CustomActivityBehaviorFactory extends DefaultActivityBehaviorFactory {
 
-  @Override
-  public NoneStartEventActivityBehavior createNoneStartEventActivityBehavior(StartEvent startEvent) {
-    return new NoneStartEventActivityBehavior() {
-      public void execute(DelegateExecution execution) {
-        super.execute(execution);
-        CustomActivityBehaviorFactoryTest.COUNTER.addAndGet(1);
-      }
-    };
-  }
+    @Override
+    public NoneStartEventActivityBehavior createNoneStartEventActivityBehavior(StartEvent startEvent) {
+        return new NoneStartEventActivityBehavior() {
+            public void execute(DelegateExecution execution) {
+                super.execute(execution);
+                CustomActivityBehaviorFactoryTest.COUNTER.addAndGet(1);
+            }
+        };
+    }
 
 }

@@ -15,11 +15,11 @@
  */
 package org.activiti.api.task.model.builders;
 
+import org.activiti.api.task.model.payloads.CreateTaskPayload;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import org.activiti.api.task.model.payloads.CreateTaskPayload;
 
 public class CreateTaskPayloadBuilder {
 
@@ -96,13 +96,13 @@ public class CreateTaskPayloadBuilder {
 
     public CreateTaskPayload build() {
         return new CreateTaskPayload(name,
-                description,
-                dueDate,
-                priority,
-                assignee,
-                candidateGroups,
-                candidateUsers,
-                parentTaskId,
-                formKey);
+            description,
+            dueDate,
+            priority,
+            assignee,
+            candidateGroups,
+            candidateUsers,
+            parentTaskId,
+            formKey);
     }
 }

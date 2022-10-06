@@ -40,7 +40,7 @@ public class CommonModelAutoConfiguration {
     @Bean
     public Module customizeCommonModelObjectMapper() {
         SimpleModule module = new SimpleModule("mapCommonModelInterfaces",
-                                               Version.unknownVersion());
+            Version.unknownVersion());
         SimpleAbstractTypeResolver resolver = new SimpleAbstractTypeResolver() {
             //this is a workaround for https://github.com/FasterXML/jackson-databind/issues/2019
             //once version 2.9.6 is related we can remove this @override method
@@ -48,22 +48,22 @@ public class CommonModelAutoConfiguration {
             public JavaType resolveAbstractType(DeserializationConfig config,
                                                 BeanDescription typeDesc) {
                 return findTypeMapping(config,
-                                       typeDesc.getType());
+                    typeDesc.getType());
             }
         };
 
         resolver.addMapping(VariableInstance.class,
-                            VariableInstanceImpl.class);
+            VariableInstanceImpl.class);
 
         module.setAbstractTypes(resolver);
 
         module.setMixInAnnotation(Payload.class,
-                                  PayloadMixIn.class);
+            PayloadMixIn.class);
         module.setMixInAnnotation(Result.class,
-                                  ResultMixIn.class);
+            ResultMixIn.class);
 
         module.registerSubtypes(new NamedType(EmptyResult.class,
-                                              EmptyResult.class.getSimpleName()));
+            EmptyResult.class.getSimpleName()));
 
         return module;
     }

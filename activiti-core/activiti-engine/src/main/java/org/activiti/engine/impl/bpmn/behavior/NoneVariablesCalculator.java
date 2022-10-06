@@ -16,9 +16,10 @@
 
 package org.activiti.engine.impl.bpmn.behavior;
 
+import org.activiti.engine.delegate.DelegateExecution;
+
 import java.util.Collections;
 import java.util.Map;
-import org.activiti.engine.delegate.DelegateExecution;
 
 public class NoneVariablesCalculator implements VariablesCalculator {
 

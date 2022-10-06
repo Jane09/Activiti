@@ -15,13 +15,6 @@
  */
 package org.activiti.runtime.api.impl;
 
-import static java.util.Collections.singletonMap;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
-
-import java.util.HashMap;
-import java.util.Map;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.spring.process.ProcessVariablesInitiator;
@@ -30,6 +23,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static java.util.Collections.singletonMap;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 
 @ExtendWith({MockitoExtension.class})
 public class MappingAwareCallActivityBehaviorTest {
@@ -54,11 +55,11 @@ public class MappingAwareCallActivityBehaviorTest {
         HashMap<String, Object> initiatorVariables = new HashMap<>(providerVariables);
         initiatorVariables.put("var2", "default");
         given(processVariablesInitiator.calculateVariablesFromExtensionFile(processDefinition, providerVariables))
-                .willReturn(initiatorVariables);
+            .willReturn(initiatorVariables);
 
         //when
         Map<String, Object> inboundVariables = behavior.calculateInboundVariables(execution,
-                                                                           processDefinition);
+            processDefinition);
         //then
         assertThat(inboundVariables).isEqualTo(initiatorVariables);
     }

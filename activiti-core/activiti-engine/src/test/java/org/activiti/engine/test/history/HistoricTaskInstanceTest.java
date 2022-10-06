@@ -17,18 +17,6 @@
 
 package org.activiti.engine.test.history;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.ActivitiObjectNotFoundException;
 import org.activiti.engine.history.HistoricIdentityLink;
@@ -38,15 +26,21 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.test.Deployment;
 
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+
 public class HistoricTaskInstanceTest extends PluggableActivitiTestCase {
 
     @Deployment
     public void testHistoricTaskInstance() throws Exception {
         Map<String, Object> varMap = new HashMap<String, Object>();
         varMap.put("formKeyVar",
-                   "expressionFormKey");
+            "expressionFormKey");
         String processInstanceId = runtimeService.startProcessInstanceByKey("HistoricTaskInstanceTest",
-                                                                            varMap).getId();
+            varMap).getId();
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 
@@ -77,11 +71,11 @@ public class HistoricTaskInstanceTest extends PluggableActivitiTestCase {
         assertThat(historicTaskInstance.getWorkTimeInMillis()).isNull();
 
         runtimeService.setVariable(processInstanceId,
-                                   "deadline",
-                                   "yesterday");
+            "deadline",
+            "yesterday");
 
         taskService.claim(taskId,
-                          "kermit");
+            "kermit");
 
         assertThat(historyService.createHistoricTaskInstanceQuery().count()).isEqualTo(1);
         historicTaskInstance = historyService.createHistoricTaskInstanceQuery().singleResult();
@@ -122,12 +116,12 @@ public class HistoricTaskInstanceTest extends PluggableActivitiTestCase {
     public void testHistoricTaskInstanceQuery() throws Exception {
         Calendar start = Calendar.getInstance();
         start.set(Calendar.MILLISECOND,
-                  0);
+            0);
         processEngineConfiguration.getClock().setCurrentTime(start.getTime());
 
         // First instance is finished
         ProcessInstance finishedInstance = runtimeService.startProcessInstanceByKey("HistoricTaskQueryTest",
-                                                                                    "myBusinessKey");
+            "myBusinessKey");
         processEngineConfiguration.getClock().reset();
 
         // Set priority to non-default value
@@ -139,8 +133,8 @@ public class HistoricTaskInstanceTest extends PluggableActivitiTestCase {
 
         taskService.saveTask(task);
         taskService.addUserIdentityLink(task.getId(),
-                                        "gonzo",
-                                        "someType");
+            "gonzo",
+            "someType");
 
         // Complete the task
         String taskId = task.getId();
@@ -232,12 +226,12 @@ public class HistoricTaskInstanceTest extends PluggableActivitiTestCase {
         Calendar anHourAgo = Calendar.getInstance();
         anHourAgo.setTime(dueDate);
         anHourAgo.add(Calendar.HOUR,
-                      -1);
+            -1);
 
         Calendar anHourLater = Calendar.getInstance();
         anHourLater.setTime(dueDate);
         anHourLater.add(Calendar.HOUR,
-                        1);
+            1);
 
         assertThat(historyService.createHistoricTaskInstanceQuery().taskDueDate(dueDate).count()).isEqualTo(1);
         assertThat(historyService.createHistoricTaskInstanceQuery().taskDueDate(anHourAgo.getTime()).count()).isEqualTo(0);
@@ -254,12 +248,12 @@ public class HistoricTaskInstanceTest extends PluggableActivitiTestCase {
         anHourAgo = new GregorianCalendar();
         anHourAgo.setTime(start.getTime());
         anHourAgo.add(Calendar.HOUR,
-                      -1);
+            -1);
 
         anHourLater = Calendar.getInstance();
         anHourLater.setTime(start.getTime());
         anHourLater.add(Calendar.HOUR,
-                        1);
+            1);
 
         // Start date
         assertThat(historyService.createHistoricTaskInstanceQuery().taskCreatedOn(start.getTime()).count()).isEqualTo(1);
@@ -295,12 +289,12 @@ public class HistoricTaskInstanceTest extends PluggableActivitiTestCase {
     public void testHistoricTaskInstanceOrQuery() throws Exception {
         Calendar start = Calendar.getInstance();
         start.set(Calendar.MILLISECOND,
-                  0);
+            0);
         processEngineConfiguration.getClock().setCurrentTime(start.getTime());
 
         // First instance is finished
         ProcessInstance finishedInstance = runtimeService.startProcessInstanceByKey("HistoricTaskQueryTest",
-                                                                                    "myBusinessKey");
+            "myBusinessKey");
         processEngineConfiguration.getClock().reset();
 
         // Set priority to non-default value
@@ -312,8 +306,8 @@ public class HistoricTaskInstanceTest extends PluggableActivitiTestCase {
 
         taskService.saveTask(task);
         taskService.addUserIdentityLink(task.getId(),
-                                        "gonzo",
-                                        "someType");
+            "gonzo",
+            "someType");
 
         // Complete the task
         String taskId = task.getId();
@@ -559,8 +553,8 @@ public class HistoricTaskInstanceTest extends PluggableActivitiTestCase {
 
         // Set additional identity-link not coming from process
         taskService.addUserIdentityLink(task.getId(),
-                                        "gonzo",
-                                        "customUseridentityLink");
+            "gonzo",
+            "customUseridentityLink");
         assertThat(taskService.getIdentityLinksForTask(task.getId()).size()).isEqualTo(4);
 
         // Check historic identity-links when task is still active

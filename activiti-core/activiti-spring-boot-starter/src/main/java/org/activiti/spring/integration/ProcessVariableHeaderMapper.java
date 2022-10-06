@@ -25,7 +25,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListSet;
 
 /**
-
+ *
  */
 public class ProcessVariableHeaderMapper implements HeaderMapper<Map<String, Object>> {
 
@@ -44,16 +44,16 @@ public class ProcessVariableHeaderMapper implements HeaderMapper<Map<String, Obj
     @Override
     public Map<String, Object> toHeaders(Map<String, Object> source) {
         Map<String, Object> matches = sync(
-                this.keysToPreserve,
-                source,
-                new HashMap<String, Object>());
+            this.keysToPreserve,
+            source,
+            new HashMap<String, Object>());
         return matches;
     }
 
     private static Map<String, Object> sync(
-            Set<String> keys,
-            Map<String, Object> in,
-            Map<String, Object> out) {
+        Set<String> keys,
+        Map<String, Object> in,
+        Map<String, Object> out) {
         for (String k : keys)
             if (in.containsKey(k))
                 out.put(k, in.get(k));
