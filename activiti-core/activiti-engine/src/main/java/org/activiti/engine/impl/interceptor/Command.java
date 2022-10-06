@@ -19,7 +19,7 @@ package org.activiti.engine.impl.interceptor;
 import org.activiti.engine.api.internal.Internal;
 
 /**
- *
+ * 命令模式解耦（执行上下文）
  */
 @Internal
 public interface Command<T> {

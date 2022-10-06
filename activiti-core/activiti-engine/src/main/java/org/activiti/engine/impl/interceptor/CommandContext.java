@@ -31,23 +31,40 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
+/**
+ * 命令上下文
+ */
 public class CommandContext {
 
     private static Logger log = LoggerFactory.getLogger(CommandContext.class);
 
     protected Command<?> command;
+    //
     protected Map<Class<?>, SessionFactory> sessionFactories;
+
     protected Map<Class<?>, Session> sessions = new HashMap<>();
+
     protected Throwable exception;
+
+    //流程引擎配置
     protected ProcessEngineConfigurationImpl processEngineConfiguration;
+    //失败job命令工厂
     protected FailedJobCommandFactory failedJobCommandFactory;
+
     protected List<CommandContextCloseListener> closeListeners;
-    protected Map<String, Object> attributes; // General-purpose storing of anything during the lifetime of a command context
+
+    //General-purpose storing of anything during the lifetime of a command context
+    protected Map<String, Object> attributes;
+
     protected boolean reused;
 
     protected ActivitiEngineAgenda agenda;
-    protected Map<String, ExecutionEntity> involvedExecutions = new HashMap<>(1); // The executions involved with the command
-    protected LinkedList<Object> resultStack = new LinkedList<>(); // needs to be a stack, as JavaDelegates can do api calls again
+
+    // The executions involved with the command
+    protected Map<String, ExecutionEntity> involvedExecutions = new HashMap<>(1);
+
+    // needs to be a stack, as JavaDelegates can do api calls again
+    protected LinkedList<Object> resultStack = new LinkedList<>();
 
     public CommandContext(Command<?> command,
                           ProcessEngineConfigurationImpl processEngineConfiguration) {
