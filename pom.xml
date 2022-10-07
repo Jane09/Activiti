@@ -203,7 +203,7 @@
     <extra-enforcer-rules.version>1.6.1</extra-enforcer-rules.version>
     <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
     <license-maven-plugin.version>3.0</license-maven-plugin.version>
-    <third-party-license-maven-plugin.version>2.0.1.alfresco-2</third-party-license-maven-plugin.version>
+    <third-party-license-maven-plugin.version>2.0.1.alfresco-1</third-party-license-maven-plugin.version>
     <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
     <maven-clean-plugin.version>3.2.0</maven-clean-plugin.version>
     <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
@@ -255,13 +255,41 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+
+  <repositories>
+    <repository>
+      <id>aliyun</id>
+      <url>https://maven.aliyun.com/repository/public</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
   <pluginRepositories>
     <pluginRepository>
-      <id>alfresco-internal-plugin</id>
-      <name>Alfresco Internal Repository</name>
-      <url>https://artifacts.alfresco.com/nexus/content/groups/public</url>
+      <id>aliyun-plugin</id>
+      <url>https://maven.aliyun.com/repository/public</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
     </pluginRepository>
   </pluginRepositories>
+
+<!--  <pluginRepositories>-->
+<!--    <pluginRepository>-->
+<!--      <id>alfresco-internal-plugin</id>-->
+<!--      <name>Alfresco Internal Repository</name>-->
+<!--      <url>https://artifacts.alfresco.com/nexus/content/groups/public</url>-->
+<!--    </pluginRepository>-->
+<!--  </pluginRepositories>-->
+
+
   <build>
     <pluginManagement>
       <plugins>
@@ -311,15 +339,15 @@ limitations under the License.
                 <excludedScopes>provided,test</excludedScopes>
                 <excludedGroups>^(org\.alfresco|com\.alfresco|org\.activiti|org\.gytheio).*</excludedGroups>
                 <failIfWarning>true</failIfWarning>
-                <includedLicenses>
-                  https://raw.githubusercontent.com/Alfresco/third-party-license-overrides/master/includedLicenses.txt
-                </includedLicenses>
-                <licenseMergesUrl>
-                  https://raw.githubusercontent.com/Alfresco/third-party-license-overrides/master/licenseMerges.txt
-                </licenseMergesUrl>
-                <overrideUrl>
-                  https://raw.githubusercontent.com/Alfresco/third-party-license-overrides/master/override-THIRD-PARTY.properties
-                </overrideUrl>
+<!--                <includedLicenses>-->
+<!--                  https://raw.githubusercontent.com/Alfresco/third-party-license-overrides/master/includedLicenses.txt-->
+<!--                </includedLicenses>-->
+<!--                <licenseMergesUrl>-->
+<!--                  https://raw.githubusercontent.com/Alfresco/third-party-license-overrides/master/licenseMerges.txt-->
+<!--                </licenseMergesUrl>-->
+<!--                <overrideUrl>-->
+<!--                  https://raw.githubusercontent.com/Alfresco/third-party-license-overrides/master/override-THIRD-PARTY.properties-->
+<!--                </overrideUrl>-->
               </configuration>
             </execution>
           </executions>
